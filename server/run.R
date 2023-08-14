@@ -7,16 +7,11 @@ library(jsonlite)
 library(RestRserve)
 library(tidyverse)
 
-# Flag to disable CORS, set to FALSE when deploying
-enable_cors <- TRUE
-valid_remote_origins <- c("https://app.gorilla.sc", "https://research.sc")
+# Define the API route
+api_route <- "/task/intentions"
 
 # Create a new application
-if (enable_cors) {
-  application <- Application$new(middleware = list(CORSMiddleware$new()))
-} else {
-  application <- Application$new()
-}
+application <- Application$new(middleware = list(CORSMiddleware$new(routes = api_route, match = "exact")))
 
 # Configure the logger to use files
 if (dir.exists("logs") == FALSE) {
@@ -50,10 +45,6 @@ log_appender(appender_tee(
 
 # Start the server
 log_info("Starting server...", namespace = "server")
-
-if (enable_cors == FALSE) {
-  log_warn("CORS is disabled, origins will be restricted", namespace = "server")
-}
 
 # Load the full data
 full_data <- read.csv("./data/fullData.csv") %>% dplyr::select(-X)
@@ -228,26 +219,6 @@ handler <- function(.req, .res) {
     namespace = "server"
   )
 
-  if (enable_cors == FALSE) {
-    # If we are enforcing CORS, we have deployed the server and need to
-    # check it is one of the two allowed origins
-    valid_origin <- match(request_origin, valid_remote_origins)
-
-    if (!is.na(valid_origin)) {
-      # Update the header if a valid origin has been provided
-      log_debug(
-        "Request origin \'{request_origin}\' is valid",
-        namespace = "server"
-      )
-      .res$set_header("Access-Control-Allow-Origin", request_origin)
-    } else {
-      log_warn(
-        "Request origin \'{request_origin}\' is not valid",
-        namespace = "server"
-      )
-    }
-  }
-
   # Configure the response body
   .res$set_body(toJSON(list(
     participantID = participant_id,
@@ -259,7 +230,7 @@ handler <- function(.req, .res) {
 }
 
 # Specify the API endpoint and handler
-application$add_get(path = "/task/intentions", FUN = handler)
+application$add_get(path = api_route, FUN = handler)
 
 # Start the server
 backend <- BackendRserve$new()
