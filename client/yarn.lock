@@ -6550,10 +6550,10 @@ json5@2.x, json5@^2.1.2, json5@^2.2.1:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity "sha1-ZV1Q7R5vla0aPKq6vSsO/aELOVw= sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA=="
 
-jspsych-attention-check@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/jspsych-attention-check/-/jspsych-attention-check-2.0.6.tgz#c61736c02071daf8ba66bf16cdab8c18d59f6923"
-  integrity "sha1-xhc2wCBx2vi6Zr8WzauMGNWfaSM= sha512-IMNumKVr4BYYbkiBsBNk1bTY5G6SLxS7LNzRaAXKY0OtQtfIKP3/WwEpxoXbnSx1wrQnvxTXpAq+zpKUZV9/rw=="
+jspsych-attention-check@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/jspsych-attention-check/-/jspsych-attention-check-2.1.1.tgz#29b62d52d83c96a1874b4c4e661610fa6de6e15e"
+  integrity sha512-Aogu0FzVWtrmJizawdFco+iRWItVoI1WZATQrnZnda5Y8CTe2oYwYNp+8zYSYH3pW1awINAFXI5kBo6UkmVaeg==
   dependencies:
     grommet "^2.24.0"
     grommet-icons "^4.7.0"
@@ -6561,7 +6561,6 @@ jspsych-attention-check@^2.0.6:
     polished "^4.2.2"
     react "^18.1.0"
     react-dom "^18.1.0"
-    react-key-icons "^1.0.1"
     styled-components "^5.3.5"
     usehooks-ts "^2.5.4"
 
@@ -7915,11 +7914,6 @@ react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity "sha1-GZQx7qqi4J+GQn77tPFHPttHYJs= sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w=="
-
-react-key-icons@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-key-icons/-/react-key-icons-1.0.1.tgz#b813c7a578f1cb54a5e95f8571b009233bbcb6c9"
-  integrity "sha1-uBPHpXjxy1Sl6V+FcbAJIzu8tsk= sha512-/eGczfWsvZJ5FhBrYIt3zf+dYShLgLZ/Y4gvsFmoDH5AQiRKofjOuQotbnrEwsMwVE7E1oBDKL6pAo+QeIbG2A=="
 
 react-spring@^8.0.27:
   version "8.0.27"

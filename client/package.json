@@ -89,7 +89,7 @@
     "grommet": "^2.17.3",
     "grommet-icons": "^4.6.0",
     "jspsych": "^6.3.0",
-    "jspsych-attention-check": "^2.0.6",
+    "jspsych-attention-check": "^2.1.1",
     "neurocog": "^0.3.8",
     "react-confetti": "^6.1.0",
     "react-text-transition": "^1.3.0",
