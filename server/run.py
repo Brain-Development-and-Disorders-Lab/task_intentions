@@ -43,7 +43,7 @@ def generate_partner():
         "participantID": participant_id,
         "participantParameters": participant_parameters.to_json(),
         "partnerParameters": partner_parameters.to_json(),
-        "partnerResponses": partner_behavior.to_json(),
+        "partnerChoices": partner_behavior.to_json(),
     })
 
 if __name__ == "__main__":
