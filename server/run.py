@@ -24,7 +24,7 @@ def generate_partner():
     participant_id = request_data["participantID"]
     participant_responses = pd.DataFrame(request_data["participantResponses"])
 
-    # To-do: Add checks for ID and responses
+    # Validation of participant ID and responses can be added here
 
     # Run the model
     model_output = r_model_wrapper(participant_responses)

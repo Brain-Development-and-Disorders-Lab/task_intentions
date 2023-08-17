@@ -90,7 +90,6 @@ const Matching: FC<Props.Screens.Matching> = (
           Ac: number;
         }[];
       }) => {
-        consola.info("Data:", data);
         // Parse and store the JSON content
         try {
           // Extract the response data of interest
