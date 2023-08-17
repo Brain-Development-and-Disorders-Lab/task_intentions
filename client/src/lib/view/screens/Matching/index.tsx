@@ -75,7 +75,7 @@ const Matching: FC<Props.Screens.Matching> = (
       // Request data
       {
         participantID: experiment.getState().get("participantID"),
-        participantResponses: JSON.stringify(requestResponses),
+        participantResponses: requestResponses,
       },
       // Response callback
       (data: {

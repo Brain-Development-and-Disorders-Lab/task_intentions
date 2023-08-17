@@ -553,3 +553,17 @@ mysamp <- function(n, m, s, lwr, upr, nnorm) {
   stop(simpleError("Not enough values to sample from. Try increasing nnorm."))
 }
 
+# Wrapper function to load in existing variables and data
+model_wrapper <- function(participant_responses) {
+  return(
+    matching_partner_incremental_fit(
+        phase1data = participant_responses,
+        precan_df,
+        shuffle = T,
+        file_loc = F)
+  )
+}
+
+# Setup -----------------------------------------------------------------
+full_data <- read.csv("./data/fullData.csv") %>% dplyr::select(-X)
+precan_df <- precan_partners(full_data)

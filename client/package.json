@@ -11,7 +11,7 @@
     "lint:client": "prettier --write .",
     "start": "yarn start:server & yarn start:client",
     "start:client": "webpack serve --config webpack.development.js",
-    "start:server": "cd ../server && Rscript run.R",
+    "start:server": "cd ../server && python3 run.py",
     "test": "yarn test:server && yarn test:client",
     "test:client": "jest",
     "test:server": "pytest ../server/tests"
