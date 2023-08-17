@@ -75,31 +75,31 @@ const Matching: FC<Props.Screens.Matching> = (
       // Request data
       {
         participantID: experiment.getState().get("participantID"),
-        participantResponses: JSON.stringify(requestResponses),
+        participantResponses: requestResponses,
       },
       // Response callback
       (data: {
-        participantID: string[];
-        participantParameters: string;
-        partnerParameters: string;
-        partnerChoices: string;
+        participantID: string;
+        participantParameters: number[];
+        partnerParameters: number[];
+        partnerChoices: {
+          ppt1: number;
+          par1: number;
+          ppt2: number;
+          par2: number;
+          Ac: number;
+        }[];
       }) => {
         // Parse and store the JSON content
         try {
           // Extract the response data of interest
           // Participant data
-          const participantID = data.participantID[0];
-          const participantParameters = JSON.parse(data.participantParameters);
+          const participantID = data.participantID;
+          const participantParameters = data.participantParameters;
 
           // Partner data
-          const partnerParameters = JSON.parse(data.partnerParameters);
-          const partnerChoices = JSON.parse(data.partnerChoices) as {
-            ppt1: number;
-            par1: number;
-            ppt2: number;
-            par2: number;
-            Ac: number;
-          }[];
+          const partnerParameters = data.partnerParameters;
+          const partnerChoices = data.partnerChoices;
 
           // Check the specification of the data first, require exactly 54 trials
           if (partnerChoices.length > 0) {

@@ -53,16 +53,14 @@ class Compute {
    * @param {function(data: any): void} onError
    */
   public submit(
-    params: { participantID: string | number; participantResponses: string },
+    params: { participantID: string | number; participantResponses: any[] },
     onSuccess: (data: any) => void,
     onError: (data: any) => void
   ): void {
     const startTime = performance.now();
 
     axios
-      .get(this.resourceURL, {
-        params: params,
-      })
+      .post(this.resourceURL, params)
       .then((response) => {
         // Attempt to handle the response and extract the data
         if (response["data"]) {

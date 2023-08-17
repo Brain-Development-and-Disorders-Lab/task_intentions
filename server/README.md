@@ -1,41 +1,47 @@
 # Intentions Game 🧠 API
 
-Run computations for the Intentions Game on a remote server. Uses `RestRserve` to start an R-based API endpoint.
+Run computations for the Intentions Game on a remote server. Uses `Flask` to operate an API endpoint.
 
-`functions.R` contains all functions for computations for the Intentions Game. `run.R` starts the API endpoint and configures the URL.
+`functions.R` contains all functions for computations for the Intentions Game. `run.py` starts the server and handles requests.
 
 ## Dependencies
 
+**R:**
+
 - `doParallel`
 - `dplyr`
-- `logger`
-- `jsonlite`
-- `RestRserve`
 - `matlab`
 - `tidyverse`
 
+**Python:**
+
+- `rpy2`
+- `pandas`
+- `flask`
+- `flask_cors`
+
 ## Usage
 
-After installing all dependencies, run:
+After installing all R and Python dependencies, run:
 
 ```Shell
-Rscript run.R
+python3 run.py
 ```
 
-As defined in `run.R`, the endpoint by default will listen on port 8123 via the endpoint `/task/intentions`.
+As defined in `run.py`, the server by default will listen on port `8123` via the path `/task/intentions`.
 
-Additional configuration is required when deploying this endpoint in an online scenario.
+Additional configuration is required when deploying this server in an online scenario.
 
 ## Request Format
 
-The API is accessible via the `ccdresearch.wustl.edu` domain. The exact endpoint is `https://ccdresearch.wustl.edu/task/intentions`. The API expects a GET request, and checks for two parameters:
+The API expects a POST request, and the body must contain two data:
 
 1. Participant ID, in either string, float, or a mixture of formats.
 2. Participant responses from Phase one of the intentions game. Originally stored as an array of JavaScript objects, the responses are serialized from JSON to a string.
 
-An example set of parameters is given below:
+An example set of data is given below:
 
-| Parameter | Type | Example |
+| Data | Type | Example |
 | --------- | ---- | ------- |
 | `participantID` | `string` or `float` or `int` | `participantA1`, `12.34`, `1234` |
 | `participantResponses` | `string` | `[{"ID":"NA","Trial":1,"ppt1":2,"par1":4,"ppt2":2,"par2":4,"Ac":1,"Phase":1}]` **Note:** This example is a list of responses containing only a single trial. |
