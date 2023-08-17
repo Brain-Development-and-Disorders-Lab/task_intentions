@@ -4,7 +4,6 @@
 
 library(doParallel)
 library(dplyr)
-library(logger)
 
 # Phase 1 Fly Fitting -----------------------------------------------------
 
