@@ -30,8 +30,8 @@ def generate_partner():
     model_output = r_model_wrapper(participant_responses)
 
     # Parse parameters for participant and partner
-    participant_parameters = pd.DataFrame(model_output[0], dtype=float)
-    partner_parameters = pd.DataFrame(model_output[1][0].split(" "), dtype=float)
+    participant_parameters = list(model_output[0])
+    partner_parameters = list(float(i) for i in model_output[1][0].split(" "))
 
     # Parse and format the partner behavior to be packaged in the response
     partner_behavior = model_output[2]
@@ -41,10 +41,10 @@ def generate_partner():
 
     return json.dumps({
         "participantID": participant_id,
-        "participantParameters": participant_parameters.to_json(),
-        "partnerParameters": partner_parameters.to_json(),
+        "participantParameters": participant_parameters,
+        "partnerParameters": partner_parameters,
         "partnerChoices": list(partner_behavior.transpose().to_dict().values()),
     })
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=8123, debug=False)
+    app.run(host="localhost", port=8123, debug=True)
