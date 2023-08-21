@@ -4,18 +4,19 @@
 
 library(doParallel)
 library(dplyr)
+library(logger)
 
 # Phase 1 Fly Fitting -----------------------------------------------------
 
 matching_partner_incremental_fit <- function(phase1data, precan_df, shuffle = T, file_loc = F){
 
-  if (file_loc == T) {
+  if(file_loc == T){
     phase1data <- read.csv(phase1data)
   } else {
     phase1data <- phase1data
   }
 
-    cat('\n FITTING PARTICIPANT\n')
+    cat('\n *** FITTING PARTICIPANT ***\n')
 
   phase1pars <- set_up_beliefs() %>%
                 incremental_fit(data = phase1data) %>%
@@ -391,7 +392,7 @@ simulate_phase_decisions <- function(parms, data, phase = 2){
   beta             = as.numeric(parms[2])
 
   # initialised dummy values
-  decisions        <- data_frame(
+  decisions        <- data.frame(
     ppt1 = rep(NA, T1),
     par1 = rep(NA, T1),
     ppt2 = rep(NA, T1),
@@ -432,13 +433,20 @@ simulate_phase_decisions <- function(parms, data, phase = 2){
 
 precan_partners <- function(data){
 
-  alpha = c(0, 5, 10, 15)
-  beta = c(-15, -10, -5, 0, 5, 10, 15)
-  partner_choices <- list()
+  limit             =  16
+  alpha             =  seq(0, limit, 2)
+  beta              =  seq(-limit, limit, 2)
+  partner_types     =  apply(expand.grid(alpha, beta), 1, paste, collapse=" ")
+  partner_exclude   =  rep(NA, limit)
+  partner_exclude2  =  rep(NA, limit)
+  for(i in 1:(limit+1)){partner_exclude[i] = paste(i-1, i-1, sep = ' ')}
+  for(i in 1:(limit))  {partner_exclude2[i]= paste(i, -i, sep = ' ')}
+  partner_types     =  setdiff(partner_types, c(partner_exclude, partner_exclude2))
+  partner_choices   =  list()
 
   for (i in 1:length(alpha)){
 
-    beta_sweep <- foreach(j = 1:length(beta), .combine = rbind)%dopar%{
+    beta_sweep <- foreach (j = 1:length(beta), .combine = rbind)%dopar%{
 
       phasedecs <- simulate_phase_decisions(c(alpha[i], beta[j]), data, phase = 2) %>%
         mutate(parsa = alpha[i], parsb = beta[j])
@@ -457,11 +465,11 @@ precan_partners <- function(data){
     }
   }
 
-  partner_choices_df <- partner_choices[[1]][[1]] %>% dplyr::select(1:4,
-                                                                    `5 -10`, `5 -15`, `0 -10`, `10 -15`, #prosocial
-                                                                    `10 -5`, `10 5`, `15 5`, `15 -5`, `5 0`,`10 0`, #indiv
-                                                                    `5 10`, `5 15`, `0 10`, `10 -15` #compet
-                                                                    )
+  partner_choices_df <- partner_choices[[1]][[1]] %>%
+    dplyr::select(1:4,
+      all_of(partner_types)
+      )
+
   return(partner_choices_df)
 }
 
