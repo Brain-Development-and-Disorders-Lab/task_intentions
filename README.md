@@ -6,19 +6,23 @@
 
 Before developing or previewing the game, ensure that the Node.js version 14+ is installed on your system. Download Node.js [here](https://nodejs.org/en/) and install Yarn using this command `npm i -g yarn`. After installing Yarn, run `yarn` in the `client` directory of this repository. After a short period of time, all dependencies for the tasks will be configured and ready for development.
 
-### R API endpoint (server)
+### API endpoint (server)
 
-To run the API endpoint for task computations, the following R packages should be installed:
+To run the API endpoint for task computations, the following packages should be installed:
+
+**R:**
 
 - `doParallel`
 - `dplyr`
-- `logger`
-- `jsonlite`
-- `RestRserve`
 - `matlab`
 - `tidyverse`
 
-To run the tests for the R API endpoint, ensure Python 3.6+ and the `pytest` are installed. The `pytest` package should be installed using the command `pip3 install -U pytest`. Additonally, the tests use the `requests` package which can be installed using the command `pip3 install requests`.
+**Python:**
+
+- `rpy2`
+- `pandas`
+- `flask`
+- `flask_cors`
 
 ## Developer Commands 👨‍💻
 
@@ -52,6 +56,8 @@ Each command is run under the `client` directory.
 
 `Jest`: testing framework for JavaScript. Multiple plugins used to evaluate accessiblity and display of React components.
 
-`RestRserve`: configure an API endpoint that executes an R function when a request is received.
+`Flask`: configure an API endpoint using Python.
+
+`rpy2`: execute R code from Python.
 
 `Pytest`: testing framework for Python.

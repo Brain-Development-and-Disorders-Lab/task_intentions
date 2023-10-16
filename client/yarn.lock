@@ -6641,10 +6641,10 @@ json5@2.x, json5@^2.1.2, json5@^2.2.2:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
-jspsych-attention-check@^2.0.6:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/jspsych-attention-check/-/jspsych-attention-check-2.1.0.tgz#fcf0aea6b2d561fc337083c3ef8cd42063ecbfd5"
-  integrity sha512-bzqUM3Wl/RXd1gkrnPGzWAqYQbh1NqLQcWCKZLLPRViXkJFfvwD7L7nWNtjhSYN3WcjM73yH6uxXYLUi4z5hxQ==
+jspsych-attention-check@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/jspsych-attention-check/-/jspsych-attention-check-2.1.1.tgz#29b62d52d83c96a1874b4c4e661610fa6de6e15e"
+  integrity sha512-Aogu0FzVWtrmJizawdFco+iRWItVoI1WZATQrnZnda5Y8CTe2oYwYNp+8zYSYH3pW1awINAFXI5kBo6UkmVaeg==
   dependencies:
     grommet "^2.24.0"
     grommet-icons "^4.7.0"
@@ -8010,7 +8010,7 @@ react-is@^17.0.1:
 react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
-  integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+  integrity "sha1-GZQx7qqi4J+GQn77tPFHPttHYJs= sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w=="
 
 react-spring@^8.0.27:
   version "8.0.27"

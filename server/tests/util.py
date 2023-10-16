@@ -41,11 +41,11 @@ def create_pool(workers, target, args):
 
 # Create and send a GET request to the specified address
 # with parameters
-def create_request(address, params={}):
+def create_request(address, data={}):
   response = None
 
   try:
-    response = requests.get(address, params=params)
+    response = requests.post(address, json=data)
   except(requests.exceptions.ConnectionError):
     logging.error("Connection error!")
 
@@ -71,11 +71,7 @@ def runner(func: FunctionType, args):
 def valid_id(id):
   valid = True
 
-  if len(id) != 1:
-    # ID specified
-    valid = False
-  elif int(id[0]) <= 0:
-    # ID greater than 0
+  if id == "":
     valid = False
 
   return valid
