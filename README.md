@@ -36,13 +36,13 @@ Each command is run under the `client` directory.
 
 `yarn start`: Start both the game and the API server.
 
-`yarn start:server`: Launch the RestRserve API instance.
+`yarn start:server`: Launch the Flask API instance.
 
 `yarn start:client`: Run a Webpack HMR-compatible development server to preview the task at [localhost:8080](http://localhost:8080).
 
 `yarn test`: Run all tests, server and game tests.
 
-`yarn test:server`: Run all the tests for the RestRserve API instance.
+`yarn test:server`: Run all the tests for the Flask API instance.
 
 `yarn test:client`: Run all the tests for the game.
 
