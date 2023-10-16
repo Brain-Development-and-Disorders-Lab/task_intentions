@@ -17,7 +17,7 @@ export const Configuration = {
   locale: "en-AU",
 
   // Error screen configuration
-  allowParticipantContact: false,
+  allowParticipantContact: true,
   contact: "henry.burgess@wustl.edu",
 
   // Manipulations that are configured in Gorilla

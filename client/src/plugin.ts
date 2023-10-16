@@ -20,11 +20,7 @@ import Handler from "src/lib/classes/Handler";
 jsPsych.plugins[Configuration.studyName] = (() => {
   const plugin = {
     info: {},
-    trial: (displayElement: HTMLElement, trial: Trial) => {
-      // Debugging info if this is reached
-      consola.debug(`displayElement:`, displayElement);
-      consola.debug(`trial:`, trial);
-
+    trial: (_displayElement: HTMLElement, _trial: Trial) => {
       // Should raise an error
       consola.error(`Not implemented.`);
     },

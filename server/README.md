@@ -2,7 +2,7 @@
 
 Run computations for the Intentions Game on a remote server. Uses `Flask` to operate an API endpoint.
 
-`functions.R` contains all functions for computations for the Intentions Game. `run.py` starts the server and handles requests.
+`functions.R` contains the R functions responsible for task and partner behavior computations during the Intentions Game. `run.py` starts the server and handles the incoming and outgoing requests.
 
 ## Dependencies
 
@@ -47,3 +47,7 @@ An example set of data is given below:
 | `participantResponses` | `string` | `[{"ID":"NA","Trial":1,"ppt1":2,"par1":4,"ppt2":2,"par2":4,"Ac":1,"Phase":1}]` **Note:** This example is a list of responses containing only a single trial. |
 
 The API will respond with an error if any of the received parameters are formatted incorrectly.
+
+## Notes
+
+- The file `restart.sh` is a shell script that will kill any existing processes using the port `8123` before restarting the server. This requires a cron job to be configured, information is included in the shell script how this should be done.

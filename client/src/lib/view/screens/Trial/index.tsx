@@ -579,7 +579,7 @@ const Trial: FC<Props.Screens.Trial> = (
 
       {/* Practice overlay */}
       {showOverlay && Configuration.enableTutorialOverlay && (
-        <Layer position="top">
+        <Layer position="center">
           <Box pad="small" align="center" gap="xsmall">
             <Heading margin="xsmall" level="2">
               Practice
