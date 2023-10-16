@@ -284,7 +284,7 @@ timeline.push({
   ],
   style: "radio",
   continue: {
-    confirm: true,
+    confirm: false,
     key: null,
   },
   feedback: {
@@ -326,7 +326,7 @@ timeline.push({
   ],
   style: "radio",
   continue: {
-    confirm: true,
+    confirm: false,
     key: null,
   },
   feedback: {
@@ -596,7 +596,7 @@ for (let i = 0; i < dataCollection.length; i++) {
         ],
         style: "radio",
         continue: {
-          confirm: true,
+          confirm: false,
           key: null,
         },
         feedback: {
@@ -648,7 +648,7 @@ for (let i = 0; i < dataCollection.length; i++) {
         ],
         style: "radio",
         continue: {
-          confirm: true,
+          confirm: false,
           key: null,
         },
         feedback: {
@@ -798,7 +798,7 @@ for (let i = 0; i < dataCollection.length; i++) {
         ],
         style: "radio",
         continue: {
-          confirm: true,
+          confirm: false,
           key: null,
         },
         feedback: {
