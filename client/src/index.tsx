@@ -54,7 +54,7 @@ for (let i = 0; i < Configuration.avatars.names.partner.length; i++) {
 if (Configuration.manipulations.requireID === true) {
   timeline.push({
     type: "survey-html-form",
-    preamble: `<p>Please enter your 8 digit participant ID.</p>`,
+    preamble: `<p>Please enter the 8 digit participant LUID.</p>`,
     html: `<input name="participantID" type="text" required/></br></br>`,
   });
 }
