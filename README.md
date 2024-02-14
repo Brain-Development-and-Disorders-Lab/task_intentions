@@ -1,4 +1,4 @@
-# Intentions Game 🧠
+# Intentions Game
 
 ## Getting Started
 
@@ -24,40 +24,39 @@ To run the API endpoint for task computations, the following packages should be 
 - `flask`
 - `flask_cors`
 
-## Developer Commands 👨‍💻
+## Developer Commands
 
-Each command is run under the `client` directory.
+Each command is run under the `client` directory:
 
-`yarn clean`: Remove all build artefacts and logs.
+- `yarn clean`: Remove all build artefacts and logs.
+- `yarn build:client`: Create a production build of the game.
+- `yarn lint:client`: Pipe all the game source code through ESLint to check for any style violations.
+- `yarn start`: Start both the game and the API server.
+- `yarn start:server`: Launch the Flask API instance.
+- `yarn start:client`: Run a Webpack HMR-compatible development server to preview the task at [localhost:8080](http://localhost:8080).
+- `yarn test`: Run all tests, server and game tests.
+- `yarn test:server`: Run all the tests for the Flask API instance.
+- `yarn test:client`: Run all the tests for the game.
 
-`yarn build:client`: Create a production build of the game.
+## Tools
 
-`yarn lint:client`: Pipe all the game source code through ESLint to check for any style violations.
+- `Yarn`: manage dependencies and packages
+- `Webpack`: module bundling tool and development server
+- [`Grommet`](https://v2.grommet.io/): accessible React front-end framework used to build the interfaces.
+- `Jest`: testing framework for JavaScript. Multiple plugins used to evaluate accessiblity and display of React components.
+- `Flask`: configure an API endpoint using Python.
+- `rpy2`: execute R code from Python.
+- `Pytest`: testing framework for Python.
 
-`yarn start`: Start both the game and the API server.
+## License
 
-`yarn start:server`: Launch the Flask API instance.
+<!-- CC BY-NC-SA 4.0 License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+  <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+</a>
+<br />
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
-`yarn start:client`: Run a Webpack HMR-compatible development server to preview the task at [localhost:8080](http://localhost:8080).
+## Issues and Feedback
 
-`yarn test`: Run all tests, server and game tests.
-
-`yarn test:server`: Run all the tests for the Flask API instance.
-
-`yarn test:client`: Run all the tests for the game.
-
-## Tools 🛠
-
-`Yarn`: manage dependencies and packages
-
-`Webpack`: module bundling tool and development server
-
-[`Grommet`](https://v2.grommet.io/): accessible React front-end framework used to build the interfaces.
-
-`Jest`: testing framework for JavaScript. Multiple plugins used to evaluate accessiblity and display of React components.
-
-`Flask`: configure an API endpoint using Python.
-
-`rpy2`: execute R code from Python.
-
-`Pytest`: testing framework for Python.
+Please contact **Henry Burgess** <[henry.burgess@wustl.edu](mailto:henry.burgess@wustl.edu)> for all code-related issues and feedback.

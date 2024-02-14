@@ -1,6 +1,6 @@
 {
-  "name": "intentions-game",
-  "version": "1.5.2",
+  "name": "task_intentions",
+  "version": "1.7.0",
   "description": "Intentions Game",
   "private": true,
   "main": "dist/index.js",
@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://henry-burgess@github.com/henry-burgess/intentions-game.git"
+    "url": "git+https://github.com/Brain-Development-and-Disorders-Lab/task_intentions.git"
   },
   "author": "Henry Burgess",
-  "license": "ISC",
+  "license": "CC-BY-4.0",
   "bugs": {
-    "url": "https://github.com/henry-burgess/intentions-game/issues"
+    "url": "https://github.com/Brain-Development-and-Disorders-Lab/task_intentions/issues"
   },
-  "homepage": "https://github.com/henry-burgess/intentions-game#readme",
+  "homepage": "https://github.com/Brain-Development-and-Disorders-Lab/task_intentions#readme",
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
