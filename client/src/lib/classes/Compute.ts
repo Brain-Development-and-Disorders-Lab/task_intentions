@@ -1,7 +1,5 @@
 /**
- * @file 'Compute' class managing the sending and receiving of remote
- * resources. The 'axios' request library is used, and the class is
- * initialised with a URL for the endpoint to request data from.
+ * @file 'Compute' class used to run the model locally in the browser using WebR.
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

@@ -68,7 +68,7 @@ const Matching: FC<Props.Screens.Matching> = (
   const runMatching = async () => {
     // Launch request
     if (props.fetchData) {
-      // Setup a new 'Compute' instance with the configured endpoint URL
+      // Setup a new 'Compute' instance
       const compute = new Compute();
       await compute.setup();
 
