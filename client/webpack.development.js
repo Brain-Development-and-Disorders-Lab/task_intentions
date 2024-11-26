@@ -16,7 +16,8 @@ module.exports = () => {
       }),
     ],
     devServer: {
-      contentBase: "./dist",
+      static: [path.join(__dirname, "dist"), path.join(__dirname, "img")],
+      hot: true,
     },
     module: {
       rules: [
