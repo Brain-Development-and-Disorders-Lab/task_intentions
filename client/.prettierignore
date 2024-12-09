@@ -1,6 +1,0 @@
-# Ignore artefacts
-.github
-api
-dist
-node_modules
-packages

@@ -7,14 +7,10 @@
   "types": "types/index.d.ts",
   "scripts": {
     "clean": "gulp clean",
-    "build:client": "webpack --config webpack.production.js",
-    "lint:client": "prettier --write .",
-    "start": "yarn start:server & yarn start:client",
-    "start:client": "webpack serve --config webpack.development.js",
-    "start:server": "cd ../server && python3 run.py",
-    "test": "yarn test:server && yarn test:client",
-    "test:client": "jest",
-    "test:server": "pytest ../server/tests"
+    "build": "webpack --config webpack.production.js",
+    "lint": "prettier --write .",
+    "start": "webpack serve --config webpack.development.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
