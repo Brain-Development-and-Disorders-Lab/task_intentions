@@ -1,4 +1,0 @@
-rpy2==3.5.1
-pandas
-flask
-flask_cors

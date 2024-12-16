@@ -1,7 +1,149 @@
+/**
+ * @file 'Compute' class used to run the model locally in the browser using WebR.
+ * @author Henry Burgess <henry.burgess@wustl.edu>
+ */
+
+// Logging library
+import consola from "consola";
+
+// R runtime library
+import { WebR } from "webr";
+import { WebRDataJsNode } from "webr/dist/webR/robj";
+
+const MODEL_DATA = `,ID,Trial,Option1_PPT,Option1_Partner,Option2_PPT,Option2_Partner,PPTActions,Action,Correct,FixActions,Phase
+1,NA,1,6,6,10,6,2,1,NA,NA,1
+2,NA,2,7,7,10,7,1,1,NA,NA,1
+3,NA,3,8,8,10,8,2,1,NA,NA,1
+4,NA,4,6,6,6,2,1,1,NA,NA,1
+5,NA,5,7,7,7,2,1,1,NA,NA,1
+6,NA,6,8,8,8,2,1,1,NA,NA,1
+7,NA,7,6,2,8,6,2,2,NA,NA,1
+8,NA,8,7,2,8,6,1,2,NA,NA,1
+9,NA,9,8,2,9,6,2,2,NA,NA,1
+10,NA,10,12,8,8,8,1,2,NA,NA,1
+11,NA,11,12,9,9,9,2,2,NA,NA,1
+12,NA,12,12,10,10,10,2,2,NA,NA,1
+13,NA,13,8,5,8,8,2,2,NA,NA,1
+14,NA,14,9,5,9,9,2,2,NA,NA,1
+15,NA,15,10,5,10,10,2,2,NA,NA,1
+16,NA,16,10,6,8,2,1,2,NA,NA,1
+17,NA,17,11,6,9,2,1,2,NA,NA,1
+18,NA,18,12,6,10,2,2,2,NA,NA,1
+19,NA,19,4,4,8,4,2,1,NA,NA,1
+20,NA,20,5,5,8,5,2,1,NA,NA,1
+21,NA,21,6,6,8,6,2,1,NA,NA,1
+22,NA,22,5,5,5,1,1,1,NA,NA,1
+23,NA,23,6,6,6,1,2,1,NA,NA,1
+24,NA,24,7,7,7,1,1,1,NA,NA,1
+25,NA,25,5,1,7,5,1,2,NA,NA,1
+26,NA,26,6,1,7,5,1,2,NA,NA,1
+27,NA,27,7,1,8,5,2,2,NA,NA,1
+28,NA,28,10,6,6,6,1,2,NA,NA,1
+29,NA,29,10,7,7,7,1,2,NA,NA,1
+30,NA,30,10,8,8,8,1,2,NA,NA,1
+31,NA,31,6,3,6,6,2,2,NA,NA,1
+32,NA,32,7,3,7,7,1,2,NA,NA,1
+33,NA,33,8,3,8,8,1,2,NA,NA,1
+34,NA,34,9,5,7,1,1,2,NA,NA,1
+35,NA,35,10,5,8,1,1,2,NA,NA,1
+36,NA,36,11,5,9,1,1,2,NA,NA,1
+37,NA,37,6,6,10,6,2,1,0,2,2
+38,NA,38,7,7,10,7,2,1,0,1,2
+39,NA,39,8,8,10,8,1,1,1,1,2
+40,NA,40,6,6,6,2,1,1,1,1,2
+41,NA,41,7,7,7,2,1,1,1,1,2
+42,NA,42,8,8,8,2,1,1,1,1,2
+43,NA,43,6,2,8,6,2,2,1,2,2
+44,NA,44,7,2,8,6,2,2,1,2,2
+45,NA,45,8,2,9,6,1,2,0,2,2
+46,NA,46,12,8,8,8,1,2,0,1,2
+47,NA,47,12,9,9,9,2,2,1,2,2
+48,NA,48,12,10,10,10,2,2,1,1,2
+49,NA,49,8,5,8,8,2,2,1,1,2
+50,NA,50,9,5,9,9,2,2,1,2,2
+51,NA,51,10,5,10,10,2,2,1,1,2
+52,NA,52,10,6,8,2,1,1,1,2,2
+53,NA,53,11,6,9,2,1,1,1,1,2
+54,NA,54,12,6,10,2,1,1,1,1,2
+55,NA,55,10,6,6,6,2,2,1,2,2
+56,NA,56,10,7,7,7,2,2,1,2,2
+57,NA,57,10,8,8,8,1,2,0,1,2
+58,NA,58,6,2,6,6,2,2,1,2,2
+59,NA,59,7,2,7,7,2,2,1,2,2
+60,NA,60,8,2,8,8,2,2,1,2,2
+61,NA,61,8,6,6,2,1,1,1,1,2
+62,NA,62,8,6,7,2,1,1,1,2,2
+63,NA,63,9,6,8,2,1,1,1,1,2
+64,NA,64,8,8,12,8,1,1,1,1,2
+65,NA,65,9,9,12,9,1,1,1,1,2
+66,NA,66,10,10,12,10,2,1,0,2,2
+67,NA,67,8,8,8,5,1,1,1,2,2
+68,NA,68,9,9,9,5,1,1,1,1,2
+69,NA,69,10,10,10,5,1,1,1,1,2
+70,NA,70,8,2,10,6,2,2,1,2,2
+71,NA,71,9,2,11,6,2,2,1,1,2
+72,NA,72,10,2,12,6,2,2,1,2,2
+73,NA,73,4,4,8,4,1,1,1,1,2
+74,NA,74,5,5,8,5,1,1,1,1,2
+75,NA,75,6,6,8,6,1,1,1,1,2
+76,NA,76,5,5,5,1,1,1,1,1,2
+77,NA,77,6,6,6,1,1,1,1,1,2
+78,NA,78,7,7,7,1,1,1,1,1,2
+79,NA,79,5,1,7,5,2,2,1,1,2
+80,NA,80,6,1,7,5,2,2,1,1,2
+81,NA,81,7,1,8,5,2,2,1,1,2
+82,NA,82,10,6,6,6,2,2,1,1,2
+83,NA,83,10,7,7,7,2,2,1,2,2
+84,NA,84,10,8,8,8,2,2,1,2,2
+85,NA,85,6,3,6,6,2,2,1,2,2
+86,NA,86,7,3,7,7,2,2,1,2,2
+87,NA,87,8,3,8,8,2,2,1,2,2
+88,NA,88,9,5,7,1,1,1,1,1,2
+89,NA,89,10,5,8,1,1,1,1,1,2
+90,NA,90,11,5,9,1,1,1,1,1,2
+91,NA,91,6,6,10,6,1,1,NA,NA,3
+92,NA,92,7,7,10,7,2,1,NA,NA,3
+93,NA,93,8,8,10,8,1,1,NA,NA,3
+94,NA,94,6,6,6,2,1,1,NA,NA,3
+95,NA,95,7,7,7,2,2,1,NA,NA,3
+96,NA,96,8,8,8,2,1,1,NA,NA,3
+97,NA,97,6,2,8,6,2,2,NA,NA,3
+98,NA,98,7,2,8,6,2,2,NA,NA,3
+99,NA,99,8,2,9,6,2,2,NA,NA,3
+100,NA,100,12,8,8,8,1,2,NA,NA,3
+101,NA,101,12,9,9,9,1,2,NA,NA,3
+102,NA,102,12,10,10,10,1,2,NA,NA,3
+103,NA,103,8,5,8,8,2,2,NA,NA,3
+104,NA,104,9,5,9,9,2,2,NA,NA,3
+105,NA,105,10,5,10,10,2,2,NA,NA,3
+106,NA,106,10,6,8,2,1,2,NA,NA,3
+107,NA,107,11,6,9,2,2,2,NA,NA,3
+108,NA,108,12,6,10,2,1,2,NA,NA,3
+109,NA,109,4,4,8,4,1,1,NA,NA,3
+110,NA,110,5,5,8,5,2,1,NA,NA,3
+111,NA,111,6,6,8,6,2,1,NA,NA,3
+112,NA,112,5,5,5,1,1,1,NA,NA,3
+113,NA,113,6,6,6,1,1,1,NA,NA,3
+114,NA,114,7,7,7,1,1,1,NA,NA,3
+115,NA,115,5,1,7,5,1,2,NA,NA,3
+116,NA,116,6,1,7,5,1,2,NA,NA,3
+117,NA,117,7,1,8,5,2,2,NA,NA,3
+118,NA,118,10,6,6,6,1,2,NA,NA,3
+119,NA,119,10,7,7,7,2,2,NA,NA,3
+120,NA,120,10,8,8,8,1,2,NA,NA,3
+121,NA,121,6,3,6,6,2,2,NA,NA,3
+122,NA,122,7,3,7,7,2,2,NA,NA,3
+123,NA,123,8,3,8,8,2,2,NA,NA,3
+124,NA,124,9,5,7,1,2,2,NA,NA,3
+125,NA,125,10,5,8,1,1,2,NA,NA,3
+126,NA,126,11,5,9,1,1,2,NA,NA,3`;
+
+const FUNCTIONS = `
 # Barnby (2022) Inequality Aversion and Paranoia
 #
 # Joe Barnby joe.barnby@rhul.ac.uk 2022
 
+library(jsonlite)
 library(doParallel)
 library(dplyr)
 library(logger)
@@ -16,14 +158,14 @@ matching_partner_incremental_fit <- function(phase1data, precan_df, shuffle = T,
     phase1data <- phase1data
   }
 
-    cat('\n *** FITTING PARTICIPANT ***\n')
+    cat('NEWLINE *** FITTING PARTICIPANT ***NEWLINE')
 
   phase1pars <- set_up_beliefs() %>%
                 incremental_fit(data = phase1data) %>%
                 marginalise()
 
-    cat('\n PARTICIPANT PARAMETERS ARE',phase1pars,'\n')
-    cat('\n *** CREATING OPTIMAL PARTNER ***\n')
+    cat('NEWLINE PARTICIPANT PARAMETERS ARE',phase1pars,'NEWLINE')
+    cat('NEWLINE *** CREATING OPTIMAL PARTNER ***NEWLINE')
 
   participant_decisions <- simulate_phase_decisions(phase1pars,
                                                       precan_df %>%
@@ -44,7 +186,7 @@ matching_partner_incremental_fit <- function(phase1data, precan_df, shuffle = T,
     index_part_1 <- which((similarity_vec > 0.3 & similarity_vec < 0.5), arr.ind = T)
     index_part   <- sample(index_part_1, 1)
 
-    cat("\n PARTNER'S PARAMETERS ARE",colnames(bound_dfs)[index_part+5], "\n\n")
+    cat("NEWLINE PARTNER'S PARAMETERS ARE",colnames(bound_dfs)[index_part+5], "NEWLINENEWLINE")
 
     partner_decisions <- bound_dfs %>%
       dplyr::select(1:4, index_part+5) %>%
@@ -73,24 +215,24 @@ matching_partner_phase2 <- function(Phase1Data, data, shuffle = F, file_loc = F)
     exampleData <- Phase1Data
   }
 
-    cat('\n\n *** ESTIMATING PARTICIPANT PREFERENCES ***\n\n')
+    cat('NEWLINENEWLINE *** ESTIMATING PARTICIPANT PREFERENCES ***NEWLINENEWLINE')
 
   phase1ppt         <- fit_participant_pars_phase1(exampleData)
   phase1par         <- phase1ppt
 
-    cat('\n PARTICIPANT PARAMETERS ARE',phase1par,'\n')
-    cat('\n *** CREATING OPTIMAL PARTNER ***\n')
+    cat('NEWLINE PARTICIPANT PARAMETERS ARE',phase1par,'NEWLINE')
+    cat('NEWLINE *** CREATING OPTIMAL PARTNER ***NEWLINE')
 
   partner_parms     <- gridsearch_for_partner_phase2(phase1par, data)
   partner_parms
 
-    cat("\n PARTNER'S PARAMETERS ARE",partner_parms, "\n")
-    cat('\n *** SIMULATING PARTNER DECISIONS ***\n\n')
+    cat("NEWLINE PARTNER'S PARAMETERS ARE",partner_parms, "NEWLINE")
+    cat('NEWLINE *** SIMULATING PARTNER DECISIONS ***NEWLINENEWLINE')
 
   partner_decisions <- simulate_phase_decisions(partner_parms, data)
   partici_decisions <- simulate_phase_decisions(phase1ppt, data)
 
-    cat('\n Done \n')
+    cat('NEWLINE Done NEWLINE')
 
   if(shuffle == T){
   set.seed(156)
@@ -126,18 +268,18 @@ matching_partner_phase1 <- function(Phase1Data, data, file_loc = T, shuffle = T)
     dplyr::select(ID, trial, s1:o2,PPTANS, Phase)
     } else { test_data_phase1 <- as.data.frame(Phase1Data) %>% rename(PPTANS = 7)}
 
-    cat('\n *** CREATING OPTIMAL PARTNER ***\n')
+    cat('NEWLINE *** CREATING OPTIMAL PARTNER ***NEWLINE')
 
   partner_parms     <- gridsearch_for_partner_phase1(test_data_phase1)
   partner_parms2    <- as.numeric(partner_parms[1:2])
 
-    cat("\n PARTNER'S PARAMETERS ARE",partner_parms, "\n")
-    cat('\n *** SIMULATING PARTNER DECISIONS ***\n\n')
+    cat("NEWLINE PARTNER'S PARAMETERS ARE",partner_parms, "NEWLINE")
+    cat('NEWLINE *** SIMULATING PARTNER DECISIONS ***NEWLINENEWLINE')
 
   partner_decisions <- simulate_phase_decisions(partner_parms2, data, phase = 2)
   partici_decisions <- test_data_phase1
 
-    cat('\n Done \n')
+    cat('NEWLINE Done NEWLINE')
 
   if(shuffle == T){
   set.seed(156)
@@ -297,7 +439,7 @@ fit_participant_pars_phase1 <- function(data){
     #                 method = 'SANN',
     #                 control = list(maxit = 100, trace = 100, temp = 100, REPORT = T))
 
-    #cat('\n SANN estimates are', SANNpar$par, '\n')
+    #cat('NEWLINE SANN estimates are', SANNpar$par, 'NEWLINE')
 
     OPTIMpar<- optim(rand_par0, #SANNpar$par,
                      ABA_wrapper_Phase1_Only,
@@ -343,7 +485,7 @@ gridsearch_for_partner_phase2 <- function(phase1par, data, cores = 4, res = 30, 
   }else{
     Partner ='Competitive'; beta = 20; alpha = 0}
 
-  cat('\n PARTNER IS ',Partner,'\n')
+  cat('NEWLINE PARTNER IS ',Partner,'NEWLINE')
 
   return(c(alpha, beta))
 }
@@ -376,7 +518,7 @@ gridsearch_for_partner_phase1 <- function(phase1_data, cores = 4){
   }else if(series_par==2){ Partner = 'Individualist' ; beta = 0; alpha = 30
   }else{Partner ='Competitive'; beta = 30; alpha = 0}
 
-  cat('\n PARTNER IS ',Partner,'\n')
+  cat('NEWLINE PARTNER IS ',Partner,'NEWLINE')
   return(c(alpha, beta, Partner))
 }
 
@@ -572,5 +714,90 @@ model_wrapper <- function(participant_responses) {
 }
 
 # Setup -----------------------------------------------------------------
-full_data <- read.csv("./data/fullData.csv") %>% dplyr::select(-X)
+full_data <- read.csv(text = paste0("${MODEL_DATA}")) %>% dplyr::select(-X)
 precan_df <- precan_partners(full_data)
+`;
+
+/**
+ * @summary Compute class used to run the model locally in the browser using WebR.
+ */
+class Compute {
+  private webR: WebR;
+
+  /**
+   * Default constructor
+   * @class
+   */
+  constructor() {
+    this.webR = new WebR();
+  }
+
+  /**
+   * Setup the computing functionality for WebR
+   * @return {Promise<void>}
+   */
+  public async setup(): Promise<void> {
+    await this.webR.init();
+    await this.webR.installPackages(["matlab", "jsonlite", "doParallel", "dplyr", "logger"]);
+
+    await this.webR.evalR(FUNCTIONS);
+  }
+
+  /**
+   * Utility function to handle a response received from WebR
+   * @param {any[]} data Data returned by R functions
+   * @return {any} Data structure containing reformatting model responses
+   */
+  private handleResponse(data: any[]): ModelResponse {
+    // Get the participant parameters
+    const participantParameters = data[0].values;
+
+    // Get the parenter parameters, convert string to two floats
+    const partnerParameters = [...data[1].values[0].split(" ").map((value: string) => parseFloat(value))];
+
+    // Get the partner actions for following trials
+    const partnerChoicesRaw = data[2].values;
+    const partnerChoices = [] as ModelResponse["partnerChoices"];
+    partnerChoicesRaw[0].values.forEach((_: number, index: number) => {
+      partnerChoices.push({
+        ppt1: partnerChoicesRaw[0].values[index],
+        par1: partnerChoicesRaw[1].values[index],
+        ppt2: partnerChoicesRaw[2].values[index],
+        par2: partnerChoicesRaw[3].values[index],
+        Ac: partnerChoicesRaw[4].values[index],
+      });
+    });
+
+    return {
+      "participantParameters": participantParameters,
+      "partnerParameters": partnerParameters,
+      "partnerChoices": partnerChoices,
+    };
+  }
+
+  /**
+   * Submit a new computing job to the remote resource
+   * @param {any[]} data request parameters
+   * @param {function(data: any): void} callback
+   */
+  public async submit(
+    data: any[],
+    callback: (data: any) => void,
+  ): Promise<void> {
+    const startTime = performance.now();
+
+    // Note: Need to format JSON with " rather than '
+    const result = await this.webR.evalR(`model_wrapper(fromJSON('${JSON.stringify(data)}'))`);
+    const parsed: WebRDataJsNode = (await result.toJs()) as WebRDataJsNode;
+
+    const parameters = this.handleResponse(parsed.values);
+    callback(parameters);
+
+    const endTime = performance.now();
+    consola.info(
+      `Compute complete after ${Math.round(endTime - startTime)}ms`
+    );
+  }
+}
+
+export default Compute;

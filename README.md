@@ -2,51 +2,40 @@
 
 ## Getting Started
 
-### JavaScript task (client)
+### Client
 
-Before developing or previewing the game, ensure that the Node.js version 14+ is installed on your system. Download Node.js [here](https://nodejs.org/en/) and install Yarn using this command `npm i -g yarn`. After installing Yarn, run `yarn` in the `client` directory of this repository. After a short period of time, all dependencies for the tasks will be configured and ready for development.
+Before building or previewing the client, ensure that the Node.js version 14+ is installed on your system. Download Node.js [here](https://nodejs.org/en/) and install Yarn using this command `npm i -g yarn`.
 
-### API endpoint (server)
+After installing Yarn, run `yarn` in the top-level repository directory to install all dependencies. Refer to [Development](#development) below for other commands to build and preview the client.
 
-To run the API endpoint for task computations, the following packages should be installed:
+### Server
 
-**R:**
+> [!CAUTION]
+> The server component of the Intentions Game has been deprecated, and partner computations are now performed by the client. The documentation below pertains to the archived `server.zip` file contents.
+
+The server uses Python and R to generate partner behavior for a phase of the task. To run the server, the following packages are required:
+
+**Required R packages:**
 
 - `doParallel`
 - `dplyr`
 - `matlab`
 - `tidyverse`
 
-**Python:**
+**Required Python packages:**
 
 - `rpy2`
 - `pandas`
 - `flask`
 - `flask_cors`
 
-## Developer Commands
+## Development
 
-Each command is run under the `client` directory:
-
-- `yarn clean`: Remove all build artefacts and logs.
-- `yarn build:client`: Create a production build of the game.
-- `yarn lint:client`: Pipe all the game source code through ESLint to check for any style violations.
-- `yarn start`: Start both the game and the API server.
-- `yarn start:server`: Launch the Flask API instance.
-- `yarn start:client`: Run a Webpack HMR-compatible development server to preview the task at [localhost:8080](http://localhost:8080).
-- `yarn test`: Run all tests, server and game tests.
-- `yarn test:server`: Run all the tests for the Flask API instance.
-- `yarn test:client`: Run all the tests for the game.
-
-## Tools
-
-- `Yarn`: manage dependencies and packages
-- `Webpack`: module bundling tool and development server
-- [`Grommet`](https://v2.grommet.io/): accessible React front-end framework used to build the interfaces.
-- `Jest`: testing framework for JavaScript. Multiple plugins used to evaluate accessiblity and display of React components.
-- `Flask`: configure an API endpoint using Python.
-- `rpy2`: execute R code from Python.
-- `Pytest`: testing framework for Python.
+- `yarn clean`: Remove all client build artefacts and logs.
+- `yarn build`: Create a production build of the client.
+- `yarn lint`: Run the client source code through ESLint to check for any style violations.
+- `yarn start`: Start a Webpack HMR-compatible development server to preview the client locally on [localhost:8080](http://localhost:8080).
+- `yarn test`: Run all client tests.
 
 ## License
 

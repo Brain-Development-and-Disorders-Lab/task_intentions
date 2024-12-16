@@ -1,21 +1,24 @@
 const path = require("path");
-
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = () => {
   return {
-    name: "production",
-    mode: "production",
-    target: ["web", "es5"],
+    name: "development",
+    mode: "development",
+    target: "web",
     entry: {
       index: "./src/index.tsx",
     },
     devtool: "inline-source-map",
     plugins: [
       new HtmlWebpackPlugin({
-        title: "Intentions Game",
+        template: "src/index.html",
       }),
     ],
+    devServer: {
+      static: [path.join(__dirname, "dist"), path.join(__dirname, "img")],
+      hot: true,
+    },
     module: {
       rules: [
         {

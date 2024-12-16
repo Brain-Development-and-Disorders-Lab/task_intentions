@@ -119,6 +119,19 @@ declare type Points = {
   };
 };
 
+// Response data from the model
+declare type ModelResponse = {
+  participantParameters: number[];
+  partnerParameters: number[];
+  partnerChoices: {
+    ppt1: number;
+    par1: number;
+    ppt2: number;
+    par2: number;
+    Ac: number;
+  }[];
+};
+
 // Recursive partial type, allows tests using the
 // 'jspsych-wrapper' Experiment class to be run
 declare type RecursivePartial<T> = {

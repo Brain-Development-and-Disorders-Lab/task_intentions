@@ -3,21 +3,18 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = () => {
   return {
-    name: "development",
-    mode: "development",
-    target: "web",
+    name: "production",
+    mode: "production",
+    target: ["web", "es5"],
     entry: {
       index: "./src/index.tsx",
     },
     devtool: "inline-source-map",
     plugins: [
       new HtmlWebpackPlugin({
-        template: "src/index.html",
+        title: "Intentions Game",
       }),
     ],
-    devServer: {
-      contentBase: "./dist",
-    },
     module: {
       rules: [
         {
