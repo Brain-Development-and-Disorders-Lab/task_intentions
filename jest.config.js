@@ -5,10 +5,10 @@ module.exports = {
     "\\.(css|scss)$": "<rootDir>/test/__mocks__/styles.js",
     "^src(.*)$": "<rootDir>/src$1",
     "^test(.*)$": "<rootDir>/test$1",
-    "webr": require.resolve("webr"),
+    webr: require.resolve("webr"),
   },
   transform: {
-    "^.+.tsx?$": ["ts-jest",{}],
+    "^.+.tsx?$": ["ts-jest", {}],
   },
   testEnvironment: "./jest.environment.js",
   transformIgnorePatterns: ["/node_modules/(?!(webr))/"],

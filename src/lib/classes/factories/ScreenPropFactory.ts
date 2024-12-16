@@ -110,7 +110,7 @@ class ScreenPropFactory implements Factory {
       // Matching screen
       case "matching":
         // Random timeout for 'matching' process
-        returned.duration = 7000 + (1 + Math.random() * 5) * 1000;
+        returned.duration = 10000 + (1 + Math.random() * 5) * 1000;
 
         // Set the timeout callback function
         returned.callback = this.handler.callback.bind(this.handler);

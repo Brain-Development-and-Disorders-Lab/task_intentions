@@ -1,5 +1,5 @@
 /**
- * @file 'Compute' class used to run the model locally in the browser using WebR.
+ * @file 'Compute' class used to run a model locally in the browser using WebR.
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
@@ -10,6 +10,7 @@ import consola from "consola";
 import { WebR } from "webr";
 import { WebRDataJsNode } from "webr/dist/webR/robj";
 
+// CSV data to inform model
 const MODEL_DATA = `,ID,Trial,Option1_PPT,Option1_Partner,Option2_PPT,Option2_Partner,PPTActions,Action,Correct,FixActions,Phase
 1,NA,1,6,6,10,6,2,1,NA,NA,1
 2,NA,2,7,7,10,7,1,1,NA,NA,1
@@ -138,6 +139,7 @@ const MODEL_DATA = `,ID,Trial,Option1_PPT,Option1_Partner,Option2_PPT,Option2_Pa
 125,NA,125,10,5,8,1,1,2,NA,NA,3
 126,NA,126,11,5,9,1,1,2,NA,NA,3`;
 
+// R script performing model operations
 const FUNCTIONS = `
 # Barnby (2022) Inequality Aversion and Paranoia
 #
@@ -719,9 +721,10 @@ precan_df <- precan_partners(full_data)
 `;
 
 /**
- * @summary Compute class used to run the model locally in the browser using WebR.
+ * @summary Compute class used to run a model locally in the browser using WebR.
  */
 class Compute {
+  // WebR instance used to run the model script
   private webR: WebR;
 
   /**
@@ -737,9 +740,17 @@ class Compute {
    * @return {Promise<void>}
    */
   public async setup(): Promise<void> {
+    // Initialize the WebR instance
     await this.webR.init();
-    await this.webR.installPackages(["matlab", "jsonlite", "doParallel", "dplyr", "logger"]);
 
+    // Install required packages and evaluate the script
+    await this.webR.installPackages([
+      "matlab",
+      "jsonlite",
+      "doParallel",
+      "dplyr",
+      "logger",
+    ]);
     await this.webR.evalR(FUNCTIONS);
   }
 
@@ -753,7 +764,9 @@ class Compute {
     const participantParameters = data[0].values;
 
     // Get the parenter parameters, convert string to two floats
-    const partnerParameters = [...data[1].values[0].split(" ").map((value: string) => parseFloat(value))];
+    const partnerParameters = [
+      ...data[1].values[0].split(" ").map((value: string) => parseFloat(value)),
+    ];
 
     // Get the partner actions for following trials
     const partnerChoicesRaw = data[2].values;
@@ -769,34 +782,36 @@ class Compute {
     });
 
     return {
-      "participantParameters": participantParameters,
-      "partnerParameters": partnerParameters,
-      "partnerChoices": partnerChoices,
+      participantParameters: participantParameters,
+      partnerParameters: partnerParameters,
+      partnerChoices: partnerChoices,
     };
   }
 
   /**
-   * Submit a new computing job to the remote resource
+   * Run the R script with the current user responses
    * @param {any[]} data request parameters
    * @param {function(data: any): void} callback
    */
   public async submit(
     data: any[],
-    callback: (data: any) => void,
+    callback: (data: any) => void
   ): Promise<void> {
     const startTime = performance.now();
 
+    // Evaluate the R function and pass in user responses
     // Note: Need to format JSON with " rather than '
-    const result = await this.webR.evalR(`model_wrapper(fromJSON('${JSON.stringify(data)}'))`);
+    const result = await this.webR.evalR(
+      `model_wrapper(fromJSON('${JSON.stringify(data)}'))`
+    );
     const parsed: WebRDataJsNode = (await result.toJs()) as WebRDataJsNode;
 
+    // Handle the response from the R script and run the provided callback function
     const parameters = this.handleResponse(parsed.values);
     callback(parameters);
 
     const endTime = performance.now();
-    consola.info(
-      `Compute complete after ${Math.round(endTime - startTime)}ms`
-    );
+    consola.info(`Compute complete after ${Math.round(endTime - startTime)}ms`);
   }
 }
 
