@@ -8,6 +8,7 @@ import consola from "consola";
 
 // R runtime library
 import { WebR } from "webr";
+import { WebRDataJsNode } from "webr/dist/webR/robj";
 
 const MODEL_DATA = `,ID,Trial,Option1_PPT,Option1_Partner,Option2_PPT,Option2_Partner,PPTActions,Action,Correct,FixActions,Phase
 1,NA,1,6,6,10,6,2,1,NA,NA,1
@@ -787,7 +788,7 @@ class Compute {
 
     // Note: Need to format JSON with " rather than '
     const result = await this.webR.evalR(`model_wrapper(fromJSON('${JSON.stringify(data)}'))`);
-    const parsed = await result.toJs();
+    const parsed: WebRDataJsNode = (await result.toJs()) as WebRDataJsNode;
 
     const parameters = this.handleResponse(parsed.values);
     callback(parameters);

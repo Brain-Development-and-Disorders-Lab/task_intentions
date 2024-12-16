@@ -21,7 +21,7 @@ jobs:
     - name: Install 🚦
       run: yarn
     - name: Build 🔨
-      run: yarn build:client
+      run: yarn build
 
   test:
     needs: build
@@ -36,4 +36,4 @@ jobs:
     - name: Install 🚦
       run: yarn
     - name: Test 🧪
-      run: yarn test:client
+      run: yarn test
