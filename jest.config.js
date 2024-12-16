@@ -1,11 +1,15 @@
+// jest.config.js
+/** @type {import('ts-jest').JestConfigWithTsJest} **/
 module.exports = {
-  preset: "ts-jest",
-  testEnvironment: "jest-environment-jsdom",
-  setupFiles: ["jest-canvas-mock"],
-  roots: ["test"],
   moduleNameMapper: {
     "\\.(css|scss)$": "<rootDir>/test/__mocks__/styles.js",
     "^src(.*)$": "<rootDir>/src$1",
     "^test(.*)$": "<rootDir>/test$1",
+    "webr": require.resolve("webr"),
   },
+  transform: {
+    "^.+.tsx?$": ["ts-jest",{}],
+  },
+  testEnvironment: "./jest.environment.js",
+  transformIgnorePatterns: ["/node_modules/(?!(webr))/"],
 };
