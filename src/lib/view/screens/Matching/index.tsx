@@ -53,9 +53,7 @@ const Matching: FC<Props.Screens.Matching> = (
         consola.warn(`Phase data appears to be incomplete`);
 
         // If we have an error, we need to end the game
-        experiment.invokeError(
-          new Error("Incomplete response from server")
-        );
+        experiment.invokeError(new Error("Incomplete response from server"));
       }
     } catch (error) {
       consola.warn(`Error occurred when extracting content:`, error);

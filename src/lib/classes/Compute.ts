@@ -738,7 +738,13 @@ class Compute {
    */
   public async setup(): Promise<void> {
     await this.webR.init();
-    await this.webR.installPackages(["matlab", "jsonlite", "doParallel", "dplyr", "logger"]);
+    await this.webR.installPackages([
+      "matlab",
+      "jsonlite",
+      "doParallel",
+      "dplyr",
+      "logger",
+    ]);
 
     await this.webR.evalR(FUNCTIONS);
   }
@@ -753,7 +759,9 @@ class Compute {
     const participantParameters = data[0].values;
 
     // Get the parenter parameters, convert string to two floats
-    const partnerParameters = [...data[1].values[0].split(" ").map((value: string) => parseFloat(value))];
+    const partnerParameters = [
+      ...data[1].values[0].split(" ").map((value: string) => parseFloat(value)),
+    ];
 
     // Get the partner actions for following trials
     const partnerChoicesRaw = data[2].values;
@@ -769,9 +777,9 @@ class Compute {
     });
 
     return {
-      "participantParameters": participantParameters,
-      "partnerParameters": partnerParameters,
-      "partnerChoices": partnerChoices,
+      participantParameters: participantParameters,
+      partnerParameters: partnerParameters,
+      partnerChoices: partnerChoices,
     };
   }
 
@@ -782,21 +790,21 @@ class Compute {
    */
   public async submit(
     data: any[],
-    callback: (data: any) => void,
+    callback: (data: any) => void
   ): Promise<void> {
     const startTime = performance.now();
 
     // Note: Need to format JSON with " rather than '
-    const result = await this.webR.evalR(`model_wrapper(fromJSON('${JSON.stringify(data)}'))`);
+    const result = await this.webR.evalR(
+      `model_wrapper(fromJSON('${JSON.stringify(data)}'))`
+    );
     const parsed: WebRDataJsNode = (await result.toJs()) as WebRDataJsNode;
 
     const parameters = this.handleResponse(parsed.values);
     callback(parameters);
 
     const endTime = performance.now();
-    consola.info(
-      `Compute complete after ${Math.round(endTime - startTime)}ms`
-    );
+    consola.info(`Compute complete after ${Math.round(endTime - startTime)}ms`);
   }
 }
 

@@ -43,8 +43,8 @@ const Agency: FC<Props.Screens.Agency> = (
       direction="column"
     >
       <Paragraph margin="small" size="large" fill>
-        Some labs use deception. For our own purposes, it is
-        helpful to know to what extent you believed that the other partners really existed.
+        Some labs use deception. For our own purposes, it is helpful to know to
+        what extent you believed that the other partners really existed.
       </Paragraph>
       <Paragraph margin="small" size="large" fill>
         I believe I played with real partners.
