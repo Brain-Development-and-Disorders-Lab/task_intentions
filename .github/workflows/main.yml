@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Build and test
 
 on:
   push:
@@ -19,9 +19,9 @@ jobs:
       with:
         node-version: '16.x'
     - name: Install 🚦
-      run: cd client && yarn
+      run: yarn
     - name: Build 🔨
-      run: cd client && yarn build:client
+      run: yarn build:client
 
   test:
     needs: build
@@ -34,6 +34,6 @@ jobs:
       with:
         node-version: '16.x'
     - name: Install 🚦
-      run: cd client && yarn
+      run: yarn
     - name: Test 🧪
-      run: cd client && yarn test:client
+      run: yarn test:client
