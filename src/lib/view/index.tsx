@@ -39,23 +39,23 @@ class View {
   /**
    * Switch between different screens
    * @param {Display} type the type of screen to display
-   * @param {ScreenProps} propData collection of props for that specific
+   * @param {ScreenProps} props collection of props for that specific
    * screen
    * @param {HTMLElement} target target DOM element
    */
   public display(
     type: Display,
-    propData: ScreenProps,
+    props: ScreenProps,
     target: HTMLElement
   ): void {
     // Render the 'Wrapper' component
-    render(<Wrapper display={type} screen={propData.props} />, target);
+    render(<Wrapper display={type} props={props.props} />, target);
 
     // Setup a timeout to execute the callback
-    if (propData.duration > 0) {
+    if (props.duration > 0) {
       setTimeout(() => {
-        propData.callback();
-      }, propData.duration);
+        props.callback();
+      }, props.duration);
     }
   }
 

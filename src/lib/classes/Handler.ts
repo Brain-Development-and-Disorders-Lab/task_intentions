@@ -6,9 +6,6 @@
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
-// Configuration
-import { Configuration } from "src/configuration";
-
 /**
  * @summary Utility class exposing each of the different handlers
  * used by the screens of the game
@@ -80,13 +77,9 @@ class Handler {
    * Handler called after avatar selected
    * @param {string} selection avatar selection key
    */
-  public selection(selection: string): void {
-    // Obtain the selected avatar
-    const selectedAvatar =
-      Configuration.avatars.names.participant.indexOf(selection);
-
+  public selection(selection: number): void {
     // Update the global Experiment state
-    window.Experiment.getState().set("participantAvatar", selectedAvatar);
+    window.Experiment.getState().set("participantAvatar", selection);
 
     // Finish trial
     this.callback();

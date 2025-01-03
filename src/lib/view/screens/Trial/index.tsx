@@ -447,12 +447,6 @@ const Trial: FC<Props.Screens.Trial> = (
     return content;
   };
 
-  // Participant avatar
-  const participantAvatar =
-    Configuration.avatars.names.participant[
-      experiment.getState().get("participantAvatar")
-    ];
-
   // Partner avatar
   let partnerAvatar: string;
   if (props.display.toLowerCase().endsWith("practice")) {
@@ -504,7 +498,7 @@ const Trial: FC<Props.Screens.Trial> = (
         gridArea="playerArea"
         name="You"
         points={participantPoints}
-        avatar={participantAvatar}
+        avatar={Configuration.avatars.names.participant[experiment.getState().get("participantAvatar")]}
       />
 
       {/* Choices */}

@@ -25,7 +25,6 @@ const Character: FC<Props.Components.Character> = (
   return (
     <Box
       id={`avatar-${props.name}`}
-      margin="medium"
       round={{ size: "50%" }}
       className={
         props.name === props.state ? "selectable selected" : "selectable"
