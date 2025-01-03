@@ -6,7 +6,7 @@
  */
 
 // React import
-import React, { FC, ReactElement, useRef, useState } from "react";
+import React, { FC, ReactElement, useCallback, useRef, useState } from "react";
 
 // Logging library
 import consola from "consola";
@@ -25,6 +25,9 @@ import { Theme } from "src/lib/theme";
 
 // Configuration
 import { Configuration } from "src/configuration";
+
+// Keyboard bindings
+import { BINDINGS } from "src/lib/bindings";
 
 /**
  * @summary Generate a 'Trial' screen with two options and avatar cards on
@@ -61,7 +64,11 @@ const Trial: FC<Props.Screens.Trial> = (
   const [showOverlay, setShowOverlay] = useState(false);
 
   // Selection state
-  const [hasSelected, setHasSelected] = useState(false);
+  let hasSelected = false;
+
+  // Highlight state (only for alternate input)
+  let highlightedOption = 0;
+  const [activeHighlightedOption, setActiveHighlightedOption] = useState(highlightedOption);
 
   // Content of the overlay
   const [overlayContent, setOverlayContent] = useState(
@@ -135,6 +142,36 @@ const Trial: FC<Props.Screens.Trial> = (
   }
 
   /**
+   * Handle keyboard input from user interaction
+   * @param {KeyboardEvent} event Keyboard input event
+   */
+  const inputHandler = useCallback((event: KeyboardEvent) => {
+    // Avoid holding the key down
+    if (event.repeat) return;
+
+    event.preventDefault();
+
+    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
+      if (hasSelected === false) {
+        if (highlightedOption === 0) {
+          highlightedOption = 1;
+        } else {
+          highlightedOption = 0;
+        }
+        setActiveHighlightedOption(highlightedOption);
+      }
+    } else if (event.key.toString() === BINDINGS.SELECT) {
+      if (hasSelected === false) {
+        // Complete the option selection
+        handleOptionClick(highlightedOption === 0 ? "Option 1" : "Option 2");
+      } else {
+        // Invoke the inter-trial transition
+        transition();
+      }
+    }
+  }, []);
+
+  /**
    * Update the points state for the participant and the partner
    * @param {number} participant updated points for the participant
    * @param {number} partner updated points for the partner
@@ -151,7 +188,10 @@ const Trial: FC<Props.Screens.Trial> = (
    */
   const endTrial = (option: Options): void => {
     // Reset the selection state
-    setHasSelected(false);
+    hasSelected = false;
+
+    // Remove the event listener
+    document.removeEventListener("keydown", inputHandler, false);
 
     // Bubble the selection handler with selection and answer
     props.handler(option, defaultPoints, answer);
@@ -244,6 +284,17 @@ const Trial: FC<Props.Screens.Trial> = (
       Configuration.enableTutorialOverlay === false
     ) {
       transition();
+    }
+  };
+
+  /**
+   * Handle the selection of an option
+   * @param option Specific option select by player
+   */
+  const handleOptionClick = (option: "Option 1" | "Option 2") => {
+    if (hasSelected === false) {
+      hasSelected = true;
+      updatePoints(option);
     }
   };
 
@@ -464,6 +515,11 @@ const Trial: FC<Props.Screens.Trial> = (
     }
   }
 
+  // Add the keyboard handler if alternate input enabled
+  if (Configuration.manipulations.useAlternateInput === true) {
+    document.addEventListener("keydown", inputHandler, false);
+  }
+
   return (
     <Grid
       rows={["xxsmall", "medium", "xxsmall"]}
@@ -505,15 +561,11 @@ const Trial: FC<Props.Screens.Trial> = (
       <Box gridArea="choiceArea" gap="small">
         <Box
           ref={refs.optionOne}
-          onClick={() => {
-            if (hasSelected === false) {
-              setHasSelected(true);
-              updatePoints("Option 1");
-            }
-          }}
+          onClick={() => handleOptionClick("Option 1")}
           className="grow"
           round
           background="optionBackground"
+          border={Configuration.manipulations.useAlternateInput && activeHighlightedOption === 0 ? { color: "lightgray", size: "large" } : {}}
           fill
         >
           <Option
@@ -526,15 +578,11 @@ const Trial: FC<Props.Screens.Trial> = (
 
         <Box
           ref={refs.optionTwo}
-          onClick={() => {
-            if (hasSelected === false) {
-              setHasSelected(true);
-              updatePoints("Option 2");
-            }
-          }}
+          onClick={() => handleOptionClick("Option 2")}
           className="grow"
           round
           background="optionBackground"
+          border={Configuration.manipulations.useAlternateInput && activeHighlightedOption === 1 ? { color: "lightgray", size: "large" } : {}}
           fill
         >
           <Option

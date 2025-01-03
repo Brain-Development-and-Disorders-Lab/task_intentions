@@ -47,8 +47,13 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
      * @param {KeyboardEvent} event Keyboard input event
      */
     const inputHandler = (event: KeyboardEvent) => {
+      // Avoid holding the key down
+      if (event.repeat) return;
+
+      event.preventDefault();
+
       let selectedIndex = experiment.getState().get("participantAvatar");
-      if (event.key.toString() === BINDINGS.OPTION_TWO) {
+      if (event.key.toString() === BINDINGS.NEXT) {
         // Increment `selectedIndex`, reset if required
         if (selectedIndex + 1 > avatars.length - 1) {
           selectedIndex = 0;
@@ -58,7 +63,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
         // Apply the value of `selectedIndex`
         experiment.getState().set("participantAvatar", selectedIndex);
         setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
-      } else if (event.key.toString() === BINDINGS.OPTION_ONE) {
+      } else if (event.key.toString() === BINDINGS.PREVIOUS) {
         // Decrement `selectedIndex`, reset if required
         if (selectedIndex - 1 < 0) {
           selectedIndex = avatars.length - 1;
@@ -76,12 +81,12 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
 
     // Add the keyboard handler if alternate input enabled
     if (Configuration.manipulations.useAlternateInput === true) {
-      document.addEventListener("keyup", inputHandler, false);
+      document.addEventListener("keydown", inputHandler, false);
     }
 
     return () => {
       // Remove the keyboard handler
-      document.removeEventListener("keyup", inputHandler, false);
+      document.removeEventListener("keydown", inputHandler, false);
     };
   }, []);
 
