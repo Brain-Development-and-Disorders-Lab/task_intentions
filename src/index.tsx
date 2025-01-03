@@ -24,6 +24,9 @@ import Test from "./data/test.csv";
 import { react2html } from "./lib/util";
 import { shuffle } from "d3-array";
 
+// Custom input bindings
+import { BINDINGS } from "./lib/bindings";
+
 // Logging library
 import consola from "consola";
 
@@ -161,7 +164,9 @@ const phaseOneInstructions = [
 timeline.push({
   type: "instructions",
   pages: phaseOneInstructions,
-  allow_keys: false,
+  allow_keys: Configuration.manipulations.useAlternateInput,
+  key_forward: BINDINGS.OPTION_TWO,
+  key_backward: BINDINGS.OPTION_ONE,
   show_page_number: true,
   show_clickable_nav: true,
 });
@@ -197,7 +202,9 @@ timeline.push({
       </Grommet>
     ),
   ],
-  allow_keys: false,
+  allow_keys: Configuration.manipulations.useAlternateInput,
+  key_forward: BINDINGS.OPTION_TWO,
+  key_backward: BINDINGS.OPTION_ONE,
   show_page_number: true,
   show_clickable_nav: true,
 });
@@ -266,7 +273,9 @@ timeline.push({
       </Grommet>
     ),
   ],
-  allow_keys: false,
+  allow_keys: Configuration.manipulations.useAlternateInput,
+  key_forward: BINDINGS.OPTION_TWO,
+  key_backward: BINDINGS.OPTION_ONE,
   show_page_number: true,
   show_clickable_nav: true,
 });
@@ -300,7 +309,9 @@ timeline.push({
     {
       type: "instructions",
       pages: phaseOneInstructions,
-      allow_keys: false,
+      allow_keys: Configuration.manipulations.useAlternateInput,
+      key_forward: BINDINGS.OPTION_TWO,
+      key_backward: BINDINGS.OPTION_ONE,
       show_page_number: true,
       show_clickable_nav: true,
     },
@@ -342,7 +353,9 @@ timeline.push({
     {
       type: "instructions",
       pages: phaseOneInstructions,
-      allow_keys: false,
+      allow_keys: Configuration.manipulations.useAlternateInput,
+      key_forward: BINDINGS.OPTION_TWO,
+      key_backward: BINDINGS.OPTION_ONE,
       show_page_number: true,
       show_clickable_nav: true,
     },
@@ -379,7 +392,9 @@ timeline.push({
       </Grommet>
     ),
   ],
-  allow_keys: false,
+  allow_keys: Configuration.manipulations.useAlternateInput,
+  key_forward: BINDINGS.OPTION_TWO,
+  key_backward: BINDINGS.OPTION_ONE,
   show_page_number: true,
   show_clickable_nav: true,
 });
@@ -509,7 +524,9 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "instructions",
         pages: phaseTwoInstructions,
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.OPTION_TWO,
+        key_backward: BINDINGS.OPTION_ONE,
         show_page_number: true,
         show_clickable_nav: true,
       });
@@ -578,7 +595,9 @@ for (let i = 0; i < dataCollection.length; i++) {
             </Grommet>
           ),
         ],
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.OPTION_TWO,
+        key_backward: BINDINGS.OPTION_ONE,
         show_page_number: true,
         show_clickable_nav: true,
       });
@@ -612,7 +631,9 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseTwoInstructions,
-            allow_keys: false,
+            allow_keys: Configuration.manipulations.useAlternateInput,
+            key_forward: BINDINGS.OPTION_TWO,
+            key_backward: BINDINGS.OPTION_ONE,
             show_page_number: true,
             show_clickable_nav: true,
           },
@@ -664,7 +685,9 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseTwoInstructions,
-            allow_keys: false,
+            allow_keys: Configuration.manipulations.useAlternateInput,
+            key_forward: BINDINGS.OPTION_TWO,
+            key_backward: BINDINGS.OPTION_ONE,
             show_page_number: true,
             show_clickable_nav: true,
           },
@@ -701,7 +724,9 @@ for (let i = 0; i < dataCollection.length; i++) {
             </Grommet>
           ),
         ],
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.OPTION_TWO,
+        key_backward: BINDINGS.OPTION_ONE,
         show_page_number: true,
         show_clickable_nav: true,
       });
@@ -779,7 +804,9 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "instructions",
         pages: phaseThreeInstructions,
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.OPTION_TWO,
+        key_backward: BINDINGS.OPTION_ONE,
         show_page_number: true,
         show_clickable_nav: true,
       });
@@ -814,7 +841,9 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseThreeInstructions,
-            allow_keys: false,
+            allow_keys: Configuration.manipulations.useAlternateInput,
+            key_forward: BINDINGS.OPTION_TWO,
+            key_backward: BINDINGS.OPTION_ONE,
             show_page_number: true,
             show_clickable_nav: true,
           },
@@ -851,7 +880,9 @@ for (let i = 0; i < dataCollection.length; i++) {
             </Grommet>
           ),
         ],
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.OPTION_TWO,
+        key_backward: BINDINGS.OPTION_ONE,
         show_page_number: true,
         show_clickable_nav: true,
       });

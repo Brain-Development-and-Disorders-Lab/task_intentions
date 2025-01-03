@@ -21,6 +21,8 @@ declare type TimelineNode = {
   // Instructions plugin
   pages?: string[] | string[];
   allow_keys?: boolean;
+  key_forward?: string;
+  key_backward?: string;
   show_page_number?: boolean;
   show_clickable_nav?: boolean;
 
