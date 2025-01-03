@@ -11,7 +11,7 @@ declare namespace Props {
     // Wrapper component
     type Wrapper = {
       display: Display;
-      screen:
+      props:
         | Screens.Matched
         | Screens.Matching
         | Screens.Trial
@@ -96,7 +96,7 @@ declare namespace Props {
 
     // SelectAvatar screen
     type SelectAvatar = GenericScreenProps & {
-      handler: (selection: string) => void;
+      handler: (selectedName: string) => void;
     };
 
     // Inference screen

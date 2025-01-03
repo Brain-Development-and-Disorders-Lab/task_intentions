@@ -26,7 +26,7 @@ test("loads and displays Wrapper component with Agency screen", async () => {
     render(
       <Wrapper
         display="agency"
-        screen={{
+        props={{
           trial: 1,
           display: "agency",
           handler: () => {
@@ -45,7 +45,7 @@ test("check Wrapper component accessibility", async () => {
   const { container } = render(
     <Wrapper
       display="agency"
-      screen={{
+      props={{
         trial: 1,
         display: "agency",
         handler: () => {

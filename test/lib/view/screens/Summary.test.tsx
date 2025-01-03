@@ -2,6 +2,8 @@
  * @file 'Summary' screen tests
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// React import
+import React from "react";
 
 // Test utilities
 import { waitFor, screen } from "@testing-library/react";
@@ -11,16 +13,11 @@ import { axe, toHaveNoViolations } from "jest-axe";
 // Custom render function
 import { render } from "test/utils/functions";
 
-// Screen factory
-import ScreenFactory from "src/lib/classes/factories/ScreenFactory";
+// Wrapper component
+import Wrapper from "src/lib/view/components/Wrapper";
 
 // Extend the 'expect' function
 expect.extend(toHaveNoViolations);
-
-let screenFactory: ScreenFactory;
-beforeAll(() => {
-  screenFactory = new ScreenFactory();
-});
 
 // Mock jsPsych
 import "jspsych";
@@ -44,19 +41,15 @@ beforeEach(() => {
 });
 
 test("loads and displays Summary screen", async () => {
-  render(
-    screenFactory.generate({
-      display: "summary",
-      screen: {
-        trial: 0,
-        display: "summary",
-        postPhase: "playerChoice",
-        handler: () => {
-          console.info("Selection handler called");
-        },
-      },
-    })
-  );
+  const props: Props.Screens.Summary = {
+    trial: 0,
+    display: "summary",
+    postPhase: "playerChoice",
+    handler: () => {
+      console.info("Selection handler called");
+    },
+  };
+  render(<Wrapper display={"summary"} props={props} />);
 
   // Waiting for 'TextTransition' elements to have updated
   // upon first rendering the screen
@@ -66,19 +59,16 @@ test("loads and displays Summary screen", async () => {
 });
 
 test("check Summary screen accessibility", async () => {
-  const { container } = render(
-    screenFactory.generate({
-      display: "summary",
-      screen: {
-        trial: 0,
-        display: "summary",
-        postPhase: "playerChoice",
-        handler: () => {
-          console.info("Selection handler called");
-        },
-      },
-    })
-  );
+  const props: Props.Screens.Summary = {
+    trial: 0,
+    display: "summary",
+    postPhase: "playerChoice",
+    handler: () => {
+      console.info("Selection handler called");
+    },
+  };
+  const { container } = render(<Wrapper display={"summary"} props={props} />);
+
 
   // Asynchronous chain, waiting for 'TextTransition'
   // elements to have updated upon first rendering the screen
