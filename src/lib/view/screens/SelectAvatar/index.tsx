@@ -7,7 +7,7 @@
  */
 
 // React import
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 
 // Grommet UI components
 import { Box, Button, Heading } from "grommet";
@@ -19,6 +19,12 @@ import { Configuration } from "src/configuration";
 // Components
 import Character from "src/lib/view/components/Character";
 
+// Logging
+import consola from "consola";
+
+// Input bindings
+import { BINDINGS } from "src/lib/bindings";
+
 /**
  * @summary Generate a 'SelectAvatar' screen presenting a row of six avatars
  * for the participant to select above a continue button
@@ -28,24 +34,44 @@ import Character from "src/lib/view/components/Character";
 const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
   props: Props.Screens.SelectAvatar
 ): ReactElement => {
-  // Configure relevant states
-  const [selectedAvatar, setAvatar] = React.useState("none");
+  // Get the global 'Experiment' instance
+  const experiment = window.Experiment;
 
+  // Get the list of all avatars
   const avatars = Configuration.avatars.names.participant;
-  const avatarComponents = [];
 
-  // Collate the avatars into an array of 'Character' components
-  for (const avatarName of avatars) {
-    avatarComponents.push(
-      <Character
-        key={avatarName}
-        name={avatarName}
-        size={128} // Size is fixed at 128
-        state={selectedAvatar}
-        setState={setAvatar}
-      />
-    );
-  }
+  // Configure relevant states
+  const [selectedAvatar, setAvatar] = useState("none");
+  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(experiment.getState().get("participantAvatar"));
+
+  useEffect(() => {
+    const inputHandler = (event: KeyboardEvent) => {
+      const selectedIndex = experiment.getState().get("participantAvatar");
+      let updatedIndex = selectedIndex;
+      if (event.key.toString() === BINDINGS.OPTION_TWO) {
+        if (selectedIndex + 1 > avatars.length - 1) {
+          updatedIndex = 0;
+        } else {
+          updatedIndex = updatedIndex + 1;
+        }
+      } else if (event.key.toString() === BINDINGS.OPTION_ONE) {
+        if (selectedIndex - 1 < 0) {
+          updatedIndex = avatars.length - 1;
+        } else {
+          updatedIndex = updatedIndex - 1;
+        }
+      }
+      experiment.getState().set("participantAvatar", updatedIndex);
+      setSelectedAvatarIndex(experiment.getState().get("participantAvatar"))
+    };
+
+    document.addEventListener("keyup", inputHandler, false);
+
+    return () => {
+      // Remove the keyboard handler
+      document.removeEventListener("keyup", inputHandler, false);
+    };
+  }, []);
 
   return (
     <>
@@ -62,7 +88,22 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
         height="small"
         margin="medium"
       >
-        {avatarComponents}
+        {avatars.map((avatar, i) => {
+          return (
+            <Box
+              border={selectedAvatarIndex === i && { color: "red", size: "large" }}
+              round
+            >
+              <Character
+                key={avatar}
+                name={avatar}
+                size={128} // Size is fixed at 128
+                state={selectedAvatar}
+                setState={setAvatar}
+              />
+            </Box>
+          );
+        })}
       </Box>
 
       {/* Continue button */}
