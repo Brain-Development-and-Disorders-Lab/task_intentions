@@ -19,9 +19,6 @@ import { Configuration } from "src/configuration";
 // Components
 import Character from "src/lib/view/components/Character";
 
-// Logging
-import consola from "consola";
-
 // Input bindings
 import { BINDINGS } from "src/lib/bindings";
 
@@ -41,31 +38,46 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
   const avatars = Configuration.avatars.names.participant;
 
   // Configure relevant states
-  const [selectedAvatar, setAvatar] = useState("none");
+  const [selectedAvatarName, setSelectedAvatarName] = useState("none");
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(experiment.getState().get("participantAvatar"));
 
   useEffect(() => {
+    /**
+     * Handle keyboard input from user interaction
+     * @param {KeyboardEvent} event Keyboard input event
+     */
     const inputHandler = (event: KeyboardEvent) => {
-      const selectedIndex = experiment.getState().get("participantAvatar");
-      let updatedIndex = selectedIndex;
+      let selectedIndex = experiment.getState().get("participantAvatar");
       if (event.key.toString() === BINDINGS.OPTION_TWO) {
+        // Increment `selectedIndex`, reset if required
         if (selectedIndex + 1 > avatars.length - 1) {
-          updatedIndex = 0;
+          selectedIndex = 0;
         } else {
-          updatedIndex = updatedIndex + 1;
+          selectedIndex = selectedIndex + 1;
         }
+        // Apply the value of `selectedIndex`
+        experiment.getState().set("participantAvatar", selectedIndex);
+        setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
       } else if (event.key.toString() === BINDINGS.OPTION_ONE) {
+        // Decrement `selectedIndex`, reset if required
         if (selectedIndex - 1 < 0) {
-          updatedIndex = avatars.length - 1;
+          selectedIndex = avatars.length - 1;
         } else {
-          updatedIndex = updatedIndex - 1;
+          selectedIndex = selectedIndex - 1;
         }
+        // Apply the value of `selectedIndex`
+        experiment.getState().set("participantAvatar", selectedIndex);
+        setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
+      } else if (event.key.toString() === BINDINGS.SELECT) {
+        // Complete the avatar selection by passing the handler the avatar name
+        props.handler(Configuration.avatars.names.participant[selectedIndex]);
       }
-      experiment.getState().set("participantAvatar", updatedIndex);
-      setSelectedAvatarIndex(experiment.getState().get("participantAvatar"))
     };
 
-    document.addEventListener("keyup", inputHandler, false);
+    // Add the keyboard handler if alternate input enabled
+    if (Configuration.manipulations.useAlternateInput === true) {
+      document.addEventListener("keyup", inputHandler, false);
+    }
 
     return () => {
       // Remove the keyboard handler
@@ -87,19 +99,21 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
         justify="center"
         height="small"
         margin="medium"
+        gap="small"
       >
         {avatars.map((avatar, i) => {
           return (
             <Box
-              border={selectedAvatarIndex === i && { color: "red", size: "large" }}
-              round
+              border={selectedAvatarIndex === i && { color: "lightgray", size: "large" }}
+              round={{ size: "50%" }}
+              key={`container-${avatar}`}
             >
               <Character
                 key={avatar}
                 name={avatar}
                 size={128} // Size is fixed at 128
-                state={selectedAvatar}
-                setState={setAvatar}
+                state={selectedAvatarName}
+                setState={setSelectedAvatarName}
               />
             </Box>
           );
@@ -107,20 +121,22 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
       </Box>
 
       {/* Continue button */}
-      <Button
-        id="select-avatar-button"
-        primary
-        color="button"
-        label="Continue"
-        disabled={selectedAvatar === "none"}
-        size="large"
-        margin="medium"
-        icon={<LinkNext />}
-        reverse
-        onClick={() => {
-          props.handler(selectedAvatar);
-        }}
-      />
+      {Configuration.manipulations.useAlternateInput !== true &&
+        <Button
+          id="select-avatar-button"
+          primary
+          color="button"
+          label="Continue"
+          disabled={selectedAvatarName === "none"}
+          size="large"
+          margin="medium"
+          icon={<LinkNext />}
+          reverse
+          onClick={() => {
+            props.handler(selectedAvatarName);
+          }}
+        />
+      }
     </>
   );
 };
