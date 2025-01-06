@@ -75,7 +75,7 @@ class Handler {
 
   /**
    * Handler called after avatar selected
-   * @param {string} selection avatar selection key
+   * @param {number} selection avatar selection key
    */
   public selection(selection: number): void {
     // Update the global Experiment state

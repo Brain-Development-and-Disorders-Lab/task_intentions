@@ -41,53 +41,55 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
   const [selectedAvatarName, setSelectedAvatarName] = useState("none");
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(experiment.getState().get("participantAvatar"));
 
-  useEffect(() => {
-    /**
-     * Handle keyboard input from user interaction
-     * @param {KeyboardEvent} event Keyboard input event
-     */
-    const inputHandler = (event: KeyboardEvent) => {
-      // Avoid holding the key down
-      if (event.repeat) return;
+  /**
+   * Handle keyboard input from user interaction
+   * @param {KeyboardEvent} event Keyboard input event
+   */
+  const inputHandler = (event: KeyboardEvent) => {
+    // Avoid holding the key down
+    if (event.repeat) return;
 
-      event.preventDefault();
+    event.preventDefault();
 
-      let selectedIndex = experiment.getState().get("participantAvatar");
-      if (event.key.toString() === BINDINGS.NEXT) {
-        // Increment `selectedIndex`, reset if required
-        if (selectedIndex + 1 > avatars.length - 1) {
-          selectedIndex = 0;
-        } else {
-          selectedIndex = selectedIndex + 1;
-        }
-        // Apply the value of `selectedIndex`
-        experiment.getState().set("participantAvatar", selectedIndex);
-        setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
-      } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-        // Decrement `selectedIndex`, reset if required
-        if (selectedIndex - 1 < 0) {
-          selectedIndex = avatars.length - 1;
-        } else {
-          selectedIndex = selectedIndex - 1;
-        }
-        // Apply the value of `selectedIndex`
-        experiment.getState().set("participantAvatar", selectedIndex);
-        setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
-      } else if (event.key.toString() === BINDINGS.SELECT) {
-        // Complete the avatar selection by passing the handler the avatar name
-        props.handler(Configuration.avatars.names.participant[selectedIndex]);
+    let selectedIndex = experiment.getState().get("participantAvatar");
+    if (event.key.toString() === BINDINGS.NEXT) {
+      // Increment `selectedIndex`, reset if required
+      if (selectedIndex + 1 > avatars.length - 1) {
+        selectedIndex = 0;
+      } else {
+        selectedIndex = selectedIndex + 1;
       }
-    };
+      // Apply the value of `selectedIndex`
+      experiment.getState().set("participantAvatar", selectedIndex);
+      setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
+    } else if (event.key.toString() === BINDINGS.PREVIOUS) {
+      // Decrement `selectedIndex`, reset if required
+      if (selectedIndex - 1 < 0) {
+        selectedIndex = avatars.length - 1;
+      } else {
+        selectedIndex = selectedIndex - 1;
+      }
+      // Apply the value of `selectedIndex`
+      experiment.getState().set("participantAvatar", selectedIndex);
+      setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
+    } else if (event.key.toString() === BINDINGS.SELECT) {
+      // Complete the avatar selection by passing the handler the avatar name
+      props.handler(selectedIndex);
+    }
+  };
 
+  useEffect(() => {
     // Add the keyboard handler if alternate input enabled
     if (Configuration.manipulations.useAlternateInput === true) {
       document.addEventListener("keydown", inputHandler, false);
     }
 
     return () => {
-      // Remove the keyboard handler
-      document.removeEventListener("keydown", inputHandler, false);
-    };
+      if (Configuration.manipulations.useAlternateInput === true) {
+        // Remove the keyboard handler
+        document.removeEventListener("keydown", inputHandler, false);
+      }
+    }
   }, []);
 
   return (
@@ -138,7 +140,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
           icon={<LinkNext />}
           reverse
           onClick={() => {
-            props.handler(selectedAvatarName);
+            props.handler(selectedAvatarIndex);
           }}
         />
       }
