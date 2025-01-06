@@ -353,9 +353,9 @@ const Trial: FC<Props.Screens.Trial> = (
 
   /**
    * Handle keyboard input from user interaction
-   * @param {any} event Keyboard input event
+   * @param {React.KeyboardEvent<HTMLElement>} event Keyboard input event
    */
-  const inputHandler = (event: any) => {
+  const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Avoid holding the key down
     if (event.repeat) return;
     event.preventDefault();
@@ -408,19 +408,27 @@ const Trial: FC<Props.Screens.Trial> = (
             </Text>
 
             {/* Continue button */}
-            <Button
-              primary
-              color="button"
-              label="Continue"
-              size="medium"
-              margin="xsmall"
-              icon={<LinkNext />}
-              reverse
-              onClick={() => {
-                // Invoke the inter-trial transition
-                transition();
-              }}
-            />
+            <Box
+              margin={"none"}
+              pad={"none"}
+              border={Configuration.manipulations.useAlternateInput === true && { color: "lightgray", size: "large" }}
+              style={Configuration.manipulations.useAlternateInput === true ? { borderRadius: "32px "} : {}}
+              round
+            >
+              <Button
+                primary
+                color={"button"}
+                label={"Continue"}
+                size={"medium"}
+                margin={"none"}
+                icon={<LinkNext />}
+                reverse
+                onClick={() => {
+                  // Invoke the inter-trial transition
+                  transition();
+                }}
+              />
+            </Box>
           </Box>
         );
         break;

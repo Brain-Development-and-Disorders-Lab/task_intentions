@@ -7,10 +7,10 @@
  */
 
 // React import
-import React, { FC, ReactElement, useEffect, useState } from "react";
+import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
-import { Box, Button, Heading } from "grommet";
+import { Box, Button, Heading, Keyboard } from "grommet";
 import { LinkNext } from "grommet-icons";
 
 // Configuration
@@ -43,12 +43,11 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
 
   /**
    * Handle keyboard input from user interaction
-   * @param {KeyboardEvent} event Keyboard input event
+   * @param {React.KeyboardEvent<HTMLElement>} event Keyboard input event
    */
-  const inputHandler = (event: KeyboardEvent) => {
+  const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Avoid holding the key down
     if (event.repeat) return;
-
     event.preventDefault();
 
     let selectedIndex = experiment.getState().get("participantAvatar");
@@ -78,22 +77,8 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
     }
   };
 
-  useEffect(() => {
-    // Add the keyboard handler if alternate input enabled
-    if (Configuration.manipulations.useAlternateInput === true) {
-      document.addEventListener("keydown", inputHandler, false);
-    }
-
-    return () => {
-      if (Configuration.manipulations.useAlternateInput === true) {
-        // Remove the keyboard handler
-        document.removeEventListener("keydown", inputHandler, false);
-      }
-    }
-  }, []);
-
   return (
-    <>
+    <Keyboard onKeyDown={inputHandler} target={"document"}>
       {/* Heading component */}
       <Heading margin="medium" fill>
         Choose your Avatar!
@@ -144,7 +129,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
           }}
         />
       }
-    </>
+    </Keyboard>
   );
 };
 
