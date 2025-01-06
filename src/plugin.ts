@@ -89,12 +89,6 @@ jsPsych.plugins[Configuration.studyName] = (() => {
         default: false,
         description: "Used exclusively in the 'Matching' screen",
       },
-      clearScreen: {
-        type: jsPsych.plugins.parameterType.BOOLEAN,
-        pretty_name: "Clear after trial",
-        default: false,
-        description: "Clear the screen after this trial",
-      },
     },
   };
 
@@ -201,10 +195,8 @@ jsPsych.plugins[Configuration.studyName] = (() => {
       }
       consola.debug(`Reaction time: ${dataframe.trialDuration}ms`);
 
-      // If the next trial isn't React-based, clean up React
-      if (trial.clearScreen === true) {
-        view.unmount();
-      }
+      // Reset the React-based trials
+      view.unmount();
 
       // Re-enable keyboard actions
       document.removeEventListener("keydown", () => {

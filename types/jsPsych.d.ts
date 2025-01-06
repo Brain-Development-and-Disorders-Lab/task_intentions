@@ -29,7 +29,6 @@ declare type TimelineNode = {
   // Trial plugin
   trial?: number;
   display?: Display | string;
-  clearScreen?: boolean;
   optionOneParticipant?: number;
   optionOnePartner?: number;
   optionTwoParticipant?: number;

@@ -175,7 +175,6 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "selection",
-  clearScreen: true,
 });
 
 // Pre-'playerChoice' instructions
@@ -221,7 +220,6 @@ timeline.push({
   display: "playerChoicePractice",
   answer: "",
   isPractice: true,
-  clearScreen: false,
 });
 
 timeline.push({
@@ -235,7 +233,6 @@ timeline.push({
   display: "playerChoicePractice",
   answer: "",
   isPractice: true,
-  clearScreen: false,
 });
 
 timeline.push({
@@ -249,7 +246,6 @@ timeline.push({
   display: "playerChoicePractice",
   answer: "",
   isPractice: true,
-  clearScreen: true,
 });
 
 // Post-'playerChoice' instructions
@@ -409,7 +405,6 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "matched",
-  clearScreen: true,
 });
 
 // Set and store the data colelction
@@ -454,9 +449,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         trial.trial = stageOneCounter;
         stageOneCounter++;
       }
-
-      // Set the final trial to clear the screen before moving to instructions
-      stageOneTrials[stageOneTrials.length - 1].clearScreen = true;
 
       // Push trials to the timeline
       timeline.push(...stageOneTrials);
@@ -543,7 +535,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         display: "playerGuessPractice",
         answer: "Option 1",
         isPractice: true,
-        clearScreen: false,
       });
 
       timeline.push({
@@ -557,7 +548,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         display: "playerGuessPractice",
         answer: "Option 1",
         isPractice: true,
-        clearScreen: false,
       });
 
       timeline.push({
@@ -571,7 +561,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         display: "playerGuessPractice",
         answer: "Option 1",
         isPractice: true,
-        clearScreen: true,
       });
 
       // Post-'playerGuess' practice instructions
@@ -741,7 +730,6 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "matched",
-        clearScreen: true,
       });
 
       break;
@@ -766,7 +754,6 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "classification",
-        clearScreen: true,
       });
 
       const phaseThreeInstructions = [
@@ -897,7 +884,6 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "matched",
-        clearScreen: true,
       });
 
       break;
@@ -915,7 +901,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         typeTwo: row.Type2,
         display: row.display,
         answer: row.ANSWER,
-        clearScreen: false,
       });
       break;
     }
@@ -931,7 +916,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         typeTwo: row.Type2,
         display: row.display,
         answer: row.ANSWER,
-        clearScreen: false,
       });
       break;
     }
@@ -947,7 +931,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         typeTwo: row.Type2,
         display: row.display,
         answer: row.ANSWER,
-        clearScreen: false,
       });
       break;
     }
@@ -963,7 +946,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         typeTwo: row.Type2,
         display: row.display,
         answer: row.ANSWER,
-        clearScreen: false,
       });
       break;
     }
@@ -989,14 +971,12 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "agency",
-  clearScreen: false,
 });
 
 // End screen
 timeline.push({
   type: Configuration.studyName,
   display: "end",
-  clearScreen: true,
 });
 
 // Configure and start the experiment

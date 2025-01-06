@@ -79,7 +79,6 @@ declare type Trial = {
   answer: Options;
   isPractice: boolean;
   fetchData: boolean;
-  clearScreen: boolean;
 };
 
 // Data type used to enforce trial data storage format
