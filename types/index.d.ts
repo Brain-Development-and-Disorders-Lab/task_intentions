@@ -106,6 +106,13 @@ declare type TrialData = {
   server_beta_par: number;
 };
 
+// Type to represent the active state of a trial
+declare type TrialState = {
+  hasSelected: boolean;
+  highlightedOptionIndex: number;
+  selectedOption: Options;
+};
+
 // Points storage
 declare type Points = {
   one: {
