@@ -46,6 +46,9 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
    * @param {React.KeyboardEvent<HTMLElement>} event Keyboard input event
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+    // Disable keyboard input if not enabled in configuration
+    if (Configuration.manipulations.useAlternateInput === false) return;
+
     // Avoid holding the key down
     if (event.repeat) return;
     event.preventDefault();
@@ -96,7 +99,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
         {avatars.map((avatar, i) => {
           return (
             <Box
-              border={selectedAvatarIndex === i && { color: "lightgray", size: "large" }}
+              border={selectedAvatarIndex === i && { color: "selectedElement", size: "large" }}
               round={{ size: "50%" }}
               key={`container-${avatar}`}
             >

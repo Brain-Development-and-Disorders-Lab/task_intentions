@@ -356,6 +356,9 @@ const Trial: FC<Props.Screens.Trial> = (
    * @param {React.KeyboardEvent<HTMLElement>} event Keyboard input event
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+    // Disable keyboard input if not enabled in configuration
+    if (Configuration.manipulations.useAlternateInput === false) return;
+
     // Avoid holding the key down
     if (event.repeat) return;
     event.preventDefault();
@@ -411,7 +414,7 @@ const Trial: FC<Props.Screens.Trial> = (
             <Box
               margin={"none"}
               pad={"none"}
-              border={Configuration.manipulations.useAlternateInput === true && { color: "lightgray", size: "large" }}
+              border={Configuration.manipulations.useAlternateInput === true && { color: "selectedElement", size: "large" }}
               style={Configuration.manipulations.useAlternateInput === true ? { borderRadius: "32px "} : {}}
               round
             >
@@ -536,7 +539,7 @@ const Trial: FC<Props.Screens.Trial> = (
             className="grow"
             round
             background="optionBackground"
-            border={Configuration.manipulations.useAlternateInput && trialState.highlightedOptionIndex === 0 ? { color: "lightgray", size: "large" } : {}}
+            border={Configuration.manipulations.useAlternateInput && trialState.highlightedOptionIndex === 0 ? { color: "selectedElement", size: "large" } : {}}
             fill
           >
             <Option
@@ -553,7 +556,7 @@ const Trial: FC<Props.Screens.Trial> = (
             className="grow"
             round
             background="optionBackground"
-            border={Configuration.manipulations.useAlternateInput && trialState.highlightedOptionIndex === 1 ? { color: "lightgray", size: "large" } : {}}
+            border={Configuration.manipulations.useAlternateInput && trialState.highlightedOptionIndex === 1 ? { color: "selectedElement", size: "large" } : {}}
             fill
           >
             <Option
