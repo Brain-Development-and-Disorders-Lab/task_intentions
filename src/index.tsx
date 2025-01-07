@@ -71,18 +71,6 @@ if (Configuration.fullscreen === true) {
   });
 }
 
-// Inference screen
-timeline.push({
-  type: Configuration.studyName,
-  display: "inference",
-});
-
-// Classification screen
-timeline.push({
-  type: Configuration.studyName,
-  display: "classification",
-});
-
 const phaseOneInstructions = [
   // Overall instructions
   react2html(
