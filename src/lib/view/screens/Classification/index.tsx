@@ -11,7 +11,7 @@
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
-import { Box, Button, Select, Paragraph, RadioButtonGroup, Keyboard } from "grommet";
+import { Box, Button, Paragraph, RadioButtonGroup, Keyboard } from "grommet";
 import { LinkNext } from "grommet-icons";
 
 // Experiment configuration
@@ -101,22 +101,26 @@ const Classification: FC<Props.Screens.Classification> = (
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
       <Box
-        justify="center"
-        align="center"
-        gap="medium"
-        animation={["fadeIn"]}
         flex
-        direction="column"
+        height={{ max: "50vh" }}
+        justify={"between"}
+        align={"center"}
+        gap={"medium"}
+        animation={["fadeIn"]}
+        direction={"column"}
       >
         {/* First question */}
-        <Paragraph margin="small" size="large" fill>
-          Overall, what do you think your partner was trying to do?
-        </Paragraph>
+        <Box margin={"xsmall"}>
+          <Paragraph margin={"small"} size={"large"} fill>
+            Overall, what do you think your partner was trying to do?
+          </Paragraph>
+        </Box>
 
         {/* Partner select component */}
         <Box
-          border={selectedElementIndex === 0 && !elementFocused && { color: "selectedElement", size: "large" }}
-          pad={selectedElementIndex === 0 ? "xsmall" : "small"}
+          margin={"xsmall"}
+          border={{ color: selectedElementIndex === 0 && !elementFocused ? "selectedElement" : "transparent", size: "large" }}
+          pad={selectedElementIndex === 0 ? "small" : "medium"}
           round
         >
           <RadioButtonGroup
@@ -135,9 +139,9 @@ const Classification: FC<Props.Screens.Classification> = (
 
         {/* Continue button */}
         <Box
-          margin={"none"}
+          margin={"xsmall"}
           pad={"none"}
-          border={Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 && { color: "selectedElement", size: "large" }}
+          border={{ color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 ? "selectedElement" : "transparent", size: "large" }}
           style={Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 ? { borderRadius: "36px "} : {}}
           round
         >
