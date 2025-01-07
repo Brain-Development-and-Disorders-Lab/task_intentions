@@ -42,11 +42,12 @@ declare namespace Props {
     type Slider = {
       min: number;
       max: number;
-      initial?: number;
+      value: number;
+      setValue: (value: number) => void;
       leftLabel: string;
       rightLabel: string;
       onChange?: () => any;
-      setValue?: (value: number) => void;
+      isFocused: boolean;
     };
 
     // Character component

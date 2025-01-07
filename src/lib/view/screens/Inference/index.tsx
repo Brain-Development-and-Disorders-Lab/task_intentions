@@ -10,11 +10,17 @@
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
-import { Box, Button, Paragraph } from "grommet";
+import { Box, Button, Keyboard, Paragraph } from "grommet";
 import { LinkNext } from "grommet-icons";
 
 // Custom components
 import Slider from "src/lib/view/components/Slider";
+
+// Keyboard input bindings
+import { BINDINGS } from "src/lib/bindings";
+
+// Experiment configuration
+import { Configuration } from "src/configuration";
 
 // Constants
 const SLIDER_DEFAULT = 50;
@@ -38,68 +44,147 @@ const Inference: FC<Props.Screens.Inference> = (
   const [secondMoved, setSecondMoved] = useState(false);
   const [secondValue, setSecondValue] = useState(SLIDER_DEFAULT);
 
-  return (
-    <Box
-      justify="center"
-      align="center"
-      gap="small"
-      style={{ maxWidth: "50%", margin: "auto" }}
-      animation={["fadeIn"]}
-    >
-      {/* First question */}
-      <Paragraph margin="small" size="large" fill>
-        Please use the slider below to indicate the extent to which you believe
-        your partner's decisions are driven by their desire to earn points in
-        this task.
-      </Paragraph>
-      <Slider
-        min={0}
-        max={100}
-        initial={firstValue}
-        leftLabel="Not at all"
-        rightLabel="Totally"
-        onChange={() => {
+  // Selected UI element (used for alternate input)
+  const [selectedElementIndex, setSelectedElementIndex] = useState(0);
+  const [elementFocused, setElementFocused] = useState(false);
+
+  /**
+   * Handle keyboard input from user interaction
+   * @param {React.KeyboardEvent<HTMLElement>} event Keyboard input event
+   */
+  const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+    // Disable keyboard input if not enabled in configuration
+    if (Configuration.manipulations.useAlternateInput === false) return;
+
+    // Avoid holding the key down if no element focused
+    if (elementFocused === false && event.repeat) return;
+    event.preventDefault();
+
+    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
+      if (elementFocused === true) {
+        if (selectedElementIndex === 0) {
+          // First slider, increase and decrease value within bounds when keys pressed
+          if (event.key.toString() === BINDINGS.NEXT) {
+            setFirstValue(firstValue + 1 <= 100 ? firstValue + 1 : 100);
+          } else if (event.key.toString() === BINDINGS.PREVIOUS) {
+            setFirstValue(firstValue - 1 >= 0 ? firstValue - 1 : 0);
+          }
           setFirstMoved(true);
-        }}
-        setValue={setFirstValue}
-      />
-
-      {/* Second question */}
-      <Paragraph margin="small" size="large" fill>
-        Please use the slider below to indicate the extent to which you believe
-        your partner's decisions are driven by their desire to reduce your bonus
-        in this task.
-      </Paragraph>
-      <Slider
-        min={0}
-        max={100}
-        initial={secondValue}
-        leftLabel="Not at all"
-        rightLabel="Totally"
-        onChange={() => {
+        } else if (selectedElementIndex === 1) {
+          // Second slider, increase and decrease value within bounds when keys pressed
+          if (event.key.toString() === BINDINGS.NEXT) {
+            setSecondValue(secondValue + 1 <= 100 ? secondValue + 1 : 100);
+          } else if (event.key.toString() === BINDINGS.PREVIOUS) {
+            setSecondValue(secondValue - 1 >= 0 ? secondValue - 1 : 0);
+          }
           setSecondMoved(true);
-        }}
-        setValue={setSecondValue}
-      />
-
-      {/* Continue button */}
-      <Button
-        primary
-        margin={{ top: "auto" }}
-        color="button"
-        label="Continue"
-        disabled={
-          // Disabled until both sliders have been interacted with
-          firstMoved === false || secondMoved === false
         }
-        size="large"
-        icon={<LinkNext />}
-        reverse
-        onClick={() => {
+      } else {
+        if (event.key.toString() === BINDINGS.NEXT) {
+          setSelectedElementIndex(selectedElementIndex + 1 < 3 ? selectedElementIndex + 1 : 2);
+        } else if (event.key.toString() === BINDINGS.PREVIOUS) {
+          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
+        }
+      }
+    } else if (event.key.toString() === BINDINGS.SELECT) {
+      if (selectedElementIndex !== 2) {
+        // Focus or unfocus sliders
+        setElementFocused(!elementFocused);
+      } else {
+        // Select the `Continue` button if permitted
+        if (firstMoved === true && secondMoved === true) {
           props.handler(firstValue, secondValue);
-        }}
-      />
-    </Box>
+        }
+      }
+    }
+  };
+
+  return (
+    <Keyboard onKeyDown={inputHandler} target={"document"}>
+      <Box
+        justify="center"
+        align="center"
+        gap="small"
+        style={{ maxWidth: "50%", margin: "auto" }}
+        animation={["fadeIn"]}
+      >
+        {/* First question */}
+        <Paragraph margin="small" size="large" fill>
+          Please use the slider below to indicate the extent to which you believe
+          your partner's decisions are driven by their desire to earn points in
+          this task.
+        </Paragraph>
+        <Box
+          border={selectedElementIndex === 0 && !elementFocused && { color: "selectedElement", size: "large" }}
+          pad={selectedElementIndex === 0 ? "xsmall" : "small"}
+          round
+        >
+          <Slider
+            min={0}
+            max={100}
+            value={firstValue}
+            setValue={setFirstValue}
+            leftLabel="Not at all"
+            rightLabel="Totally"
+            onChange={() => {
+              setFirstMoved(true);
+            }}
+            isFocused={selectedElementIndex === 0 && elementFocused}
+          />
+        </Box>
+
+        {/* Second question */}
+        <Paragraph margin="small" size="large" fill>
+          Please use the slider below to indicate the extent to which you believe
+          your partner's decisions are driven by their desire to reduce your bonus
+          in this task.
+        </Paragraph>
+        <Box
+          border={selectedElementIndex === 1 && !elementFocused && { color: "selectedElement", size: "large" }}
+          pad={selectedElementIndex === 1 ? "xsmall" : "small"}
+          round
+        >
+          <Slider
+            min={0}
+            max={100}
+            value={secondValue}
+            setValue={setSecondValue}
+            leftLabel="Not at all"
+            rightLabel="Totally"
+            onChange={() => {
+              setSecondMoved(true);
+            }}
+            isFocused={selectedElementIndex === 1 && elementFocused}
+          />
+        </Box>
+
+        {/* Continue button */}
+        <Box
+          margin={"none"}
+          pad={"none"}
+          border={Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 2 && { color: "selectedElement", size: "large" }}
+          style={Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 2 ? { borderRadius: "36px "} : {}}
+          round
+        >
+          <Button
+            primary
+            margin={{ top: "auto" }}
+            color="button"
+            label="Continue"
+            disabled={
+              // Disabled until both sliders have been interacted with
+              firstMoved === false || secondMoved === false
+            }
+            size="large"
+            icon={<LinkNext />}
+            reverse
+            onClick={() => {
+              props.handler(firstValue, secondValue);
+            }}
+          />
+        </Box>
+      </Box>
+    </Keyboard>
   );
 };
 

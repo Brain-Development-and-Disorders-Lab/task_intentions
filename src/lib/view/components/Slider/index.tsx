@@ -4,7 +4,7 @@
  */
 
 // React import
-import React, { FC, ReactElement, useState } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 
 // Grommet UI components
 import { Box, Heading, RangeInput } from "grommet";
@@ -17,7 +17,14 @@ import { Box, Heading, RangeInput } from "grommet";
 const Slider: FC<Props.Components.Slider> = (
   props: Props.Components.Slider
 ): ReactElement => {
+  // Value presented by the slide
   const [value, setValue] = useState(props.max / 2);
+
+  // `useEffect` to update state if changes made outside component
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+
   return (
     <Box
       align="center"
@@ -27,27 +34,35 @@ const Slider: FC<Props.Components.Slider> = (
       width="xlarge"
     >
       <Heading level={3}>{props.leftLabel}</Heading>
-      <RangeInput
-        aria-label="Slider"
-        value={value}
-        min={props.min}
-        max={props.max}
-        onChange={(event) => {
-          const updatedValue = parseInt(event.target.value);
-          // Call the given onChange function if provided
-          if (typeof props.onChange !== "undefined") {
-            props.onChange();
-          }
+      <Box
+        width={"100%"}
+        margin={"none"}
+        pad={props.isFocused ? "xsmall" : "none"}
+        border={props.isFocused && { color: "selectedElement", size: "large" }}
+        round
+      >
+        <RangeInput
+          aria-label={"Slider"}
+          value={value}
+          min={props.min}
+          max={props.max}
+          onChange={(event) => {
+            const updatedValue = parseInt(event.target.value);
+            // Call the given onChange function if provided
+            if (typeof props.onChange !== "undefined") {
+              props.onChange();
+            }
 
-          // Call the given setValue function if provided
-          if (typeof props.setValue !== "undefined") {
-            props.setValue(updatedValue);
-          }
+            // Call the given setValue function if provided
+            if (typeof props.setValue !== "undefined") {
+              props.setValue(updatedValue);
+            }
 
-          // Update the value of the slider
-          setValue(updatedValue);
-        }}
-      />
+            // Update the value of the slider
+            setValue(updatedValue);
+          }}
+        />
+      </Box>
       <Heading level={3}>{props.rightLabel}</Heading>
     </Box>
   );
