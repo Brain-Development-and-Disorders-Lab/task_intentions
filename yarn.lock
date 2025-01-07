@@ -5723,7 +5723,7 @@ grommet-icons@^4.12.1, grommet-icons@^4.6.0, grommet-icons@^4.7.0:
   resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.12.1.tgz#780aa7cd59c5586f642f221bdb5c6becd04ad000"
   integrity sha512-LhOP6BkDAGiSNcUOfsGGRo+AKD6zWOXeNeusY1WYvKplAR6mKCAQfH7Nig2Buc/v5zadKSko2NDtCQqwJaME0Q==
 
-grommet@^2.17.3, grommet@^2.24.0:
+grommet@^2.24.0, grommet@^2.43.0:
   version "2.43.0"
   resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.43.0.tgz#ac2e988815b8bada8a16ed95157ea0128c9a65f5"
   integrity sha512-72hMPLPGQ/9AMEZLd6K0mTXBNHLJpDfJ320tgSnNnM32aaEBTYk2btVW6ksvSGVH9YOiWQsGqFgLGw23KXHMdg==
