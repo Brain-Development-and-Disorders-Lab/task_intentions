@@ -23,6 +23,7 @@ export const Theme = {
         dark: "#444444",
         light: "#CCCCCC",
       },
+      selectedElement: "lightgray",
     },
     focus: {
       border: {
