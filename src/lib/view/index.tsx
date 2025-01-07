@@ -6,7 +6,7 @@
 
 // React import
 import React from "react";
-import ReactDOM, { render } from "react-dom";
+import { createRoot, Root } from "react-dom/client";
 
 // Foundational 'Wrapper' component
 import Wrapper from "src/lib/view/components/Wrapper";
@@ -18,6 +18,7 @@ import Wrapper from "src/lib/view/components/Wrapper";
 class View {
   // This is the element containing the jsPsych target
   private target: HTMLElement;
+  private root: Root;
 
   /**
    * Default constructor
@@ -26,6 +27,7 @@ class View {
    */
   constructor(target: HTMLElement) {
     this.target = target;
+    this.root = createRoot(target);
   }
 
   /**
@@ -41,15 +43,13 @@ class View {
    * @param {Display} type the type of screen to display
    * @param {ScreenProps} props collection of props for that specific
    * screen
-   * @param {HTMLElement} target target DOM element
    */
   public display(
     type: Display,
     props: ScreenProps,
-    target: HTMLElement
   ): void {
     // Render the 'Wrapper' component
-    render(<Wrapper display={type} props={props.props} />, target);
+    this.root.render(<Wrapper display={type} props={props.props} />);
 
     // Setup a timeout to execute the callback
     if (props.duration > 0) {
@@ -63,7 +63,7 @@ class View {
    * Unmount a React instance from the target element
    */
   public unmount(): void {
-    ReactDOM.unmountComponentAtNode(this.target);
+    this.root.unmount();
   }
 }
 

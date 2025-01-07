@@ -214,7 +214,7 @@ jsPsych.plugins[Configuration.studyName] = (() => {
     const displayProps = new ScreenPropFactory(trial, handler).generate();
 
     // Display the view
-    view.display(trial.display, displayProps, displayElement);
+    view.display(trial.display, displayProps);
   };
 
   return plugin;
