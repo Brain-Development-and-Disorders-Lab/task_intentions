@@ -119,7 +119,7 @@ const Classification: FC<Props.Screens.Classification> = (
         {/* Partner select component */}
         <Box
           margin={"xsmall"}
-          border={{ color: selectedElementIndex === 0 && !elementFocused ? "selectedElement" : "transparent", size: "large" }}
+          border={{ color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 0 && !elementFocused ? "selectedElement" : "transparent", size: "large" }}
           pad={selectedElementIndex === 0 ? "small" : "medium"}
           round
         >
