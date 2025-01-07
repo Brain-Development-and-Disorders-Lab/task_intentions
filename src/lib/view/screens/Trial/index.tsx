@@ -70,6 +70,9 @@ const Trial: FC<Props.Screens.Trial> = (
     selectedOption: "Option 1",
   } as TrialState);
 
+  // Transition activity state
+  const [transitionActive, setTransitionActive] = useState(false);
+
   // Content of the overlay
   const [overlayContent, setOverlayContent] = useState(
     <Text>Oops! There should be content here.</Text>
@@ -228,6 +231,9 @@ const Trial: FC<Props.Screens.Trial> = (
    * Helper function to end the trial
    */
   const endTrial = (): void => {
+    // Update the transition activity state
+    setTransitionActive(false);
+
     // Bubble the selection handler with selection and answer
     props.handler(trialState.selectedOption, defaultPoints, answer);
 
@@ -243,6 +249,8 @@ const Trial: FC<Props.Screens.Trial> = (
    * Transition function to end the trial
    */
   const transition = () => {
+    setTransitionActive(true);
+
     // Hide the overlay if shown
     setShowOverlay(false);
 
@@ -356,8 +364,8 @@ const Trial: FC<Props.Screens.Trial> = (
    * @param {React.KeyboardEvent<HTMLElement>} event Keyboard input event
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
-    // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useAlternateInput === false) return;
+    // Disable keyboard input if not enabled in configuration or if transition active
+    if (Configuration.manipulations.useAlternateInput === false || transitionActive) return;
 
     // Avoid holding the key down
     if (event.repeat) return;

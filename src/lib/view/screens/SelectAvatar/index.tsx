@@ -94,12 +94,12 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
         justify="center"
         height="small"
         margin="medium"
-        gap="small"
+        gap="medium"
       >
         {avatars.map((avatar, i) => {
           return (
             <Box
-              border={selectedAvatarIndex === i && { color: "selectedElement", size: "large" }}
+              border={Configuration.manipulations.useAlternateInput === true && selectedAvatarIndex === i && { color: "selectedElement", size: "large" }}
               round={{ size: "50%" }}
               key={`container-${avatar}`}
             >
