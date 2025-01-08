@@ -125,7 +125,7 @@ const Inference: FC<Props.Screens.Inference> = (
         </Paragraph>
         <Box
           border={
-            { color: selectedElementIndex === 0 &&
+            { color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 0 &&
               !elementFocused ? "selectedElement" : "transparent", size: "large" }
           }
           pad={"xsmall"}
@@ -153,7 +153,7 @@ const Inference: FC<Props.Screens.Inference> = (
         </Paragraph>
         <Box
           border={
-            { color: selectedElementIndex === 1 &&
+            { color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 &&
               !elementFocused ? "selectedElement" : "transparent", size: "large" }
           }
           pad={"xsmall"}

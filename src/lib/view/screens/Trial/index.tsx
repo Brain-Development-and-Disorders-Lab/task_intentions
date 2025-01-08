@@ -580,7 +580,7 @@ const Trial: FC<Props.Screens.Trial> = (
             round
             background="optionBackground"
             border={
-              Configuration.manipulations.useAlternateInput &&
+              Configuration.manipulations.useAlternateInput === true &&
               trialState.highlightedOptionIndex === 0
                 ? { color: "selectedElement", size: "large" }
                 : {}
@@ -602,7 +602,7 @@ const Trial: FC<Props.Screens.Trial> = (
             round
             background="optionBackground"
             border={
-              Configuration.manipulations.useAlternateInput &&
+              Configuration.manipulations.useAlternateInput === true &&
               trialState.highlightedOptionIndex === 1
                 ? { color: "selectedElement", size: "large" }
                 : {}
