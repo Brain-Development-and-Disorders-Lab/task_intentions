@@ -131,7 +131,6 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
           color="button"
           label="Continue"
           disabled={selectedAvatarName === "none"}
-          size="large"
           margin="medium"
           icon={<LinkNext />}
           reverse

@@ -113,10 +113,10 @@ const Classification: FC<Props.Screens.Classification> = (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
       <Box
         flex
-        height={{ max: "50vh" }}
+        height={{ max: "40vh" }}
         justify={"between"}
         align={"center"}
-        gap={"medium"}
+        gap={"small"}
         animation={["fadeIn"]}
         direction={"column"}
       >
@@ -185,7 +185,6 @@ const Classification: FC<Props.Screens.Classification> = (
               // Disabled until a partner type has been chosen
               continueDisabled
             }
-            size="large"
             icon={<LinkNext />}
             reverse
             onClick={() => {

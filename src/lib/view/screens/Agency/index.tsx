@@ -109,6 +109,7 @@ const Agency: FC<Props.Screens.Agency> = (
           I believe I played with real partners.
         </Paragraph>
         <Box
+          pad={"xsmall"}
           border={{
             color:
               Configuration.manipulations.useAlternateInput === true &&

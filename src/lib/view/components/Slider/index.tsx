@@ -27,13 +27,13 @@ const Slider: FC<Props.Components.Slider> = (
 
   return (
     <Box
-      align="center"
-      direction="row"
-      justify="between"
-      gap="large"
-      width="xlarge"
+      align={"center"}
+      direction={"row"}
+      justify={"between"}
+      gap={"medium"}
+      width={"xlarge"}
     >
-      <Heading level={3}>{props.leftLabel}</Heading>
+      <Heading level={3} size={"small"}>{props.leftLabel}</Heading>
       <Box
         width={"100%"}
         margin={"none"}
@@ -63,7 +63,7 @@ const Slider: FC<Props.Components.Slider> = (
           }}
         />
       </Box>
-      <Heading level={3}>{props.rightLabel}</Heading>
+      <Heading level={3} size={"small"}>{props.rightLabel}</Heading>
     </Box>
   );
 };

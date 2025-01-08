@@ -109,10 +109,12 @@ const Inference: FC<Props.Screens.Inference> = (
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
       <Box
-        justify="center"
+        justify="between"
         align="center"
         gap="small"
         style={{ maxWidth: "50%", margin: "auto" }}
+        height={{ max: "75vh" }}
+        width={"xlarge"}
         animation={["fadeIn"]}
       >
         {/* First question */}
@@ -123,10 +125,10 @@ const Inference: FC<Props.Screens.Inference> = (
         </Paragraph>
         <Box
           border={
-            selectedElementIndex === 0 &&
-            !elementFocused && { color: "selectedElement", size: "large" }
+            { color: selectedElementIndex === 0 &&
+              !elementFocused ? "selectedElement" : "transparent", size: "large" }
           }
-          pad={selectedElementIndex === 0 ? "xsmall" : "small"}
+          pad={"xsmall"}
           round
         >
           <Slider
@@ -151,10 +153,10 @@ const Inference: FC<Props.Screens.Inference> = (
         </Paragraph>
         <Box
           border={
-            selectedElementIndex === 1 &&
-            !elementFocused && { color: "selectedElement", size: "large" }
+            { color: selectedElementIndex === 1 &&
+              !elementFocused ? "selectedElement" : "transparent", size: "large" }
           }
-          pad={selectedElementIndex === 1 ? "xsmall" : "small"}
+          pad={"xsmall"}
           round
         >
           <Slider
@@ -176,9 +178,9 @@ const Inference: FC<Props.Screens.Inference> = (
           margin={"none"}
           pad={"none"}
           border={
-            Configuration.manipulations.useAlternateInput === true &&
-            selectedElementIndex === 2 && {
-              color: "selectedElement",
+            {
+              color: Configuration.manipulations.useAlternateInput === true &&
+            selectedElementIndex === 2 ? "selectedElement" : "transparent",
               size: "large",
             }
           }
@@ -192,14 +194,12 @@ const Inference: FC<Props.Screens.Inference> = (
         >
           <Button
             primary
-            margin={{ top: "auto" }}
             color="button"
             label="Continue"
             disabled={
               // Disabled until both sliders have been interacted with
               firstMoved === false || secondMoved === false
             }
-            size="large"
             icon={<LinkNext />}
             reverse
             onClick={() => {
