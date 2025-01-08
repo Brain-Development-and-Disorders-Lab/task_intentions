@@ -7,7 +7,7 @@
  */
 // React imports
 import { ReactElement } from "react";
-import ReactDOMServer from "react-dom/server";
+import { renderToStaticMarkup } from "react-dom/server";
 
 /**
  * Calculate the points gained from all prior trials of a specific display type
@@ -72,5 +72,5 @@ export const calculatePoints = (display: Display, column: string): number => {
  * @return {string} raw HTML
  */
 export const react2html = (element: ReactElement): string => {
-  return ReactDOMServer.renderToStaticMarkup(element);
+  return renderToStaticMarkup(element);
 };

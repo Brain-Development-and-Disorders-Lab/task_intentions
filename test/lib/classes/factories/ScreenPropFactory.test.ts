@@ -8,6 +8,18 @@ import "jspsych";
 jest.mock("jspsych");
 
 // Prop factory
+window.MessageChannel = jest.fn().mockImplementation(() => {
+  // Mock `MessageChannel` to avoid a `ReferenceError`
+  return {
+    port1: {
+      postMessage: jest.fn(),
+    },
+    port2: {
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    },
+  };
+});
 import ScreenPropFactory from "src/lib/classes/factories/ScreenPropFactory";
 
 // Import utility functions

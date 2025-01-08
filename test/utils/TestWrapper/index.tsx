@@ -14,7 +14,7 @@ import { Grommet, ThemeContext } from "grommet";
 import { Theme } from "src/lib/theme";
 
 // Define the 'Wrapper' UI component
-const TestWrapper: FC = ({ children }) => {
+const TestWrapper: FC<any> = ({ children }) => {
   return (
     <Grommet>
       <ThemeContext.Extend value={Theme}>{children}</ThemeContext.Extend>

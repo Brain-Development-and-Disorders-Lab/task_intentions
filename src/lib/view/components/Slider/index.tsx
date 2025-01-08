@@ -48,7 +48,7 @@ const Slider: FC<Props.Components.Slider> = (
           value={value}
           min={props.min}
           max={props.max}
-          onChange={(event) => {
+          onChange={(event: any) => {
             const updatedValue = parseInt(event.target.value);
             // Call the given onChange function if provided
             if (typeof props.onChange !== "undefined") {
