@@ -279,25 +279,24 @@ timeline.push({
 // Attention check question
 timeline.push({
   type: "attention-check",
+  style: "radio",
   prompt:
     "In this stage of the game, who will be choosing the " +
     "number of points that you and your partner get?",
-  responses: [
-    { value: "My partner", key: null, correct: false },
-    { value: "Me", key: null, correct: true },
-    { value: "By lottery", key: null, correct: false },
-  ],
-  style: "radio",
-  continue: {
-    confirm: false,
-    key: null,
-  },
+  responses: ["My partner", "Me", "By lottery"],
+  correct: 1,
   feedback: {
     correct:
       "Correct! You will be choosing the points you and your partner get.",
     incorrect:
       "Incorrect. You will be choosing the points. Please review the following instructions.",
   },
+  input_schema: {
+    select: BINDINGS.SELECT,
+    next: BINDINGS.NEXT,
+    previous: BINDINGS.PREVIOUS,
+  },
+  confirm_continue: false,
 });
 
 timeline.push({
@@ -325,23 +324,23 @@ timeline.push({
 
 timeline.push({
   type: "attention-check",
+  style: "radio",
   prompt:
     "How many points do you need to earn across all three phases of the game to be entered into the bonus lottery?",
-  responses: [
-    { value: "1000", key: null, correct: true },
-    { value: "500", key: null, correct: false },
-  ],
-  style: "radio",
-  continue: {
-    confirm: false,
-    key: null,
-  },
+  responses: ["1000", "500", "By lottery"],
+  correct: 0,
   feedback: {
     correct:
       "Correct! You need to earn 1000 points across all three phases of the game to be entered into the bonus lottery.",
     incorrect:
       "Incorrect. You need to earn 1000 points across all three phases of the game to be entered into the bonus lottery. Please review the following instructions.",
   },
+  input_schema: {
+    select: BINDINGS.SELECT,
+    next: BINDINGS.NEXT,
+    previous: BINDINGS.PREVIOUS,
+  },
+  confirm_continue: false,
 });
 
 timeline.push({
@@ -594,25 +593,24 @@ for (let i = 0; i < dataCollection.length; i++) {
       // Attention check question
       timeline.push({
         type: "attention-check",
+        style: "radio",
         prompt:
           "In this part of task, " +
           "who will be choosing the points you and your partner get?",
-        responses: [
-          { value: "Me", key: null, correct: false },
-          { value: "By lottery", key: null, correct: false },
-          { value: "My partner", key: null, correct: true },
-        ],
-        style: "radio",
-        continue: {
-          confirm: false,
-          key: null,
-        },
+        responses: ["Me", "By lottery", "My partner"],
+        correct: 2,
         feedback: {
           correct:
             "Correct! Your partner will be choosing the points you and your partner get.",
           incorrect:
             "Incorrect. Your partner will be choosing the points. Please review the following instructions.",
         },
+        input_schema: {
+          select: BINDINGS.SELECT,
+          next: BINDINGS.NEXT,
+          previous: BINDINGS.PREVIOUS,
+        },
+        confirm_continue: false,
       });
 
       timeline.push({
@@ -640,33 +638,23 @@ for (let i = 0; i < dataCollection.length; i++) {
 
       timeline.push({
         type: "attention-check",
+        style: "radio",
         prompt:
           "What multiplier will be added to your total correct predictions about your partner?",
-        responses: [
-          {
-            value:
-              "My total correct answers will be multiplied by 5 and added to my points.",
-            key: null,
-            correct: false,
-          },
-          {
-            value:
-              "My total correct answers will be multiplied by 10 and added to my points.",
-            key: null,
-            correct: true,
-          },
-        ],
-        style: "radio",
-        continue: {
-          confirm: false,
-          key: null,
-        },
+        responses: ["My total correct answers will be multiplied by 5 and added to my points.", "My total correct answers will be multiplied by 10 and added to my points."],
+        correct: 1,
         feedback: {
           correct:
             "Correct! Your total correct answers will be multiplied by 10 and added to your points.",
           incorrect:
             "Incorrect. Your total correct answers will be multiplied by 10 and added to your points. Please review the following instructions.",
         },
+        input_schema: {
+          select: BINDINGS.SELECT,
+          next: BINDINGS.NEXT,
+          previous: BINDINGS.PREVIOUS,
+        },
+        confirm_continue: false,
       });
 
       timeline.push({
@@ -800,27 +788,23 @@ for (let i = 0; i < dataCollection.length; i++) {
 
       timeline.push({
         type: "attention-check",
+        style: "radio",
         prompt:
           "Who is going to be your interaction partner in this next phase?",
-        responses: [
-          { value: "A new anonymous partner.", key: null, correct: true },
-          {
-            value: "My partner from the last phase.",
-            key: null,
-            correct: false,
-          },
-        ],
-        style: "radio",
-        continue: {
-          confirm: false,
-          key: null,
-        },
+        responses: ["A new anonymous partner.", "My partner from the last phase."],
+        correct: 0,
         feedback: {
           correct:
             "Correct! You will be interacting with a new anonymous partner in this next phase.",
           incorrect:
             "Incorrect. You will be interacting with a new anonymous partner in this next phase. Please review the following instructions.",
         },
+        input_schema: {
+          select: BINDINGS.SELECT,
+          next: BINDINGS.NEXT,
+          previous: BINDINGS.PREVIOUS,
+        },
+        confirm_continue: false,
       });
 
       timeline.push({
