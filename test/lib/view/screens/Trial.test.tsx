@@ -93,7 +93,9 @@ test("check Trial screen accessibility", async () => {
       console.info(`Selected:`, selection);
     },
   };
-  const { container } = render(<Wrapper display={"playerChoice"} props={props} />);
+  const { container } = render(
+    <Wrapper display={"playerChoice"} props={props} />
+  );
 
   // Asynchronous chain, waiting for 'TextTransition'
   // elements to have updated upon first rendering the screen

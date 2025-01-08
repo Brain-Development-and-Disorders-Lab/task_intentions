@@ -41,7 +41,9 @@ test("check Classification screen accessibility", async () => {
       console.info("Selection handler called");
     },
   };
-  const { container } = render(<Wrapper display={"classification"} props={props} />);
+  const { container } = render(
+    <Wrapper display={"classification"} props={props} />
+  );
 
   // Disable the 'nested-interactive' rule.
   // An issue with the Grommet library rather

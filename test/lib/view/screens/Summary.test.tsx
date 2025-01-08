@@ -69,7 +69,6 @@ test("check Summary screen accessibility", async () => {
   };
   const { container } = render(<Wrapper display={"summary"} props={props} />);
 
-
   // Asynchronous chain, waiting for 'TextTransition'
   // elements to have updated upon first rendering the screen
   await waitFor(() => {

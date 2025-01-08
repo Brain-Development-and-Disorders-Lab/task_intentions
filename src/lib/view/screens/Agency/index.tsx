@@ -54,7 +54,10 @@ const Agency: FC<Props.Screens.Agency> = (
     if (elementFocused === false && event.repeat) return;
     event.preventDefault();
 
-    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
+    if (
+      event.key.toString() === BINDINGS.NEXT ||
+      event.key.toString() === BINDINGS.PREVIOUS
+    ) {
       if (elementFocused === true) {
         if (selectedElementIndex === 0) {
           // First slider, increase and decrease value within bounds when keys pressed
@@ -67,9 +70,13 @@ const Agency: FC<Props.Screens.Agency> = (
         }
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
-          setSelectedElementIndex(selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1);
+          setSelectedElementIndex(
+            selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1
+          );
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
+          setSelectedElementIndex(
+            selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0
+          );
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -95,14 +102,22 @@ const Agency: FC<Props.Screens.Agency> = (
         animation={["fadeIn"]}
       >
         <Paragraph margin="small" size="large" fill>
-          Some labs use deception. For our own purposes, it is helpful to know to
-          what extent you believed that the other partners really existed.
+          Some labs use deception. For our own purposes, it is helpful to know
+          to what extent you believed that the other partners really existed.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           I believe I played with real partners.
         </Paragraph>
         <Box
-          border={{ color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 0 && !elementFocused ? "selectedElement" : "transparent", size: "large" }}
+          border={{
+            color:
+              Configuration.manipulations.useAlternateInput === true &&
+              selectedElementIndex === 0 &&
+              !elementFocused
+                ? "selectedElement"
+                : "transparent",
+            size: "large",
+          }}
           round
         >
           <Slider
@@ -122,8 +137,20 @@ const Agency: FC<Props.Screens.Agency> = (
         <Box
           margin={"none"}
           pad={"none"}
-          border={{ color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 ? "selectedElement" : "transparent", size: "large" }}
-          style={Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 ? { borderRadius: "36px "} : {}}
+          border={{
+            color:
+              Configuration.manipulations.useAlternateInput === true &&
+              selectedElementIndex === 1
+                ? "selectedElement"
+                : "transparent",
+            size: "large",
+          }}
+          style={
+            Configuration.manipulations.useAlternateInput === true &&
+            selectedElementIndex === 1
+              ? { borderRadius: "36px " }
+              : {}
+          }
           round
         >
           <Button

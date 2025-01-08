@@ -60,7 +60,10 @@ const Inference: FC<Props.Screens.Inference> = (
     if (elementFocused === false && event.repeat) return;
     event.preventDefault();
 
-    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
+    if (
+      event.key.toString() === BINDINGS.NEXT ||
+      event.key.toString() === BINDINGS.PREVIOUS
+    ) {
       if (elementFocused === true) {
         if (selectedElementIndex === 0) {
           // First slider, increase and decrease value within bounds when keys pressed
@@ -81,9 +84,13 @@ const Inference: FC<Props.Screens.Inference> = (
         }
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
-          setSelectedElementIndex(selectedElementIndex + 1 < 3 ? selectedElementIndex + 1 : 2);
+          setSelectedElementIndex(
+            selectedElementIndex + 1 < 3 ? selectedElementIndex + 1 : 2
+          );
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
+          setSelectedElementIndex(
+            selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0
+          );
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -110,12 +117,15 @@ const Inference: FC<Props.Screens.Inference> = (
       >
         {/* First question */}
         <Paragraph margin="small" size="large" fill>
-          Please use the slider below to indicate the extent to which you believe
-          your partner's decisions are driven by their desire to earn points in
-          this task.
+          Please use the slider below to indicate the extent to which you
+          believe your partner's decisions are driven by their desire to earn
+          points in this task.
         </Paragraph>
         <Box
-          border={selectedElementIndex === 0 && !elementFocused && { color: "selectedElement", size: "large" }}
+          border={
+            selectedElementIndex === 0 &&
+            !elementFocused && { color: "selectedElement", size: "large" }
+          }
           pad={selectedElementIndex === 0 ? "xsmall" : "small"}
           round
         >
@@ -135,12 +145,15 @@ const Inference: FC<Props.Screens.Inference> = (
 
         {/* Second question */}
         <Paragraph margin="small" size="large" fill>
-          Please use the slider below to indicate the extent to which you believe
-          your partner's decisions are driven by their desire to reduce your bonus
-          in this task.
+          Please use the slider below to indicate the extent to which you
+          believe your partner's decisions are driven by their desire to reduce
+          your bonus in this task.
         </Paragraph>
         <Box
-          border={selectedElementIndex === 1 && !elementFocused && { color: "selectedElement", size: "large" }}
+          border={
+            selectedElementIndex === 1 &&
+            !elementFocused && { color: "selectedElement", size: "large" }
+          }
           pad={selectedElementIndex === 1 ? "xsmall" : "small"}
           round
         >
@@ -162,8 +175,19 @@ const Inference: FC<Props.Screens.Inference> = (
         <Box
           margin={"none"}
           pad={"none"}
-          border={Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 2 && { color: "selectedElement", size: "large" }}
-          style={Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 2 ? { borderRadius: "36px "} : {}}
+          border={
+            Configuration.manipulations.useAlternateInput === true &&
+            selectedElementIndex === 2 && {
+              color: "selectedElement",
+              size: "large",
+            }
+          }
+          style={
+            Configuration.manipulations.useAlternateInput === true &&
+            selectedElementIndex === 2
+              ? { borderRadius: "36px " }
+              : {}
+          }
           round
         >
           <Button

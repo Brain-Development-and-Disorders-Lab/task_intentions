@@ -58,7 +58,10 @@ const Classification: FC<Props.Screens.Classification> = (
     if (event.repeat) return;
     event.preventDefault();
 
-    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
+    if (
+      event.key.toString() === BINDINGS.NEXT ||
+      event.key.toString() === BINDINGS.PREVIOUS
+    ) {
       if (elementFocused === true) {
         if (selectedElementIndex === 0) {
           let updatedIndex = classificationIndex;
@@ -66,9 +69,13 @@ const Classification: FC<Props.Screens.Classification> = (
           if (classification === "") {
             updatedIndex = 0;
           } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-            updatedIndex = classificationIndex - 1 < 0 ? 0 : classificationIndex - 1;
+            updatedIndex =
+              classificationIndex - 1 < 0 ? 0 : classificationIndex - 1;
           } else if (event.key.toString() === BINDINGS.NEXT) {
-            updatedIndex = classificationIndex + 1 > partners.length - 1 ? classificationIndex : classificationIndex + 1;
+            updatedIndex =
+              classificationIndex + 1 > partners.length - 1
+                ? classificationIndex
+                : classificationIndex + 1;
           }
 
           // Enable the continue button
@@ -80,9 +87,13 @@ const Classification: FC<Props.Screens.Classification> = (
         }
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
-          setSelectedElementIndex(selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1);
+          setSelectedElementIndex(
+            selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1
+          );
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
+          setSelectedElementIndex(
+            selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0
+          );
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -119,7 +130,15 @@ const Classification: FC<Props.Screens.Classification> = (
         {/* Partner select component */}
         <Box
           margin={"xsmall"}
-          border={{ color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 0 && !elementFocused ? "selectedElement" : "transparent", size: "large" }}
+          border={{
+            color:
+              Configuration.manipulations.useAlternateInput === true &&
+              selectedElementIndex === 0 &&
+              !elementFocused
+                ? "selectedElement"
+                : "transparent",
+            size: "large",
+          }}
           pad={selectedElementIndex === 0 ? "small" : "medium"}
           round
         >
@@ -141,8 +160,20 @@ const Classification: FC<Props.Screens.Classification> = (
         <Box
           margin={"xsmall"}
           pad={"none"}
-          border={{ color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 ? "selectedElement" : "transparent", size: "large" }}
-          style={Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 ? { borderRadius: "36px "} : {}}
+          border={{
+            color:
+              Configuration.manipulations.useAlternateInput === true &&
+              selectedElementIndex === 1
+                ? "selectedElement"
+                : "transparent",
+            size: "large",
+          }}
+          style={
+            Configuration.manipulations.useAlternateInput === true &&
+            selectedElementIndex === 1
+              ? { borderRadius: "36px " }
+              : {}
+          }
           round
         >
           <Button

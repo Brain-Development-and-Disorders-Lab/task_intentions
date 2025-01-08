@@ -641,7 +641,10 @@ for (let i = 0; i < dataCollection.length; i++) {
         style: "radio",
         prompt:
           "What multiplier will be added to your total correct predictions about your partner?",
-        responses: ["My total correct answers will be multiplied by 5 and added to my points.", "My total correct answers will be multiplied by 10 and added to my points."],
+        responses: [
+          "My total correct answers will be multiplied by 5 and added to my points.",
+          "My total correct answers will be multiplied by 10 and added to my points.",
+        ],
         correct: 1,
         feedback: {
           correct:
@@ -791,7 +794,10 @@ for (let i = 0; i < dataCollection.length; i++) {
         style: "radio",
         prompt:
           "Who is going to be your interaction partner in this next phase?",
-        responses: ["A new anonymous partner.", "My partner from the last phase."],
+        responses: [
+          "A new anonymous partner.",
+          "My partner from the last phase.",
+        ],
         correct: 0,
         feedback: {
           correct:

@@ -65,55 +65,51 @@ const Wrapper: FC<Props.Components.Wrapper> = (
     >
       <ThemeContext.Extend value={Theme}>
         {/* Trial stages */}
-        {activeDisplay === "playerChoice" &&
+        {activeDisplay === "playerChoice" && (
           <Trial {...(props.props as Props.Screens.Trial)} />
-        }
-        {activeDisplay === "playerChoicePractice" &&
+        )}
+        {activeDisplay === "playerChoicePractice" && (
           <Trial {...(props.props as Props.Screens.Trial)} />
-        }
-        {activeDisplay === "playerGuess" &&
+        )}
+        {activeDisplay === "playerGuess" && (
           <Trial {...(props.props as Props.Screens.Trial)} />
-        }
-        {activeDisplay === "playerGuessPractice" &&
+        )}
+        {activeDisplay === "playerGuessPractice" && (
           <Trial {...(props.props as Props.Screens.Trial)} />
-        }
-        {activeDisplay === "playerChoice2" &&
+        )}
+        {activeDisplay === "playerChoice2" && (
           <Trial {...(props.props as Props.Screens.Trial)} />
-        }
+        )}
 
         {/* Inference trials */}
-        {activeDisplay === "inference" &&
+        {activeDisplay === "inference" && (
           <Inference {...(props.props as Props.Screens.Inference)} />
-        }
+        )}
 
         {/* Agency questions */}
-        {activeDisplay === "agency" &&
+        {activeDisplay === "agency" && (
           <Agency {...(props.props as Props.Screens.Agency)} />
-        }
+        )}
 
-        {activeDisplay === "classification" &&
+        {activeDisplay === "classification" && (
           <Classification {...(props.props as Props.Screens.Classification)} />
-        }
+        )}
 
-        {activeDisplay === "selection" &&
+        {activeDisplay === "selection" && (
           <SelectAvatar {...(props.props as Props.Screens.SelectAvatar)} />
-        }
+        )}
 
-        {activeDisplay === "matched" &&
-          <Matched />
-        }
+        {activeDisplay === "matched" && <Matched />}
 
-        {activeDisplay === "matching" &&
+        {activeDisplay === "matching" && (
           <Matching {...(props.props as Props.Screens.Matching)} />
-        }
+        )}
 
-        {activeDisplay === "summary" &&
+        {activeDisplay === "summary" && (
           <Summary {...(props.props as Props.Screens.Summary)} />
-        }
+        )}
 
-        {activeDisplay === "end" &&
-          <End />
-        }
+        {activeDisplay === "end" && <End />}
       </ThemeContext.Extend>
     </Grommet>
   );

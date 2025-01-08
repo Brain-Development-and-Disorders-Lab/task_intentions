@@ -25,7 +25,7 @@ test("loads and displays Matching screen", async () => {
     display: "matching",
     fetchData: false,
     handler(participantParameters, partnerParameters) {
-        console.info(participantParameters, partnerParameters);
+      console.info(participantParameters, partnerParameters);
     },
   };
   render(<Wrapper display={"matching"} props={props} />);
@@ -40,7 +40,7 @@ test("check Matching screen accessibility", async () => {
     display: "matching",
     fetchData: false,
     handler(participantParameters, partnerParameters) {
-        console.info(participantParameters, partnerParameters);
+      console.info(participantParameters, partnerParameters);
     },
   };
   const { container } = render(<Wrapper display={"matching"} props={props} />);

@@ -46,7 +46,9 @@ const Summary: FC<Props.Screens.Summary> = (
 
   // Get the participant's and the partner's avatars
   const experiment = window.Experiment;
-  const participantAvatar: number = experiment.getState().get("participantAvatar");
+  const participantAvatar: number = experiment
+    .getState()
+    .get("participantAvatar");
 
   // Get the participant's and the partner's points
   const totalParticipantPoints =
@@ -84,18 +86,9 @@ const Summary: FC<Props.Screens.Summary> = (
       <Confetti width={width} height={height} run={runConfetti} />
       <WorldMap color="map" fill="horizontal" />
       <Layer plain>
-        <Box
-          justify={"center"}
-          align={"center"}
-          gap={"small"}
-        >
+        <Box justify={"center"} align={"center"} gap={"small"}>
           {/* Heading */}
-          <Heading
-            level="1"
-            fill
-            alignSelf="center"
-            margin={"xsmall"}
-          >
+          <Heading level="1" fill alignSelf="center" margin={"xsmall"}>
             Summary
           </Heading>
 
@@ -104,7 +97,9 @@ const Summary: FC<Props.Screens.Summary> = (
             <Card
               gridArea="participantArea"
               name="You"
-              avatar={Configuration.avatars.names.participant[participantAvatar]}
+              avatar={
+                Configuration.avatars.names.participant[participantAvatar]
+              }
               points={participantPoints}
             />
           </Box>
@@ -113,8 +108,18 @@ const Summary: FC<Props.Screens.Summary> = (
           <Box
             margin={"none"}
             pad={"none"}
-            border={{ color: Configuration.manipulations.useAlternateInput === true ? "selectedElement" : "transparent", size: "large" }}
-            style={Configuration.manipulations.useAlternateInput === true ? { borderRadius: "36px "} : {}}
+            border={{
+              color:
+                Configuration.manipulations.useAlternateInput === true
+                  ? "selectedElement"
+                  : "transparent",
+              size: "large",
+            }}
+            style={
+              Configuration.manipulations.useAlternateInput === true
+                ? { borderRadius: "36px " }
+                : {}
+            }
             round
           >
             <Button

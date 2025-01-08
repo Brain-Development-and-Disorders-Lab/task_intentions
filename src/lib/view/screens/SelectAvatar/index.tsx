@@ -39,7 +39,9 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
 
   // Configure relevant states
   const [selectedAvatarName, setSelectedAvatarName] = useState("none");
-  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(experiment.getState().get("participantAvatar"));
+  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(
+    experiment.getState().get("participantAvatar")
+  );
 
   /**
    * Handle keyboard input from user interaction
@@ -99,7 +101,13 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
         {avatars.map((avatar, i) => {
           return (
             <Box
-              border={Configuration.manipulations.useAlternateInput === true && selectedAvatarIndex === i && { color: "selectedElement", size: "large" }}
+              border={
+                Configuration.manipulations.useAlternateInput === true &&
+                selectedAvatarIndex === i && {
+                  color: "selectedElement",
+                  size: "large",
+                }
+              }
               round={{ size: "50%" }}
               key={`container-${avatar}`}
             >
@@ -116,7 +124,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
       </Box>
 
       {/* Continue button */}
-      {Configuration.manipulations.useAlternateInput !== true &&
+      {Configuration.manipulations.useAlternateInput !== true && (
         <Button
           id="select-avatar-button"
           primary
@@ -131,7 +139,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
             props.handler(selectedAvatarIndex);
           }}
         />
-      }
+      )}
     </Keyboard>
   );
 };

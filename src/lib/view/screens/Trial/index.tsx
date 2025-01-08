@@ -211,7 +211,7 @@ const Trial: FC<Props.Screens.Trial> = (
       }
 
       // Update the selection state
-      setTrialState(trialState => ({ ...trialState, hasSelected: true }));
+      setTrialState((trialState) => ({ ...trialState, hasSelected: true }));
 
       if (
         props.isPractice === false ||
@@ -365,25 +365,42 @@ const Trial: FC<Props.Screens.Trial> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration or if transition active
-    if (Configuration.manipulations.useAlternateInput === false || transitionActive) return;
+    if (
+      Configuration.manipulations.useAlternateInput === false ||
+      transitionActive
+    )
+      return;
 
     // Avoid holding the key down
     if (event.repeat) return;
     event.preventDefault();
 
-    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
+    if (
+      event.key.toString() === BINDINGS.NEXT ||
+      event.key.toString() === BINDINGS.PREVIOUS
+    ) {
       if (trialState.hasSelected === false) {
         // Update the state based on the keypress
         if (trialState.highlightedOptionIndex === 0) {
-          setTrialState(trialState => ({ ...trialState, selectedOption: "Option 2", highlightedOptionIndex: 1 }));
+          setTrialState((trialState) => ({
+            ...trialState,
+            selectedOption: "Option 2",
+            highlightedOptionIndex: 1,
+          }));
         } else {
-          setTrialState(trialState => ({ ...trialState, selectedOption: "Option 1", highlightedOptionIndex: 0 }));
+          setTrialState((trialState) => ({
+            ...trialState,
+            selectedOption: "Option 1",
+            highlightedOptionIndex: 0,
+          }));
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
       if (trialState.hasSelected === false) {
         // Complete the option selection
-        handleOptionClick(trialState.highlightedOptionIndex === 0 ? "Option 1" : "Option 2");
+        handleOptionClick(
+          trialState.highlightedOptionIndex === 0 ? "Option 1" : "Option 2"
+        );
       } else {
         // Run the transition to the next trial
         transition();
@@ -422,8 +439,17 @@ const Trial: FC<Props.Screens.Trial> = (
             <Box
               margin={"none"}
               pad={"none"}
-              border={Configuration.manipulations.useAlternateInput === true && { color: "selectedElement", size: "large" }}
-              style={Configuration.manipulations.useAlternateInput === true ? { borderRadius: "32px "} : {}}
+              border={
+                Configuration.manipulations.useAlternateInput === true && {
+                  color: "selectedElement",
+                  size: "large",
+                }
+              }
+              style={
+                Configuration.manipulations.useAlternateInput === true
+                  ? { borderRadius: "32px " }
+                  : {}
+              }
               round
             >
               <Button
@@ -449,7 +475,9 @@ const Trial: FC<Props.Screens.Trial> = (
         content = (
           <Box pad="xsmall" align="center" width="large" gap="xsmall">
             <Text size="medium" margin="small">
-              {trialState.selectedOption === answer ? "Correct! " : "Incorrect. "}
+              {trialState.selectedOption === answer
+                ? "Correct! "
+                : "Incorrect. "}
               Your partner chose <b>{answer}</b>. That means you get{" "}
               {answer === "Option 1"
                 ? displayPoints.options.one.participant
@@ -536,7 +564,11 @@ const Trial: FC<Props.Screens.Trial> = (
           gridArea="playerArea"
           name="You"
           points={participantPoints}
-          avatar={Configuration.avatars.names.participant[experiment.getState().get("participantAvatar")]}
+          avatar={
+            Configuration.avatars.names.participant[
+              experiment.getState().get("participantAvatar")
+            ]
+          }
         />
 
         {/* Choices */}
@@ -547,7 +579,12 @@ const Trial: FC<Props.Screens.Trial> = (
             className="grow"
             round
             background="optionBackground"
-            border={Configuration.manipulations.useAlternateInput && trialState.highlightedOptionIndex === 0 ? { color: "selectedElement", size: "large" } : {}}
+            border={
+              Configuration.manipulations.useAlternateInput &&
+              trialState.highlightedOptionIndex === 0
+                ? { color: "selectedElement", size: "large" }
+                : {}
+            }
             fill
           >
             <Option
@@ -564,7 +601,12 @@ const Trial: FC<Props.Screens.Trial> = (
             className="grow"
             round
             background="optionBackground"
-            border={Configuration.manipulations.useAlternateInput && trialState.highlightedOptionIndex === 1 ? { color: "selectedElement", size: "large" } : {}}
+            border={
+              Configuration.manipulations.useAlternateInput &&
+              trialState.highlightedOptionIndex === 1
+                ? { color: "selectedElement", size: "large" }
+                : {}
+            }
             fill
           >
             <Option
