@@ -67,7 +67,7 @@ test("check the Option handler", async () => {
 
 // Selection handler
 test("check the Selection handler", async () => {
-  handler.selection("a");
+  handler.selection(0);
 
   // Validate the stored selection
   expect(window.Experiment.getState).toBeCalled();

@@ -7,7 +7,7 @@
 import { waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { act } from "react-dom/test-utils";
+import { act } from "react";
 
 // React
 import React from "react";

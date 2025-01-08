@@ -2,6 +2,8 @@
  * @file 'Classification' screen tests
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// React imports
+import React from "react";
 
 // Test utilities
 import { waitFor, screen } from "@testing-library/react";
@@ -11,48 +13,36 @@ import { axe, toHaveNoViolations } from "jest-axe";
 // Custom render function
 import { render } from "test/utils/functions";
 
-// Screen factory
-import ScreenFactory from "src/lib/classes/factories/ScreenFactory";
+// Wrapper component
+import Wrapper from "src/lib/view/components/Wrapper";
 
 // Extend the 'expect' function
 expect.extend(toHaveNoViolations);
 
-let screenFactory: ScreenFactory;
-beforeAll(() => {
-  screenFactory = new ScreenFactory();
-});
-
 test("loads and displays Classification screen", async () => {
-  render(
-    screenFactory.generate({
-      display: "classification",
-      screen: {
-        trial: 0,
-        display: "classification",
-        handler: () => {
-          console.info("Selection handler called");
-        },
-      },
-    })
-  );
+  const props: Props.Screens.Classification = {
+    trial: 0,
+    display: "classification",
+    handler: () => {
+      console.info("Selection handler called");
+    },
+  };
+  render(<Wrapper display={"classification"} props={props} />);
 
   await waitFor(() => screen.queryAllByPlaceholderText("Please select"));
-
   expect(screen.queryAllByPlaceholderText("Please select")).not.toBeNull();
 });
 
 test("check Classification screen accessibility", async () => {
+  const props: Props.Screens.Classification = {
+    trial: 0,
+    display: "classification",
+    handler: () => {
+      console.info("Selection handler called");
+    },
+  };
   const { container } = render(
-    screenFactory.generate({
-      display: "classification",
-      screen: {
-        trial: 0,
-        display: "classification",
-        handler: () => {
-          console.info("Selection handler called");
-        },
-      },
-    })
+    <Wrapper display={"classification"} props={props} />
   );
 
   // Disable the 'nested-interactive' rule.
@@ -65,6 +55,5 @@ test("check Classification screen accessibility", async () => {
       },
     },
   });
-
   expect(results).toHaveNoViolations();
 });

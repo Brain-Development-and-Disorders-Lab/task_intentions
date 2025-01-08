@@ -2,6 +2,8 @@
  * @file 'Trial' screen tests
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// React import
+import React from "react";
 
 // Test utilities
 import { waitFor, screen } from "@testing-library/react";
@@ -11,8 +13,8 @@ import { axe, toHaveNoViolations } from "jest-axe";
 // Custom render function
 import { render } from "test/utils/functions";
 
-// Screen factory
-import ScreenFactory from "src/lib/classes/factories/ScreenFactory";
+// Wrapper component
+import Wrapper from "src/lib/view/components/Wrapper";
 
 // Extend the 'expect' function
 expect.extend(toHaveNoViolations);
@@ -38,38 +40,29 @@ beforeEach(() => {
   };
 });
 
-let screenFactory: ScreenFactory;
-beforeAll(() => {
-  screenFactory = new ScreenFactory();
-});
-
 test("loads and displays Trial screen", async () => {
-  render(
-    screenFactory.generate({
-      display: "playerChoice",
-      screen: {
-        trial: 0,
-        display: "playerChoice",
-        isPractice: false,
-        participantPoints: 5,
-        partnerPoints: 7,
-        options: {
-          one: {
-            participant: 1,
-            partner: 2,
-          },
-          two: {
-            participant: 2,
-            partner: 1,
-          },
-        },
-        answer: "Option 1",
-        handler: (selection: string) => {
-          console.info(`Selected:`, selection);
-        },
+  const props: Props.Screens.Trial = {
+    trial: 0,
+    display: "playerChoice",
+    isPractice: false,
+    participantPoints: 5,
+    partnerPoints: 7,
+    options: {
+      one: {
+        participant: 1,
+        partner: 2,
       },
-    })
-  );
+      two: {
+        participant: 2,
+        partner: 1,
+      },
+    },
+    answer: "Option 1",
+    handler: (selection: string) => {
+      console.info(`Selected:`, selection);
+    },
+  };
+  render(<Wrapper display={"playerChoice"} props={props} />);
 
   // Waiting for 'TextTransition' elements to have updated
   // upon first rendering the screen
@@ -79,31 +72,29 @@ test("loads and displays Trial screen", async () => {
 });
 
 test("check Trial screen accessibility", async () => {
-  const { container } = render(
-    screenFactory.generate({
-      display: "playerChoice",
-      screen: {
-        trial: 0,
-        display: "playerChoice",
-        isPractice: false,
-        participantPoints: 5,
-        partnerPoints: 7,
-        options: {
-          one: {
-            participant: 1,
-            partner: 2,
-          },
-          two: {
-            participant: 2,
-            partner: 1,
-          },
-        },
-        answer: "Option 1",
-        handler: (selection: string) => {
-          console.info(`Selected:`, selection);
-        },
+  const props: Props.Screens.Trial = {
+    trial: 0,
+    display: "playerChoice",
+    isPractice: false,
+    participantPoints: 5,
+    partnerPoints: 7,
+    options: {
+      one: {
+        participant: 1,
+        partner: 2,
       },
-    })
+      two: {
+        participant: 2,
+        partner: 1,
+      },
+    },
+    answer: "Option 1",
+    handler: (selection: string) => {
+      console.info(`Selected:`, selection);
+    },
+  };
+  const { container } = render(
+    <Wrapper display={"playerChoice"} props={props} />
   );
 
   // Asynchronous chain, waiting for 'TextTransition'

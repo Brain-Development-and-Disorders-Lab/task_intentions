@@ -24,6 +24,7 @@ export const Configuration = {
   manipulations: {
     partner: "test",
     requireID: false,
+    useAlternateInput: false,
   },
 
   // Collection of any stimuli used in the trials

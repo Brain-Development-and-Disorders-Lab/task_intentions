@@ -2,6 +2,8 @@
  * @file 'Matched' screen tests
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// React imports
+import React from "react";
 
 // Test utilities
 import { waitFor, screen } from "@testing-library/react";
@@ -11,17 +13,12 @@ import { axe, toHaveNoViolations } from "jest-axe";
 // Custom render function
 import { render } from "test/utils/functions";
 
-// Screen factory
-import ScreenFactory from "src/lib/classes/factories/ScreenFactory";
+// Wrapper component
+import Wrapper from "src/lib/view/components/Wrapper";
 
 // Mock the jsPsych wrapper library
 import { Experiment } from "neurocog";
 jest.mock("neurocog");
-
-let screenFactory: ScreenFactory;
-beforeAll(() => {
-  screenFactory = new ScreenFactory();
-});
 
 // Setup the Experiment instances
 beforeEach(() => {
@@ -40,33 +37,23 @@ beforeEach(() => {
 expect.extend(toHaveNoViolations);
 
 test("loads and displays Matched screen", async () => {
-  render(
-    screenFactory.generate({
-      display: "matched",
-      screen: {
-        trial: 0,
-        display: "matched",
-      },
-    })
-  );
+  const props: Props.Screens.Matched = {
+    trial: 0,
+    display: "matched",
+  };
+  render(<Wrapper display={"matched"} props={props} />);
 
   await waitFor(() => screen.queryByText("Partner found!"));
-
   expect(screen.queryByText("Partner found!")).not.toBeNull();
 });
 
 test("check Matched screen accessibility", async () => {
-  const { container } = render(
-    screenFactory.generate({
-      display: "matched",
-      screen: {
-        trial: 0,
-        display: "matched",
-      },
-    })
-  );
+  const props: Props.Screens.Matched = {
+    trial: 0,
+    display: "matched",
+  };
+  const { container } = render(<Wrapper display={"matched"} props={props} />);
 
   const results = await axe(container);
-
   expect(results).toHaveNoViolations();
 });

@@ -5,39 +5,9 @@
  * and returns HTML as a string.
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
-// Logging library
-import consola from "consola";
-
 // React imports
 import { ReactElement } from "react";
-import ReactDOM from "react-dom";
-import ReactDOMServer from "react-dom/server";
-
-/**
- * Clear the HTML contents of an element without editing innerHTML. Unmounts
- * React instances if specified.
- * @param {HTMLElement} target element to clear the contents of
- * @param {boolean} isReact specify if additional clearing is required for
- * React content
- */
-export const clear = (target: HTMLElement | null, isReact = false): void => {
-  if (target) {
-    consola.debug(`Target is not null, clearing...`);
-    if (isReact) {
-      consola.debug(`React-based target, unmounting...`);
-      ReactDOM.unmountComponentAtNode(target);
-    }
-
-    // Clear existing HTML nodes
-    while (target.firstChild) {
-      target.removeChild(target.lastChild as Node);
-    }
-    consola.debug(`Cleared HTML nodes from target`);
-  } else {
-    consola.warn(`Target was not cleared, target not found`);
-  }
-};
+import { renderToStaticMarkup } from "react-dom/server";
 
 /**
  * Calculate the points gained from all prior trials of a specific display type
@@ -102,5 +72,5 @@ export const calculatePoints = (display: Display, column: string): number => {
  * @return {string} raw HTML
  */
 export const react2html = (element: ReactElement): string => {
-  return ReactDOMServer.renderToStaticMarkup(element);
+  return renderToStaticMarkup(element);
 };

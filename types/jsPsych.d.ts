@@ -21,13 +21,14 @@ declare type TimelineNode = {
   // Instructions plugin
   pages?: string[] | string[];
   allow_keys?: boolean;
+  key_forward?: string;
+  key_backward?: string;
   show_page_number?: boolean;
   show_clickable_nav?: boolean;
 
   // Trial plugin
   trial?: number;
   display?: Display | string;
-  clearScreen?: boolean;
   optionOneParticipant?: number;
   optionOnePartner?: number;
   optionTwoParticipant?: number;
@@ -42,10 +43,17 @@ declare type TimelineNode = {
 
   // Attention-check plugin
   prompt?: string;
-  responses?: { value: string; key: string | null; correct: boolean }[];
   style?: "default" | "radio";
-  continue?: { confirm: boolean; key: string | null };
+  responses?: string[];
+  correct?: number;
   feedback?: { correct: string; incorrect: string };
+  input_timeout?: number;
+  input_schema?: {
+    select: string | null;
+    next: string | null;
+    previous: string | null;
+  };
+  confirm_continue?: boolean;
 
   // Loop nodes
   timeline?: any[];

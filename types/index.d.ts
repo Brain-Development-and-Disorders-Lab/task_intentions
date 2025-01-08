@@ -79,7 +79,6 @@ declare type Trial = {
   answer: Options;
   isPractice: boolean;
   fetchData: boolean;
-  clearScreen: boolean;
 };
 
 // Data type used to enforce trial data storage format
@@ -105,6 +104,13 @@ declare type TrialData = {
   server_beta_ppt: number;
   server_alpha_par: number;
   server_beta_par: number;
+};
+
+// Type to represent the active state of a trial
+declare type TrialState = {
+  hasSelected: boolean;
+  highlightedOptionIndex: number;
+  selectedOption: Options;
 };
 
 // Points storage

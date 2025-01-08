@@ -24,6 +24,9 @@ import Test from "./data/test.csv";
 import { react2html } from "./lib/util";
 import { shuffle } from "d3-array";
 
+// Custom input bindings
+import { BINDINGS } from "./lib/bindings";
+
 // Logging library
 import consola from "consola";
 
@@ -161,7 +164,9 @@ const phaseOneInstructions = [
 timeline.push({
   type: "instructions",
   pages: phaseOneInstructions,
-  allow_keys: false,
+  allow_keys: Configuration.manipulations.useAlternateInput,
+  key_forward: BINDINGS.NEXT,
+  key_backward: BINDINGS.PREVIOUS,
   show_page_number: true,
   show_clickable_nav: true,
 });
@@ -170,7 +175,6 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "selection",
-  clearScreen: true,
 });
 
 // Pre-'playerChoice' instructions
@@ -197,7 +201,9 @@ timeline.push({
       </Grommet>
     ),
   ],
-  allow_keys: false,
+  allow_keys: Configuration.manipulations.useAlternateInput,
+  key_forward: BINDINGS.NEXT,
+  key_backward: BINDINGS.PREVIOUS,
   show_page_number: true,
   show_clickable_nav: true,
 });
@@ -214,7 +220,6 @@ timeline.push({
   display: "playerChoicePractice",
   answer: "",
   isPractice: true,
-  clearScreen: false,
 });
 
 timeline.push({
@@ -228,7 +233,6 @@ timeline.push({
   display: "playerChoicePractice",
   answer: "",
   isPractice: true,
-  clearScreen: false,
 });
 
 timeline.push({
@@ -242,7 +246,6 @@ timeline.push({
   display: "playerChoicePractice",
   answer: "",
   isPractice: true,
-  clearScreen: true,
 });
 
 // Post-'playerChoice' instructions
@@ -266,7 +269,9 @@ timeline.push({
       </Grommet>
     ),
   ],
-  allow_keys: false,
+  allow_keys: Configuration.manipulations.useAlternateInput,
+  key_forward: BINDINGS.NEXT,
+  key_backward: BINDINGS.PREVIOUS,
   show_page_number: true,
   show_clickable_nav: true,
 });
@@ -274,25 +279,33 @@ timeline.push({
 // Attention check question
 timeline.push({
   type: "attention-check",
+  style: "radio",
   prompt:
     "In this stage of the game, who will be choosing the " +
     "number of points that you and your partner get?",
-  responses: [
-    { value: "My partner", key: null, correct: false },
-    { value: "Me", key: null, correct: true },
-    { value: "By lottery", key: null, correct: false },
-  ],
-  style: "radio",
-  continue: {
-    confirm: false,
-    key: null,
-  },
+  responses: ["My partner", "Me", "By lottery"],
+  correct: 1,
   feedback: {
     correct:
       "Correct! You will be choosing the points you and your partner get.",
     incorrect:
       "Incorrect. You will be choosing the points. Please review the following instructions.",
   },
+  input_schema: {
+    select:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.SELECT
+        : null,
+    next:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.NEXT
+        : null,
+    previous:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.PREVIOUS
+        : null,
+  },
+  confirm_continue: false,
 });
 
 timeline.push({
@@ -300,7 +313,9 @@ timeline.push({
     {
       type: "instructions",
       pages: phaseOneInstructions,
-      allow_keys: false,
+      allow_keys: Configuration.manipulations.useAlternateInput,
+      key_forward: BINDINGS.NEXT,
+      key_backward: BINDINGS.PREVIOUS,
       show_page_number: true,
       show_clickable_nav: true,
     },
@@ -318,23 +333,32 @@ timeline.push({
 
 timeline.push({
   type: "attention-check",
+  style: "radio",
   prompt:
     "How many points do you need to earn across all three phases of the game to be entered into the bonus lottery?",
-  responses: [
-    { value: "1000", key: null, correct: true },
-    { value: "500", key: null, correct: false },
-  ],
-  style: "radio",
-  continue: {
-    confirm: false,
-    key: null,
-  },
+  responses: ["1000", "500", "By lottery"],
+  correct: 0,
   feedback: {
     correct:
       "Correct! You need to earn 1000 points across all three phases of the game to be entered into the bonus lottery.",
     incorrect:
       "Incorrect. You need to earn 1000 points across all three phases of the game to be entered into the bonus lottery. Please review the following instructions.",
   },
+  input_schema: {
+    select:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.SELECT
+        : null,
+    next:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.NEXT
+        : null,
+    previous:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.PREVIOUS
+        : null,
+  },
+  confirm_continue: false,
 });
 
 timeline.push({
@@ -342,7 +366,9 @@ timeline.push({
     {
       type: "instructions",
       pages: phaseOneInstructions,
-      allow_keys: false,
+      allow_keys: Configuration.manipulations.useAlternateInput,
+      key_forward: BINDINGS.NEXT,
+      key_backward: BINDINGS.PREVIOUS,
       show_page_number: true,
       show_clickable_nav: true,
     },
@@ -379,7 +405,9 @@ timeline.push({
       </Grommet>
     ),
   ],
-  allow_keys: false,
+  allow_keys: Configuration.manipulations.useAlternateInput,
+  key_forward: BINDINGS.NEXT,
+  key_backward: BINDINGS.PREVIOUS,
   show_page_number: true,
   show_clickable_nav: true,
 });
@@ -394,7 +422,6 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "matched",
-  clearScreen: true,
 });
 
 // Set and store the data colelction
@@ -439,9 +466,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         trial.trial = stageOneCounter;
         stageOneCounter++;
       }
-
-      // Set the final trial to clear the screen before moving to instructions
-      stageOneTrials[stageOneTrials.length - 1].clearScreen = true;
 
       // Push trials to the timeline
       timeline.push(...stageOneTrials);
@@ -509,7 +533,9 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "instructions",
         pages: phaseTwoInstructions,
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.NEXT,
+        key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
         show_clickable_nav: true,
       });
@@ -526,7 +552,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         display: "playerGuessPractice",
         answer: "Option 1",
         isPractice: true,
-        clearScreen: false,
       });
 
       timeline.push({
@@ -540,7 +565,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         display: "playerGuessPractice",
         answer: "Option 1",
         isPractice: true,
-        clearScreen: false,
       });
 
       timeline.push({
@@ -554,7 +578,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         display: "playerGuessPractice",
         answer: "Option 1",
         isPractice: true,
-        clearScreen: true,
       });
 
       // Post-'playerGuess' practice instructions
@@ -578,7 +601,9 @@ for (let i = 0; i < dataCollection.length; i++) {
             </Grommet>
           ),
         ],
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.NEXT,
+        key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
         show_clickable_nav: true,
       });
@@ -586,25 +611,33 @@ for (let i = 0; i < dataCollection.length; i++) {
       // Attention check question
       timeline.push({
         type: "attention-check",
+        style: "radio",
         prompt:
           "In this part of task, " +
           "who will be choosing the points you and your partner get?",
-        responses: [
-          { value: "Me", key: null, correct: false },
-          { value: "By lottery", key: null, correct: false },
-          { value: "My partner", key: null, correct: true },
-        ],
-        style: "radio",
-        continue: {
-          confirm: false,
-          key: null,
-        },
+        responses: ["Me", "By lottery", "My partner"],
+        correct: 2,
         feedback: {
           correct:
             "Correct! Your partner will be choosing the points you and your partner get.",
           incorrect:
             "Incorrect. Your partner will be choosing the points. Please review the following instructions.",
         },
+        input_schema: {
+          select:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.SELECT
+              : null,
+          next:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.NEXT
+              : null,
+          previous:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.PREVIOUS
+              : null,
+        },
+        confirm_continue: false,
       });
 
       timeline.push({
@@ -612,7 +645,9 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseTwoInstructions,
-            allow_keys: false,
+            allow_keys: Configuration.manipulations.useAlternateInput,
+            key_forward: BINDINGS.NEXT,
+            key_backward: BINDINGS.PREVIOUS,
             show_page_number: true,
             show_clickable_nav: true,
           },
@@ -630,33 +665,35 @@ for (let i = 0; i < dataCollection.length; i++) {
 
       timeline.push({
         type: "attention-check",
+        style: "radio",
         prompt:
           "What multiplier will be added to your total correct predictions about your partner?",
         responses: [
-          {
-            value:
-              "My total correct answers will be multiplied by 5 and added to my points.",
-            key: null,
-            correct: false,
-          },
-          {
-            value:
-              "My total correct answers will be multiplied by 10 and added to my points.",
-            key: null,
-            correct: true,
-          },
+          "My total correct answers will be multiplied by 5 and added to my points.",
+          "My total correct answers will be multiplied by 10 and added to my points.",
         ],
-        style: "radio",
-        continue: {
-          confirm: false,
-          key: null,
-        },
+        correct: 1,
         feedback: {
           correct:
             "Correct! Your total correct answers will be multiplied by 10 and added to your points.",
           incorrect:
             "Incorrect. Your total correct answers will be multiplied by 10 and added to your points. Please review the following instructions.",
         },
+        input_schema: {
+          select:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.SELECT
+              : null,
+          next:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.NEXT
+              : null,
+          previous:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.PREVIOUS
+              : null,
+        },
+        confirm_continue: false,
       });
 
       timeline.push({
@@ -664,7 +701,9 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseTwoInstructions,
-            allow_keys: false,
+            allow_keys: Configuration.manipulations.useAlternateInput,
+            key_forward: BINDINGS.NEXT,
+            key_backward: BINDINGS.PREVIOUS,
             show_page_number: true,
             show_clickable_nav: true,
           },
@@ -701,7 +740,9 @@ for (let i = 0; i < dataCollection.length; i++) {
             </Grommet>
           ),
         ],
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.NEXT,
+        key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
         show_clickable_nav: true,
       });
@@ -716,7 +757,6 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "matched",
-        clearScreen: true,
       });
 
       break;
@@ -741,7 +781,6 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "classification",
-        clearScreen: true,
       });
 
       const phaseThreeInstructions = [
@@ -779,34 +818,44 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "instructions",
         pages: phaseThreeInstructions,
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.NEXT,
+        key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
         show_clickable_nav: true,
       });
 
       timeline.push({
         type: "attention-check",
+        style: "radio",
         prompt:
           "Who is going to be your interaction partner in this next phase?",
         responses: [
-          { value: "A new anonymous partner.", key: null, correct: true },
-          {
-            value: "My partner from the last phase.",
-            key: null,
-            correct: false,
-          },
+          "A new anonymous partner.",
+          "My partner from the last phase.",
         ],
-        style: "radio",
-        continue: {
-          confirm: false,
-          key: null,
-        },
+        correct: 0,
         feedback: {
           correct:
             "Correct! You will be interacting with a new anonymous partner in this next phase.",
           incorrect:
             "Incorrect. You will be interacting with a new anonymous partner in this next phase. Please review the following instructions.",
         },
+        input_schema: {
+          select:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.SELECT
+              : null,
+          next:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.NEXT
+              : null,
+          previous:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.PREVIOUS
+              : null,
+        },
+        confirm_continue: false,
       });
 
       timeline.push({
@@ -814,7 +863,9 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseThreeInstructions,
-            allow_keys: false,
+            allow_keys: Configuration.manipulations.useAlternateInput,
+            key_forward: BINDINGS.NEXT,
+            key_backward: BINDINGS.PREVIOUS,
             show_page_number: true,
             show_clickable_nav: true,
           },
@@ -851,7 +902,9 @@ for (let i = 0; i < dataCollection.length; i++) {
             </Grommet>
           ),
         ],
-        allow_keys: false,
+        allow_keys: Configuration.manipulations.useAlternateInput,
+        key_forward: BINDINGS.NEXT,
+        key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
         show_clickable_nav: true,
       });
@@ -866,7 +919,6 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "matched",
-        clearScreen: true,
       });
 
       break;
@@ -884,7 +936,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         typeTwo: row.Type2,
         display: row.display,
         answer: row.ANSWER,
-        clearScreen: false,
       });
       break;
     }
@@ -900,7 +951,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         typeTwo: row.Type2,
         display: row.display,
         answer: row.ANSWER,
-        clearScreen: false,
       });
       break;
     }
@@ -916,7 +966,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         typeTwo: row.Type2,
         display: row.display,
         answer: row.ANSWER,
-        clearScreen: false,
       });
       break;
     }
@@ -932,7 +981,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         typeTwo: row.Type2,
         display: row.display,
         answer: row.ANSWER,
-        clearScreen: false,
       });
       break;
     }
@@ -958,14 +1006,12 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "agency",
-  clearScreen: false,
 });
 
 // End screen
 timeline.push({
   type: Configuration.studyName,
   display: "end",
-  clearScreen: true,
 });
 
 // Configure and start the experiment
