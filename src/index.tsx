@@ -292,9 +292,18 @@ timeline.push({
       "Incorrect. You will be choosing the points. Please review the following instructions.",
   },
   input_schema: {
-    select: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.SELECT : null,
-    next: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.NEXT : null,
-    previous: Configuration.manipulations.useAlternateInput === true ? BINDINGS.PREVIOUS : null,
+    select:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.SELECT
+        : null,
+    next:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.NEXT
+        : null,
+    previous:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.PREVIOUS
+        : null,
   },
   confirm_continue: false,
 });
@@ -336,9 +345,18 @@ timeline.push({
       "Incorrect. You need to earn 1000 points across all three phases of the game to be entered into the bonus lottery. Please review the following instructions.",
   },
   input_schema: {
-    select: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.SELECT : null,
-    next: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.NEXT : null,
-    previous: Configuration.manipulations.useAlternateInput === true ? BINDINGS.PREVIOUS : null,
+    select:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.SELECT
+        : null,
+    next:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.NEXT
+        : null,
+    previous:
+      Configuration.manipulations.useAlternateInput === true
+        ? BINDINGS.PREVIOUS
+        : null,
   },
   confirm_continue: false,
 });
@@ -606,9 +624,18 @@ for (let i = 0; i < dataCollection.length; i++) {
             "Incorrect. Your partner will be choosing the points. Please review the following instructions.",
         },
         input_schema: {
-          select: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.SELECT : null,
-          next: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.NEXT : null,
-          previous: Configuration.manipulations.useAlternateInput === true ? BINDINGS.PREVIOUS : null,
+          select:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.SELECT
+              : null,
+          next:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.NEXT
+              : null,
+          previous:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.PREVIOUS
+              : null,
         },
         confirm_continue: false,
       });
@@ -653,9 +680,18 @@ for (let i = 0; i < dataCollection.length; i++) {
             "Incorrect. Your total correct answers will be multiplied by 10 and added to your points. Please review the following instructions.",
         },
         input_schema: {
-          select: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.SELECT : null,
-          next: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.NEXT : null,
-          previous: Configuration.manipulations.useAlternateInput === true ? BINDINGS.PREVIOUS : null,
+          select:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.SELECT
+              : null,
+          next:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.NEXT
+              : null,
+          previous:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.PREVIOUS
+              : null,
         },
         confirm_continue: false,
       });
@@ -806,9 +842,18 @@ for (let i = 0; i < dataCollection.length; i++) {
             "Incorrect. You will be interacting with a new anonymous partner in this next phase. Please review the following instructions.",
         },
         input_schema: {
-          select: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.SELECT : null,
-          next: Configuration.manipulations.useAlternateInput === true  ? BINDINGS.NEXT : null,
-          previous: Configuration.manipulations.useAlternateInput === true ? BINDINGS.PREVIOUS : null,
+          select:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.SELECT
+              : null,
+          next:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.NEXT
+              : null,
+          previous:
+            Configuration.manipulations.useAlternateInput === true
+              ? BINDINGS.PREVIOUS
+              : null,
         },
         confirm_continue: false,
       });

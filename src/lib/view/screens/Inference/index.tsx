@@ -124,10 +124,15 @@ const Inference: FC<Props.Screens.Inference> = (
           points in this task.
         </Paragraph>
         <Box
-          border={
-            { color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 0 &&
-              !elementFocused ? "selectedElement" : "transparent", size: "large" }
-          }
+          border={{
+            color:
+              Configuration.manipulations.useAlternateInput === true &&
+              selectedElementIndex === 0 &&
+              !elementFocused
+                ? "selectedElement"
+                : "transparent",
+            size: "large",
+          }}
           pad={"xsmall"}
           round
         >
@@ -152,10 +157,15 @@ const Inference: FC<Props.Screens.Inference> = (
           your bonus in this task.
         </Paragraph>
         <Box
-          border={
-            { color: Configuration.manipulations.useAlternateInput === true && selectedElementIndex === 1 &&
-              !elementFocused ? "selectedElement" : "transparent", size: "large" }
-          }
+          border={{
+            color:
+              Configuration.manipulations.useAlternateInput === true &&
+              selectedElementIndex === 1 &&
+              !elementFocused
+                ? "selectedElement"
+                : "transparent",
+            size: "large",
+          }}
           pad={"xsmall"}
           round
         >
@@ -177,13 +187,14 @@ const Inference: FC<Props.Screens.Inference> = (
         <Box
           margin={"none"}
           pad={"none"}
-          border={
-            {
-              color: Configuration.manipulations.useAlternateInput === true &&
-            selectedElementIndex === 2 ? "selectedElement" : "transparent",
-              size: "large",
-            }
-          }
+          border={{
+            color:
+              Configuration.manipulations.useAlternateInput === true &&
+              selectedElementIndex === 2
+                ? "selectedElement"
+                : "transparent",
+            size: "large",
+          }}
           style={
             Configuration.manipulations.useAlternateInput === true &&
             selectedElementIndex === 2

@@ -33,7 +33,9 @@ const Slider: FC<Props.Components.Slider> = (
       gap={"medium"}
       width={"xlarge"}
     >
-      <Heading level={3} size={"small"}>{props.leftLabel}</Heading>
+      <Heading level={3} size={"small"}>
+        {props.leftLabel}
+      </Heading>
       <Box
         width={"100%"}
         margin={"none"}
@@ -63,7 +65,9 @@ const Slider: FC<Props.Components.Slider> = (
           }}
         />
       </Box>
-      <Heading level={3} size={"small"}>{props.rightLabel}</Heading>
+      <Heading level={3} size={"small"}>
+        {props.rightLabel}
+      </Heading>
     </Box>
   );
 };
