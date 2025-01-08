@@ -44,10 +44,7 @@ class View {
    * @param {ScreenProps} props collection of props for that specific
    * screen
    */
-  public display(
-    type: Display,
-    props: ScreenProps,
-  ): void {
+  public display(type: Display, props: ScreenProps): void {
     // Render the 'Wrapper' component
     this.root.render(<Wrapper display={type} props={props.props} />);
 

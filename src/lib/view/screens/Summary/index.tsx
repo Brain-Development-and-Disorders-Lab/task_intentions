@@ -14,7 +14,7 @@ import React, { FC, ReactElement, useState } from "react";
 import consola from "consola";
 
 // Grommet UI components
-import { Box, Button, Heading, Layer, WorldMap } from "grommet";
+import { Box, Button, Heading, Keyboard, Layer, WorldMap } from "grommet";
 import { LinkNext } from "grommet-icons";
 
 // Confetti
@@ -29,6 +29,9 @@ import { Configuration } from "src/configuration";
 // Utility functions
 import { calculatePoints } from "src/lib/util";
 import useWindowSize from "react-use/lib/useWindowSize";
+
+// Keyboard input bindings
+import { BINDINGS } from "src/lib/bindings";
 
 /**
  * @summary Generate a 'Summary' screen with two cards displaying each avatar
@@ -58,40 +61,66 @@ const Summary: FC<Props.Screens.Summary> = (
   const { width, height } = useWindowSize();
   const [runConfetti, setRunConfetti] = useState(true);
 
+  /**
+   * Handle keyboard input from user interaction
+   * @param {React.KeyboardEvent<HTMLElement>} event Keyboard input event
+   */
+  const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+    // Disable keyboard input if not enabled in configuration
+    if (Configuration.manipulations.useAlternateInput === false) return;
+
+    // Avoid holding the key down
+    if (event.repeat) return;
+    event.preventDefault();
+
+    if (event.key.toString() === BINDINGS.SELECT) {
+      // Run the handler function
+      props.handler();
+    }
+  };
+
   return (
-    <>
+    <Keyboard onKeyDown={inputHandler} target={"document"}>
       <Confetti width={width} height={height} run={runConfetti} />
       <WorldMap color="map" fill="horizontal" />
       <Layer plain>
-        <Box direction="column" justify="center" width={{ min: "large" }} fill>
+        <Box
+          justify={"center"}
+          align={"center"}
+          gap={"small"}
+        >
           {/* Heading */}
           <Heading
             level="1"
             fill
             alignSelf="center"
-            margin={{
-              top: "large",
-            }}
+            margin={"xsmall"}
           >
             Summary
           </Heading>
 
           {/* Participant */}
-          <Card
-            gridArea="participantArea"
-            name="You"
-            avatar={Configuration.avatars.names.participant[participantAvatar]}
-            points={participantPoints}
-          />
+          <Box width={"medium"} margin={"xsmall"}>
+            <Card
+              gridArea="participantArea"
+              name="You"
+              avatar={Configuration.avatars.names.participant[participantAvatar]}
+              points={participantPoints}
+            />
+          </Box>
 
           {/* Continue button */}
-          <Box justify="center" align="center" margin="small">
+          <Box
+            margin={"none"}
+            pad={"none"}
+            border={{ color: Configuration.manipulations.useAlternateInput === true ? "selectedElement" : "transparent", size: "large" }}
+            style={Configuration.manipulations.useAlternateInput === true ? { borderRadius: "36px "} : {}}
+            round
+          >
             <Button
               primary
               color="button"
               label="Continue"
-              size="large"
-              margin="medium"
               icon={<LinkNext />}
               reverse
               onClick={() => {
@@ -105,7 +134,7 @@ const Summary: FC<Props.Screens.Summary> = (
           </Box>
         </Box>
       </Layer>
-    </>
+    </Keyboard>
   );
 };
 

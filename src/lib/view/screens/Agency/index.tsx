@@ -134,7 +134,6 @@ const Agency: FC<Props.Screens.Agency> = (
               // Disabled until slider has been interacted with
               sliderMoved === false
             }
-            size="large"
             icon={<LinkNext />}
             reverse
             onClick={() => {
