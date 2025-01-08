@@ -7202,10 +7202,10 @@ json5@^2.1.2, json5@^2.2.3:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
-jspsych-attention-check@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/jspsych-attention-check/-/jspsych-attention-check-2.1.1.tgz#29b62d52d83c96a1874b4c4e661610fa6de6e15e"
-  integrity sha512-Aogu0FzVWtrmJizawdFco+iRWItVoI1WZATQrnZnda5Y8CTe2oYwYNp+8zYSYH3pW1awINAFXI5kBo6UkmVaeg==
+jspsych-attention-check@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jspsych-attention-check/-/jspsych-attention-check-2.2.0.tgz#cafa7aa8dc55a8f851d00b2eae28e14893179b03"
+  integrity sha512-/wbopWabxGBgNnWTxwtWNc+wNe0+qz2cW4zxP/jAkSaNw+as9Z+fcdAKdYk5zmIHU0lI5+aSjaC1GxGC7M7BQg==
   dependencies:
     grommet "^2.24.0"
     grommet-icons "^4.7.0"

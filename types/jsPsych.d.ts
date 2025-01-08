@@ -43,10 +43,17 @@ declare type TimelineNode = {
 
   // Attention-check plugin
   prompt?: string;
-  responses?: { value: string; key: string | null; correct: boolean }[];
   style?: "default" | "radio";
-  continue?: { confirm: boolean; key: string | null };
+  responses?: string[];
+  correct?: number;
   feedback?: { correct: string; incorrect: string };
+  input_timeout?: number;
+  input_schema?: {
+    select: string | null;
+    next: string | null;
+    previous: string | null;
+  };
+  confirm_continue?: boolean;
 
   // Loop nodes
   timeline?: any[];
