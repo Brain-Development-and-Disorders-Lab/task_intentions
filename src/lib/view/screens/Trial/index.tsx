@@ -77,11 +77,12 @@ const Trial: FC<Props.Screens.Trial> = (
   const [showOverlay, setShowOverlay] = useState(false);
 
   // Trial state
-  const [trialState, setTrialState] = useState({
+  let trialState: TrialState = {
     hasSelected: false,
     highlightedOptionIndex: 0,
     selectedOption: "Option 1",
-  } as TrialState);
+    answer: props.answer,
+  };
 
   // Transition activity state
   const [transitionActive, setTransitionActive] = useState(false);
@@ -96,9 +97,6 @@ const Trial: FC<Props.Screens.Trial> = (
     optionOne: useRef(null),
     optionTwo: useRef(null),
   };
-
-  // Store the correct answer, this changes in some practice trials
-  let answer = props.answer;
 
   // Store the option configuration
   const DEFAULT_POINTS = {
@@ -150,7 +148,7 @@ const Trial: FC<Props.Screens.Trial> = (
       DEFAULT_POINTS.options.two.partner = trialData["par2"];
 
       // Update the correct answer
-      answer = trialData["Ac"] === 1 ? "Option 1" : "Option 2";
+      trialState.answer = trialData["Ac"] === 1 ? "Option 1" : "Option 2";
     } else {
       consola.warn(`'playerGuess' trial state data incomplete, using defaults`);
     }
@@ -190,31 +188,25 @@ const Trial: FC<Props.Screens.Trial> = (
    */
   const handleOptionClick = (option: "Option 1" | "Option 2") => {
     if (trialState.hasSelected === false) {
+      // Update the selected option
+      trialState.hasSelected = true;
+      trialState.selectedOption = option;
+
       // Points to apply
       let participantPoints = "";
       let partnerPoints = "";
 
-      // Check what Phase is running
+      // Allocate points based on the correct answer
       if (props.display.toLowerCase().includes("guess")) {
-        // 'playerGuess' trials update points from the correct choice
-        if (props.display === "playerGuessPractice") {
-          // Change the 'correct' answer depending on probability
-          if (experiment.random() < 0.2) {
-            // Change the 'correct' answer to the opposite of
-            // what was selected
-            answer = option === "Option 1" ? "Option 2" : "Option 1";
-          }
-        }
-
         // Participant points
         participantPoints =
-          answer === "Option 1"
+          trialState.answer === "Option 1"
             ? displayPoints.options.one.participant.toString()
             : displayPoints.options.two.participant.toString();
 
         // Partner points
         partnerPoints =
-          answer === "Option 1"
+          trialState.answer === "Option 1"
             ? displayPoints.options.one.partner.toString()
             : displayPoints.options.two.partner.toString();
       } else {
@@ -237,7 +229,7 @@ const Trial: FC<Props.Screens.Trial> = (
       setPartnerPoints(partnerPoints);
 
       // Sum the number of correct answers for the phase
-      const correctCountInitial = jsPsych.data
+      const correctCount = jsPsych.data
         .get()
         .filter({
           display: props.display,
@@ -245,14 +237,11 @@ const Trial: FC<Props.Screens.Trial> = (
         .select("correctGuess")
         .sum();
 
-      if (option === answer) {
-        setCorrectCount(correctCountInitial + 1);
+      if (option === trialState.answer) {
+        setCorrectCount(correctCount + 1);
       } else {
-        setCorrectCount(correctCountInitial);
+        setCorrectCount(correctCount);
       }
-
-      // Update the selection state
-      setTrialState((trialState) => ({ ...trialState, hasSelected: true }));
 
       if (
         props.isPractice === false ||
@@ -277,14 +266,15 @@ const Trial: FC<Props.Screens.Trial> = (
     setTransitionActive(false);
 
     // Bubble the selection handler with selection and answer
-    props.handler(trialState.selectedOption, DEFAULT_POINTS, answer);
+    props.handler(trialState.selectedOption, DEFAULT_POINTS, trialState.answer);
 
     // Reset the trial state
-    setTrialState({
+    trialState = {
       hasSelected: false,
       highlightedOptionIndex: 0,
       selectedOption: "Option 1",
-    } as TrialState);
+      answer: props.answer,
+    };
   };
 
   /**
@@ -312,7 +302,7 @@ const Trial: FC<Props.Screens.Trial> = (
       trialState.selectedOption === "Option 1" ? optionOneNode : optionTwoNode;
     const unselectedNode =
       selectedNode === optionOneNode ? optionTwoNode : optionOneNode;
-    const correctSelection = trialState.selectedOption === answer;
+    const correctSelection = trialState.selectedOption === trialState.answer;
 
     // Check the stage of the trial
     switch (props.display) {
@@ -425,17 +415,11 @@ const Trial: FC<Props.Screens.Trial> = (
       if (trialState.hasSelected === false) {
         // Update the state based on the keypress
         if (trialState.highlightedOptionIndex === 0) {
-          setTrialState((trialState) => ({
-            ...trialState,
-            selectedOption: "Option 2",
-            highlightedOptionIndex: 1,
-          }));
+          trialState.selectedOption = "Option 2";
+          trialState.highlightedOptionIndex = 1;
         } else {
-          setTrialState((trialState) => ({
-            ...trialState,
-            selectedOption: "Option 1",
-            highlightedOptionIndex: 0,
-          }));
+          trialState.selectedOption = "Option 1";
+          trialState.highlightedOptionIndex = 0;
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -517,15 +501,15 @@ const Trial: FC<Props.Screens.Trial> = (
         content = (
           <Box pad="xsmall" align="center" width="large" gap="xsmall">
             <Text size="medium" margin="small">
-              {trialState.selectedOption === answer
+              {trialState.selectedOption === trialState.answer
                 ? "Correct! "
                 : "Incorrect. "}
-              Your partner chose <b>{answer}</b>. That means you get{" "}
-              {answer === "Option 1"
+              Your partner chose <b>{trialState.answer}</b>. That means you get{" "}
+              {trialState.answer === "Option 1"
                 ? displayPoints.options.one.participant
                 : displayPoints.options.two.participant}{" "}
               points and your partner gets{" "}
-              {answer === "Option 1"
+              {trialState.answer === "Option 1"
                 ? displayPoints.options.one.partner
                 : displayPoints.options.two.partner}{" "}
               points.
