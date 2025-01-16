@@ -30,10 +30,16 @@ import { Configuration } from "src/configuration";
 import { BINDINGS } from "src/lib/bindings";
 
 /**
- * @summary Generate a 'Trial' screen with two options and avatar cards on
- * the left and right of the options
- * @param {Props.Screens.Trial} props collection of props
- * @return {ReactElement} 'Trial' screen
+ * Trial screen component that displays two options and avatar cards
+ * @component
+ * @param {Props.Screens.Trial} props - Component props
+ * @param {string} props.display - Type of trial display ("playerGuess", "playerChoice", etc)
+ * @param {boolean} props.isPractice - Whether this is a practice trial
+ * @param {string} props.answer - The correct answer for guess trials
+ * @param {Object} props.options - Configuration for the two options
+ * @param {number} props.trial - Current trial number
+ * @param {Function} props.handler - Callback function when trial completes
+ * @returns {ReactElement} Trial screen component
  */
 const Trial: FC<Props.Screens.Trial> = (
   props: Props.Screens.Trial
@@ -58,13 +64,20 @@ const Trial: FC<Props.Screens.Trial> = (
   const [partnerPoints, setPartnerPoints] = useState("");
 
   // Number of correct answers
-  const [correctCount, setCorrectCount] = useState(0);
+  const initialCorrectCount = jsPsych.data
+    .get()
+    .filter({
+      display: props.display,
+    })
+    .select("correctGuess")
+    .sum();
+  const [correctCount, setCorrectCount] = useState(initialCorrectCount);
 
   // Overlay visibility state
   const [showOverlay, setShowOverlay] = useState(false);
 
   // Initial trial state
-  const initialTrialState: TrialState = {
+  const trialState: TrialState = {
     hasSelected: false,
     highlightedOptionIndex: 0,
     selectedOption: "Option 1",
@@ -73,19 +86,14 @@ const Trial: FC<Props.Screens.Trial> = (
 
   // If this is a practice trial, randomly change the answer
   if (props.display.startsWith("playerGuess") && props.isPractice) {
-    initialTrialState.answer = Math.random() > 0.5 ? "Option 1" : "Option 2";
+    trialState.answer = Math.random() > 0.5 ? "Option 1" : "Option 2";
   }
-
-  // Trial state
-  const [trialState, setTrialState] = useState<TrialState>(initialTrialState);
 
   // Transition activity state
   const [transitionActive, setTransitionActive] = useState(false);
 
   // Content of the overlay
-  const [overlayContent, setOverlayContent] = useState(
-    <Text>Oops! There should be content here.</Text>
-  );
+  const [overlayContent, setOverlayContent] = useState<ReactElement | null>(null);
 
   // Create references for each Option
   const refs = {
@@ -94,7 +102,7 @@ const Trial: FC<Props.Screens.Trial> = (
   };
 
   // Store the option configuration
-  const defaultPoints = {
+  const DEFAULT_POINTS = {
     options: {
       one: {
         participant: props.options.one.participant,
@@ -137,18 +145,46 @@ const Trial: FC<Props.Screens.Trial> = (
       displayPoints.options.two.partner = trialData["ppt2"];
 
       // Update default points
-      defaultPoints.options.one.participant = trialData["ppt1"];
-      defaultPoints.options.one.partner = trialData["par1"];
-      defaultPoints.options.two.participant = trialData["ppt2"];
-      defaultPoints.options.two.partner = trialData["par2"];
+      DEFAULT_POINTS.options.one.participant = trialData["ppt1"];
+      DEFAULT_POINTS.options.one.partner = trialData["par1"];
+      DEFAULT_POINTS.options.two.participant = trialData["ppt2"];
+      DEFAULT_POINTS.options.two.partner = trialData["par2"];
     } else {
       consola.warn(`'playerGuess' trial state data incomplete, using defaults`);
     }
   }
 
+  // Partner avatar
+  let partnerAvatar: string;
+  if (props.display.toLowerCase().endsWith("practice")) {
+    partnerAvatar = "example";
+  } else {
+    // Get the global state of the partner avatar
+    partnerAvatar =
+      Configuration.avatars.names.partner[
+        experiment.getState().get("partnerAvatar")
+      ];
+
+    // Update state to refresh partner avatar at next match screen
+    if (experiment.getState().get("refreshPartner") === false) {
+      experiment.getState().set("refreshPartner", true);
+    }
+  }
+
   /**
-   * Handle the selection of an option
-   * @param option Specific option select by player
+   * Handles the selection of an option during a trial
+   * @param {("Option 1" | "Option 2")} option - The selected option identifier
+   * @description
+   * This function manages the logic when a player selects an option during a trial:
+   * - For guess trials:
+   *   - In practice mode, may randomly change the correct answer (20% chance)
+   *   - Updates points based on the correct answer
+   * - For choice trials:
+   *   - Updates points based on the selected option
+   * - Updates participant and partner point displays
+   * - Tracks correct answer count
+   * - Updates trial state
+   * - Either transitions to next trial or shows practice overlay
    */
   const handleOptionClick = (option: "Option 1" | "Option 2") => {
     if (trialState.hasSelected === false) {
@@ -204,7 +240,9 @@ const Trial: FC<Props.Screens.Trial> = (
       }
 
       // Update the selection state
-      setTrialState((trialState) => ({ ...trialState, hasSelected: true }));
+      trialState.selectedOption = option;
+      trialState.highlightedOptionIndex = option === "Option 1" ? 0 : 1;
+      trialState.hasSelected = true;
 
       if (
         props.isPractice === false ||
@@ -213,7 +251,7 @@ const Trial: FC<Props.Screens.Trial> = (
         // Begin the transition to the next trial
         transition();
       } else {
-        // Update and display the overlay
+        // Display the overlay
         setOverlayContent(getOverlayContent());
         setShowOverlay(props.isPractice);
       }
@@ -222,21 +260,20 @@ const Trial: FC<Props.Screens.Trial> = (
 
   /**
    * Helper function to end the trial
+   * Updates transition state, calls handler with selection data, and resets trial state
    */
   const endTrial = (): void => {
     // Update the transition activity state
     setTransitionActive(false);
 
     // Bubble the selection handler with selection and answer
-    props.handler(trialState.selectedOption, defaultPoints, trialState.answer);
+    props.handler(trialState.selectedOption, DEFAULT_POINTS, trialState.answer);
 
     // Reset the trial state
-    setTrialState({
-      hasSelected: false,
-      highlightedOptionIndex: 0,
-      selectedOption: "Option 1",
-      answer: "Option 1",
-    });
+    trialState.hasSelected = false;
+    trialState.highlightedOptionIndex = 0;
+    trialState.selectedOption = "Option 1";
+    trialState.answer = "Option 1";
   };
 
   /**
@@ -376,17 +413,11 @@ const Trial: FC<Props.Screens.Trial> = (
       if (trialState.hasSelected === false) {
         // Update the state based on the keypress
         if (trialState.highlightedOptionIndex === 0) {
-          setTrialState((trialState) => ({
-            ...trialState,
-            selectedOption: "Option 2",
-            highlightedOptionIndex: 1,
-          }));
+          trialState.selectedOption = "Option 2";
+          trialState.highlightedOptionIndex = 1;
         } else {
-          setTrialState((trialState) => ({
-            ...trialState,
-            selectedOption: "Option 1",
-            highlightedOptionIndex: 0,
-          }));
+          trialState.selectedOption = "Option 1";
+          trialState.highlightedOptionIndex = 0;
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -408,14 +439,49 @@ const Trial: FC<Props.Screens.Trial> = (
    * @return {ReactElement}
    */
   const getOverlayContent = (): ReactElement => {
-    let content: ReactElement = <></>;
-
     switch (props.display) {
+      case "playerGuess":
+      case "playerGuessPractice": {
+        return (
+          <Box pad="xsmall" align="center" width="large" gap="xsmall">
+            <Text size="medium" margin="small">
+              {trialState.selectedOption === trialState.answer
+                ? "Correct! "
+                : "Incorrect. "}
+              Your partner chose <b>{trialState.answer}</b>. That means you get{" "}
+              {trialState.answer === "Option 1"
+                ? displayPoints.options.one.participant
+                : displayPoints.options.two.participant}{" "}
+              points and your partner gets{" "}
+              {trialState.answer === "Option 1"
+                ? displayPoints.options.one.partner
+                : displayPoints.options.two.partner}{" "}
+              points.
+            </Text>
+
+            {/* Continue button */}
+            <Button
+              primary
+              color="button"
+              label="Continue"
+              size="medium"
+              margin="small"
+              icon={<LinkNext />}
+              reverse
+              onClick={() => {
+                // Invoke the inter-trial transition
+                transition();
+              }}
+            />
+          </Box>
+        );
+      }
       // Simple choice of the player
       case "playerChoice":
       case "playerChoicePractice":
-      case "playerChoice2": {
-        content = (
+      case "playerChoice2":
+      default: {
+        return (
           <Box pad="xsmall" align="center" width="large" gap="xsmall">
             <Text size="medium" margin="small">
               You chose <b>{trialState.selectedOption}</b>. That means you get{" "}
@@ -462,66 +528,9 @@ const Trial: FC<Props.Screens.Trial> = (
             </Box>
           </Box>
         );
-        break;
-      }
-      case "playerGuess":
-      case "playerGuessPractice": {
-        content = (
-          <Box pad="xsmall" align="center" width="large" gap="xsmall">
-            <Text size="medium" margin="small">
-              {trialState.selectedOption === trialState.answer
-                ? "Correct! "
-                : "Incorrect. "}
-              Your partner chose <b>{trialState.answer}</b>. That means you get{" "}
-              {trialState.answer === "Option 1"
-                ? displayPoints.options.one.participant
-                : displayPoints.options.two.participant}{" "}
-              points and your partner gets{" "}
-              {trialState.answer === "Option 1"
-                ? displayPoints.options.one.partner
-                : displayPoints.options.two.partner}{" "}
-              points.
-            </Text>
-
-            {/* Continue button */}
-            <Button
-              primary
-              color="button"
-              label="Continue"
-              size="medium"
-              margin="small"
-              icon={<LinkNext />}
-              reverse
-              onClick={() => {
-                // Invoke the inter-trial transition
-                transition();
-              }}
-            />
-          </Box>
-        );
-        break;
       }
     }
-
-    return content;
   };
-
-  // Partner avatar
-  let partnerAvatar: string;
-  if (props.display.toLowerCase().endsWith("practice")) {
-    partnerAvatar = "example";
-  } else {
-    // Get the global state of the partner avatar
-    partnerAvatar =
-      Configuration.avatars.names.partner[
-        experiment.getState().get("partnerAvatar")
-      ];
-
-    // Update state to refresh partner avatar at next match screen
-    if (experiment.getState().get("refreshPartner") === false) {
-      experiment.getState().set("refreshPartner", true);
-    }
-  }
 
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
