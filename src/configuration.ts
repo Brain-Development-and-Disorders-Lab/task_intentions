@@ -43,7 +43,6 @@ export const Configuration = {
     partnerAvatar: 0,
     refreshPartner: false,
     partnerChoices: {},
-    signalTimestamps: [],
   },
 
   // Enable the tutorial overlay
