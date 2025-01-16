@@ -6,7 +6,14 @@
  */
 
 // React import
-import React, { FC, ReactElement, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  FC,
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 // Logging library
 import consola from "consola";

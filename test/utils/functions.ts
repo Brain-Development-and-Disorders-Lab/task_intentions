@@ -65,6 +65,7 @@ export const getHandler = (display: Display): Handler => {
       server_beta_par: NaN,
       server_alpha_ppt: NaN,
       server_beta_ppt: NaN,
+      signalTimestamps: [],
     },
     () => {
       return;

@@ -53,8 +53,12 @@ const handleSignal = () => {
   consola.debug("Received signal:", Date.now());
 
   // Append the signal timestamp to the state
-  const collectedSignals = experiment.getState().get("signalTimestamps") as number[];
-  experiment.getState().set("signalTimestamps", [...collectedSignals, Date.now()]);
+  const collectedSignals = experiment
+    .getState()
+    .get("signalTimestamps") as number[];
+  experiment
+    .getState()
+    .set("signalTimestamps", [...collectedSignals, Date.now()]);
 };
 
 // Setup the signal listener

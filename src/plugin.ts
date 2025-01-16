@@ -206,7 +206,9 @@ jsPsych.plugins[Configuration.studyName] = (() => {
 
       if (trial.display === "end") {
         // Add the signal timestamps to the dataframe
-        dataframe.signalTimestamps = experiment.getState().get("signalTimestamps");
+        dataframe.signalTimestamps = experiment
+          .getState()
+          .get("signalTimestamps");
       }
 
       // Finish the jsPsych trial
