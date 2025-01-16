@@ -6,7 +6,7 @@
  */
 
 // React import
-import React, { FC, ReactElement, useRef, useState } from "react";
+import React, { FC, ReactElement, useEffect, useMemo, useRef, useState } from "react";
 
 // Logging library
 import consola from "consola";
@@ -77,7 +77,7 @@ const Trial: FC<Props.Screens.Trial> = (
   const [showOverlay, setShowOverlay] = useState(false);
 
   // Initial trial state
-  const trialState: TrialState = {
+  const initialTrialState: TrialState = {
     hasSelected: false,
     highlightedOptionIndex: 0,
     selectedOption: "Option 1",
@@ -86,14 +86,13 @@ const Trial: FC<Props.Screens.Trial> = (
 
   // If this is a practice trial, randomly change the answer
   if (props.display.startsWith("playerGuess") && props.isPractice) {
-    trialState.answer = Math.random() > 0.5 ? "Option 1" : "Option 2";
+    initialTrialState.answer = Math.random() > 0.5 ? "Option 1" : "Option 2";
   }
+
+  const [trialState, setTrialState] = useState<TrialState>(initialTrialState);
 
   // Transition activity state
   const [transitionActive, setTransitionActive] = useState(false);
-
-  // Content of the overlay
-  const [overlayContent, setOverlayContent] = useState<ReactElement | null>(null);
 
   // Create references for each Option
   const refs = {
@@ -188,6 +187,14 @@ const Trial: FC<Props.Screens.Trial> = (
    */
   const handleOptionClick = (option: "Option 1" | "Option 2") => {
     if (trialState.hasSelected === false) {
+      // Update the selection state
+      setTrialState((trialState) => ({
+        ...trialState,
+        selectedOption: option,
+        highlightedOptionIndex: option === "Option 1" ? 0 : 1,
+        hasSelected: true,
+      }));
+
       // Points to apply
       let participantPoints = "";
       let partnerPoints = "";
@@ -239,20 +246,14 @@ const Trial: FC<Props.Screens.Trial> = (
         setCorrectCount(correctCountInitial);
       }
 
-      // Update the selection state
-      trialState.selectedOption = option;
-      trialState.highlightedOptionIndex = option === "Option 1" ? 0 : 1;
-      trialState.hasSelected = true;
-
       if (
         props.isPractice === false ||
         Configuration.enableTutorialOverlay === false
       ) {
         // Begin the transition to the next trial
-        transition();
+        setTransitionActive(true);
       } else {
         // Display the overlay
-        setOverlayContent(getOverlayContent());
         setShowOverlay(props.isPractice);
       }
     }
@@ -270,18 +271,13 @@ const Trial: FC<Props.Screens.Trial> = (
     props.handler(trialState.selectedOption, DEFAULT_POINTS, trialState.answer);
 
     // Reset the trial state
-    trialState.hasSelected = false;
-    trialState.highlightedOptionIndex = 0;
-    trialState.selectedOption = "Option 1";
-    trialState.answer = "Option 1";
+    setTrialState(initialTrialState);
   };
 
   /**
    * Transition function to end the trial
    */
   const transition = () => {
-    setTransitionActive(true);
-
     // Hide the overlay if shown
     setShowOverlay(false);
 
@@ -413,11 +409,17 @@ const Trial: FC<Props.Screens.Trial> = (
       if (trialState.hasSelected === false) {
         // Update the state based on the keypress
         if (trialState.highlightedOptionIndex === 0) {
-          trialState.selectedOption = "Option 2";
-          trialState.highlightedOptionIndex = 1;
+          setTrialState((trialState) => ({
+            ...trialState,
+            selectedOption: "Option 2",
+            highlightedOptionIndex: 1,
+          }));
         } else {
-          trialState.selectedOption = "Option 1";
-          trialState.highlightedOptionIndex = 0;
+          setTrialState((trialState) => ({
+            ...trialState,
+            selectedOption: "Option 1",
+            highlightedOptionIndex: 0,
+          }));
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -433,12 +435,8 @@ const Trial: FC<Props.Screens.Trial> = (
     }
   };
 
-  /**
-   * Generate and return the content to display in the overlay
-   * shown in practice-type trials
-   * @return {ReactElement}
-   */
-  const getOverlayContent = (): ReactElement => {
+  // Memoized overlay content
+  const overlayContent = useMemo((): ReactElement => {
     switch (props.display) {
       case "playerGuess":
       case "playerGuessPractice": {
@@ -460,19 +458,35 @@ const Trial: FC<Props.Screens.Trial> = (
             </Text>
 
             {/* Continue button */}
-            <Button
-              primary
-              color="button"
-              label="Continue"
-              size="medium"
-              margin="small"
-              icon={<LinkNext />}
-              reverse
-              onClick={() => {
-                // Invoke the inter-trial transition
-                transition();
-              }}
-            />
+            <Box
+              margin={"none"}
+              pad={"none"}
+              border={
+                Configuration.manipulations.useAlternateInput === true && {
+                  color: "selectedElement",
+                  size: "large",
+                }
+              }
+              style={
+                Configuration.manipulations.useAlternateInput === true
+                  ? { borderRadius: "32px " }
+                  : {}
+              }
+              round
+            >
+              <Button
+                primary
+                color="button"
+                label="Continue"
+                size="medium"
+                icon={<LinkNext />}
+                reverse
+                onClick={() => {
+                  // Invoke the inter-trial transition
+                  transition();
+                }}
+              />
+            </Box>
           </Box>
         );
       }
@@ -530,7 +544,15 @@ const Trial: FC<Props.Screens.Trial> = (
         );
       }
     }
-  };
+  }, [trialState.selectedOption]);
+
+  // Invoke the transition if the transition is active and an option has been selected
+  useEffect(() => {
+    if (transitionActive === true && trialState.hasSelected === true) {
+      // Invoke the transition
+      transition();
+    }
+  }, [transitionActive]);
 
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
