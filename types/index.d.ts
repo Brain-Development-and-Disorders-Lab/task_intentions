@@ -112,6 +112,7 @@ declare type TrialState = {
   hasSelected: boolean;
   highlightedOptionIndex: number;
   selectedOption: Options;
+  answer: Options;
 };
 
 // Points storage
