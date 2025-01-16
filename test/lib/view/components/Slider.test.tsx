@@ -20,17 +20,7 @@ import Slider from "src/lib/view/components/Slider";
 expect.extend(toHaveNoViolations);
 
 test("loads and displays Slider component", async () => {
-  render(
-    <Slider
-      min={0}
-      max={100}
-      value={0}
-      setValue={() => {}}
-      isFocused
-      leftLabel="Minimum"
-      rightLabel="Maximum"
-    />
-  );
+  render(<Slider min={0} max={100} value={0} setValue={() => {}} isFocused leftLabel="Minimum" rightLabel="Maximum" />);
 
   await waitFor(() => expect(screen.getByText("Minimum")).toBeInTheDocument());
   await waitFor(() => expect(screen.getByText("Maximum")).toBeInTheDocument());
@@ -38,15 +28,7 @@ test("loads and displays Slider component", async () => {
 
 test("check Slider component accessibility", async () => {
   const { container } = render(
-    <Slider
-      min={0}
-      max={100}
-      value={0}
-      setValue={() => {}}
-      isFocused
-      leftLabel="Minimum"
-      rightLabel="Maximum"
-    />
+    <Slider min={0} max={100} value={0} setValue={() => {}} isFocused leftLabel="Minimum" rightLabel="Maximum" />
   );
 
   await act(async () => {
