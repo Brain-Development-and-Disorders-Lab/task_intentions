@@ -104,7 +104,6 @@ declare type TrialData = {
   server_beta_ppt: number;
   server_alpha_par: number;
   server_beta_par: number;
-  signalTimestamps: number[];
 };
 
 // Type to represent the active state of a trial
