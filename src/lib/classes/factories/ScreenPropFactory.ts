@@ -64,18 +64,19 @@ class ScreenPropFactory implements Factory {
     }
 
     switch (this.trial.display) {
-      // Player choice/guess screens
+      // Phase 1, 2, and 3 trials
       case "playerChoice":
       case "playerChoicePractice":
       case "playerGuess":
       case "playerGuessPractice":
       case "playerChoice2": {
+        // Setup the props
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
           isPractice: this.trial.isPractice,
-          participantPoints,
-          partnerPoints,
+          participantPoints: participantPoints,
+          partnerPoints: partnerPoints,
           options: {
             one: {
               participant: this.trial.optionOneParticipant,
@@ -92,21 +93,29 @@ class ScreenPropFactory implements Factory {
         break;
       }
 
-      // Timed screens with callbacks
+      // Matched screen
       case "matched":
-      case "end": {
-        returned.duration = this.trial.display === "matched" ? 2000 : 5000;
+        returned.duration = 2000;
+
+        // Set the timeout callback function
         returned.callback = this.handler.callback.bind(this.handler);
+
+        // Setup the props
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
         };
         break;
-      }
 
-      case "matching": {
+      // Matching screen
+      case "matching":
+        // Random timeout for 'matching' process
         returned.duration = 10000 + (1 + Math.random() * 5) * 1000;
+
+        // Set the timeout callback function
         returned.callback = this.handler.callback.bind(this.handler);
+
+        // Setup the props
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
@@ -114,36 +123,79 @@ class ScreenPropFactory implements Factory {
           handler: this.handler.matching.bind(this.handler),
         };
         break;
-      }
 
-      // Simple handler screens
+      // Selection screen
       case "selection":
-      case "inference":
-      case "agency":
-      case "classification": {
+        // Setup the props
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
-          handler: this.handler[this.trial.display].bind(this.handler),
+          handler: this.handler.selection.bind(this.handler),
         };
         break;
-      }
 
-      case "summary": {
+      // Inference screen
+      case "inference":
+        // Setup the props
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
-          postPhase,
+          handler: this.handler.inference.bind(this.handler),
+        };
+        break;
+
+      // Agency screen
+      case "agency":
+        // Setup the props
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          handler: this.handler.agency.bind(this.handler),
+        };
+        break;
+
+      // Classification screen
+      case "classification":
+        // Setup the props
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          handler: this.handler.classification.bind(this.handler),
+        };
+        break;
+
+      // Summary screen
+      case "summary":
+        // Setup the props
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          postPhase: postPhase,
           handler: this.handler.callback.bind(this.handler),
         };
         break;
-      }
 
-      default: {
+      // End screen
+      case "end":
+        // Set the timeout duration
+        returned.duration = 5000;
+
+        // Set the timeout callback function
+        returned.callback = this.handler.callback.bind(this.handler);
+
+        // Setup the props
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+        };
+        break;
+
+      // Default error state
+      default:
+        // Log an error message and finish the trial
         consola.error(`Unknown trial stage '${this.trial.display}'`);
         this.handler.callback();
         break;
-      }
     }
     return returned;
   }

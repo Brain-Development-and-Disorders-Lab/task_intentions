@@ -6,7 +6,14 @@
  */
 
 // React import
-import React, { FC, ReactElement, useRef, useState } from "react";
+import React, {
+  FC,
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 // Logging library
 import consola from "consola";
@@ -76,21 +83,23 @@ const Trial: FC<Props.Screens.Trial> = (
   // Overlay visibility state
   const [showOverlay, setShowOverlay] = useState(false);
 
-  // Trial state
-  let trialState: TrialState = {
+  // Initial trial state
+  const initialTrialState: TrialState = {
     hasSelected: false,
     highlightedOptionIndex: 0,
     selectedOption: "Option 1",
     answer: props.answer,
   };
 
+  // If this is a practice trial, randomly change the answer
+  if (props.display.startsWith("playerGuess") && props.isPractice) {
+    initialTrialState.answer = Math.random() > 0.5 ? "Option 1" : "Option 2";
+  }
+
+  const [trialState, setTrialState] = useState<TrialState>(initialTrialState);
+
   // Transition activity state
   const [transitionActive, setTransitionActive] = useState(false);
-
-  // Content of the overlay
-  const [overlayContent, setOverlayContent] = useState(
-    <Text>Oops! There should be content here.</Text>
-  );
 
   // Create references for each Option
   const refs = {
@@ -146,9 +155,6 @@ const Trial: FC<Props.Screens.Trial> = (
       DEFAULT_POINTS.options.one.partner = trialData["par1"];
       DEFAULT_POINTS.options.two.participant = trialData["ppt2"];
       DEFAULT_POINTS.options.two.partner = trialData["par2"];
-
-      // Update the correct answer
-      trialState.answer = trialData["Ac"] === 1 ? "Option 1" : "Option 2";
     } else {
       consola.warn(`'playerGuess' trial state data incomplete, using defaults`);
     }
@@ -188,15 +194,19 @@ const Trial: FC<Props.Screens.Trial> = (
    */
   const handleOptionClick = (option: "Option 1" | "Option 2") => {
     if (trialState.hasSelected === false) {
-      // Update the selected option
-      trialState.hasSelected = true;
-      trialState.selectedOption = option;
+      // Update the selection state
+      setTrialState((trialState) => ({
+        ...trialState,
+        selectedOption: option,
+        highlightedOptionIndex: option === "Option 1" ? 0 : 1,
+        hasSelected: true,
+      }));
 
       // Points to apply
       let participantPoints = "";
       let partnerPoints = "";
 
-      // Allocate points based on the correct answer
+      // Check what Phase is running
       if (props.display.toLowerCase().includes("guess")) {
         // Participant points
         participantPoints =
@@ -229,7 +239,7 @@ const Trial: FC<Props.Screens.Trial> = (
       setPartnerPoints(partnerPoints);
 
       // Sum the number of correct answers for the phase
-      const correctCount = jsPsych.data
+      const correctCountInitial = jsPsych.data
         .get()
         .filter({
           display: props.display,
@@ -238,9 +248,9 @@ const Trial: FC<Props.Screens.Trial> = (
         .sum();
 
       if (option === trialState.answer) {
-        setCorrectCount(correctCount + 1);
+        setCorrectCount(correctCountInitial + 1);
       } else {
-        setCorrectCount(correctCount);
+        setCorrectCount(correctCountInitial);
       }
 
       if (
@@ -248,10 +258,9 @@ const Trial: FC<Props.Screens.Trial> = (
         Configuration.enableTutorialOverlay === false
       ) {
         // Begin the transition to the next trial
-        transition();
+        setTransitionActive(true);
       } else {
-        // Update and display the overlay
-        setOverlayContent(getOverlayContent());
+        // Display the overlay
         setShowOverlay(props.isPractice);
       }
     }
@@ -269,21 +278,13 @@ const Trial: FC<Props.Screens.Trial> = (
     props.handler(trialState.selectedOption, DEFAULT_POINTS, trialState.answer);
 
     // Reset the trial state
-    trialState = {
-      hasSelected: false,
-      highlightedOptionIndex: 0,
-      selectedOption: "Option 1",
-      answer: props.answer,
-    };
+    setTrialState(initialTrialState);
   };
 
   /**
-   * Handles the transition animation between trials
-   * Manages opacity changes and timing of option displays before ending trial
+   * Transition function to end the trial
    */
   const transition = () => {
-    setTransitionActive(true);
-
     // Hide the overlay if shown
     setShowOverlay(false);
 
@@ -393,8 +394,8 @@ const Trial: FC<Props.Screens.Trial> = (
   };
 
   /**
-   * Handles keyboard input for trial navigation and selection
-   * @param {React.KeyboardEvent<HTMLElement>} event - Keyboard event
+   * Handle keyboard input from user interaction
+   * @param {React.KeyboardEvent<HTMLElement>} event Keyboard input event
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration or if transition active
@@ -415,11 +416,17 @@ const Trial: FC<Props.Screens.Trial> = (
       if (trialState.hasSelected === false) {
         // Update the state based on the keypress
         if (trialState.highlightedOptionIndex === 0) {
-          trialState.selectedOption = "Option 2";
-          trialState.highlightedOptionIndex = 1;
+          setTrialState((trialState) => ({
+            ...trialState,
+            selectedOption: "Option 2",
+            highlightedOptionIndex: 1,
+          }));
         } else {
-          trialState.selectedOption = "Option 1";
-          trialState.highlightedOptionIndex = 0;
+          setTrialState((trialState) => ({
+            ...trialState,
+            selectedOption: "Option 1",
+            highlightedOptionIndex: 0,
+          }));
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -435,19 +442,67 @@ const Trial: FC<Props.Screens.Trial> = (
     }
   };
 
-  /**
-   * Generates content for the practice trial overlay
-   * @returns {ReactElement} Overlay content based on trial type
-   */
-  const getOverlayContent = (): ReactElement => {
-    let content: ReactElement = <></>;
-
+  // Memoized overlay content
+  const overlayContent = useMemo((): ReactElement => {
     switch (props.display) {
+      case "playerGuess":
+      case "playerGuessPractice": {
+        return (
+          <Box pad="xsmall" align="center" width="large" gap="xsmall">
+            <Text size="medium" margin="small">
+              {trialState.selectedOption === trialState.answer
+                ? "Correct! "
+                : "Incorrect. "}
+              Your partner chose <b>{trialState.answer}</b>. That means you get{" "}
+              {trialState.answer === "Option 1"
+                ? displayPoints.options.one.participant
+                : displayPoints.options.two.participant}{" "}
+              points and your partner gets{" "}
+              {trialState.answer === "Option 1"
+                ? displayPoints.options.one.partner
+                : displayPoints.options.two.partner}{" "}
+              points.
+            </Text>
+
+            {/* Continue button */}
+            <Box
+              margin={"none"}
+              pad={"none"}
+              border={
+                Configuration.manipulations.useAlternateInput === true && {
+                  color: "selectedElement",
+                  size: "large",
+                }
+              }
+              style={
+                Configuration.manipulations.useAlternateInput === true
+                  ? { borderRadius: "32px " }
+                  : {}
+              }
+              round
+            >
+              <Button
+                primary
+                color="button"
+                label="Continue"
+                size="medium"
+                icon={<LinkNext />}
+                reverse
+                onClick={() => {
+                  // Invoke the inter-trial transition
+                  transition();
+                }}
+              />
+            </Box>
+          </Box>
+        );
+      }
       // Simple choice of the player
       case "playerChoice":
       case "playerChoicePractice":
-      case "playerChoice2": {
-        content = (
+      case "playerChoice2":
+      default: {
+        return (
           <Box pad="xsmall" align="center" width="large" gap="xsmall">
             <Text size="medium" margin="small">
               You chose <b>{trialState.selectedOption}</b>. That means you get{" "}
@@ -494,49 +549,17 @@ const Trial: FC<Props.Screens.Trial> = (
             </Box>
           </Box>
         );
-        break;
-      }
-      case "playerGuess":
-      case "playerGuessPractice": {
-        content = (
-          <Box pad="xsmall" align="center" width="large" gap="xsmall">
-            <Text size="medium" margin="small">
-              {trialState.selectedOption === trialState.answer
-                ? "Correct! "
-                : "Incorrect. "}
-              Your partner chose <b>{trialState.answer}</b>. That means you get{" "}
-              {trialState.answer === "Option 1"
-                ? displayPoints.options.one.participant
-                : displayPoints.options.two.participant}{" "}
-              points and your partner gets{" "}
-              {trialState.answer === "Option 1"
-                ? displayPoints.options.one.partner
-                : displayPoints.options.two.partner}{" "}
-              points.
-            </Text>
-
-            {/* Continue button */}
-            <Button
-              primary
-              color="button"
-              label="Continue"
-              size="medium"
-              margin="small"
-              icon={<LinkNext />}
-              reverse
-              onClick={() => {
-                // Invoke the inter-trial transition
-                transition();
-              }}
-            />
-          </Box>
-        );
-        break;
       }
     }
+  }, [trialState.selectedOption]);
 
-    return content;
-  };
+  // Invoke the transition if the transition is active and an option has been selected
+  useEffect(() => {
+    if (transitionActive === true && trialState.hasSelected === true) {
+      // Invoke the transition
+      transition();
+    }
+  }, [transitionActive]);
 
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>

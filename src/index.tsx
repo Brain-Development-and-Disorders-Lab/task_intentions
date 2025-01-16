@@ -44,6 +44,30 @@ import "./plugin";
 
 // Create a new Experiment instance
 const experiment = new Experiment(Configuration);
+consola.info("Experiment start:", new Date().toISOString());
+
+/**
+ * Handle the signal event, store in jsPsych data
+ */
+const handleSignal = () => {
+  consola.debug("Received signal:", Date.now());
+
+  // Append the signal timestamp to the state
+  const collectedSignals = experiment
+    .getState()
+    .get("signalTimestamps") as number[];
+  experiment
+    .getState()
+    .set("signalTimestamps", [...collectedSignals, Date.now()]);
+};
+
+// Setup the signal listener
+document.addEventListener("keydown", (event) => {
+  if (event.repeat) return;
+  if (event.key === BINDINGS.SIGNAL) {
+    handleSignal();
+  }
+});
 
 // Timeline setup
 const timeline: Timeline = [];
