@@ -10,9 +10,7 @@ module.exports = () => {
     devtool: "inline-source-map",
     devServer: {
       static: [
-        path.join(__dirname, "dist"),
-        path.join(__dirname, "img"),
-        path.join(__dirname, "src/data")
+        path.join(__dirname, "data")
       ],
       hot: true,
     },

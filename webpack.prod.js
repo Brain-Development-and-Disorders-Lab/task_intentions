@@ -10,7 +10,9 @@ module.exports = () => {
     devtool: "inline-source-map",
     plugins: [
       new CopyPlugin({
-        patterns: [{ from: "src/data/packages", to: "packages" }],
+        patterns: [
+          { from: "data" },
+        ],
       }),
     ],
   });
