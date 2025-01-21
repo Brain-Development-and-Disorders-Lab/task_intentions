@@ -25,6 +25,7 @@ export const Configuration = {
     partner: "test",
     requireID: false,
     useAlternateInput: false,
+    useOfflinePackages: true,
   },
 
   // Collection of any stimuli used in the trials

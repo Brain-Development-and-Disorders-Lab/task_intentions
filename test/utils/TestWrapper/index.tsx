@@ -11,7 +11,7 @@ import React, { FC } from "react";
 import { Grommet, ThemeContext } from "grommet";
 
 // Custom theming
-import { Theme } from "src/lib/theme";
+import { Theme } from "src/theme";
 
 // Define the 'Wrapper' UI component
 const TestWrapper: FC<any> = ({ children }) => {

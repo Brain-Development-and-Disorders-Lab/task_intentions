@@ -13,9 +13,9 @@ import consola from "consola";
 import { Configuration } from "./configuration";
 
 // Core modules
-import ScreenPropFactory from "src/lib/classes/factories/ScreenPropFactory";
-import View from "src/lib/view";
-import Handler from "src/lib/classes/Handler";
+import ScreenPropFactory from "src/classes/factories/ScreenPropFactory";
+import View from "src/view";
+import Handler from "src/classes/Handler";
 
 jsPsych.plugins[Configuration.studyName] = (() => {
   const plugin = {
