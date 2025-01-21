@@ -1,5 +1,5 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const { merge } = require("webpack-merge");
+const common = require("./webpack.common.js");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = () => {
@@ -10,9 +10,7 @@ module.exports = () => {
     devtool: "inline-source-map",
     plugins: [
       new CopyPlugin({
-        patterns: [
-          { from: "data" },
-        ],
+        patterns: [{ from: "data" }],
       }),
     ],
   });
