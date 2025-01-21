@@ -1,5 +1,6 @@
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = () => {
   return merge(common, {
@@ -7,5 +8,10 @@ module.exports = () => {
     mode: "production",
     target: ["web", "es5"],
     devtool: "inline-source-map",
+    plugins: [
+      new CopyPlugin({
+        patterns: [{ from: "src/data/packages", to: "packages" }],
+      }),
+    ],
   });
 };
