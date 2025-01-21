@@ -52,7 +52,7 @@ The server uses Python and R to generate partner behavior for a phase of the tas
 
 The task includes a `packages` directory containing all required R packages. To use these packages, set the `useOfflinePackages` manipulation within `Configuration.ts` to `true`. Each package was built and prepared using the [rwasm](https://r-wasm.github.io/rwasm/articles/rwasm.html) tool.
 
-Use the `yarn build` command to build the client with the offline packages. To run the task, use the `yarn start` command or run an instance of `http-server` in the `dist` directory.
+Use the `yarn build` command to build the client with the offline packages, build output is placed in the `dist` directory. To run the task, use the `yarn start` command or run an instance of `http-server` using the `dist` directory.
 
 ## License
 
