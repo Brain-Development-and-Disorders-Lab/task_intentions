@@ -6,9 +6,41 @@
 // Logging library
 import consola from "consola";
 
+// Experiment configuration
+import { Configuration } from "src/configuration";
+
 // R runtime library
 import { WebR } from "webr";
 import { WebRDataJsNode } from "webr/dist/webR/robj";
+
+// Location of repository storing R packages
+const REPOSITORY = "http://localhost:8080/packages";
+
+// R script to install all required packages from an offline location
+const INSTALL_PACKAGES = `webr::install("matlab", repos = "${REPOSITORY}")
+webr::install("codetools", repos = "${REPOSITORY}")
+webr::install("iterators", repos = "${REPOSITORY}")
+webr::install("jsonlite", repos = "${REPOSITORY}")
+webr::install("foreach", repos = "${REPOSITORY}")
+webr::install("doParallel", repos = "${REPOSITORY}")
+webr::install("cli", repos = "${REPOSITORY}")
+webr::install("generics", repos = "${REPOSITORY}")
+webr::install("glue", repos = "${REPOSITORY}")
+webr::install("lifecycle", repos = "${REPOSITORY}")
+webr::install("magrittr", repos = "${REPOSITORY}")
+webr::install("pillar", repos = "${REPOSITORY}")
+webr::install("R6", repos = "${REPOSITORY}")
+webr::install("rlang", repos = "${REPOSITORY}")
+webr::install("tibble", repos = "${REPOSITORY}")
+webr::install("tidyselect", repos = "${REPOSITORY}")
+webr::install("utf8", repos = "${REPOSITORY}")
+webr::install("fansi", repos = "${REPOSITORY}")
+webr::install("vctrs", repos = "${REPOSITORY}")
+webr::install("pkgconfig", repos = "${REPOSITORY}")
+webr::install("withr", repos = "${REPOSITORY}")
+webr::install("dplyr", repos = "${REPOSITORY}")
+webr::install("logger", repos = "${REPOSITORY}")
+`;
 
 // CSV data to inform model
 const MODEL_DATA = `,ID,Trial,Option1_PPT,Option1_Partner,Option2_PPT,Option2_Partner,PPTActions,Action,Correct,FixActions,Phase
@@ -743,14 +775,26 @@ class Compute {
     // Initialize the WebR instance
     await this.webR.init();
 
-    // Install required packages and evaluate the script
-    await this.webR.installPackages([
-      "matlab",
-      "jsonlite",
-      "doParallel",
-      "dplyr",
-      "logger",
-    ]);
+    if (Configuration.manipulations.useOfflinePackages) {
+      consola.start("Using offline packages...");
+      try {
+        await this.webR.evalR(INSTALL_PACKAGES);
+        consola.success("Offline packages installed successfully");
+      } catch (error) {
+        consola.error(error);
+      }
+    } else {
+      // Install required packages and evaluate the script
+      consola.start("Using online packages...");
+      await this.webR.installPackages([
+        "matlab",
+        "jsonlite",
+        "doParallel",
+        "dplyr",
+        "logger",
+      ]);
+    }
+
     await this.webR.evalR(FUNCTIONS);
   }
 
