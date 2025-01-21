@@ -12,7 +12,7 @@ import { render, RenderOptions, RenderResult } from "@testing-library/react";
 import TestWrapper from "./TestWrapper";
 
 // Handler class
-import Handler from "src/lib/classes/Handler";
+import Handler from "src/classes/Handler";
 
 /**
  * Generate a Trial configuration for test use

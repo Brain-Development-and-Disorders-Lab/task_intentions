@@ -17,15 +17,15 @@ import { Box, Grommet, Heading, Paragraph } from "grommet";
 import { Configuration } from "./configuration";
 
 // Import data spreadsheets
-import Default from "./data/default.csv";
-import Test from "./data/test.csv";
+import Default from "../data/default.csv";
+import Test from "../data/test.csv";
 
 // Utility functions
-import { react2html } from "./lib/util";
+import { react2html } from "./util";
 import { shuffle } from "d3-array";
 
 // Custom input bindings
-import { BINDINGS } from "./lib/bindings";
+import { BINDINGS } from "./bindings";
 
 // Logging library
 import consola from "consola";
@@ -45,6 +45,11 @@ import "./plugin";
 // Create a new Experiment instance
 const experiment = new Experiment(Configuration);
 consola.info("Experiment start:", new Date().toISOString());
+
+// TESTING ONLY
+import Compute from "./classes/Compute";
+const compute = new Compute();
+await compute.setup();
 
 /**
  * Handle the signal event, store in jsPsych data
