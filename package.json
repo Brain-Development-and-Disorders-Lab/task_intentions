@@ -7,9 +7,9 @@
   "types": "types/index.d.ts",
   "scripts": {
     "clean": "gulp clean",
-    "build": "webpack --config webpack.production.js",
+    "build": "webpack --config webpack.prod.js",
     "lint": "prettier --write .",
-    "start": "webpack serve --config webpack.development.js",
+    "start": "webpack serve --config webpack.dev.js",
     "test": "jest"
   },
   "repository": {
@@ -75,6 +75,7 @@
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0",
+    "webpack-merge": "^6.0.1",
     "webpack-obfuscator": "^3.5.1"
   },
   "dependencies": {
