@@ -15,19 +15,30 @@ After installing Yarn, run `yarn` in the top-level repository directory to insta
 
 The server uses Python and R to generate partner behavior for a phase of the task. To run the server, the following packages are required:
 
-**Required R packages:**
+**Required R packages (including dependencies):**
 
+- `codetools`
+- `iterators`
+- `jsonlite`
+- `foreach`
 - `doParallel`
+- `cli`
+- `generics`
+- `glue`
+- `lifecycle`
+- `magrittr`
+- `pillar`
+- `R6`
+- `rlang`
+- `tibble`
+- `tidyselect`
+- `utf8`
+- `fansi`
+- `vctrs`
+- `pkgconfig`
+- `withr`
 - `dplyr`
-- `matlab`
-- `tidyverse`
-
-**Required Python packages:**
-
-- `rpy2`
-- `pandas`
-- `flask`
-- `flask_cors`
+- `logger`
 
 ## Development
 
@@ -36,6 +47,10 @@ The server uses Python and R to generate partner behavior for a phase of the tas
 - `yarn lint`: Run the client source code through ESLint to check for any style violations.
 - `yarn start`: Start a Webpack HMR-compatible development server to preview the client locally on [localhost:8080](http://localhost:8080).
 - `yarn test`: Run all client tests.
+
+### Offline Usage
+
+The task includes a `packages` directory containing all required R packages. To use these packages, set the `useOfflinePackages` manipulation within `Configuration.ts` to `true`. Each package was built and prepared using the [rwasm](https://r-wasm.github.io/rwasm/articles/rwasm.html) tool.
 
 ## License
 
