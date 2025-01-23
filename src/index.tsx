@@ -46,11 +46,6 @@ import "./plugin";
 const experiment = new Experiment(Configuration);
 consola.info("Experiment start:", new Date().toISOString());
 
-// TESTING ONLY
-import Compute from "./classes/Compute";
-const compute = new Compute();
-await compute.setup();
-
 /**
  * Handle the signal event, store in jsPsych data
  */
