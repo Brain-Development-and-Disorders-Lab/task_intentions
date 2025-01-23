@@ -95,6 +95,48 @@ if (Configuration.fullscreen === true) {
   });
 }
 
+if (Configuration.manipulations.useAlternateInput === true) {
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box align={"center"} gap={"small"}>
+            <Heading level={1} fill>
+              Instructions
+            </Heading>
+
+            <Paragraph size={"large"} fill>
+              When interacting with the game interface, the currently selected element will be highlighted with a gray outline. An example is shown below:
+            </Paragraph>
+
+            <Box width={"fit-content"} pad={"xsmall"} round border={{ color: "lightgray", size: "large" }} alignSelf={"center"}>
+              <Paragraph margin={"small"} size={"large"} fill>
+                <b>Element</b>
+              </Paragraph>
+            </Box>
+
+            <Paragraph size={"large"} fill>
+              To interact with interface elements, use the following buttons:<br/>
+              <Box alignSelf={"center"}>
+                <Paragraph size={"large"} textAlign={"start"}>
+                  <b>Button {BINDINGS.PREVIOUS}</b> selects the <b>previous</b> element;<br/>
+                  <b>Button {BINDINGS.NEXT}</b> selects the <b>next</b> element; and<br/>
+                  <b>Button {BINDINGS.SELECT}</b> interacts with the <b>currently selected</b> element.
+                </Paragraph>
+              </Box>
+            </Paragraph>
+
+            <Paragraph size={"large"} fill>
+              When viewing instruction screens (e.g. this one), <b>Button {BINDINGS.NEXT}</b> continues to the next page and <b>Button {BINDINGS.PREVIOUS}</b> returns to the previous page.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+  });
+}
+
 const phaseOneInstructions = [
   // Overall instructions
   react2html(
