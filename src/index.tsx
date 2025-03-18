@@ -21,7 +21,7 @@ import Default from "../data/default.csv";
 import Test from "../data/test.csv";
 
 // Utility functions
-import { react2html } from "./util";
+import { initializeLocalStorage, react2html } from "./util";
 import { shuffle } from "d3-array";
 
 // Custom input bindings
@@ -29,6 +29,9 @@ import { BINDINGS } from "./bindings";
 
 // Logging library
 import consola from "consola";
+
+// Generate unique identifiers
+import { v4 as uuidv4 } from "uuid";
 
 // Import crossplatform API
 import { Experiment } from "neurocog";
@@ -68,6 +71,11 @@ document.addEventListener("keydown", (event) => {
     handleSignal();
   }
 });
+
+// Generate a unique identifier for this experiment run
+const experimentID = `${Configuration.studyName}-${uuidv4()}`;
+experiment.getState().set("experimentID", experimentID);
+initializeLocalStorage(experimentID);
 
 // Timeline setup
 const timeline: Timeline = [];

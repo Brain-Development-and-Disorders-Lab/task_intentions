@@ -145,3 +145,11 @@ declare type ModelResponse = {
 declare type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;
 };
+
+// Backup storage object
+declare type BackupStorage = {
+  experimentID: string;
+  timestamp: number;
+  completed: boolean;
+  data: any[];
+};

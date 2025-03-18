@@ -26,6 +26,7 @@ export const Configuration = {
     requireID: false,
     useAlternateInput: false,
     useOfflinePackages: true,
+    disablePreviousExperimentPrompt: true,
   },
 
   // Collection of any stimuli used in the trials
@@ -45,6 +46,7 @@ export const Configuration = {
     refreshPartner: false,
     partnerChoices: {},
     signalTimestamps: [],
+    experimentID: "",
   },
 
   // Enable the tutorial overlay
