@@ -12,6 +12,9 @@ import { renderToString } from "react-dom/server";
 // Logging
 import consola from "consola";
 
+// Experiment configuration
+import { Configuration } from "./configuration";
+
 /**
  * Calculate the points gained from all prior trials of a specific display type
  * @param {Display} display the type of display to calculate total points from
@@ -91,46 +94,90 @@ export const react2html = (element: ReactElement): string => {
 };
 
 /**
- * Get task data from local storage
- * @param {string} key the key being used by the experiment
- * @return {any} the data associated with the key
+ * Retrieve the task data from local storage
+ * @return {BackupStorage[]} the data associated with the experiment
  */
-export const getLocalStorage = (key: string) => {
-  const data = localStorage.getItem(key);
+export const getLocalStorage = (): BackupStorage[] => {
+  const data = localStorage.getItem(Configuration.studyName);
   if (!data) {
     consola.warn("No data has been stored for this experiment");
-    return null;
+    return [];
   }
   return JSON.parse(data);
 };
 
 /**
  * Initialize the local storage for a new experiment
- * @param {string} key the key being used by the experiment
+ * @param {string} id the experiment ID
  */
-export const initializeLocalStorage = (key: string) => {
-  const storage: BackupStorage = {
-    experimentID: key,
+export const initializeLocalStorage = (id: string) => {
+  // Get the list of existing experiments
+  const stored: BackupStorage[] = getLocalStorage();
+  if (stored.length > 0) {
+    consola.info("Existing experiments:", stored);
+    // Run a check to see if the most recent experiment has already been completed
+    if (stored.length > 0 && !stored[stored.length - 1].completed) {
+      consola.warn("Previous experiment was not completed");
+    }
+  }
+
+  // Add the new experiment to the list and store
+  const experiment: BackupStorage = {
+    experimentID: id,
     timestamp: Date.now(),
     completed: false,
-    data: {},
+    data: [],
   };
-  localStorage.setItem(key, JSON.stringify(storage));
-  consola.info(`Local storage initialized for experiment: ${key}`);
+  stored.push(experiment);
+  localStorage.setItem(Configuration.studyName, JSON.stringify(stored));
+  consola.info(`Local storage initialized for experiment ID: ${experiment.experimentID}`);
 };
 
 /**
- * Save data to local storage
- * @param {string} key the key being used by the experiment
- * @param {any} data the data to store
+ * Save data to the experiment's backup storage
+ * @param {string} id the experiment ID
+ * @param {any} data the jsPsych data object to store
  */
-export const saveToLocalStorage = (key: string, data: any) => {
-  const storage = getLocalStorage(key);
-  if (!storage) {
-    consola.error(`No local storage found for experiment: ${key}`);
+export const saveToLocalStorage = (id: string, data: any) => {
+  const stored = getLocalStorage();
+  if (stored.length === 0) {
+    consola.error(`No local storage found for experiment: ${id}`);
     return;
   }
-  storage.data = data;
-  localStorage.setItem(key, JSON.stringify(storage));
-  consola.success(`Data saved to local storage for experiment: ${key}`);
+
+  // Iterate through the list of experiments
+  for (const experiment of stored) {
+    if (experiment.experimentID === id) {
+      // Update the data for the experiment
+      experiment.data.push(data);
+      localStorage.setItem(Configuration.studyName, JSON.stringify(stored));
+      consola.success(`Data saved to local storage for experiment ID: ${id}`);
+      return;
+    }
+  }
+  consola.error(`Unable to save data to local storage for experiment ID: ${id}`);
+};
+
+/**
+ * Toggle the completed flag in local storage
+ * @param {string} id the experiment ID
+ */
+export const setCompleted = (id: string, state: boolean) => {
+  const stored = getLocalStorage();
+  if (stored.length === 0) {
+    consola.error(`No local storage found for experiment: ${id}`);
+    return;
+  }
+
+  // Iterate through the list of experiments
+  for (const experiment of stored) {
+    if (experiment.experimentID === id) {
+      // Update the completed flag
+      experiment.completed = state;
+      localStorage.setItem(Configuration.studyName, JSON.stringify(stored));
+      consola.success(`Completed flag set for experiment ID: ${id}, ${state}`);
+      return;
+    }
+  }
+  consola.error(`Unable to set completed flag for experiment ID: ${id}`);
 };

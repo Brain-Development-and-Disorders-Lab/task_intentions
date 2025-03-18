@@ -151,5 +151,5 @@ declare type BackupStorage = {
   experimentID: string;
   timestamp: number;
   completed: boolean;
-  data: any;
+  data: any[];
 };

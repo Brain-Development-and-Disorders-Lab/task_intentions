@@ -16,7 +16,9 @@ import { Configuration } from "./configuration";
 import ScreenPropFactory from "src/classes/factories/ScreenPropFactory";
 import View from "src/view";
 import Handler from "src/classes/Handler";
-import { saveToLocalStorage } from "./util";
+
+// Utility functions
+import { saveToLocalStorage, setCompleted } from "./util";
 
 jsPsych.plugins[Configuration.studyName] = (() => {
   const plugin = {
@@ -205,15 +207,21 @@ jsPsych.plugins[Configuration.studyName] = (() => {
         return false;
       });
 
+      // Save the dataframe to local storage
+      saveToLocalStorage(experiment.getState().get("experimentID"), dataframe);
+
       if (trial.display === "end") {
         // Add the signal timestamps to the dataframe
         dataframe.signalTimestamps = experiment
           .getState()
           .get("signalTimestamps");
-      }
 
-      // Save the dataframe to local storage
-      saveToLocalStorage(experiment.getState().get("experimentID"), dataframe);
+        // Update the saved dataframe in local storage
+        saveToLocalStorage(experiment.getState().get("experimentID"), dataframe);
+
+        // Toggle the completed flag in the local storage object
+        setCompleted(experiment.getState().get("experimentID"), true);
+      }
 
       // Finish the jsPsych trial
       jsPsych.finishTrial(dataframe);
