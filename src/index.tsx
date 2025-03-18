@@ -46,11 +46,6 @@ import "./plugin";
 const experiment = new Experiment(Configuration);
 consola.info("Experiment start:", new Date().toISOString());
 
-// TESTING ONLY
-import Compute from "./classes/Compute";
-const compute = new Compute();
-await compute.setup();
-
 /**
  * Handle the signal event, store in jsPsych data
  */
@@ -100,7 +95,7 @@ if (Configuration.fullscreen === true) {
   });
 }
 
-const phaseOneInstructions = [
+let phaseOneInstructions = [
   // Overall instructions
   react2html(
     <Grommet>
@@ -188,6 +183,43 @@ const phaseOneInstructions = [
     </Grommet>
   ),
 ];
+
+// Add controls instructions if using alternate input
+if (Configuration.manipulations.useAlternateInput === true) {
+  phaseOneInstructions = [
+    react2html(
+      <Grommet>
+        <Box style={{ maxWidth: "50%", margin: "auto" }}>
+          <Heading level={1} margin={"small"} fill>
+            Instructions
+          </Heading>
+          <Heading level={2} margin="small" fill>
+            Controls
+          </Heading>
+          <Paragraph size={"large"} margin={"small"} fill>
+            When interacting with the game interface, the currently selected element will be highlighted with a gray outline. An example is shown below:
+          </Paragraph>
+          <Box width={"fit-content"} pad={"xsmall"} round border={{ color: "lightgray", size: "large" }} alignSelf={"center"}>
+            <Paragraph margin={"small"} size={"large"} fill>
+              <b>Element</b>
+            </Paragraph>
+          </Box>
+          <Box alignSelf={"center"} margin={"none"}>
+            <Paragraph size={"large"} textAlign={"start"}>
+              <b>Button {BINDINGS.PREVIOUS}</b> selects the <b>previous</b> element;<br/>
+              <b>Button {BINDINGS.NEXT}</b> selects the <b>next</b> element; and<br/>
+              <b>Button {BINDINGS.SELECT}</b> interacts with the <b>currently selected</b> element.<br/>
+            </Paragraph>
+          </Box>
+          <Paragraph size={"large"} margin={"small"}fill>
+            When viewing instruction screens (e.g. this one), <b>Button {BINDINGS.NEXT}</b> continues to the next page and <b>Button {BINDINGS.PREVIOUS}</b> returns to the previous page.
+          </Paragraph>
+        </Box>
+      </Grommet>
+    ),
+    ...phaseOneInstructions,
+  ];
+}
 
 // Insert the instructions into the timeline
 timeline.push({

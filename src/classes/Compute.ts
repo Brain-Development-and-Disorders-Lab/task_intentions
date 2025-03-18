@@ -14,8 +14,8 @@ import { WebR } from "webr";
 import { WebRDataJsNode } from "webr/dist/webR/robj";
 
 // Location of repository storing R packages
-const BASE_URL = "http://localhost:8080/webr-0.4.2/";
-const REPOSITORY_URL = "http://localhost:8080/packages";
+const OFFLINE_BASE_URL = "http://localhost:8080/webr-0.4.2/";
+const OFFLINE_REPOSITORY_URL = "http://localhost:8080/packages";
 
 // R script to install all required packages from an offline location
 const INSTALL_PACKAGES = `webr::install("matlab")
@@ -766,10 +766,10 @@ class Compute {
    */
   constructor() {
     // Initialize the WebR instance with additional options for offline functionality
-    this.webR = new WebR({
-      repoUrl: REPOSITORY_URL, // Used to install packages
-      baseUrl: BASE_URL, // Used to load WebR
-    });
+    this.webR = new WebR(Configuration.manipulations.useOfflinePackages ? {
+      repoUrl: OFFLINE_REPOSITORY_URL, // Used to install packages
+      baseUrl: OFFLINE_BASE_URL, // Used to load WebR
+    } : {});
   }
 
   /**
