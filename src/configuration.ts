@@ -26,6 +26,7 @@ export const Configuration = {
     requireID: false,
     useAlternateInput: false,
     useOfflinePackages: true,
+    disablePreviousExperimentPrompt: true,
   },
 
   // Collection of any stimuli used in the trials

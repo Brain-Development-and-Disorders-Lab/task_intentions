@@ -9,6 +9,9 @@
 import { ReactElement } from "react";
 import { renderToString } from "react-dom/server";
 
+// File saving
+import FileSaver from "file-saver";
+
 // Logging
 import consola from "consola";
 
@@ -118,6 +121,20 @@ export const initializeLocalStorage = (id: string) => {
     // Run a check to see if the most recent experiment has already been completed
     if (stored.length > 0 && !stored[stored.length - 1].completed) {
       consola.warn("Previous experiment was not completed");
+
+      // If the user has not disabled the prompt, show it
+      if (!Configuration.manipulations.disablePreviousExperimentPrompt) {
+        const confirm = window.confirm("The previous experiment was not completed. Click OK to download the data from the previous experiment, or click Cancel to discard the data and continue.");
+        if (confirm) {
+          const data = stored[stored.length - 1];
+          FileSaver.saveAs(
+            new Blob([JSON.stringify(data, null, "  ")], { type: "application/json" }),
+            `${data.experimentID}_data.json`,
+          );
+        } else {
+          consola.warn("Discarding previous experiment data");
+        }
+      }
     }
   }
 
@@ -130,7 +147,7 @@ export const initializeLocalStorage = (id: string) => {
   };
   stored.push(experiment);
   localStorage.setItem(Configuration.studyName, JSON.stringify(stored));
-  consola.info(`Local storage initialized for experiment ID: ${experiment.experimentID}`);
+  consola.info(`Backup initialized for experiment ID: ${experiment.experimentID}`);
 };
 
 /**
@@ -141,7 +158,7 @@ export const initializeLocalStorage = (id: string) => {
 export const saveToLocalStorage = (id: string, data: any) => {
   const stored = getLocalStorage();
   if (stored.length === 0) {
-    consola.error(`No local storage found for experiment: ${id}`);
+    consola.error(`No backup storage found for experiment: ${id}`);
     return;
   }
 
@@ -155,7 +172,7 @@ export const saveToLocalStorage = (id: string, data: any) => {
       return;
     }
   }
-  consola.error(`Unable to save data to local storage for experiment ID: ${id}`);
+  consola.error(`Unable to save data to backup storage for experiment ID: ${id}`);
 };
 
 /**
@@ -165,7 +182,7 @@ export const saveToLocalStorage = (id: string, data: any) => {
 export const setCompleted = (id: string, state: boolean) => {
   const stored = getLocalStorage();
   if (stored.length === 0) {
-    consola.error(`No local storage found for experiment: ${id}`);
+    consola.error(`No backup storage found for experiment: ${id}`);
     return;
   }
 
