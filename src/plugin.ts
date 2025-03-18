@@ -16,6 +16,7 @@ import { Configuration } from "./configuration";
 import ScreenPropFactory from "src/classes/factories/ScreenPropFactory";
 import View from "src/view";
 import Handler from "src/classes/Handler";
+import { saveToLocalStorage } from "./util";
 
 jsPsych.plugins[Configuration.studyName] = (() => {
   const plugin = {
@@ -210,6 +211,9 @@ jsPsych.plugins[Configuration.studyName] = (() => {
           .getState()
           .get("signalTimestamps");
       }
+
+      // Save the dataframe to local storage
+      saveToLocalStorage(experiment.getState().get("experimentID"), dataframe);
 
       // Finish the jsPsych trial
       jsPsych.finishTrial(dataframe);

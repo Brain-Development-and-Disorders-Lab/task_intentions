@@ -9,6 +9,9 @@
 import { ReactElement } from "react";
 import { renderToString } from "react-dom/server";
 
+// Logging
+import consola from "consola";
+
 /**
  * Calculate the points gained from all prior trials of a specific display type
  * @param {Display} display the type of display to calculate total points from
@@ -85,4 +88,49 @@ export const react2html = (element: ReactElement): string => {
   console.error = originalError;
 
   return html;
+};
+
+/**
+ * Get task data from local storage
+ * @param {string} key the key being used by the experiment
+ * @return {any} the data associated with the key
+ */
+export const getLocalStorage = (key: string) => {
+  const data = localStorage.getItem(key);
+  if (!data) {
+    consola.warn("No data has been stored for this experiment");
+    return null;
+  }
+  return JSON.parse(data);
+};
+
+/**
+ * Initialize the local storage for a new experiment
+ * @param {string} key the key being used by the experiment
+ */
+export const initializeLocalStorage = (key: string) => {
+  const storage: BackupStorage = {
+    experimentID: key,
+    timestamp: Date.now(),
+    completed: false,
+    data: {},
+  };
+  localStorage.setItem(key, JSON.stringify(storage));
+  consola.info(`Local storage initialized for experiment: ${key}`);
+};
+
+/**
+ * Save data to local storage
+ * @param {string} key the key being used by the experiment
+ * @param {any} data the data to store
+ */
+export const saveToLocalStorage = (key: string, data: any) => {
+  const storage = getLocalStorage(key);
+  if (!storage) {
+    consola.error(`No local storage found for experiment: ${key}`);
+    return;
+  }
+  storage.data = data;
+  localStorage.setItem(key, JSON.stringify(storage));
+  consola.success(`Data saved to local storage for experiment: ${key}`);
 };

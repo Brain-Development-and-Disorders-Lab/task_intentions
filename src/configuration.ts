@@ -45,6 +45,7 @@ export const Configuration = {
     refreshPartner: false,
     partnerChoices: {},
     signalTimestamps: [],
+    experimentID: "",
   },
 
   // Enable the tutorial overlay
