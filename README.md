@@ -54,6 +54,11 @@ The task includes a `packages` directory containing all required R packages. To 
 
 Use the `yarn build` command to build the client with the offline packages, build output is placed in the `dist` directory. To run the task, use the `yarn start` command or run an instance of `http-server` using the `dist` directory.
 
+## Additional Features
+
+- Alternate input scheme for usage with MRI controllers. Keys `1` and `2` used to move UI selection cursor, `3` used to interact with UI element. Experiment collects `5` key input timestamps (in Unix epoch format) and stores at the end of the data file.
+- Incrementally saving data to `localStorage` for each experiment. In the case of the game crashing or exiting the browser window, the next time the game is accessed, an alert will prompt the user that the previous experiment did not complete and allow them to download the data captured. This feature is disabled by default (for online testing scenarios using Gorilla). It is advisable to enable this feature when the faciliator is physically present to deliver the experiment.
+
 ## License
 
 <!-- CC BY-NC-SA 4.0 License -->
