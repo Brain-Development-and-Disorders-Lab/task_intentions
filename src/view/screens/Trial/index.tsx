@@ -101,6 +101,9 @@ const Trial: FC<Props.Screens.Trial> = (
   // Transition activity state
   const [transitionActive, setTransitionActive] = useState(false);
 
+  // Input blocking state, used during transitions with overlays
+  const [blockInput, setBlockInput] = useState(false);
+
   // Create references for each Option
   const refs = {
     optionOne: useRef(null),
@@ -285,6 +288,9 @@ const Trial: FC<Props.Screens.Trial> = (
    * Transition function to end the trial
    */
   const transition = () => {
+    // Block all submit input events
+    setBlockInput(true);
+
     // Hide the overlay if shown
     setShowOverlay(false);
 
@@ -401,6 +407,7 @@ const Trial: FC<Props.Screens.Trial> = (
     // Disable keyboard input if not enabled in configuration or if transition active
     if (
       Configuration.manipulations.useAlternateInput === false ||
+      blockInput ||
       transitionActive
     )
       return;
