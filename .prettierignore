@@ -1,1 +1,19 @@
-dist
+# Data directory
+data/
+
+# GitHub workflows
+.github/
+
+# Build outputs
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Cache
+.cache/
+.npm/
+
+# Logs
+*.log

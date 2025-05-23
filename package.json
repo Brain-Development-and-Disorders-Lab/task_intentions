@@ -8,7 +8,8 @@
   "scripts": {
     "clean": "gulp clean",
     "build": "webpack --config webpack.prod.js",
-    "lint": "prettier --write .",
+    "lint:check": "prettier --check . && eslint .",
+    "lint:fix": "prettier --write . && eslint . --fix",
     "start": "webpack serve --config webpack.dev.js",
     "test": "jest"
   },
@@ -51,6 +52,7 @@
     "eslint": "^7.22.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^4.3.0",
     "gulp": "^4.0.2",
     "gulp-eslint": "^6.0.0",
