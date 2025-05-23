@@ -20,9 +20,13 @@ import { Configuration } from "src/configuration";
 import { Money } from "grommet-icons";
 
 /**
- * @summary Generate a 'Card' component
- * @param {Props.Components.Card} props component props
- * @return {ReactElement} 'Card' component
+ * @summary Generate a 'Card' component that displays player information including name, avatar and points
+ * @param {Props.Components.Card} props component props containing:
+ *  - name: {string} Display name for the player
+ *  - avatar: {string} Unique identifier for the avatar
+ *  - points: {string} Current points total
+ *  - gridArea: {string} Grid area name for positioning
+ * @return {ReactElement} 'Card' component with player info arranged vertically in a Box
  */
 const Card: FC<Props.Components.Card> = (
   props: Props.Components.Card

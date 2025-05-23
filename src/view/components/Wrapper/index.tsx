@@ -30,10 +30,14 @@ import End from "../../screens/End";
 import Summary from "../../screens/Summary";
 
 /**
- * @summary Generate a 'Wrapper' component
- * @param {Props.Components.Wrapper} props collection of props for the primary
- * child component
- * @return {ReactElement} 'Wrapper' component
+ * @summary Generate a 'Wrapper' component that acts as a container for all React screens and components,
+ * providing Grommet theming and styling context
+ * @param {Props.Components.Wrapper} props Props containing:
+ *  - display: {string} The current screen to display
+ *  - props: {Props.Screens.Trial | Props.Screens.Inference | Props.Screens.Classification |
+ *           Props.Screens.SelectAvatar | Props.Screens.Matched | Props.Screens.Matching |
+ *           Props.Screens.End | Props.Screens.Summary} Props for the child screen component
+ * @return {ReactElement} 'Wrapper' component containing the themed child screen
  */
 const Wrapper: FC<Props.Components.Wrapper> = (
   props: Props.Components.Wrapper

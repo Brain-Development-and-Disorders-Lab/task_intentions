@@ -21,10 +21,10 @@ import { Configuration } from "src/configuration";
 import { BINDINGS } from "src/bindings";
 
 /**
- * @summary Generate a 'Classification' screen containing a dropdown
- * menu with three options, one for each partner type.
- * @param {Props.Screens.Classification} props component props
- * @return {ReactElement} 'Classification' screen
+ * @summary Generate a 'Classification' screen containing radio buttons for participants to classify their partner's behavior
+ * @param {Props.Screens.Classification} props Component props containing:
+ *  - onContinue: {() => void} Callback function when participant continues
+ * @return {ReactElement} 'Classification' screen with radio button options for partner classification
  */
 const Classification: FC<Props.Screens.Classification> = (
   props: Props.Screens.Classification

@@ -26,11 +26,16 @@ import { Configuration } from "src/configuration";
 const SLIDER_DEFAULT = 50;
 
 /**
- * @summary Generate an 'Inference' screen presenting two sliders for
- * participant interaction. Questions accompany each slider, and the
- * sliders require interaction before the continue button is enabled.
- * @param {Props.Screens.Inference} props component props
- * @return {ReactElement} 'Inference' screen
+ * @summary Generate an 'Inference' screen presenting two sliders for participant interaction
+ * @param {Props.Screens.Inference} props Component props containing:
+ *  - firstQuestion: {string} Question text for first slider
+ *  - secondQuestion: {string} Question text for second slider
+ *  - firstLeftLabel: {string} Left label for first slider
+ *  - firstRightLabel: {string} Right label for first slider
+ *  - secondLeftLabel: {string} Left label for second slider
+ *  - secondRightLabel: {string} Right label for second slider
+ *  - onContinue: {() => void} Callback function when participant continues
+ * @return {ReactElement} 'Inference' screen with two interactive sliders and questions
  */
 const Inference: FC<Props.Screens.Inference> = (
   props: Props.Screens.Inference
