@@ -20,11 +20,11 @@ import { Box, Heading, Layer, Spinner, WorldMap } from "grommet";
 import Compute from "src/classes/Compute";
 
 /**
- * @summary Generate a 'Matching' screen presenting a loading indicator and
- * text describing a matching process taking place. Fetches data in the
- * background if specified.
- * @param {Props.Screens.Matching} props collection of props
- * @return {ReactElement} 'Matching' screen
+ * @summary Generate a 'Matching' screen presenting a loading indicator and text describing a matching process taking place
+ * @param {Props.Screens.Matching} props Component props containing:
+ *  - fetchData: {boolean} Flag indicating whether to fetch data from server
+ *  - handler: {(participantParams: ModelParameters, partnerParams: ModelParameters) => void} Callback to handle model parameters
+ * @return {ReactElement} 'Matching' screen with loading indicator and matching status message
  */
 const Matching: FC<Props.Screens.Matching> = (
   props: Props.Screens.Matching

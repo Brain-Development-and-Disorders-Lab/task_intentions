@@ -34,10 +34,12 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import { BINDINGS } from "src/bindings";
 
 /**
- * @summary Generate a 'Summary' screen with two cards displaying each avatar
- * and point totals above a continue button
- * @param {Props.Screens.Summary} props screen props
- * @return {ReactElement} 'Summary' screen
+ * @summary Generate a 'Summary' screen presenting two cards - one showing the participant's avatar and points,
+ * and one showing their partner's avatar and points. Displays total points accumulated across all game phases.
+ * @param {Props.Screens.Summary} props Component props containing:
+ *  - postPhase: {string} The phase to calculate points from
+ *  - handler: {() => void} Callback function when participant continues
+ * @return {ReactElement} 'Summary' screen with avatar cards, point totals, and continue button
  */
 const Summary: FC<Props.Screens.Summary> = (
   props: Props.Screens.Summary

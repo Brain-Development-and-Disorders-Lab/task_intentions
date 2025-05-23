@@ -37,16 +37,17 @@ import { Configuration } from "src/configuration";
 import { BINDINGS } from "src/bindings";
 
 /**
- * Trial screen component that displays two options and avatar cards
+ * Trial screen component that displays two options and avatar cards for point-splitting decisions
+ * or guessing partner's choices. Supports both practice and real trials.
  * @component
  * @param {Props.Screens.Trial} props - Component props
- * @param {string} props.display - Type of trial display ("playerGuess", "playerChoice", etc)
+ * @param {string} props.display - Type of trial display ("playerGuess", "playerChoice", "playerChoice2")
  * @param {boolean} props.isPractice - Whether this is a practice trial
- * @param {string} props.answer - The correct answer for guess trials
- * @param {Object} props.options - Configuration for the two options
- * @param {number} props.trial - Current trial number
- * @param {Function} props.handler - Callback function when trial completes
- * @returns {ReactElement} Trial screen component
+ * @param {string} props.answer - The correct answer for guess trials ("Option 1" or "Option 2")
+ * @param {Props.Components.Options} props.options - Configuration for the two point-splitting options
+ * @param {number} props.trial - Current trial number (1-based)
+ * @param {(state: TrialState) => void} props.handler - Callback function when trial completes
+ * @returns {ReactElement} Trial screen with options, avatar cards, and points display
  */
 const Trial: FC<Props.Screens.Trial> = (
   props: Props.Screens.Trial

@@ -11,9 +11,9 @@ import React, { FC, ReactElement } from "react";
 import { Box, Heading, Layer, Paragraph, WorldMap } from "grommet";
 
 /**
- * @summary Generate a 'End' screen containing text to inform the participant
- * they have completed the game.
- * @return {ReactElement} 'End' screen
+ * @summary Generate an 'End' screen that displays a completion message to the participant
+ * @param {FC} props Empty props object as this component takes no props
+ * @return {ReactElement} 'End' screen with completion message and redirect countdown
  */
 const End: FC = (): ReactElement => {
   return (

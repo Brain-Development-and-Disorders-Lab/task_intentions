@@ -10,9 +10,16 @@ import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Box, Heading, RangeInput } from "grommet";
 
 /**
- * @summary Generate a 'Slider' component
- * @param {Props.Components.Slider} props component props
- * @return {ReactElement} 'Slider' component
+ * @summary Generate a 'Slider' component that displays a horizontal range input with labels
+ * @param {Props.Components.Slider} props component props containing:
+ *  - min: {number} Minimum value for the slider
+ *  - max: {number} Maximum value for the slider
+ *  - value: {number} Current value of the slider
+ *  - leftLabel: {string} Label displayed on the left side
+ *  - isFocused: {boolean} Whether the slider has focus styling
+ *  - onChange?: {() => void} Optional callback when value changes
+ *  - setValue?: {(value: number) => void} Optional callback to update value externally
+ * @return {ReactElement} 'Slider' component with a labeled range input
  */
 const Slider: FC<Props.Components.Slider> = (
   props: Props.Components.Slider

@@ -12,9 +12,12 @@ import React, { FC, ReactElement } from "react";
 import { Grid, Heading } from "grommet";
 
 /**
- * @summary Generate an 'Option' component for the participant to select
- * @param {Props.Components.Option} props collection of props
- * @return {ReactElement} 'Option' component
+ * @summary Generate an 'Option' component that displays a grid of points to split between participant and partner
+ * @param {Props.Components.Option} props component props containing:
+ *  - optionKey: {string} Unique identifier for the option
+ *  - pointsParticipant: {number} Points allocated to the participant
+ *  - pointsPartner: {number} Points allocated to the partner
+ * @return {ReactElement} 'Option' component with points arranged in a 2x2 grid
  */
 const Option: FC<Props.Components.Option> = (
   props: Props.Components.Option

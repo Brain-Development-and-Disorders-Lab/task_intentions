@@ -23,10 +23,10 @@ import Character from "src/view/components/Character";
 import { BINDINGS } from "src/bindings";
 
 /**
- * @summary Generate a 'SelectAvatar' screen presenting a row of six avatars
- * for the participant to select above a continue button
- * @param {Props.Screens.SelectAvatar} props collection of props
- * @return {ReactElement} 'SelectAvatar' screen
+ * @summary Generate a 'SelectAvatar' screen presenting a row of six avatars for participant selection
+ * @param {Props.Screens.SelectAvatar} props Component props containing:
+ *  - onContinue: {() => void} Callback function when participant continues
+ * @return {ReactElement} 'SelectAvatar' screen with avatar selection grid and continue button
  */
 const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
   props: Props.Screens.SelectAvatar

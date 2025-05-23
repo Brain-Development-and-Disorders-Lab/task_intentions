@@ -21,9 +21,9 @@ import consola from "consola";
 import { Configuration } from "src/configuration";
 
 /**
- * @summary Generate a 'Matched' screen containing a card with the partner
- * of the participant for the subsequent phase of the game.screen
- * @return {ReactElement} 'Matched'
+ * @summary Generate a 'Matched' screen containing a card with the partner avatar for the subsequent phase of the game
+ * @param {FC} props Empty props object as this component takes no props
+ * @return {ReactElement} 'Matched' screen with partner avatar and success message
  */
 const Matched: FC = (): ReactElement => {
   // Get the current partner avatar
