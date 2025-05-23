@@ -26,8 +26,12 @@ import { Configuration } from "./configuration";
  * @return {number} total points received from trials with a specific display
  */
 export const calculatePoints = (display: Display, column: string): number => {
-  let points = 0;
+  // Generate debugging text
+  let pointText = "--- Points ---\n";
+  pointText += `Display: ${display}\n`;
+  pointText += `Column: ${column}\n`;
 
+  let points = 0;
   if (display === "playerGuess") {
     // `playerGuess` phases calculated differently, since options are presented
     // in reverse order
@@ -43,7 +47,6 @@ export const calculatePoints = (display: Display, column: string): number => {
       const realAnswer = row.realAnswer;
       // Determine if for the player or the partner
       if (column.startsWith("player")) {
-        // Points for the player, sum partner points
         if (realAnswer === "Option 1") {
           // Option 1
           points += row.partnerPoints_option1;
@@ -52,7 +55,6 @@ export const calculatePoints = (display: Display, column: string): number => {
           points += row.partnerPoints_option2;
         }
       } else {
-        // Points for the partner, sum player points
         if (realAnswer === "Option 1") {
           // Option 1
           points += row.playerPoints_option1;
@@ -61,6 +63,22 @@ export const calculatePoints = (display: Display, column: string): number => {
           points += row.playerPoints_option2;
         }
       }
+    }
+
+    // Add bonus points for correct guesses (player only)
+    if (column.startsWith("player")) {
+      pointText += `Calculations: \n`;
+      pointText += `\tPre-bonus: ${points}\n`;
+      const correct = jsPsych.data
+        .get()
+        .filter({
+          display: display,
+          correctGuess: 1,
+        })
+        .count();
+      points += correct * 10;
+      pointText += `\tCorrect: ${correct} * 10\n`;
+      pointText += `\tPost-bonus: ${points}\n`;
     }
   } else {
     // All other phases can be calculated using a jsPsych data query
@@ -72,6 +90,9 @@ export const calculatePoints = (display: Display, column: string): number => {
       .select(column)
       .sum();
   }
+  pointText += `Total points: ${points}\n`;
+  consola.debug(pointText);
+
   return points;
 };
 
