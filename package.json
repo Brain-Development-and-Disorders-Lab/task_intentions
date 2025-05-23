@@ -1,6 +1,6 @@
 {
   "name": "task_intentions",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Intentions Game",
   "private": true,
   "main": "dist/index.js",
