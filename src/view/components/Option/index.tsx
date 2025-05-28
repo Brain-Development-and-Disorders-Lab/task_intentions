@@ -1,7 +1,13 @@
 /**
- * @file 'Option' component containing a set of points to split between the
- * participant and their partner. Consists of a heading row and a row
- * containing the points.
+ * @file `Option` component for displaying point distribution choices.
+ *
+ * This component renders a selectable option that represents a possible
+ * distribution of points between the participant and their partner. Key features include:
+ * - Point value display for both players
+ * - Interactive selection handling
+ * - Visual feedback for selected state
+ * - Consistent styling across different game phases
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

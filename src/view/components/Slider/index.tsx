@@ -1,5 +1,13 @@
 /**
- * @file 'Slider' component displaying a horizontal slider with a thumb.
+ * @file `Slider` component for continuous response input.
+ *
+ * This component implements an interactive slider interface used for
+ * collecting continuous responses from participants. Key features include:
+ * - Horizontal slider with draggable thumb
+ * - Value range constraints and step size
+ * - Real-time value updates
+ * - Visual feedback for current position
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

@@ -1,7 +1,13 @@
 /**
- * @file 'Card' component used to arrange information about the participant
- * and the partner throughout the game. Contains the name, avatar, and total
- * points obtained by the participant or partner.
+ * @file `Card` component for displaying participant and partner information.
+ *
+ * This component provides a standardized way to present player information
+ * throughout the experiment. Key features include:
+ * - Player/partner avatar display
+ * - Name and identifier presentation
+ * - Points tracking and display
+ * - Consistent styling across different game phases
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

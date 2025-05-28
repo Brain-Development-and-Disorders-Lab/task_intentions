@@ -1,8 +1,13 @@
 /**
- * @file 'SelectAvatar' screen presenting a row of six avatars for the
- * participant to select for the game. The avatar increases in size when
- * selected, enabling the participant to proceed once they have
- * selected an avatar.
+ * @file `SelectAvatar` screen for participant avatar selection.
+ *
+ * This screen allows participants to choose their avatar representation
+ * for the experiment. Key features include:
+ * - Grid of six unique avatar options
+ * - Interactive selection with visual feedback
+ * - Dynamic size transitions for selected avatar
+ * - Response validation before proceeding
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

@@ -1,6 +1,13 @@
 /**
- * @file 'View' class to abstract the display and clean-up of React-based screens
- * used in the game.
+ * @file `View` class implementation for managing React-based experiment screens.
+ *
+ * This class provides a unified interface for rendering and managing React
+ * components within the experiment. Key responsibilities include:
+ * - Screen rendering and component mounting
+ * - Component cleanup and unmounting
+ * - Integration with the experiment timeline
+ * - Support for different screen types (practice, experimental, etc.)
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
@@ -21,9 +28,9 @@ class View {
   private root: Root;
 
   /**
-   * Default constructor
+   * Constructor for the View class
    * @param {HTMLElement} target the target HTML element
-   * @class
+   * @constructor
    */
   constructor(target: HTMLElement) {
     this.target = target;

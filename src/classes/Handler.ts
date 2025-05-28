@@ -1,8 +1,17 @@
 /**
- * @file 'Handler' class containing each of the handler functions called
- * for a specific trial. Each trial has a new 'Handler' instance, so the
- * existing dataframe and trial callback function are passed to the class
- * on initialisation.
+ * @file Handler class for managing trial-specific event handling and data collection
+ *
+ * This class encapsulates all handler functions that are called during a specific trial
+ * in the experiment. Each trial creates a new Handler instance, which receives:
+ * - The current dataframe for data collection
+ * - A callback function for trial-specific events
+ *
+ * The Handler class is responsible for:
+ * - Processing participant responses and interactions
+ * - Recording trial data and timestamps
+ * - Managing trial state transitions
+ * - Coordinating with the Compute class for partner behavior
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
@@ -18,7 +27,7 @@ class Handler {
    * Default constructor
    * @param {Data} dataframe jsPsych data
    * @param {function} callback default callback after the handlers
-   * @class
+   * @constructor
    */
   constructor(dataframe: TrialData, callback: () => void) {
     this.dataframe = dataframe;

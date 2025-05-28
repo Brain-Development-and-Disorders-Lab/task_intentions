@@ -1,6 +1,13 @@
 /**
- * @file 'ScreenPropFactory' class implementing a factory pattern for
- * generating props used to create each screen.
+ * @file `ScreenPropFactory` class for screen property management.
+ *
+ * This factory class generates and manages props for all experiment screens,
+ * ensuring consistent property initialization and type safety. Key features include:
+ * - Screen-specific prop generation methods
+ * - Type-safe property validation
+ * - Centralized prop management
+ * - Integration with experiment state
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
@@ -27,7 +34,7 @@ class ScreenPropFactory implements Factory {
    * Default constructor
    * @param {Trial} trial jsPsych trial data
    * @param {Handler} handler callback function from 'Handler' class
-   * @class
+   * @constructor
    */
   constructor(trial: Trial, handler: Handler) {
     this.trial = trial;

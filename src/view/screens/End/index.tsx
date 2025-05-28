@@ -1,6 +1,13 @@
 /**
- * @file 'End' screen notifying the participant that they have reached the end
- * of the game.
+ * @file `End` screen for experiment completion.
+ *
+ * This screen marks the conclusion of the experiment, providing
+ * participants with final information and instructions. Key features include:
+ * - Experiment completion notification
+ * - Final points summary display
+ * - Completion code presentation
+ * - Data submission confirmation
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

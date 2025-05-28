@@ -1,9 +1,13 @@
 /**
- * @file 'Matched' screen presenting an avatar to the participant
- * as their 'partner' for the subsequent phase of the game. The overall game
- * state is queried to ensure that the partner is updated correctly between
- * phases so that each partner will be different, even if the participant
- * has played the game before.
+ * @file `Matched` screen for partner assignment confirmation.
+ *
+ * This screen displays the newly assigned partner avatar to participants
+ * at the start of each game phase. Key features include:
+ * - Partner avatar presentation
+ * - Unique partner assignment per phase
+ * - State management for partner tracking
+ * - Consistent partner identity across sessions
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

@@ -1,7 +1,13 @@
 /**
- * @file 'Agency' screen presenting a slider to the participant alongside
- * a question for the participant. The participant must interact with the
- * slider before the continue button is enabled.
+ * @file `Agency` screen for collecting agency ratings.
+ *
+ * This screen presents participants with agency-related questions and
+ * a continuous response slider. Key features include:
+ * - Agency question presentation
+ * - Interactive slider for response input
+ * - Response validation before proceeding
+ * - Integration with experiment data collection
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

@@ -1,7 +1,7 @@
 /**
- * @file Custom jsPsych plugin implementation for the Intentions Game.
+ * @file Custom `jsPsych` plugin implementation for the Intentions Game.
  *
- * This plugin serves as the core interface between jsPsych and the React-based
+ * This plugin serves as the core interface between `jsPsych` and the React-based
  * experiment interface. Key responsibilities include:
  * - Trial initialization and data management
  * - Participant ID validation and generation

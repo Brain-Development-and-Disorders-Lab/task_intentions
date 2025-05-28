@@ -9,9 +9,6 @@
  * - `saveToLocalStorage`: Backs up experiment data during runtime
  * - `setCompleted`: Manages experiment completion state
  *
- * These utilities handle data persistence, point calculations, and React/HTML
- * conversion for the experiment interface.
- *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 // React imports
