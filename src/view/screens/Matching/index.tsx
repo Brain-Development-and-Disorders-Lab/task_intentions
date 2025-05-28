@@ -1,9 +1,13 @@
 /**
- * @file 'Matching' screen presenting a loading indicator and describing to
- * the participant that a matching process is taking place. Overall duration
- * of the screen is between 3 and 7 seconds. If the `props.fetchData` flag is
- * `true`, a `Compute` instance will collate data from the 'playerChoice'phase
- * before attempting to communicate with a remote server.
+ * @file `Matching` screen for partner matching process.
+ *
+ * This screen manages the partner matching sequence between game phases,
+ * providing visual feedback during the matching process. Key features include:
+ * - Loading indicator and progress animation
+ * - Dynamic matching duration (3-7 seconds)
+ * - Optional data collection and server communication
+ * - Integration with experiment state management
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

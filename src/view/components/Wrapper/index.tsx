@@ -1,8 +1,13 @@
 /**
- * @file 'Wrapper' component acting as a container for all React screens and
- * components displayed throughout the game. Grommet and Themecontext.Extend
- * components enclose the child screens.
- * class.
+ * @file `Wrapper` component for experiment screen management.
+ *
+ * This component serves as the root container for all experiment screens,
+ * providing consistent theming and layout structure. Key features include:
+ * - Global theme application through Grommet
+ * - Theme context extension for custom styling
+ * - Screen type-based component rendering
+ * - Consistent layout and styling across all screens
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

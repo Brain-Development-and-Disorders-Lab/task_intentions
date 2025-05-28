@@ -1,9 +1,13 @@
 /**
- * @file 'Classification' screen presenting a dropdown menu to the participant.
- * The participant is required to select one of three options from the dropdown
- * before the continue button is enabled. The participant is selecting the
- * option that best matches their opinion of their participant from the
- * previous phase.
+ * @file `Classification` screen for partner behavior categorization.
+ *
+ * This screen allows participants to classify their partner's behavior
+ * from the previous phase using a structured categorization system. Key features include:
+ * - Dropdown menu with predefined classification options
+ * - Response validation before proceeding
+ * - Integration with experiment data collection
+ * - Support for both standard and alternate input modes
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

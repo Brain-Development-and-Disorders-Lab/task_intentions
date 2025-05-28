@@ -1,9 +1,13 @@
 /**
- * @file 'Summary' screen presenting a left card and right card with the
- * avatar's point totals below each image. The left avatar represents the
- * participant, and the right avatar represents the partner. The background
- * consists of a map graphic. Points for the summary are calculated from the
- * phase specified in the `props.postPhase` prop.
+ * @file `Summary` screen for game completion summary.
+ *
+ * This screen displays a visual summary of points earned by both
+ * the participant and their partner after the game. Key features include:
+ * - Side-by-side avatar cards with point totals
+ * - Dynamic point calculation based on game data
+ * - World map background visualization
+ * - Clear visual distinction between participant and partner
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
@@ -52,16 +56,16 @@ const Summary: FC<Props.Screens.Summary> = (
     .getState()
     .get("participantAvatar");
 
-  // Get the participant's and the partner's points
+  // Sum the participant's points
   const totalParticipantPoints =
     calculatePoints("playerChoice", "playerPoints_selected") +
     calculatePoints("playerChoice2", "playerPoints_selected") +
     calculatePoints("playerGuess", "playerPoints_selected");
 
-  // Convert to strings for display
+  // Convert to a string for display
   const participantPoints = totalParticipantPoints.toString();
 
-  // Configure confetti animation
+  // Configure confetti animation for the confetti
   const { width, height } = useWindowSize();
   const [runConfetti, setRunConfetti] = useState(true);
 

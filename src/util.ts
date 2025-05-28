@@ -1,8 +1,14 @@
 /**
- * @file Utility functions used throughout different classes. The `clear`
- * function is straightforward, clearing the screen with optional extra
- * steps for React-based screens. `react2html` receives a React element
- * and returns HTML as a string.
+ * @file Utility functions for experiment data management and React rendering.
+ *
+ * Core functions:
+ * - `calculatePoints`: Computes points from trials based on display type and column
+ * - `react2html`: Converts React elements to HTML strings for jsPsych
+ * - `getLocalStorage`: Retrieves experiment data from browser storage
+ * - `initializeLocalStorage`: Sets up storage for new experiment runs
+ * - `saveToLocalStorage`: Backs up experiment data during runtime
+ * - `setCompleted`: Manages experiment completion state
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 // React imports

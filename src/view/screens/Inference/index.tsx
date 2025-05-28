@@ -1,8 +1,13 @@
 /**
- * @file 'Inference' screen presenting two sliders for participant interaction.
- * Each slider is accompanied by a question regarding the participant's
- * thoughts on their partner from the previous phase. Participant is required
- * to move the thumb on each slide before the continue button is enabled.
+ * @file `Inference` screen for collecting partner behavior inferences.
+ *
+ * This screen collects participants' assessments of their partner's
+ * decision-making motivations using continuous rating scales. Key features include:
+ * - Dual slider interface for separate ratings
+ * - Questions about partner's selfishness and harm intentions
+ * - Response validation for both sliders
+ * - Support for both standard and alternate input modes
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
@@ -126,7 +131,7 @@ const Inference: FC<Props.Screens.Inference> = (
         <Paragraph margin="small" size="large" fill>
           Please use the slider below to indicate the extent to which you
           believe your partner's decisions are driven by their desire to earn
-          points in this task.
+          points in this game.
         </Paragraph>
         <Box
           border={{
@@ -159,7 +164,7 @@ const Inference: FC<Props.Screens.Inference> = (
         <Paragraph margin="small" size="large" fill>
           Please use the slider below to indicate the extent to which you
           believe your partner's decisions are driven by their desire to reduce
-          your bonus in this task.
+          your bonus in this game.
         </Paragraph>
         <Box
           border={{

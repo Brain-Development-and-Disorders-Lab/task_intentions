@@ -1,5 +1,15 @@
 /**
- * @file 'Compute' class used to run a model locally in the browser using WebR.
+ * @file `Compute` class for local model computation and partner behavior simulation.
+ *
+ * This class manages the execution of computational models directly in the browser
+ * using WebR, enabling client-side computation of partner behavior models. Key
+ * features include:
+ * - Local model execution without server dependencies
+ * - Integration with experiment data collection
+ * - Real-time model parameter updates
+ * - Error handling and state management
+ * - Offline package support for reliable execution
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
@@ -762,7 +772,7 @@ class Compute {
 
   /**
    * Default constructor
-   * @class
+   * @constructor
    */
   constructor() {
     // Initialize the WebR instance with additional options for offline functionality

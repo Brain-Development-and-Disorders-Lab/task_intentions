@@ -1,6 +1,13 @@
 /**
- * @file 'Character' component implementing a clickable avatar. When clicked,
- * the avatar will change in size by toggling the presence of CSS classes.
+ * @file `Character` component for interactive avatar selection.
+ *
+ * This component implements a clickable avatar interface used during
+ * participant character selection. Key features include:
+ * - Interactive avatar display with click handling
+ * - Dynamic size transitions through CSS classes
+ * - Integration with the experiment's avatar system
+ * - Visual feedback for selection state
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
@@ -15,13 +22,17 @@ import { Box } from "grommet";
 import { Configuration } from "src/configuration";
 
 /**
- * @summary Generate a 'Character' component implementing a clickable avatar that can be selected and deselected
- * @param {Props.Components.Character} props component props containing:
- *  - name: {string} Unique identifier for the avatar
- *  - size: {number} Size in pixels for the avatar
- *  - state: {string | null} Current selected avatar name
- *  - setState: {(name: string) => void} Function to update selected avatar
- * @return {ReactElement} 'Character' component with a boring-neutral-avatar inside a clickable Box
+ * `Character` component for avatar selection interface.
+ *
+ * Renders a clickable avatar that can be selected/deselected by the participant.
+ * The component uses CSS classes to provide visual feedback for the selection state.
+ *
+ * @param {Props.Components.Character} props - Component properties
+ * @param {string} props.name - Unique identifier for the avatar
+ * @param {number} props.size - Size in pixels for the avatar
+ * @param {string | null} props.state - Currently selected avatar name
+ * @param {(name: string) => void} props.setState - Function to update selected avatar
+ * @returns {ReactElement} Clickable avatar component with selection state handling
  */
 const Character: FC<Props.Components.Character> = (
   props: Props.Components.Character

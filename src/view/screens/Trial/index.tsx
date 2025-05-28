@@ -1,7 +1,13 @@
 /**
- * @file 'Trial' screen containing components for trials requiring the
- * participant to interact with their partner directly or indirectly.
- * Core components include 'Option' and 'Card'.
+ * @file `Trial` screen for game interaction trials.
+ *
+ * This screen manages the core gameplay interactions between participants
+ * and their partners. Key features include:
+ * - Point distribution options for decision-making
+ * - Partner and participant information cards
+ * - Trial-specific instructions and feedback
+ * - Support for both direct and indirect partner interactions
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
