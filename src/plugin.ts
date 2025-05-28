@@ -1,8 +1,19 @@
 /**
- * @file Plugin file containing code establishing a jsPsych plugin for the
- * Intentions Game. Configures data storage and displays a React screen
- * to the participant. Handles the end of the trial by storing data and
- * cleaning up the display.
+ * @file Custom jsPsych plugin implementation for the Intentions Game.
+ *
+ * This plugin serves as the core interface between jsPsych and the React-based
+ * experiment interface. Key responsibilities include:
+ * - Trial initialization and data management
+ * - Participant ID validation and generation
+ * - React component mounting/unmounting
+ * - Data collection and storage
+ * - Trial completion handling
+ *
+ * The plugin integrates with the `neurocog` crossplatform API and manages
+ * experiment state, including signal timestamps and completion flags.
+ * It supports both standard and alternate input modes, and handles
+ * practice trials differently from experimental trials.
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 

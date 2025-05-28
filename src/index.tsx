@@ -1,9 +1,22 @@
 /**
- * @file Index file containing code describing the entire experiment timeline.
- * Imports multiple jsPsych plugins and custom plugins before organising them
- * into the experiment flow. Utility functions used to convert React to HTML
- * and shuffle experiment trials. The crossplatform API is configured at the
- * start of the file and the experiment is started at the end of the file.
+ * @file Main experiment timeline configuration and execution.
+ *
+ * This file orchestrates the entire experiment flow, including:
+ * - Experiment initialization and configuration
+ * - Timeline construction with three distinct phases:
+ *   1. Player choice phase (36 rounds)
+ *   2. Partner choice phase with player predictions (54 rounds)
+ *   3. Final player choice phase
+ * - Practice trials and attention checks for each phase
+ * - Partner matching sequences between phases
+ * - Data collection and storage management
+ * - React-to-HTML conversion for instruction screens
+ *
+ * The experiment uses jsPsych for trial management and the `neurocog`
+ * crossplatform API for data handling. Each phase includes practice
+ * trials, attention checks, and detailed instructions. The timeline
+ * supports both standard and alternate input modes.
+ *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
