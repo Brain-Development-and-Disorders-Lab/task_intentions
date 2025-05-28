@@ -158,7 +158,7 @@ let phaseOneInstructions = [
           where <b>you</b> will again be choosing how to split the points.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          At the end of each stage you will be shown a summary of how many
+          At the end of all the stages you will be shown a summary of how many
           points you and your partner accumulated during that phase.
         </Paragraph>
       </Box>
@@ -174,13 +174,13 @@ let phaseOneInstructions = [
           Stage one
         </Heading>
         <Paragraph margin="small" size="large" fill>
-          In the following <b>you</b> are tasked with distributing points
+          In this stage, <b>you</b> are tasked with distributing points
           between yourself and your partner. You may choose to distribute the
           points however you like. This stage will consist of 36 rounds.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           Remember, the number of points each player holds at the end of the
-          game will determine if they get a bonus payment.
+          game will determine if they are entered into the bonus lottery.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           Click 'Next &gt;' to select an avatar to represent you while you play
@@ -481,7 +481,7 @@ timeline.push({
   show_clickable_nav: true,
 });
 
-// Insert a 'match' sequence into the timeline
+// Insert the matching sequence into the timeline
 timeline.push({
   type: Configuration.studyName,
   display: "matching",
@@ -493,7 +493,7 @@ timeline.push({
   display: "matched",
 });
 
-// Set and store the data colelction
+// Set and store the data collection
 let dataCollection: Row[];
 
 // Detect if we are running locally (use test data)
@@ -503,20 +503,20 @@ if (
   Configuration.manipulations.partner === "test"
 ) {
   dataCollection = Test;
-  consola.info(`Loading test phase one partner`);
+  consola.info(`Loading test stage one partner`);
 } else {
-  consola.info(`Loading default phase one partner`);
+  consola.info(`Loading default stage one partner`);
   dataCollection = Default;
 }
 
 // Setup data storage for trial shuffling
-const randomisedTrials = {
+const randomisedTrials: Record<string, Timeline> = {
   // 'playerChoice' trials
-  phaseOne: [] as Timeline,
+  phaseOne: [],
   // 'playerGuess' trials, will be ignored if request successful
-  phaseTwo: [] as Timeline,
+  phaseTwo: [],
   // 'playerChoice2' trials
-  phaseThree: [] as Timeline,
+  phaseThree: [],
 };
 
 // Read each row from the data collection and insert the correct
@@ -550,7 +550,7 @@ for (let i = 0; i < dataCollection.length; i++) {
                 Stage two
               </Heading>
               <Paragraph margin="small" size="large" fill>
-                In the following <b>you will play with a new partner</b>. This
+                In this stage, <b>you will play with a new partner</b>. This
                 time your partner will be the one choosing how the points are
                 split between you both.
               </Paragraph>
@@ -571,7 +571,7 @@ for (let i = 0; i < dataCollection.length; i++) {
                   will be multiplied by 10 and added to your total points
                 </b>
                 . This will contribute to your chance to win a bonus at the end
-                of the task.
+                of the game.
               </Paragraph>
             </Box>
           </Grommet>
