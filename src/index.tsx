@@ -65,6 +65,9 @@ import "./plugin";
 const experiment = new Experiment(Configuration);
 consola.info("Experiment start:", new Date().toISOString());
 
+// Log the feature flags
+Flags.logFeatureState();
+
 /**
  * Handle the signal event, store in jsPsych data
  */

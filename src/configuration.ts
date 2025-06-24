@@ -54,12 +54,6 @@ export const Configuration = {
     // Performance Features
     enableOfflinePackages: true,
     enableFullscreen: process.env.NODE_ENV !== "development",
-
-    // Experimental Features (for A/B testing)
-    enableNewUI: false,
-    enableAlternativeInstructions: false,
-    enableEnhancedFeedback: false,
-    enableAccessibilityMode: false,
   },
 
   // Collection of any stimuli used in the trials
