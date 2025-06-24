@@ -39,6 +39,9 @@ import { Theme } from "src/theme";
 // Configuration
 import { Configuration } from "src/configuration";
 
+// Feature flags
+import { Flags } from "src/flags";
+
 // Keyboard bindings
 import { BINDINGS } from "src/bindings";
 
@@ -265,7 +268,7 @@ const Trial: FC<Props.Screens.Trial> = (
 
       if (
         props.isPractice === false ||
-        Configuration.enableTutorialOverlay === false
+        Flags.isEnabled("enableTutorialOverlay") === false
       ) {
         // Begin the transition to the next trial
         setTransitionActive(true);
@@ -690,7 +693,7 @@ const Trial: FC<Props.Screens.Trial> = (
         )}
 
         {/* Practice overlay */}
-        {showOverlay && Configuration.enableTutorialOverlay && (
+        {showOverlay && Flags.isEnabled("enableTutorialOverlay") && (
           <Layer position="center">
             <Box pad="small" align="center" gap="xsmall">
               <Heading margin="xsmall" level="2">

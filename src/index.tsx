@@ -26,6 +26,9 @@ import React from "react";
 // Grommet UI components
 import { Box, Grommet, Heading, Paragraph } from "grommet";
 
+// Feature flags
+import { Flags } from "./flags";
+
 // Configuration
 import { Configuration } from "./configuration";
 
@@ -108,7 +111,7 @@ if (Configuration.manipulations.requireID === true) {
 }
 
 // Set the experiment to run in fullscreen mode
-if (Configuration.fullscreen === true) {
+if (Flags.isEnabled("enableFullscreen")) {
   timeline.push({
     type: "fullscreen",
     message: `<p>Click 'Continue' to enter fullscreen mode.</p>`,
