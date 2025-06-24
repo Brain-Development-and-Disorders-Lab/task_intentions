@@ -20,13 +20,46 @@ export const Configuration = {
   allowParticipantContact: true,
   contact: "henry.burgess@wustl.edu",
 
-  // Manipulations that are configured in Gorilla
+  // Experimental manipulations that are configured in Gorilla
   manipulations: {
     partner: "test",
     requireID: false,
     useAlternateInput: false,
     useOfflinePackages: true,
-    disablePreviousExperimentPrompt: true,
+  },
+
+  // Feature flags, configure these before building for deployment
+  features: {
+    // UI/UX Features
+    enableTutorialOverlay: true,
+    enableConfetti: true,
+    enableTextTransitions: true,
+    enableAvatarSelection: true,
+    enableProgressIndicators: true,
+    enablePreviousExperimentPrompt: false,
+
+    // Experiment Features
+    enablePracticeTrials: true,
+    enableAttentionChecks: true,
+    enablePartnerMatching: true,
+    enableInferenceQuestions: true,
+    enableClassificationQuestions: true,
+    enableAgencyQuestions: true,
+
+    // Data Collection Features
+    enableLocalStorage: true,
+    enableSignalTimestamps: true,
+    enableDetailedLogging: process.env.NODE_ENV === "development",
+
+    // Performance Features
+    enableOfflinePackages: true,
+    enableFullscreen: process.env.NODE_ENV !== "development",
+
+    // Experimental Features (for A/B testing)
+    enableNewUI: false,
+    enableAlternativeInstructions: false,
+    enableEnhancedFeedback: false,
+    enableAccessibilityMode: false,
   },
 
   // Collection of any stimuli used in the trials
@@ -48,12 +81,6 @@ export const Configuration = {
     signalTimestamps: [],
     experimentID: "",
   },
-
-  // Enable the tutorial overlay
-  enableTutorialOverlay: true,
-
-  // Force fullscreen when deployed
-  fullscreen: process.env.NODE_ENV !== "development",
 
   // Set the logging level
   logging:
