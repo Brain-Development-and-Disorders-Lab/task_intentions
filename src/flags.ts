@@ -94,8 +94,7 @@ export class Flags {
    * Log the current feature flag state (useful for debugging)
    */
   static logFeatureState(): void {
-    consola.info("Feature Flags State");
-    consola.info("Enabled features:", this.getEnabledFeatures());
-    consola.info("Disabled features:", this.getDisabledFeatures());
+    consola.info("Feature Flags (enabled):", this.getEnabledFeatures());
+    consola.info("Feature Flags (disabled):", this.getDisabledFeatures());
   }
 }
