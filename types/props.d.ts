@@ -57,6 +57,12 @@ declare namespace Props {
       state: string;
       setState: (avatar: string) => void;
     };
+
+    // Status componet
+    type Status = {
+      participantStatus: number;
+      partnerStatus: number;
+    };
   }
 
   // Props for 'Screens'
