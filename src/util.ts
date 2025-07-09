@@ -24,6 +24,9 @@ import consola from "consola";
 // Experiment configuration
 import { Configuration } from "./configuration";
 
+// Feature flags
+import { Flags } from "./flags";
+
 /**
  * Calculate the points gained from all prior trials of a specific display type
  * @param {Display} display the type of display to calculate total points from
@@ -140,7 +143,7 @@ export const getLocalStorage = (): BackupStorage[] => {
  * Initialize the local storage for a new experiment
  * @param {string} id the experiment ID
  */
-export const initializeLocalStorage = (id: string) => {
+export const initializeLocalStorage = (id: string): void => {
   // Get the list of existing experiments
   const stored: BackupStorage[] = getLocalStorage();
   if (stored.length > 0) {
@@ -150,7 +153,7 @@ export const initializeLocalStorage = (id: string) => {
       consola.warn("Previous experiment was not completed");
 
       // If the user has not disabled the prompt, show it
-      if (!Configuration.manipulations.disablePreviousExperimentPrompt) {
+      if (Flags.isEnabled("enablePreviousExperimentPrompt")) {
         const confirm = window.confirm("The previous experiment was not completed. Click OK to download the data from the previous experiment, or click Cancel to discard the data and continue.");
         if (confirm) {
           const data = stored[stored.length - 1];
@@ -182,7 +185,7 @@ export const initializeLocalStorage = (id: string) => {
  * @param {string} id the experiment ID
  * @param {any} data the jsPsych data object to store
  */
-export const saveToLocalStorage = (id: string, data: any) => {
+export const saveToLocalStorage = (id: string, data: any): void => {
   const stored = getLocalStorage();
   if (stored.length === 0) {
     consola.error(`No backup storage found for experiment: ${id}`);
@@ -205,8 +208,9 @@ export const saveToLocalStorage = (id: string, data: any) => {
 /**
  * Toggle the completed flag in local storage
  * @param {string} id the experiment ID
+ * @param {boolean} state the new state of the completed flag
  */
-export const setCompleted = (id: string, state: boolean) => {
+export const setCompleted = (id: string, state: boolean): void => {
   const stored = getLocalStorage();
   if (stored.length === 0) {
     consola.error(`No backup storage found for experiment: ${id}`);
