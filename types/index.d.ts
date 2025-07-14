@@ -47,6 +47,7 @@ declare type Display =
   | "inference"
   | "agency"
   | "classification"
+  | "status"
   | "summary"
   | "end";
 
@@ -98,6 +99,10 @@ declare type TrialData = {
   inferenceResponse_Harm: number;
   agencyResponse: number;
   classification: string;
+  followers: number;
+  averageLikes: number;
+  friends: number;
+  socialCloseness: number;
   trialDuration: number;
   correctGuess: NaN | 0 | 1; // 0 incorrect; 1 correct
   server_alpha_ppt: number;

@@ -265,6 +265,21 @@ timeline.push({
   display: "selection",
 });
 
+// If the status display is enabled, check if the flags need to be updated to match the manipulations
+if (Configuration.manipulations.enableStatusPhaseOne === true || Configuration.manipulations.enableStatusPhaseTwo === true || Configuration.manipulations.enableStatusPhaseThree === true) {
+  // Enable the status display and the questionnaire globally
+  Flags.setValue("enableStatusDisplay", true);
+  Flags.setValue("enableStatusQuestionnaire", true);
+}
+
+// Insert the status questionnaire if enabled
+if (Flags.isEnabled("enableStatusQuestionnaire") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "status",
+  });
+}
+
 // Pre-'playerChoice' instructions
 timeline.push({
   type: "instructions",

@@ -26,6 +26,9 @@ export const Configuration = {
     requireID: false,
     useAlternateInput: false,
     useOfflinePackages: true,
+    enableStatusPhaseOne: true,
+    enableStatusPhaseTwo: true,
+    enableStatusPhaseThree: true,
   },
 
   // Feature flags, configure these before building for deployment
@@ -37,6 +40,8 @@ export const Configuration = {
     enableAvatarSelection: true,
     enableProgressIndicators: true,
     enablePreviousExperimentPrompt: false,
+    enableStatusDisplay: false,
+    enableStatusQuestionnaire: false,
 
     // Experiment Features
     enablePracticeTrials: true,

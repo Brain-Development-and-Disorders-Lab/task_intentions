@@ -29,6 +29,7 @@ import Trial from "../../screens/Trial";
 import Inference from "../../screens/Inference";
 import Classification from "../../screens/Classification";
 import SelectAvatar from "../../screens/SelectAvatar";
+import Status from "../../screens/Status";
 import Matched from "../../screens/Matched";
 import Matching from "../../screens/Matching";
 import End from "../../screens/End";
@@ -98,6 +99,11 @@ const Wrapper: FC<Props.Components.Wrapper> = (
         {/* Agency questions */}
         {activeDisplay === "agency" && (
           <Agency {...(props.props as Props.Screens.Agency)} />
+        )}
+
+        {/* Status questions */}
+        {activeDisplay === "status" && (
+          <Status {...(props.props as Props.Screens.Status)} />
         )}
 
         {activeDisplay === "classification" && (
