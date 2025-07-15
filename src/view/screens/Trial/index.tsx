@@ -32,6 +32,7 @@ import TextTransition, { presets } from "react-text-transition";
 // Custom components
 import Option from "src/view/components/Option";
 import Card from "src/view/components/Card";
+import Status from "src/view/components/Status";
 
 // Access theme constants directly
 import { Theme } from "src/theme";
@@ -580,131 +581,152 @@ const Trial: FC<Props.Screens.Trial> = (
 
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
-      <Grid
-        rows={["xxsmall", "medium", "xxsmall"]}
-        columns={["flex", "1/2", "flex"]}
-        gap="xsmall"
-        width={{
-          min: "960px",
-          max: "xlarge",
-        }}
-        fill
-        areas={[
-          { name: "trialHeader", start: [0, 0], end: [2, 0] },
-          { name: "playerArea", start: [0, 1], end: [0, 1] },
-          { name: "choiceArea", start: [1, 1], end: [1, 1] },
-          { name: "partnerArea", start: [2, 1], end: [2, 1] },
-          { name: "gridFooter", start: [0, 2], end: [2, 2] },
-        ]}
-      >
-        <Heading
-          textAlign="center"
-          fill
-          level={2}
-          size="auto"
-          margin="xsmall"
-          gridArea="trialHeader"
-        >
-          {trialHeader}
-        </Heading>
-
-        {/* Participant's Avatar */}
-        <Card
-          gridArea="playerArea"
-          name="You"
-          points={participantPoints}
-          avatar={
-            Configuration.avatars.names.participant[
-              experiment.getState().get("participantAvatar")
-            ]
-          }
-        />
-
-        {/* Choices */}
-        <Box gridArea="choiceArea" gap="small">
+      <Box align="center" justify="center" fill>
+        {/* Status component - only show if enabled for this phase and not a practice trial */}
+        {Flags.isEnabled("enableStatusDisplay") && !props.isPractice && (
+          (props.display === "playerChoice" && Configuration.manipulations.enableStatusPhaseOne) ||
+          (props.display === "playerGuess" && Configuration.manipulations.enableStatusPhaseTwo) ||
+          (props.display === "playerChoice2" && Configuration.manipulations.enableStatusPhaseThree)
+        ) && (
           <Box
-            ref={refs.optionOne}
-            onClick={() => handleOptionClick("Option 1")}
-            className="grow"
-            round
-            background="optionBackground"
-            border={
-              Configuration.manipulations.useAlternateInput === true &&
-              trialState.highlightedOptionIndex === 0
-                ? { color: "selectedElement", size: "large" }
-                : {}
-            }
-            fill
-          >
-            <Option
-              optionKey="optionOne"
-              optionName="Option 1"
-              pointsParticipant={displayPoints.options.one.participant}
-              pointsPartner={displayPoints.options.one.partner}
-            />
-          </Box>
-
-          <Box
-            ref={refs.optionTwo}
-            onClick={() => handleOptionClick("Option 2")}
-            className="grow"
-            round
-            background="optionBackground"
-            border={
-              Configuration.manipulations.useAlternateInput === true &&
-              trialState.highlightedOptionIndex === 1
-                ? { color: "selectedElement", size: "large" }
-                : {}
-            }
-            fill
-          >
-            <Option
-              optionKey="optionTwo"
-              optionName="Option 2"
-              pointsParticipant={displayPoints.options.two.participant}
-              pointsPartner={displayPoints.options.two.partner}
-            />
-          </Box>
-        </Box>
-
-        {/* Partner's Avatar */}
-        <Card
-          gridArea="partnerArea"
-          name="Partner"
-          points={partnerPoints}
-          avatar={partnerAvatar}
-        />
-
-        {/* Counter for correct guesses */}
-        {props.display.startsWith("playerGuess") && (
-          <Box
-            direction="row"
+            align="center"
             justify="center"
-            margin="xsmall"
-            gridArea="gridFooter"
+            width="100%"
+            margin={{ bottom: "medium" }}
           >
-            <Heading level={2} size="auto" margin="xsmall">
-              Correct guesses:&nbsp;
-            </Heading>
-            <Heading level={2} size="auto" margin="xsmall">
-              <TextTransition text={correctCount} springConfig={presets.slow} />
-            </Heading>
+            <Status
+              participantStatus={75} // Mock value - replace with real data
+              partnerStatus={45} // Mock value - replace with real data
+            />
           </Box>
         )}
 
-        {/* Practice overlay */}
-        {showOverlay && Flags.isEnabled("enableTutorialOverlay") && (
-          <Layer position="center">
-            <Box pad="small" align="center" gap="xsmall">
-              <Heading margin="xsmall" level="2">
-                Practice
-              </Heading>
-              {/* Display the overlay content */}
-              {overlayContent}
+        <Grid
+          rows={["xxsmall", "medium", "xxsmall"]}
+          columns={["flex", "1/2", "flex"]}
+          gap="xsmall"
+          width={{
+            min: "960px",
+            max: "xlarge",
+          }}
+          fill
+          areas={[
+            { name: "trialHeader", start: [0, 0], end: [2, 0] },
+            { name: "playerArea", start: [0, 1], end: [0, 1] },
+            { name: "choiceArea", start: [1, 1], end: [1, 1] },
+            { name: "partnerArea", start: [2, 1], end: [2, 1] },
+            { name: "gridFooter", start: [0, 2], end: [2, 2] },
+          ]}
+        >
+          <Heading
+            textAlign="center"
+            fill
+            level={2}
+            size="auto"
+            margin="xsmall"
+            gridArea="trialHeader"
+          >
+            {trialHeader}
+          </Heading>
+
+          {/* Participant's Avatar */}
+          <Card
+            gridArea="playerArea"
+            name="You"
+            points={participantPoints}
+            avatar={
+              Configuration.avatars.names.participant[
+                experiment.getState().get("participantAvatar")
+              ]
+            }
+          />
+
+          {/* Choices */}
+          <Box gridArea="choiceArea" gap="small">
+            <Box
+              ref={refs.optionOne}
+              onClick={() => handleOptionClick("Option 1")}
+              className="grow"
+              round
+              background="optionBackground"
+              border={
+                Configuration.manipulations.useAlternateInput === true &&
+                trialState.highlightedOptionIndex === 0
+                  ? { color: "selectedElement", size: "large" }
+                  : {}
+              }
+              fill
+            >
+              <Option
+                optionKey="optionOne"
+                optionName="Option 1"
+                pointsParticipant={displayPoints.options.one.participant}
+                pointsPartner={displayPoints.options.one.partner}
+              />
             </Box>
-          </Layer>
-        )}
-      </Grid>
+
+            <Box
+              ref={refs.optionTwo}
+              onClick={() => handleOptionClick("Option 2")}
+              className="grow"
+              round
+              background="optionBackground"
+              border={
+                Configuration.manipulations.useAlternateInput === true &&
+                trialState.highlightedOptionIndex === 1
+                  ? { color: "selectedElement", size: "large" }
+                  : {}
+              }
+              fill
+            >
+              <Option
+                optionKey="optionTwo"
+                optionName="Option 2"
+                pointsParticipant={displayPoints.options.two.participant}
+                pointsPartner={displayPoints.options.two.partner}
+              />
+            </Box>
+          </Box>
+
+          {/* Partner's Avatar */}
+          <Card
+            gridArea="partnerArea"
+            name="Partner"
+            points={partnerPoints}
+            avatar={partnerAvatar}
+          />
+
+          {/* Counter for correct guesses */}
+          {props.display.startsWith("playerGuess") && (
+            <Box
+              direction="row"
+              justify="center"
+              margin="xsmall"
+              gridArea="gridFooter"
+            >
+              <Heading level={2} size="auto" margin="xsmall">
+                Correct guesses:&nbsp;
+              </Heading>
+              <Heading level={2} size="auto" margin="xsmall">
+                <TextTransition text={correctCount} springConfig={presets.slow} />
+              </Heading>
+            </Box>
+          )}
+
+          {/* Practice overlay */}
+          {showOverlay && Flags.isEnabled("enableTutorialOverlay") && (
+            <Layer position="center">
+              <Box pad="small" align="center" gap="xsmall">
+                <Heading margin="xsmall" level="2">
+                  Practice
+                </Heading>
+                {/* Display the overlay content */}
+                {overlayContent}
+              </Box>
+            </Layer>
+          )}
+        </Grid>
+      </Box>
     </Keyboard>
   );
 };

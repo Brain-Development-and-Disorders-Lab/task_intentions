@@ -134,6 +134,24 @@ class Handler {
   }
 
   /**
+   * Handler called after status questions completed
+   * @param {number} followers number of followers
+   * @param {number} averageLikes average number of likes
+   * @param {number} friends number of friends
+   * @param {number} socialCloseness social closeness rating
+   */
+  public status(followers: number, averageLikes: number, friends: number, socialCloseness: number): void {
+    // Store the responses
+    this.dataframe.followers = followers;
+    this.dataframe.averageLikes = averageLikes;
+    this.dataframe.friends = friends;
+    this.dataframe.socialCloseness = socialCloseness;
+
+    // Finish trial
+    this.callback();
+  }
+
+  /**
    * Handler called after matching request completed
    * @param {number[]} participantParameters generated model
    * parameters for participant

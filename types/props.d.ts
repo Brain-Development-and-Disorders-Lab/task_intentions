@@ -19,6 +19,7 @@ declare namespace Props {
         | Screens.Inference
         | Screens.Agency
         | Screens.Classification
+        | Screens.Status
         | Screens.Summary;
     };
 
@@ -119,6 +120,11 @@ declare namespace Props {
     // Classification screen
     type Classification = GenericScreenProps & {
       handler: (classification: string) => void;
+    };
+
+    // Status screen
+    type Status = GenericScreenProps & {
+      handler: (followers: number, averageLikes: number, friends: number, socialCloseness: number) => void;
     };
 
     // Summary screen

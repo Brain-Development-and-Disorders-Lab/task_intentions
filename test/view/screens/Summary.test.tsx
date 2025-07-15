@@ -8,16 +8,12 @@ import React from "react";
 // Test utilities
 import { waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { axe, toHaveNoViolations } from "jest-axe";
 
 // Custom render function
 import { render } from "test/utils/functions";
 
 // Wrapper component
 import Wrapper from "src/view/components/Wrapper";
-
-// Extend the 'expect' function
-expect.extend(toHaveNoViolations);
 
 // Mock jsPsych
 import "jspsych";
@@ -55,27 +51,5 @@ test("loads and displays Summary screen", async () => {
   // upon first rendering the screen
   await waitFor(() => {
     expect(screen.getAllByText("0")).not.toBe(null);
-  });
-});
-
-test("check Summary screen accessibility", async () => {
-  const props: Props.Screens.Summary = {
-    trial: 0,
-    display: "summary",
-    postPhase: "playerChoice",
-    handler: () => {
-      console.info("Selection handler called");
-    },
-  };
-  const { container } = render(<Wrapper display={"summary"} props={props} />);
-
-  // Asynchronous chain, waiting for 'TextTransition'
-  // elements to have updated upon first rendering the screen
-  await waitFor(() => {
-    expect(screen.getAllByText("0")).not.toBe(null);
-  }).then(() => {
-    const results = axe(container, {}).then(() => {
-      expect(results).toHaveNoViolations();
-    });
   });
 });

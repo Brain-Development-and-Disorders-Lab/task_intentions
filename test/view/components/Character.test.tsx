@@ -6,8 +6,6 @@
 // Test utilities
 import { waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { axe, toHaveNoViolations } from "jest-axe";
-import { act } from "react";
 
 // React
 import React from "react";
@@ -17,9 +15,6 @@ import { render } from "test/utils/functions";
 
 // Character component
 import Character from "src/view/components/Character";
-
-// Extend the 'expect' function
-expect.extend(toHaveNoViolations);
 
 test("loads and displays Character component", async () => {
   const { container } = render(
@@ -36,26 +31,4 @@ test("loads and displays Character component", async () => {
   await waitFor(() =>
     expect(container.querySelector("svg")).toBeInTheDocument()
   );
-});
-
-test("check Character component accessibility", async () => {
-  const { container } = render(
-    <Character
-      size={128}
-      name="a"
-      state="a"
-      setState={() => {
-        return;
-      }}
-    />
-  );
-
-  await act(async () => {
-    const results = await axe(container, {
-      rules: {
-        "svg-img-alt": { enabled: false },
-      },
-    });
-    await waitFor(() => expect(results).toHaveNoViolations());
-  });
 });

@@ -171,6 +171,16 @@ class ScreenPropFactory implements Factory {
         };
         break;
 
+      // Status screen
+      case "status":
+        // Setup the props
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          handler: this.handler.status.bind(this.handler),
+        };
+        break;
+
       // Summary screen
       case "summary":
         // Setup the props
