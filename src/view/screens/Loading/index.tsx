@@ -1,11 +1,12 @@
 /**
- * @file `Matching` screen for partner matching process.
+ * @file `Loading` screen for various loading states.
  *
- * This screen manages the partner matching sequence between game phases,
- * providing visual feedback during the matching process. Key features include:
+ * This screen manages different loading states throughout the experiment,
+ * providing visual feedback during various processes. Key features include:
+ * - Three loading states: matching, social, and default
  * - Loading indicator and progress animation
- * - Dynamic matching duration (3-7 seconds)
- * - Optional data collection and server communication
+ * - Dynamic matching duration (3-7 seconds) for matching state
+ * - Optional data collection and server communication for matching state
  * - Integration with experiment state management
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
@@ -24,16 +25,31 @@ import { Box, Heading, Layer, Spinner, WorldMap } from "grommet";
 import Compute from "src/classes/Compute";
 
 /**
- * @summary Generate a 'Matching' screen presenting a loading indicator and text describing a matching process taking place
- * @param {Props.Screens.Matching} props Component props containing:
- *  - fetchData: {boolean} Flag indicating whether to fetch data from server
- *  - handler: {(participantParams: ModelParameters, partnerParams: ModelParameters) => void} Callback to handle model parameters
- * @return {ReactElement} 'Matching' screen with loading indicator and matching status message
+ * @summary Generate a 'Loading' screen presenting a loading indicator and text based on the current state
+ * @param {Props.Screens.Loading} props Component props containing:
+ *  - state: {"matching" | "social" | "default"} The loading state to display
+ *  - fetchData?: {boolean} Flag indicating whether to fetch data from server (only for matching state)
+ *  - handler?: {(participantParams: ModelParameters, partnerParams: ModelParameters) => void} Callback to handle model parameters (only for matching state)
+ * @return {ReactElement} 'Loading' screen with loading indicator and state-specific status message
  */
-const Matching: FC<Props.Screens.Matching> = (
-  props: Props.Screens.Matching
+const Loading: FC<Props.Screens.Loading> = (
+  props: Props.Screens.Loading
 ): ReactElement => {
   const experiment = window.Experiment;
+
+  // Get the appropriate text based on the loading type
+  const getLoadingText = (): string => {
+    switch (props.loadingType) {
+      case "matching":
+        return "Finding you a partner...";
+      case "social":
+        return "Generating relative social status...";
+      case "default":
+        return "Loading...";
+      default:
+        return "Loading...";
+    }
+  };
 
   const callback = (data: ModelResponse) => {
     // Parse and store the JSON content
@@ -52,7 +68,9 @@ const Matching: FC<Props.Screens.Matching> = (
         experiment.getState().set("partnerChoices", partnerChoices);
 
         // Store parameters
-        props.handler(participantParameters, partnerParameters);
+        if (props.handler) {
+          props.handler(participantParameters, partnerParameters);
+        }
       } else {
         consola.warn(`Phase data appears to be incomplete`);
 
@@ -69,7 +87,7 @@ const Matching: FC<Props.Screens.Matching> = (
 
   const runMatching = async () => {
     // Launch request
-    if (props.fetchData) {
+    if (props.fetchData && props.loadingType === "matching") {
       // Setup a new 'Compute' instance
       const compute = new Compute();
       await compute.setup();
@@ -110,9 +128,11 @@ const Matching: FC<Props.Screens.Matching> = (
     }
   };
 
-  // Run the matching process when first displayed
+  // Run the matching process when first displayed (only for matching type)
   useEffect(() => {
-    runMatching();
+    if (props.loadingType === "matching") {
+      runMatching();
+    }
   });
 
   return (
@@ -121,7 +141,7 @@ const Matching: FC<Props.Screens.Matching> = (
       <Layer plain full>
         <Box justify="center" align="center" gap="small" fill>
           <Heading level="1" fill>
-            Finding you a partner...
+            {getLoadingText()}
           </Heading>
           <Spinner size="large" color="avatarBackground" />
         </Box>
@@ -130,4 +150,4 @@ const Matching: FC<Props.Screens.Matching> = (
   );
 };
 
-export default Matching;
+export default Loading;

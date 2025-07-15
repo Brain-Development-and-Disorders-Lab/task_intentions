@@ -152,12 +152,12 @@ class Handler {
   }
 
   /**
-   * Handler called after matching request completed
+   * Handler called after loading request completed (for matching state)
    * @param {number[]} participantParameters generated model
    * parameters for participant
    * @param {number[]} partnerParameters generated model parameters for partner
    */
-  public matching(
+  public loading(
     participantParameters: number[],
     partnerParameters: number[]
   ): void {

@@ -515,12 +515,13 @@ timeline.push({
   show_clickable_nav: true,
 });
 
-// Insert the matching sequence into the timeline
-timeline.push({
-  type: Configuration.studyName,
-  display: "matching",
-  fetchData: false,
-});
+      // Insert the matching sequence into the timeline
+      timeline.push({
+        type: Configuration.studyName,
+        display: "loading",
+        loadingType: "matching",
+        fetchData: false,
+      });
 
 timeline.push({
   type: Configuration.studyName,
@@ -853,7 +854,8 @@ for (let i = 0; i < dataCollection.length; i++) {
       // Insert another 'match' sequence into the timeline
       timeline.push({
         type: Configuration.studyName,
-        display: "matching",
+        display: "loading",
+        loadingType: "matching",
         fetchData: true,
       });
 
@@ -1015,7 +1017,8 @@ for (let i = 0; i < dataCollection.length; i++) {
       // Insert another 'match' sequence into the timeline
       timeline.push({
         type: Configuration.studyName,
-        display: "matching",
+        display: "loading",
+        loadingType: "matching",
         fetchData: false,
       });
 

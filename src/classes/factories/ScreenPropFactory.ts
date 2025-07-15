@@ -114,9 +114,9 @@ class ScreenPropFactory implements Factory {
         };
         break;
 
-      // Matching screen
-      case "matching":
-        // Random timeout for 'matching' process
+      // Loading screen
+      case "loading":
+        // Random timeout for 'loading' process
         returned.duration = 10000 + (1 + Math.random() * 5) * 1000;
 
         // Set the timeout callback function
@@ -126,8 +126,9 @@ class ScreenPropFactory implements Factory {
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
+          loadingType: this.trial.loadingType || "default", // Default to "default" type if not specified
           fetchData: this.trial.fetchData,
-          handler: this.handler.matching.bind(this.handler),
+          handler: this.handler.loading.bind(this.handler),
         };
         break;
 

@@ -41,7 +41,7 @@ declare type Display =
   | "mid2"
   | "playerGuess"
   | "playerGuessPractice"
-  | "matching"
+  | "loading"
   | "matched"
   | "selection"
   | "inference"
@@ -68,18 +68,30 @@ declare type Options = "Option 1" | "Option 2";
 
 // Trial type to enforce parameters
 declare type Trial = {
-  trial: number;
-  display: Display;
-  optionOneParticipant: number;
-  optionOnePartner: number;
-  optionTwoParticipant: number;
-  optionTwoPartner: number;
-  typeOne: string;
-  typeTwo: string;
-  avatar: 0;
-  answer: Options;
-  isPractice: boolean;
-  fetchData: boolean;
+  // Basic trial identification
+  trial: number;                    // Trial number/identifier
+  display: Display;                 // Screen type to display (e.g., "playerChoice", "loading", etc.)
+
+  // Game option parameters (used by Trial screen)
+  optionOneParticipant: number;     // Points for participant in Option 1
+  optionOnePartner: number;         // Points for partner in Option 1
+  optionTwoParticipant: number;     // Points for participant in Option 2
+  optionTwoPartner: number;         // Points for partner in Option 2
+
+  // Partner type information
+  typeOne: string;                  // Partner type for Option 1
+  typeTwo: string;                  // Partner type for Option 2
+
+  // Avatar selection (used by SelectAvatar screen)
+  avatar: 0;                        // Avatar index (currently hardcoded to 0)
+
+  // Game logic
+  answer: Options;                  // Correct answer for the trial ("Option 1" or "Option 2")
+  isPractice: boolean;              // Whether this is a practice trial
+
+    // Loading screen configuration (used by Loading screen)
+  loadingType?: "matching" | "social" | "default"; // Type of loading: "matching" (partner matching), "social" (status generation), or "default" (generic loading)
+  fetchData: boolean;               // Whether to fetch data from server (only used when loadingType is "matching")
 };
 
 // Data type used to enforce trial data storage format

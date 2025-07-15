@@ -40,6 +40,7 @@ declare type TimelineNode = {
 
   // Matching screen
   fetchData?: boolean;
+  loadingType?: "matching" | "social" | "default";
 
   // Attention-check plugin
   prompt?: string;

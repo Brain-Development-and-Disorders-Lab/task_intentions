@@ -31,7 +31,7 @@ import Classification from "../../screens/Classification";
 import SelectAvatar from "../../screens/SelectAvatar";
 import Status from "../../screens/Status";
 import Matched from "../../screens/Matched";
-import Matching from "../../screens/Matching";
+import Loading from "../../screens/Loading";
 import End from "../../screens/End";
 import Summary from "../../screens/Summary";
 
@@ -116,8 +116,8 @@ const Wrapper: FC<Props.Components.Wrapper> = (
 
         {activeDisplay === "matched" && <Matched />}
 
-        {activeDisplay === "matching" && (
-          <Matching {...(props.props as Props.Screens.Matching)} />
+        {activeDisplay === "loading" && (
+          <Loading {...(props.props as Props.Screens.Loading)} />
         )}
 
         {activeDisplay === "summary" && (

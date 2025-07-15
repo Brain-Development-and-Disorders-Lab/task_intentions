@@ -105,11 +105,16 @@ test("generate props for Matched screen", async () => {
   expect(generated.props).not.toHaveProperty("handler");
 });
 
-test("generate props for Matching screen", async () => {
-  // Create a new ScreenPropFactory instance
+test("generate props for Loading screen with matching type", async () => {
+  // Create a new ScreenPropFactory instance with loading configuration
+  const trialConfig = {
+    ...getTrialConfiguration("loading"),
+    loadingType: "matching" as const,
+    fetchData: false,
+  };
   const screenPropFactory = new ScreenPropFactory(
-    getTrialConfiguration("matching"),
-    getHandler("matching")
+    trialConfig,
+    getHandler("loading")
   );
 
   // Generate the props
@@ -117,7 +122,8 @@ test("generate props for Matching screen", async () => {
 
   // Check contents of props
   expect(generated.props.trial).toBe(1);
-  expect(generated.props.display).toBe("matching");
+  expect(generated.props.display).toBe("loading");
+  expect(generated.props.loadingType).toBe("matching");
   expect(generated.props.fetchData).toBe(false);
   expect(generated.props).toHaveProperty("handler");
 });
