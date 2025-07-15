@@ -26,9 +26,9 @@ export const Configuration = {
     requireID: false,
     useAlternateInput: false,
     useOfflinePackages: true,
-    enableStatusPhaseOne: true,
-    enableStatusPhaseTwo: true,
-    enableStatusPhaseThree: true,
+    enableStatusPhaseOne: false,
+    enableStatusPhaseTwo: false,
+    enableStatusPhaseThree: false,
   },
 
   // Feature flags, configure these before building for deployment
