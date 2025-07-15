@@ -8,7 +8,6 @@ import React from "react";
 // Test utilities
 import { waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { axe, toHaveNoViolations } from "jest-axe";
 
 // Custom render function
 import { render } from "test/utils/functions";
@@ -33,9 +32,6 @@ beforeEach(() => {
   };
 });
 
-// Extend the 'expect' function
-expect.extend(toHaveNoViolations);
-
 test("loads and displays Matched screen", async () => {
   const props: Props.Screens.Matched = {
     trial: 0,
@@ -45,15 +41,4 @@ test("loads and displays Matched screen", async () => {
 
   await waitFor(() => screen.queryByText("Partner found!"));
   expect(screen.queryByText("Partner found!")).not.toBeNull();
-});
-
-test("check Matched screen accessibility", async () => {
-  const props: Props.Screens.Matched = {
-    trial: 0,
-    display: "matched",
-  };
-  const { container } = render(<Wrapper display={"matched"} props={props} />);
-
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
 });

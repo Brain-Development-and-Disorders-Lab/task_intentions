@@ -582,8 +582,12 @@ const Trial: FC<Props.Screens.Trial> = (
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
       <Box align="center" justify="center" fill>
-        {/* Status component - only show if enabled and not a practice trial */}
+        {/* Status component - only show if enabled for this phase and not a practice trial */}
         {Flags.isEnabled("enableStatusDisplay") && !props.isPractice && (
+          (props.display === "playerChoice" && Configuration.manipulations.enableStatusPhaseOne) ||
+          (props.display === "playerGuess" && Configuration.manipulations.enableStatusPhaseTwo) ||
+          (props.display === "playerChoice2" && Configuration.manipulations.enableStatusPhaseThree)
+        ) && (
           <Box
             align="center"
             justify="center"
