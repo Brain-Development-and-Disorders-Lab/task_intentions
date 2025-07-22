@@ -259,22 +259,6 @@ timeline.push({
   show_clickable_nav: true,
 });
 
-// Insert Waiting screens before Phase 01
-if (Configuration.manipulations.useButtonInput === true) {
-  // Facilitator waiting
-  timeline.push({
-    type: Configuration.studyName,
-    display: "waiting",
-    mode: "facilitator",
-  });
-  // MRI waiting
-  timeline.push({
-    type: Configuration.studyName,
-    display: "waiting",
-    mode: "mri",
-  });
-}
-
 // Insert a 'selection' screen into the timeline
 timeline.push({
   type: Configuration.studyName,
@@ -586,6 +570,22 @@ for (let i = 0; i < dataCollection.length; i++) {
         stageOneCounter++;
       }
 
+      // Insert Waiting screens before Phase 01
+      if (Configuration.manipulations.useButtonInput === true) {
+        // Facilitator waiting
+        timeline.push({
+          type: Configuration.studyName,
+          display: "waiting",
+          mode: "facilitator",
+        });
+        // MRI waiting
+        timeline.push({
+          type: Configuration.studyName,
+          display: "waiting",
+          mode: "mri",
+        });
+      }
+
       // Push trials to the timeline
       timeline.push(...stageOneTrials);
 
@@ -658,20 +658,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         show_page_number: true,
         show_clickable_nav: true,
       });
-
-      // Insert Waiting screens before Phase 02
-      if (Configuration.manipulations.useButtonInput === true) {
-        timeline.push({
-          type: Configuration.studyName,
-          display: "waiting",
-          mode: "facilitator",
-        });
-        timeline.push({
-          type: Configuration.studyName,
-          display: "waiting",
-          mode: "mri",
-        });
-      }
 
       // 3x practice trials for 'playerGuess'
       timeline.push({
@@ -902,6 +888,24 @@ for (let i = 0; i < dataCollection.length; i++) {
         trial["trial"] = stageTwoCounter;
         stageTwoCounter++;
       }
+
+      // Insert Waiting screens before Phase 02
+      if (Configuration.manipulations.useButtonInput === true) {
+        // Facilitator waiting
+        timeline.push({
+          type: Configuration.studyName,
+          display: "waiting",
+          mode: "facilitator",
+        });
+        // MRI waiting
+        timeline.push({
+          type: Configuration.studyName,
+          display: "waiting",
+          mode: "mri",
+        });
+      }
+
+      // Push trials to the timeline
       timeline.push(...stageTwoTrials);
 
       // Inference screen
@@ -957,20 +961,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         show_page_number: true,
         show_clickable_nav: true,
       });
-
-      // Insert Waiting screens before Phase 03
-      if (Configuration.manipulations.useButtonInput === true) {
-        timeline.push({
-          type: Configuration.studyName,
-          display: "waiting",
-          mode: "facilitator",
-        });
-        timeline.push({
-          type: Configuration.studyName,
-          display: "waiting",
-          mode: "mri",
-        });
-      }
 
       timeline.push({
         type: "attention-check",
@@ -1141,6 +1131,24 @@ for (const trial of stageThreeTrials) {
   trial["trial"] = stageThreeCounter;
   stageThreeCounter++;
 }
+
+// Insert Waiting screens before Phase 03
+if (Configuration.manipulations.useButtonInput === true) {
+  // Facilitator waiting
+  timeline.push({
+    type: Configuration.studyName,
+    display: "waiting",
+    mode: "facilitator",
+  });
+  // MRI waiting
+  timeline.push({
+    type: Configuration.studyName,
+    display: "waiting",
+    mode: "mri",
+  });
+}
+
+// Push trials to the timeline
 timeline.push(...stageThreeTrials);
 
 // Add a summary screen

@@ -8,7 +8,7 @@
  */
 
 import React, { FC, ReactElement, useEffect } from "react";
-import { Box, Heading, Layer, Spinner, WorldMap, Paragraph } from "grommet";
+import { Box, Heading, Layer, WorldMap, Paragraph } from "grommet";
 import consola from "consola";
 import { BINDINGS } from "src/bindings";
 
@@ -52,7 +52,6 @@ const Waiting: FC<Props.Screens.Waiting> = (
               {subText}
             </Paragraph>
           )}
-          <Spinner size="large" color="avatarBackground" />
         </Box>
       </Layer>
     </>
