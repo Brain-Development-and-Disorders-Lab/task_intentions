@@ -20,7 +20,8 @@ declare namespace Props {
         | Screens.Agency
         | Screens.Classification
         | Screens.Status
-        | Screens.Summary;
+        | Screens.Summary
+        | Screens.Waiting;
     };
 
     // Option component
@@ -124,7 +125,12 @@ declare namespace Props {
 
     // Status screen
     type Status = GenericScreenProps & {
-      handler: (followers: number, averageLikes: number, friends: number, socialCloseness: number) => void;
+      handler: (
+        followers: number,
+        averageLikes: number,
+        friends: number,
+        socialCloseness: number
+      ) => void;
     };
 
     // Summary screen
@@ -132,12 +138,11 @@ declare namespace Props {
       postPhase: Display;
       handler: () => void;
     };
+
+    // Waiting screen
+    type Waiting = GenericScreenProps & {
+      mode: "facilitator" | "mri";
+      handler: () => void;
+    };
   }
 }
-
-// Type for the 'ScreenPropFactory' return
-declare type ScreenProps = {
-  props: Props.Screens;
-  callback: (...args) => void;
-  duration: number;
-};

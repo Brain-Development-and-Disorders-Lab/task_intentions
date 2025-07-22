@@ -56,7 +56,7 @@ const Classification: FC<Props.Screens.Classification> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useAlternateInput === false) return;
+    if (Configuration.manipulations.useButtonInput === false) return;
 
     // Avoid holding the key down if no element focused
     if (event.repeat) return;
@@ -136,7 +136,7 @@ const Classification: FC<Props.Screens.Classification> = (
           margin={"xsmall"}
           border={{
             color:
-              Configuration.manipulations.useAlternateInput === true &&
+              Configuration.manipulations.useButtonInput === true &&
               selectedElementIndex === 0 &&
               !elementFocused
                 ? "selectedElement"
@@ -150,7 +150,7 @@ const Classification: FC<Props.Screens.Classification> = (
             name="partner-classification"
             options={partners}
             value={classification}
-            onChange={(event) => {
+            onChange={event => {
               // Enable the continue button
               setContinueDisabled(false);
 
@@ -166,14 +166,14 @@ const Classification: FC<Props.Screens.Classification> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useAlternateInput === true &&
+              Configuration.manipulations.useButtonInput === true &&
               selectedElementIndex === 1
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useAlternateInput === true &&
+            Configuration.manipulations.useButtonInput === true &&
             selectedElementIndex === 1
               ? { borderRadius: "36px " }
               : {}

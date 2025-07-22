@@ -776,10 +776,14 @@ class Compute {
    */
   constructor() {
     // Initialize the WebR instance with additional options for offline functionality
-    this.webR = new WebR(Configuration.manipulations.useOfflinePackages ? {
-      repoUrl: OFFLINE_REPOSITORY_URL, // Used to install packages
-      baseUrl: OFFLINE_BASE_URL, // Used to load WebR
-    } : {});
+    this.webR = new WebR(
+      Configuration.manipulations.useOfflinePackages
+        ? {
+            repoUrl: OFFLINE_REPOSITORY_URL, // Used to install packages
+            baseUrl: OFFLINE_BASE_URL, // Used to load WebR
+          }
+        : {}
+    );
   }
 
   /**

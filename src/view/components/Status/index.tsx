@@ -29,17 +29,19 @@ import { Configuration } from "src/configuration";
 const Status: FC<Props.Components.Status> = (
   props: Props.Components.Status
 ): ReactElement => {
-  const [participantStatus,] = useState(props.participantStatus);
-  const [partnerStatus,] = useState(props.partnerStatus);
+  const [participantStatus] = useState(props.participantStatus);
+  const [partnerStatus] = useState(props.partnerStatus);
 
   // Get the global experiment instance to access avatar names
   const experiment = window.Experiment;
-  const participantAvatarName = Configuration.avatars.names.participant[
-    experiment.getState().get("participantAvatar")
-  ];
-  const partnerAvatarName = Configuration.avatars.names.partner[
-    experiment.getState().get("partnerAvatar")
-  ];
+  const participantAvatarName =
+    Configuration.avatars.names.participant[
+      experiment.getState().get("participantAvatar")
+    ];
+  const partnerAvatarName =
+    Configuration.avatars.names.partner[
+      experiment.getState().get("partnerAvatar")
+    ];
 
   // Calculate positions as percentages (0-100)
   const participantPosition = `${participantStatus}%`;

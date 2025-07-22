@@ -41,7 +41,10 @@ export class Flags {
    * @param featureName - The name of the feature to set
    * @param value - The value to set the feature flag to
    */
-  static setValue<T>(featureName: keyof typeof Configuration.features, value: T): void {
+  static setValue<T>(
+    featureName: keyof typeof Configuration.features,
+    value: T
+  ): void {
     consola.warn(`Setting feature flag ${featureName} to ${value}`);
     Configuration.features[featureName] = value as boolean;
   }
@@ -86,7 +89,7 @@ export class Flags {
    */
   static getEnabledFeatures(): (keyof typeof Configuration.features)[] {
     return Object.keys(Configuration.features).filter(
-      (key) => Configuration.features[key as keyof typeof Configuration.features]
+      key => Configuration.features[key as keyof typeof Configuration.features]
     ) as (keyof typeof Configuration.features)[];
   }
 
@@ -96,7 +99,7 @@ export class Flags {
    */
   static getDisabledFeatures(): (keyof typeof Configuration.features)[] {
     return Object.keys(Configuration.features).filter(
-      (key) => !Configuration.features[key as keyof typeof Configuration.features]
+      key => !Configuration.features[key as keyof typeof Configuration.features]
     ) as (keyof typeof Configuration.features)[];
   }
 

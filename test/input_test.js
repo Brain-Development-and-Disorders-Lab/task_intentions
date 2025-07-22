@@ -8,12 +8,14 @@
  */
 const inputPrevious = () => {
   // Assumption: BINDINGS.PREVIOUS === 1
-  document.dispatchEvent(new KeyboardEvent("keydown", {
-    key: 1,
-    keyCode: 49,
-    code: "Digit1",
-    which: 49,
-  }));
+  document.dispatchEvent(
+    new KeyboardEvent("keydown", {
+      key: 1,
+      keyCode: 49,
+      code: "Digit1",
+      which: 49,
+    })
+  );
 };
 
 /**
@@ -21,12 +23,14 @@ const inputPrevious = () => {
  */
 const inputNext = () => {
   // Assumption: BINDINGS.NEXT === 2
-  document.dispatchEvent(new KeyboardEvent("keydown", {
-    key: 2,
-    keyCode: 50,
-    code: "Digit2",
-    which: 50,
-  }));
+  document.dispatchEvent(
+    new KeyboardEvent("keydown", {
+      key: 2,
+      keyCode: 50,
+      code: "Digit2",
+      which: 50,
+    })
+  );
 };
 
 /**
@@ -34,12 +38,14 @@ const inputNext = () => {
  */
 const inputSubmit = () => {
   // Assumption: BINDINGS.SUBMIT === 3
-  document.dispatchEvent(new KeyboardEvent("keydown", {
-    key: 3,
-    keyCode: 51,
-    code: "Digit3",
-    which: 51,
-  }));
+  document.dispatchEvent(
+    new KeyboardEvent("keydown", {
+      key: 3,
+      keyCode: 51,
+      code: "Digit3",
+      which: 51,
+    })
+  );
 };
 
 /**
