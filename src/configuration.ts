@@ -24,7 +24,7 @@ export const Configuration = {
   manipulations: {
     partner: "test",
     requireID: false,
-    useButtonInput: true,
+    useButtonInput: false,
     useOfflinePackages: true,
     enableStatusPhaseOne: false,
     enableStatusPhaseTwo: false,
