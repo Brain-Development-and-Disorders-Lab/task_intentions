@@ -17,7 +17,7 @@ const Waiting: FC<Props.Screens.Waiting> = (
 ): ReactElement => {
   useEffect(() => {
     const keyListener = (event: KeyboardEvent) => {
-      if (props.mode === "facilitator" && event.key === "c") {
+      if (props.mode === "facilitator" && event.key === BINDINGS.CONTINUE) {
         consola.info("Facilitator trigger detected");
         props.handler();
       } else if (props.mode === "mri" && event.key === BINDINGS.SIGNAL) {
@@ -33,7 +33,7 @@ const Waiting: FC<Props.Screens.Waiting> = (
   let subText: string | null = null;
   if (props.mode === "facilitator") {
     mainText = "Pausing for a brief break";
-    subText = 'Facilitator: Press "c" to continue.';
+    subText = `Facilitator: Press "${BINDINGS.CONTINUE}" to continue.`;
   } else if (props.mode === "mri") {
     mainText = "The next section will begin soon";
     subText = null;

@@ -8,4 +8,5 @@ export const BINDINGS = {
   NEXT: "2", // Used to select the second option, or navigate next
   SELECT: "3", // Used to select an option
   SIGNAL: "5", // Received from MRI
+  CONTINUE: "c", // Used to continue the experiment
 };
