@@ -32,7 +32,14 @@ interface Factory {
   generate(...args);
 }
 
-// Different screen types that are displayed
+// Type for the 'ScreenPropFactory' return
+declare type ScreenProps = {
+  props: Props.Screens;
+  callback: (...args) => void;
+  duration: number;
+};
+
+// Ensure Display type includes 'waiting'
 declare type Display =
   | "playerChoice"
   | "playerChoicePractice"
@@ -49,7 +56,9 @@ declare type Display =
   | "classification"
   | "status"
   | "summary"
-  | "end";
+  | "end"
+  | "waiting";
+
 
 // The three partner types
 declare type Partner = "Test" | "Prosocial" | "Individualist" | "Competitive";
@@ -80,6 +89,7 @@ declare type Trial = {
   answer: Options;
   isPractice: boolean;
   fetchData: boolean;
+  mode: "facilitator" | "mri";
 };
 
 // Data type used to enforce trial data storage format
