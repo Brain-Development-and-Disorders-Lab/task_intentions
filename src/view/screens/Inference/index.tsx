@@ -64,7 +64,7 @@ const Inference: FC<Props.Screens.Inference> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useAlternateInput === false) return;
+    if (Configuration.manipulations.useButtonInput === false) return;
 
     // Avoid holding the key down if no element focused
     if (elementFocused === false && event.repeat) return;
@@ -136,7 +136,7 @@ const Inference: FC<Props.Screens.Inference> = (
         <Box
           border={{
             color:
-              Configuration.manipulations.useAlternateInput === true &&
+              Configuration.manipulations.useButtonInput === true &&
               selectedElementIndex === 0 &&
               !elementFocused
                 ? "selectedElement"
@@ -169,7 +169,7 @@ const Inference: FC<Props.Screens.Inference> = (
         <Box
           border={{
             color:
-              Configuration.manipulations.useAlternateInput === true &&
+              Configuration.manipulations.useButtonInput === true &&
               selectedElementIndex === 1 &&
               !elementFocused
                 ? "selectedElement"
@@ -199,14 +199,14 @@ const Inference: FC<Props.Screens.Inference> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useAlternateInput === true &&
+              Configuration.manipulations.useButtonInput === true &&
               selectedElementIndex === 2
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useAlternateInput === true &&
+            Configuration.manipulations.useButtonInput === true &&
             selectedElementIndex === 2
               ? { borderRadius: "36px " }
               : {}

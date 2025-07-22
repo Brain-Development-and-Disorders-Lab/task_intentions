@@ -136,7 +136,7 @@ let phaseOneInstructions = [
         <Paragraph margin="small" size="large" fill>
           During this task you and a partner will be choosing how to divide a
           sum of points between each other. Your ID will not be revealed to your
-          partner, and you won't be able to see the ID of your partner.
+          partner, and you won&#39;t be able to see the ID of your partner.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           This game consists of three stages. You are matched with a{" "}
@@ -202,7 +202,7 @@ let phaseOneInstructions = [
           game will determine if they are entered into the bonus lottery.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          Click 'Next &gt;' to select an avatar to represent you while you play
+          Click &#39;Next &gt;&#39; to select an avatar to represent you while you play
           this game. You will then play <b>3</b> practice rounds before you are
           matched with your partner.
         </Paragraph>
@@ -212,7 +212,7 @@ let phaseOneInstructions = [
 ];
 
 // Add controls instructions if using alternate input
-if (Configuration.manipulations.useAlternateInput === true) {
+if (Configuration.manipulations.useButtonInput === true) {
   phaseOneInstructions = [
     react2html(
       <Grommet>
@@ -252,12 +252,28 @@ if (Configuration.manipulations.useAlternateInput === true) {
 timeline.push({
   type: "instructions",
   pages: phaseOneInstructions,
-  allow_keys: Configuration.manipulations.useAlternateInput,
+  allow_keys: Configuration.manipulations.useButtonInput,
   key_forward: BINDINGS.NEXT,
   key_backward: BINDINGS.PREVIOUS,
   show_page_number: true,
   show_clickable_nav: true,
 });
+
+// Insert Waiting screens before Phase 01
+if (Configuration.manipulations.useButtonInput === true) {
+  // Facilitator waiting
+  timeline.push({
+    type: Configuration.studyName,
+    display: "waiting",
+    mode: "facilitator",
+  });
+  // MRI waiting
+  timeline.push({
+    type: Configuration.studyName,
+    display: "waiting",
+    mode: "mri",
+  });
+}
 
 // Insert a 'selection' screen into the timeline
 timeline.push({
@@ -291,20 +307,20 @@ timeline.push({
             Instructions
           </Heading>
           <Paragraph margin="small" size="large" fill>
-            Let's get used to how the game looks with some practice trials.
+            Let&#39;s get used to how the game looks with some practice trials.
           </Paragraph>
           <Paragraph margin="small" size="large" fill>
             In these practice trials, the points will not count toward your
             total and your partner is not real.
           </Paragraph>
           <Paragraph margin="small" size="large" fill>
-            Press 'Next &gt;' to continue.
+            Press &#39;Next &gt;&#39; to continue.
           </Paragraph>
         </Box>
       </Grommet>
     ),
   ],
-  allow_keys: Configuration.manipulations.useAlternateInput,
+  allow_keys: Configuration.manipulations.useButtonInput,
   key_forward: BINDINGS.NEXT,
   key_backward: BINDINGS.PREVIOUS,
   show_page_number: true,
@@ -362,17 +378,17 @@ timeline.push({
             Instructions
           </Heading>
           <Paragraph margin="small" size="large" fill>
-            The practice trials are now over. Let's start the first stage of the
+            The practice trials are now over. Let&#39;s start the first stage of the
             game.
           </Paragraph>
           <Paragraph margin="small" size="large" fill>
-            Press 'Next &gt;' to begin!
+            Press &#39;Next &gt;&#39; to begin!
           </Paragraph>
         </Box>
       </Grommet>
     ),
   ],
-  allow_keys: Configuration.manipulations.useAlternateInput,
+  allow_keys: Configuration.manipulations.useButtonInput,
   key_forward: BINDINGS.NEXT,
   key_backward: BINDINGS.PREVIOUS,
   show_page_number: true,
@@ -396,15 +412,15 @@ timeline.push({
   },
   input_schema: {
     select:
-      Configuration.manipulations.useAlternateInput === true
+      Configuration.manipulations.useButtonInput === true
         ? BINDINGS.SELECT
         : null,
     next:
-      Configuration.manipulations.useAlternateInput === true
+      Configuration.manipulations.useButtonInput === true
         ? BINDINGS.NEXT
         : null,
     previous:
-      Configuration.manipulations.useAlternateInput === true
+      Configuration.manipulations.useButtonInput === true
         ? BINDINGS.PREVIOUS
         : null,
   },
@@ -416,7 +432,7 @@ timeline.push({
     {
       type: "instructions",
       pages: phaseOneInstructions,
-      allow_keys: Configuration.manipulations.useAlternateInput,
+      allow_keys: Configuration.manipulations.useButtonInput,
       key_forward: BINDINGS.NEXT,
       key_backward: BINDINGS.PREVIOUS,
       show_page_number: true,
@@ -449,15 +465,15 @@ timeline.push({
   },
   input_schema: {
     select:
-      Configuration.manipulations.useAlternateInput === true
+      Configuration.manipulations.useButtonInput === true
         ? BINDINGS.SELECT
         : null,
     next:
-      Configuration.manipulations.useAlternateInput === true
+      Configuration.manipulations.useButtonInput === true
         ? BINDINGS.NEXT
         : null,
     previous:
-      Configuration.manipulations.useAlternateInput === true
+      Configuration.manipulations.useButtonInput === true
         ? BINDINGS.PREVIOUS
         : null,
   },
@@ -469,7 +485,7 @@ timeline.push({
     {
       type: "instructions",
       pages: phaseOneInstructions,
-      allow_keys: Configuration.manipulations.useAlternateInput,
+      allow_keys: Configuration.manipulations.useButtonInput,
       key_forward: BINDINGS.NEXT,
       key_backward: BINDINGS.PREVIOUS,
       show_page_number: true,
@@ -502,13 +518,13 @@ timeline.push({
             You will now be matched with a partner.
           </Paragraph>
           <Paragraph margin="small" size="large" fill>
-            Press 'Next &gt;' to continue.
+            Press &#39;Next &gt;&#39; to continue.
           </Paragraph>
         </Box>
       </Grommet>
     ),
   ],
-  allow_keys: Configuration.manipulations.useAlternateInput,
+  allow_keys: Configuration.manipulations.useButtonInput,
   key_forward: BINDINGS.NEXT,
   key_backward: BINDINGS.PREVIOUS,
   show_page_number: true,
@@ -601,7 +617,7 @@ for (let i = 0; i < dataCollection.length; i++) {
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
                 <b>
-                  The number of times you correctly guess your partner's choices
+                  The number of times you correctly guess your partner&#39;s choices
                   will be multiplied by 10 and added to your total points
                 </b>
                 . This will contribute to your chance to win a bonus at the end
@@ -617,14 +633,14 @@ for (let i = 0; i < dataCollection.length; i++) {
                 Instructions
               </Heading>
               <Paragraph margin="small" size="large" fill>
-                Let's get used to how stage two looks with some practice trials.
+                Let&#39;s get used to how stage two looks with some practice trials.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
                 In these practice trials, the points will not count toward your
                 total and the decisions made by your partner are not real.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
-                Click 'Next &gt;' to begin!
+                Click &#39;Next &gt;&#39; to begin!
               </Paragraph>
             </Box>
           </Grommet>
@@ -636,12 +652,26 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "instructions",
         pages: phaseTwoInstructions,
-        allow_keys: Configuration.manipulations.useAlternateInput,
+        allow_keys: Configuration.manipulations.useButtonInput,
         key_forward: BINDINGS.NEXT,
         key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
         show_clickable_nav: true,
       });
+
+      // Insert Waiting screens before Phase 02
+      if (Configuration.manipulations.useButtonInput === true) {
+        timeline.push({
+          type: Configuration.studyName,
+          display: "waiting",
+          mode: "facilitator",
+        });
+        timeline.push({
+          type: Configuration.studyName,
+          display: "waiting",
+          mode: "mri",
+        });
+      }
 
       // 3x practice trials for 'playerGuess'
       timeline.push({
@@ -694,17 +724,17 @@ for (let i = 0; i < dataCollection.length; i++) {
                   Instructions
                 </Heading>
                 <Paragraph margin="small" size="large" fill>
-                  The practice trials are now over. Let's start the second stage
+                  The practice trials are now over. Let&#39;s start the second stage
                   of the game.
                 </Paragraph>
                 <Paragraph margin="small" size="large" fill>
-                  Press 'Next &gt;' to begin!
+                  Press &#39;Next &gt;&#39; to begin!
                 </Paragraph>
               </Box>
             </Grommet>
           ),
         ],
-        allow_keys: Configuration.manipulations.useAlternateInput,
+        allow_keys: Configuration.manipulations.useButtonInput,
         key_forward: BINDINGS.NEXT,
         key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
@@ -728,15 +758,15 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
         input_schema: {
           select:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.SELECT
               : null,
           next:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.NEXT
               : null,
           previous:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.PREVIOUS
               : null,
         },
@@ -748,7 +778,7 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseTwoInstructions,
-            allow_keys: Configuration.manipulations.useAlternateInput,
+            allow_keys: Configuration.manipulations.useButtonInput,
             key_forward: BINDINGS.NEXT,
             key_backward: BINDINGS.PREVIOUS,
             show_page_number: true,
@@ -784,15 +814,15 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
         input_schema: {
           select:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.SELECT
               : null,
           next:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.NEXT
               : null,
           previous:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.PREVIOUS
               : null,
         },
@@ -804,7 +834,7 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseTwoInstructions,
-            allow_keys: Configuration.manipulations.useAlternateInput,
+            allow_keys: Configuration.manipulations.useButtonInput,
             key_forward: BINDINGS.NEXT,
             key_backward: BINDINGS.PREVIOUS,
             show_page_number: true,
@@ -837,13 +867,13 @@ for (let i = 0; i < dataCollection.length; i++) {
                   You will now be matched with a partner.
                 </Paragraph>
                 <Paragraph margin="small" size="large" fill>
-                  Press 'Next &gt;' to continue.
+                  Press &#39;Next &gt;&#39; to continue.
                 </Paragraph>
               </Box>
             </Grommet>
           ),
         ],
-        allow_keys: Configuration.manipulations.useAlternateInput,
+        allow_keys: Configuration.manipulations.useButtonInput,
         key_forward: BINDINGS.NEXT,
         key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
@@ -909,7 +939,7 @@ for (let i = 0; i < dataCollection.length; i++) {
                 accumulated over the course of the game so far.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
-                Click 'Next &gt;' to be matched with your partner and start
+                Click &#39;Next &gt;&#39; to be matched with your partner and start
                 stage three. There will be no practice trials beforehand.
               </Paragraph>
             </Box>
@@ -921,12 +951,26 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "instructions",
         pages: phaseThreeInstructions,
-        allow_keys: Configuration.manipulations.useAlternateInput,
+        allow_keys: Configuration.manipulations.useButtonInput,
         key_forward: BINDINGS.NEXT,
         key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,
         show_clickable_nav: true,
       });
+
+      // Insert Waiting screens before Phase 03
+      if (Configuration.manipulations.useButtonInput === true) {
+        timeline.push({
+          type: Configuration.studyName,
+          display: "waiting",
+          mode: "facilitator",
+        });
+        timeline.push({
+          type: Configuration.studyName,
+          display: "waiting",
+          mode: "mri",
+        });
+      }
 
       timeline.push({
         type: "attention-check",
@@ -946,15 +990,15 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
         input_schema: {
           select:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.SELECT
               : null,
           next:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.NEXT
               : null,
           previous:
-            Configuration.manipulations.useAlternateInput === true
+            Configuration.manipulations.useButtonInput === true
               ? BINDINGS.PREVIOUS
               : null,
         },
@@ -966,7 +1010,7 @@ for (let i = 0; i < dataCollection.length; i++) {
           {
             type: "instructions",
             pages: phaseThreeInstructions,
-            allow_keys: Configuration.manipulations.useAlternateInput,
+            allow_keys: Configuration.manipulations.useButtonInput,
             key_forward: BINDINGS.NEXT,
             key_backward: BINDINGS.PREVIOUS,
             show_page_number: true,
@@ -999,13 +1043,13 @@ for (let i = 0; i < dataCollection.length; i++) {
                   You will now be matched with a partner.
                 </Paragraph>
                 <Paragraph margin="small" size="large" fill>
-                  Press 'Next &gt;' to continue.
+                  Press &#39;Next &gt;&#39; to continue.
                 </Paragraph>
               </Box>
             </Grommet>
           ),
         ],
-        allow_keys: Configuration.manipulations.useAlternateInput,
+        allow_keys: Configuration.manipulations.useButtonInput,
         key_forward: BINDINGS.NEXT,
         key_backward: BINDINGS.PREVIOUS,
         show_page_number: true,

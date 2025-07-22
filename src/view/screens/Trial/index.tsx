@@ -417,7 +417,7 @@ const Trial: FC<Props.Screens.Trial> = (
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration or if transition active
     if (
-      Configuration.manipulations.useAlternateInput === false ||
+      Configuration.manipulations.useButtonInput === false ||
       blockInput ||
       transitionActive
     )
@@ -487,13 +487,13 @@ const Trial: FC<Props.Screens.Trial> = (
               margin={"none"}
               pad={"none"}
               border={
-                Configuration.manipulations.useAlternateInput === true && {
+                Configuration.manipulations.useButtonInput === true && {
                   color: "selectedElement",
                   size: "large",
                 }
               }
               style={
-                Configuration.manipulations.useAlternateInput === true
+                Configuration.manipulations.useButtonInput === true
                   ? { borderRadius: "32px " }
                   : {}
               }
@@ -539,13 +539,13 @@ const Trial: FC<Props.Screens.Trial> = (
               margin={"none"}
               pad={"none"}
               border={
-                Configuration.manipulations.useAlternateInput === true && {
+                Configuration.manipulations.useButtonInput === true && {
                   color: "selectedElement",
                   size: "large",
                 }
               }
               style={
-                Configuration.manipulations.useAlternateInput === true
+                Configuration.manipulations.useButtonInput === true
                   ? { borderRadius: "32px " }
                   : {}
               }
@@ -650,7 +650,7 @@ const Trial: FC<Props.Screens.Trial> = (
               round
               background="optionBackground"
               border={
-                Configuration.manipulations.useAlternateInput === true &&
+                Configuration.manipulations.useButtonInput === true &&
                 trialState.highlightedOptionIndex === 0
                   ? { color: "selectedElement", size: "large" }
                   : {}
@@ -672,7 +672,7 @@ const Trial: FC<Props.Screens.Trial> = (
               round
               background="optionBackground"
               border={
-                Configuration.manipulations.useAlternateInput === true &&
+                Configuration.manipulations.useButtonInput === true &&
                 trialState.highlightedOptionIndex === 1
                   ? { color: "selectedElement", size: "large" }
                   : {}

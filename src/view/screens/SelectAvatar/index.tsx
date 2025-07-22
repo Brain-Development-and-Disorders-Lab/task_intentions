@@ -54,7 +54,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useAlternateInput === false) return;
+    if (Configuration.manipulations.useButtonInput === false) return;
 
     // Avoid holding the key down
     if (event.repeat) return;
@@ -107,7 +107,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
           return (
             <Box
               border={
-                Configuration.manipulations.useAlternateInput === true &&
+                Configuration.manipulations.useButtonInput === true &&
                 selectedAvatarIndex === i && {
                   color: "selectedElement",
                   size: "large",
@@ -129,7 +129,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
       </Box>
 
       {/* Continue button */}
-      {Configuration.manipulations.useAlternateInput !== true && (
+      {Configuration.manipulations.useButtonInput !== true && (
         <Button
           id="select-avatar-button"
           primary
