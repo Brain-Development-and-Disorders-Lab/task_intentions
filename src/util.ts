@@ -154,12 +154,16 @@ export const initializeLocalStorage = (id: string): void => {
 
       // If the user has not disabled the prompt, show it
       if (Flags.isEnabled("enablePreviousExperimentPrompt")) {
-        const confirm = window.confirm("The previous experiment was not completed. Click OK to download the data from the previous experiment, or click Cancel to discard the data and continue.");
+        const confirm = window.confirm(
+          "The previous experiment was not completed. Click OK to download the data from the previous experiment, or click Cancel to discard the data and continue."
+        );
         if (confirm) {
           const data = stored[stored.length - 1];
           FileSaver.saveAs(
-            new Blob([JSON.stringify(data, null, "  ")], { type: "application/json" }),
-            `${data.experimentID}_data.json`,
+            new Blob([JSON.stringify(data, null, "  ")], {
+              type: "application/json",
+            }),
+            `${data.experimentID}_data.json`
           );
         } else {
           consola.warn("Discarding previous experiment data");
@@ -177,7 +181,9 @@ export const initializeLocalStorage = (id: string): void => {
   };
   stored.push(experiment);
   localStorage.setItem(Configuration.studyName, JSON.stringify(stored));
-  consola.info(`Backup initialized for experiment ID: ${experiment.experimentID}`);
+  consola.info(
+    `Backup initialized for experiment ID: ${experiment.experimentID}`
+  );
 };
 
 /**
@@ -202,7 +208,9 @@ export const saveToLocalStorage = (id: string, data: any): void => {
       return;
     }
   }
-  consola.error(`Unable to save data to backup storage for experiment ID: ${id}`);
+  consola.error(
+    `Unable to save data to backup storage for experiment ID: ${id}`
+  );
 };
 
 /**

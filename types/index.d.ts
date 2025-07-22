@@ -59,7 +59,6 @@ declare type Display =
   | "end"
   | "waiting";
 
-
 // The three partner types
 declare type Partner = "Test" | "Prosocial" | "Individualist" | "Competitive";
 

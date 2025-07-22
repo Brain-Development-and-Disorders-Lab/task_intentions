@@ -50,7 +50,8 @@ const Status: FC<Props.Screens.Status> = (
   // Page 2 states (numeric input + slider)
   const [friends, setFriends] = useState("");
   const [socialClosenessMoved, setSocialClosenessMoved] = useState(false);
-  const [socialClosenessValue, setSocialClosenessValue] = useState(SLIDER_DEFAULT);
+  const [socialClosenessValue, setSocialClosenessValue] =
+    useState(SLIDER_DEFAULT);
 
   // Selected UI element (used for alternate input)
   const [selectedElementIndex, setSelectedElementIndex] = useState(0);
@@ -108,9 +109,13 @@ const Status: FC<Props.Screens.Status> = (
           } else if (selectedElementIndex === 1) {
             // Social closeness slider
             if (event.key.toString() === BINDINGS.NEXT) {
-              setSocialClosenessValue(socialClosenessValue + 1 <= 100 ? socialClosenessValue + 1 : 100);
+              setSocialClosenessValue(
+                socialClosenessValue + 1 <= 100 ? socialClosenessValue + 1 : 100
+              );
             } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-              setSocialClosenessValue(socialClosenessValue - 1 >= 0 ? socialClosenessValue - 1 : 0);
+              setSocialClosenessValue(
+                socialClosenessValue - 1 >= 0 ? socialClosenessValue - 1 : 0
+              );
             }
             setSocialClosenessMoved(true);
           }
@@ -120,7 +125,9 @@ const Status: FC<Props.Screens.Status> = (
         const maxElements = currentPage === 1 ? 3 : 3; // 2 inputs + continue button on each page
         if (event.key.toString() === BINDINGS.NEXT) {
           setSelectedElementIndex(
-            selectedElementIndex + 1 < maxElements ? selectedElementIndex + 1 : maxElements - 1
+            selectedElementIndex + 1 < maxElements
+              ? selectedElementIndex + 1
+              : maxElements - 1
           );
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
           setSelectedElementIndex(
@@ -195,7 +202,7 @@ const Status: FC<Props.Screens.Status> = (
             <TextInput
               type="number"
               value={followers}
-              onChange={(event) => setFollowers(event.target.value)}
+              onChange={event => setFollowers(event.target.value)}
               placeholder="Enter number"
               style={{ textAlign: "center" }}
             />
@@ -221,7 +228,7 @@ const Status: FC<Props.Screens.Status> = (
             <TextInput
               type="number"
               value={averageLikes}
-              onChange={(event) => setAverageLikes(event.target.value)}
+              onChange={event => setAverageLikes(event.target.value)}
               placeholder="Enter number"
               style={{ textAlign: "center" }}
             />
@@ -303,7 +310,7 @@ const Status: FC<Props.Screens.Status> = (
           <TextInput
             type="number"
             value={friends}
-            onChange={(event) => setFriends(event.target.value)}
+            onChange={event => setFriends(event.target.value)}
             placeholder="Enter number"
             style={{ textAlign: "center" }}
           />

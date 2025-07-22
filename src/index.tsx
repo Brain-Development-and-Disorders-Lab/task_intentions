@@ -84,7 +84,7 @@ const handleSignal = () => {
 };
 
 // Setup the signal listener
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", event => {
   if (event.repeat) return;
   if (event.key === BINDINGS.SIGNAL) {
     handleSignal();
@@ -193,18 +193,18 @@ let phaseOneInstructions = [
           Stage one
         </Heading>
         <Paragraph margin="small" size="large" fill>
-          In this stage, <b>you</b> are tasked with distributing points
-          between yourself and your partner. You may choose to distribute the
-          points however you like. This stage will consist of 36 rounds.
+          In this stage, <b>you</b> are tasked with distributing points between
+          yourself and your partner. You may choose to distribute the points
+          however you like. This stage will consist of 36 rounds.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           Remember, the number of points each player holds at the end of the
           game will determine if they are entered into the bonus lottery.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          Click &#39;Next &gt;&#39; to select an avatar to represent you while you play
-          this game. You will then play <b>3</b> practice rounds before you are
-          matched with your partner.
+          Click &#39;Next &gt;&#39; to select an avatar to represent you while
+          you play this game. You will then play <b>3</b> practice rounds before
+          you are matched with your partner.
         </Paragraph>
       </Box>
     </Grommet>
@@ -224,22 +224,37 @@ if (Configuration.manipulations.useButtonInput === true) {
             Controls
           </Heading>
           <Paragraph size={"large"} margin={"small"} fill>
-            When interacting with the game interface, the currently selected element will be highlighted with a gray outline. An example is shown below:
+            When interacting with the game interface, the currently selected
+            element will be highlighted with a gray outline. An example is shown
+            below:
           </Paragraph>
-          <Box width={"fit-content"} pad={"xsmall"} round border={{ color: "lightgray", size: "large" }} alignSelf={"center"}>
+          <Box
+            width={"fit-content"}
+            pad={"xsmall"}
+            round
+            border={{ color: "lightgray", size: "large" }}
+            alignSelf={"center"}
+          >
             <Paragraph margin={"small"} size={"large"} fill>
               <b>Element</b>
             </Paragraph>
           </Box>
           <Box alignSelf={"center"} margin={"none"}>
             <Paragraph size={"large"} textAlign={"start"}>
-              <b>Button {BINDINGS.PREVIOUS}</b> selects the <b>previous</b> element;<br/>
-              <b>Button {BINDINGS.NEXT}</b> selects the <b>next</b> element; and<br/>
-              <b>Button {BINDINGS.SELECT}</b> interacts with the <b>currently selected</b> element.<br/>
+              <b>Button {BINDINGS.PREVIOUS}</b> selects the <b>previous</b>{" "}
+              element;
+              <br />
+              <b>Button {BINDINGS.NEXT}</b> selects the <b>next</b> element; and
+              <br />
+              <b>Button {BINDINGS.SELECT}</b> interacts with the{" "}
+              <b>currently selected</b> element.
+              <br />
             </Paragraph>
           </Box>
-          <Paragraph size={"large"} margin={"small"}fill>
-            When viewing instruction screens (e.g. this one), <b>Button {BINDINGS.NEXT}</b> continues to the next page and <b>Button {BINDINGS.PREVIOUS}</b> returns to the previous page.
+          <Paragraph size={"large"} margin={"small"} fill>
+            When viewing instruction screens (e.g. this one),{" "}
+            <b>Button {BINDINGS.NEXT}</b> continues to the next page and{" "}
+            <b>Button {BINDINGS.PREVIOUS}</b> returns to the previous page.
           </Paragraph>
         </Box>
       </Grommet>
@@ -266,7 +281,11 @@ timeline.push({
 });
 
 // If the status display is enabled, check if the flags need to be updated to match the manipulations
-if (Configuration.manipulations.enableStatusPhaseOne === true || Configuration.manipulations.enableStatusPhaseTwo === true || Configuration.manipulations.enableStatusPhaseThree === true) {
+if (
+  Configuration.manipulations.enableStatusPhaseOne === true ||
+  Configuration.manipulations.enableStatusPhaseTwo === true ||
+  Configuration.manipulations.enableStatusPhaseThree === true
+) {
   // Enable the status display and the questionnaire globally
   Flags.setValue("enableStatusDisplay", true);
   Flags.setValue("enableStatusQuestionnaire", true);
@@ -362,8 +381,8 @@ timeline.push({
             Instructions
           </Heading>
           <Paragraph margin="small" size="large" fill>
-            The practice trials are now over. Let&#39;s start the first stage of the
-            game.
+            The practice trials are now over. Let&#39;s start the first stage of
+            the game.
           </Paragraph>
           <Paragraph margin="small" size="large" fill>
             Press &#39;Next &gt;&#39; to begin!
@@ -617,8 +636,9 @@ for (let i = 0; i < dataCollection.length; i++) {
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
                 <b>
-                  The number of times you correctly guess your partner&#39;s choices
-                  will be multiplied by 10 and added to your total points
+                  The number of times you correctly guess your partner&#39;s
+                  choices will be multiplied by 10 and added to your total
+                  points
                 </b>
                 . This will contribute to your chance to win a bonus at the end
                 of the game.
@@ -633,7 +653,8 @@ for (let i = 0; i < dataCollection.length; i++) {
                 Instructions
               </Heading>
               <Paragraph margin="small" size="large" fill>
-                Let&#39;s get used to how stage two looks with some practice trials.
+                Let&#39;s get used to how stage two looks with some practice
+                trials.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
                 In these practice trials, the points will not count toward your
@@ -710,8 +731,8 @@ for (let i = 0; i < dataCollection.length; i++) {
                   Instructions
                 </Heading>
                 <Paragraph margin="small" size="large" fill>
-                  The practice trials are now over. Let&#39;s start the second stage
-                  of the game.
+                  The practice trials are now over. Let&#39;s start the second
+                  stage of the game.
                 </Paragraph>
                 <Paragraph margin="small" size="large" fill>
                   Press &#39;Next &gt;&#39; to begin!
@@ -943,8 +964,8 @@ for (let i = 0; i < dataCollection.length; i++) {
                 accumulated over the course of the game so far.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
-                Click &#39;Next &gt;&#39; to be matched with your partner and start
-                stage three. There will be no practice trials beforehand.
+                Click &#39;Next &gt;&#39; to be matched with your partner and
+                start stage three. There will be no practice trials beforehand.
               </Paragraph>
             </Box>
           </Grommet>

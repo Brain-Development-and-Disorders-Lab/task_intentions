@@ -125,7 +125,12 @@ declare namespace Props {
 
     // Status screen
     type Status = GenericScreenProps & {
-      handler: (followers: number, averageLikes: number, friends: number, socialCloseness: number) => void;
+      handler: (
+        followers: number,
+        averageLikes: number,
+        friends: number,
+        socialCloseness: number
+      ) => void;
     };
 
     // Summary screen

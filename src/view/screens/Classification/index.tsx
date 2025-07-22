@@ -150,7 +150,7 @@ const Classification: FC<Props.Screens.Classification> = (
             name="partner-classification"
             options={partners}
             value={classification}
-            onChange={(event) => {
+            onChange={event => {
               // Enable the continue button
               setContinueDisabled(false);
 

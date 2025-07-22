@@ -40,7 +40,12 @@ jest.mock("src/configuration", () => ({
 // Mock the boring-neutral-avatars component
 jest.mock("boring-neutral-avatars", () => {
   return function MockAvatar({ name, size }: { name: string; size: number }) {
-    return <div data-testid={`avatar-${name}`} style={{ width: size, height: size }} />;
+    return (
+      <div
+        data-testid={`avatar-${name}`}
+        style={{ width: size, height: size }}
+      />
+    );
   };
 });
 
