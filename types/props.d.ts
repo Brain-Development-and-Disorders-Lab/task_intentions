@@ -13,7 +13,7 @@ declare namespace Props {
       display: Display;
       props:
         | Screens.Matched
-        | Screens.Matching
+        | Screens.Loading
         | Screens.Trial
         | Screens.SelectAvatar
         | Screens.Inference
@@ -80,10 +80,11 @@ declare namespace Props {
     // Matched screen
     type Matched = GenericScreenProps;
 
-    // Matching screen
-    type Matching = GenericScreenProps & {
-      fetchData: boolean;
-      handler: (
+    // Loading screen
+    type Loading = GenericScreenProps & {
+      loadingType: "matching" | "social" | "default";
+      fetchData?: boolean;
+      handler?: (
         participantParameters: number[],
         partnerParameters: number[]
       ) => void;

@@ -84,7 +84,7 @@
   "dependencies": {
     "axios": "^0.25.0",
     "boring-neutral-avatars": "^1.6.4",
-    "canvas": "^2.11.2",
+    "canvas": "^3.1.2",
     "core-js": "^3.21.1",
     "d3": "^7.3.0",
     "d3-array": "^3.1.1",

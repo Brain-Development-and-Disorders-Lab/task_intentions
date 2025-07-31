@@ -40,6 +40,7 @@ declare type TimelineNode = {
 
   // Matching screen
   fetchData?: boolean;
+  loadingType?: "matching" | "social" | "default";
 
   // Waiting screen
   mode?: "facilitator" | "mri";
