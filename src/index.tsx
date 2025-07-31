@@ -379,6 +379,28 @@ if (Flags.isEnabled("enableStatusDisplay") === true) {
     fetchData: false,
   });
 }
+
+// Introduce the status display if enabled
+if (Flags.isEnabled("enableStatusDisplay") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    optionOneParticipant: 5,
+    optionOnePartner: 9,
+    optionTwoParticipant: 9,
+    optionTwoPartner: 9,
+    typeOne: "",
+    typeTwo: "",
+    display: "playerChoicePractice",
+    answer: "Option 1",
+    isPractice: true,
+    spotlight: {
+      enabled: true,
+      target: "status",
+      message: "In some trials, you will be able to see your social standing in relation to your partner, based on the information you provided.",
+    },
+  });
+}
+
 // Post-'playerChoice' instructions
 timeline.push({
   type: "instructions",
@@ -543,13 +565,13 @@ timeline.push({
   show_clickable_nav: true,
 });
 
-      // Insert the matching sequence into the timeline
-      timeline.push({
-        type: Configuration.studyName,
-        display: "loading",
-        loadingType: "matching",
-        fetchData: false,
-      });
+// Insert the matching sequence into the timeline
+timeline.push({
+  type: Configuration.studyName,
+  display: "loading",
+  loadingType: "matching",
+  fetchData: false,
+});
 
 timeline.push({
   type: Configuration.studyName,

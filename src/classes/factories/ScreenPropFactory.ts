@@ -82,6 +82,7 @@ class ScreenPropFactory implements Factory {
           trial: this.trial.trial,
           display: this.trial.display,
           isPractice: this.trial.isPractice,
+          spotlight: this.trial.spotlight,
           participantPoints: participantPoints,
           partnerPoints: partnerPoints,
           options: {

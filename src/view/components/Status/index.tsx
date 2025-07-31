@@ -38,10 +38,9 @@ const Status: FC<Props.Components.Status> = (
     Configuration.avatars.names.participant[
       experiment.getState().get("participantAvatar")
     ];
-  const partnerAvatarName =
-    Configuration.avatars.names.partner[
-      experiment.getState().get("partnerAvatar")
-    ];
+  const partnerAvatarName = props.isPractice === true ? "example" : Configuration.avatars.names.partner[
+    experiment.getState().get("partnerAvatar")
+  ];
 
   // Calculate positions as percentages (0-100)
   const participantPosition = `${participantStatus}%`;
