@@ -116,8 +116,13 @@ class ScreenPropFactory implements Factory {
 
       // Loading screen
       case "loading":
-        // Random timeout for 'loading' process
-        returned.duration = 10000 + (1 + Math.random() * 5) * 1000;
+        if (this.trial.loadingType === "social") {
+          // 1-4 second timeout for "social" state
+          returned.duration = 1000 + (1 + Math.random() * 3) * 1000;
+        } else {
+          // 10-15 second timeout for "matching" state
+          returned.duration = 10000 + (1 + Math.random() * 5) * 1000;
+        }
 
         // Set the timeout callback function
         returned.callback = this.handler.callback.bind(this.handler);

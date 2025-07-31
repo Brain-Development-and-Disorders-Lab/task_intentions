@@ -370,6 +370,15 @@ timeline.push({
   isPractice: true,
 });
 
+// Show a matching screen for the social partner
+if (Flags.isEnabled("enableStatusDisplay") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loading",
+    loadingType: "social",
+    fetchData: false,
+  });
+}
 // Post-'playerChoice' instructions
 timeline.push({
   type: "instructions",
