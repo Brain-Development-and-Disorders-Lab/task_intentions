@@ -582,7 +582,53 @@ const Trial: FC<Props.Screens.Trial> = (
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
       <Box align="center" justify="center" fill>
-        {/* Status component - only show if enabled for this phase and not a practice trial */}
+
+        {/* Status component - display in practice cases only if the spotlight functionality is enabled */}
+        {Flags.isEnabled("enableStatusDisplay") &&
+          props.isPractice === true &&
+          props.spotlight?.enabled === true &&
+          props.spotlight.target === "status" && (
+            <>
+              <Box
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: "rgba(255, 255, 255, 0.8)",
+                  backdropFilter: "blur(2px)",
+                  WebkitBackdropFilter: "blur(2px)",
+                  zIndex: 999,
+                  pointerEvents: "auto",
+                }}
+              />
+              <Box
+                align="center"
+                justify="center"
+                width="100%"
+                margin={{ bottom: "medium" }}
+                style={{ position: "relative", zIndex: 1000 }}
+              >
+                <Box
+                  style={{
+                    border: "4px solid #2EC4B6",
+                    borderRadius: "12px",
+                    padding: "8px",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    display: "inline-block"
+                  }}
+                >
+                  <Status
+                    participantStatus={45}
+                    partnerStatus={75}
+                  />
+                </Box>
+              </Box>
+            </>
+        )}
+
+        {/* Status component - display if enabled for this phase and not a practice trial */}
         {Flags.isEnabled("enableStatusDisplay") &&
           !props.isPractice &&
           ((props.display === "playerChoice" &&

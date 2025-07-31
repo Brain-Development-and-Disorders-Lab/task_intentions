@@ -97,6 +97,16 @@ jsPsych.plugins[Configuration.studyName] = (() => {
         default: false,
         description: "Show feedback to participants",
       },
+      spotlight: {
+        type: jsPsych.plugins.parameterType.OBJECT,
+        pretty_name: "Spotlight",
+        default: {
+          enabled: false,
+          target: "",
+          message: "",
+        },
+        description: "Spotlight a UI component with a closeable message",
+      },
       fetchData: {
         type: jsPsych.plugins.parameterType.BOOLEAN,
         pretty_name: "Enable or disable server queries",

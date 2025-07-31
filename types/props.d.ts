@@ -97,6 +97,11 @@ declare namespace Props {
       partnerPoints: number;
       options: Points;
       answer: Options;
+      spotlight?: {
+        enabled: boolean;
+        target: "status" | "options" | "none";
+        message: string;
+      };
       handler: (
         selection: Options,
         points: { options: Points },

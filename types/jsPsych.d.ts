@@ -37,6 +37,11 @@ declare type TimelineNode = {
   typeTwo?: string;
   answer?: string;
   isPractice?: boolean;
+  spotlight?: {
+    enabled: boolean;
+    target: "status" | "options" | "none";
+    message: string;
+  };
 
   // Matching screen
   fetchData?: boolean;

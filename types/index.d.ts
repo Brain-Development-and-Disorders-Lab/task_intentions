@@ -97,10 +97,17 @@ declare type Trial = {
   answer: Options;                  // Correct answer for the trial ("Option 1" or "Option 2")
   isPractice: boolean;              // Whether this is a practice trial
 
-    // Loading screen configuration (used by Loading screen)
+  // Loading screen configuration (used by Loading screen)
   loadingType?: "matching" | "social" | "default"; // Type of loading: "matching" (partner matching), "social" (status generation), or "default" (generic loading)
   fetchData: boolean;               // Whether to fetch data from server (only used when loadingType is "matching")
   mode: "facilitator" | "mri";
+
+  // Spotlight configuration (used by Trial screen)
+  spotlight?: {
+    enabled: boolean;
+    target: "status" | "options" | "none";
+    message: string;
+  };
 };
 
 // Data type used to enforce trial data storage format
