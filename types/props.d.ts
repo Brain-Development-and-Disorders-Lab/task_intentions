@@ -64,6 +64,7 @@ declare namespace Props {
     type Status = {
       participantStatus: number;
       partnerStatus: number;
+      isPractice?: boolean;
     };
   }
 

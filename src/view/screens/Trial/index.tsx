@@ -622,7 +622,42 @@ const Trial: FC<Props.Screens.Trial> = (
                   <Status
                     participantStatus={45}
                     partnerStatus={75}
+                    isPractice
                   />
+                </Box>
+
+                <Box
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    marginTop: "16px",
+                    maxWidth: "400px",
+                    background: "white",
+                    borderRadius: "8px",
+                    padding: "16px",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                    zIndex: 1001
+                  }}
+                >
+                  <Text size="medium" margin={{ bottom: "medium" }}>
+                    {props.spotlight?.message || "Default message"}
+                  </Text>
+
+                  <Box align="center">
+                    <Button
+                      primary
+                      color="button"
+                      label="Continue"
+                      size="medium"
+                      icon={<LinkNext />}
+                      reverse
+                      onClick={() => {
+                        props.handler("Option 1", DEFAULT_POINTS, "Option 1");
+                      }}
+                    />
+                  </Box>
                 </Box>
               </Box>
             </>
