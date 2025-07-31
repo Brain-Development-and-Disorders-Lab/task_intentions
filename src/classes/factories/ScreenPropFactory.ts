@@ -208,6 +208,16 @@ class ScreenPropFactory implements Factory {
         };
         break;
 
+      // Waiting screen
+      case "waiting":
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          mode: this.trial.mode,
+          handler: this.handler.callback.bind(this.handler),
+        };
+        break;
+
       // Default error state
       default:
         // Log an error message and finish the trial

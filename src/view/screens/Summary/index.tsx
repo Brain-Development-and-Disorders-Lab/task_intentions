@@ -75,7 +75,7 @@ const Summary: FC<Props.Screens.Summary> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useAlternateInput === false) return;
+    if (Configuration.manipulations.useButtonInput === false) return;
 
     // Avoid holding the key down
     if (event.repeat) return;
@@ -116,13 +116,13 @@ const Summary: FC<Props.Screens.Summary> = (
             pad={"none"}
             border={{
               color:
-                Configuration.manipulations.useAlternateInput === true
+                Configuration.manipulations.useButtonInput === true
                   ? "selectedElement"
                   : "transparent",
               size: "large",
             }}
             style={
-              Configuration.manipulations.useAlternateInput === true
+              Configuration.manipulations.useButtonInput === true
                 ? { borderRadius: "36px " }
                 : {}
             }

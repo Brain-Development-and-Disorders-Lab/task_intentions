@@ -209,7 +209,7 @@ const Trial: FC<Props.Screens.Trial> = (
   const handleOptionClick = (option: "Option 1" | "Option 2") => {
     if (trialState.hasSelected === false) {
       // Update the selection state
-      setTrialState((trialState) => ({
+      setTrialState(trialState => ({
         ...trialState,
         selectedOption: option,
         highlightedOptionIndex: option === "Option 1" ? 0 : 1,
@@ -417,7 +417,7 @@ const Trial: FC<Props.Screens.Trial> = (
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration or if transition active
     if (
-      Configuration.manipulations.useAlternateInput === false ||
+      Configuration.manipulations.useButtonInput === false ||
       blockInput ||
       transitionActive
     )
@@ -434,13 +434,13 @@ const Trial: FC<Props.Screens.Trial> = (
       if (trialState.hasSelected === false) {
         // Update the state based on the keypress
         if (trialState.highlightedOptionIndex === 0) {
-          setTrialState((trialState) => ({
+          setTrialState(trialState => ({
             ...trialState,
             selectedOption: "Option 2",
             highlightedOptionIndex: 1,
           }));
         } else {
-          setTrialState((trialState) => ({
+          setTrialState(trialState => ({
             ...trialState,
             selectedOption: "Option 1",
             highlightedOptionIndex: 0,
@@ -487,13 +487,13 @@ const Trial: FC<Props.Screens.Trial> = (
               margin={"none"}
               pad={"none"}
               border={
-                Configuration.manipulations.useAlternateInput === true && {
+                Configuration.manipulations.useButtonInput === true && {
                   color: "selectedElement",
                   size: "large",
                 }
               }
               style={
-                Configuration.manipulations.useAlternateInput === true
+                Configuration.manipulations.useButtonInput === true
                   ? { borderRadius: "32px " }
                   : {}
               }
@@ -539,13 +539,13 @@ const Trial: FC<Props.Screens.Trial> = (
               margin={"none"}
               pad={"none"}
               border={
-                Configuration.manipulations.useAlternateInput === true && {
+                Configuration.manipulations.useButtonInput === true && {
                   color: "selectedElement",
                   size: "large",
                 }
               }
               style={
-                Configuration.manipulations.useAlternateInput === true
+                Configuration.manipulations.useButtonInput === true
                   ? { borderRadius: "32px " }
                   : {}
               }
@@ -583,23 +583,26 @@ const Trial: FC<Props.Screens.Trial> = (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
       <Box align="center" justify="center" fill>
         {/* Status component - only show if enabled for this phase and not a practice trial */}
-        {Flags.isEnabled("enableStatusDisplay") && !props.isPractice && (
-          (props.display === "playerChoice" && Configuration.manipulations.enableStatusPhaseOne) ||
-          (props.display === "playerGuess" && Configuration.manipulations.enableStatusPhaseTwo) ||
-          (props.display === "playerChoice2" && Configuration.manipulations.enableStatusPhaseThree)
-        ) && (
-          <Box
-            align="center"
-            justify="center"
-            width="100%"
-            margin={{ bottom: "medium" }}
-          >
-            <Status
-              participantStatus={75} // Mock value - replace with real data
-              partnerStatus={45} // Mock value - replace with real data
-            />
-          </Box>
-        )}
+        {Flags.isEnabled("enableStatusDisplay") &&
+          !props.isPractice &&
+          ((props.display === "playerChoice" &&
+            Configuration.manipulations.enableStatusPhaseOne) ||
+            (props.display === "playerGuess" &&
+              Configuration.manipulations.enableStatusPhaseTwo) ||
+            (props.display === "playerChoice2" &&
+              Configuration.manipulations.enableStatusPhaseThree)) && (
+            <Box
+              align="center"
+              justify="center"
+              width="100%"
+              margin={{ bottom: "medium" }}
+            >
+              <Status
+                participantStatus={75} // Mock value - replace with real data
+                partnerStatus={45} // Mock value - replace with real data
+              />
+            </Box>
+          )}
 
         <Grid
           rows={["xxsmall", "medium", "xxsmall"]}
@@ -650,7 +653,7 @@ const Trial: FC<Props.Screens.Trial> = (
               round
               background="optionBackground"
               border={
-                Configuration.manipulations.useAlternateInput === true &&
+                Configuration.manipulations.useButtonInput === true &&
                 trialState.highlightedOptionIndex === 0
                   ? { color: "selectedElement", size: "large" }
                   : {}
@@ -672,7 +675,7 @@ const Trial: FC<Props.Screens.Trial> = (
               round
               background="optionBackground"
               border={
-                Configuration.manipulations.useAlternateInput === true &&
+                Configuration.manipulations.useButtonInput === true &&
                 trialState.highlightedOptionIndex === 1
                   ? { color: "selectedElement", size: "large" }
                   : {}
@@ -708,7 +711,10 @@ const Trial: FC<Props.Screens.Trial> = (
                 Correct guesses:&nbsp;
               </Heading>
               <Heading level={2} size="auto" margin="xsmall">
-                <TextTransition text={correctCount} springConfig={presets.slow} />
+                <TextTransition
+                  text={correctCount}
+                  springConfig={presets.slow}
+                />
               </Heading>
             </Box>
           )}

@@ -32,6 +32,7 @@ import SelectAvatar from "../../screens/SelectAvatar";
 import Status from "../../screens/Status";
 import Matched from "../../screens/Matched";
 import Loading from "../../screens/Loading";
+import Waiting from "../../screens/Waiting";
 import End from "../../screens/End";
 import Summary from "../../screens/Summary";
 
@@ -54,7 +55,7 @@ const Wrapper: FC<Props.Components.Wrapper> = (
     if (activeDisplay !== props.display) {
       setActiveDisplay(props.display);
     }
-  }, [props.display]);
+  }, [props.display, activeDisplay]);
 
   // Return a styled Grommet instance with the global theme extension
   return (
@@ -122,6 +123,10 @@ const Wrapper: FC<Props.Components.Wrapper> = (
 
         {activeDisplay === "summary" && (
           <Summary {...(props.props as Props.Screens.Summary)} />
+        )}
+
+        {activeDisplay === "waiting" && (
+          <Waiting {...(props.props as Props.Screens.Waiting)} />
         )}
 
         {activeDisplay === "end" && <End />}

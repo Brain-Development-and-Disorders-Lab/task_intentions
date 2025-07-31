@@ -232,7 +232,10 @@ jsPsych.plugins[Configuration.studyName] = (() => {
           .get("signalTimestamps");
 
         // Update the saved dataframe in local storage
-        saveToLocalStorage(experiment.getState().get("experimentID"), dataframe);
+        saveToLocalStorage(
+          experiment.getState().get("experimentID"),
+          dataframe
+        );
 
         // Toggle the completed flag in the local storage object
         setCompleted(experiment.getState().get("experimentID"), true);

@@ -32,7 +32,14 @@ interface Factory {
   generate(...args);
 }
 
-// Different screen types that are displayed
+// Type for the 'ScreenPropFactory' return
+declare type ScreenProps = {
+  props: Props.Screens;
+  callback: (...args) => void;
+  duration: number;
+};
+
+// Ensure Display type includes 'waiting'
 declare type Display =
   | "playerChoice"
   | "playerChoicePractice"
@@ -49,7 +56,8 @@ declare type Display =
   | "classification"
   | "status"
   | "summary"
-  | "end";
+  | "end"
+  | "waiting";
 
 // The three partner types
 declare type Partner = "Test" | "Prosocial" | "Individualist" | "Competitive";
@@ -92,6 +100,7 @@ declare type Trial = {
     // Loading screen configuration (used by Loading screen)
   loadingType?: "matching" | "social" | "default"; // Type of loading: "matching" (partner matching), "social" (status generation), or "default" (generic loading)
   fetchData: boolean;               // Whether to fetch data from server (only used when loadingType is "matching")
+  mode: "facilitator" | "mri";
 };
 
 // Data type used to enforce trial data storage format

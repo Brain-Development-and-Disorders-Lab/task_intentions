@@ -57,7 +57,7 @@ const Agency: FC<Props.Screens.Agency> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useAlternateInput === false) return;
+    if (Configuration.manipulations.useButtonInput === false) return;
 
     // Avoid holding the key down if no element focused
     if (elementFocused === false && event.repeat) return;
@@ -121,7 +121,7 @@ const Agency: FC<Props.Screens.Agency> = (
           pad={"xsmall"}
           border={{
             color:
-              Configuration.manipulations.useAlternateInput === true &&
+              Configuration.manipulations.useButtonInput === true &&
               selectedElementIndex === 0 &&
               !elementFocused
                 ? "selectedElement"
@@ -149,14 +149,14 @@ const Agency: FC<Props.Screens.Agency> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useAlternateInput === true &&
+              Configuration.manipulations.useButtonInput === true &&
               selectedElementIndex === 1
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useAlternateInput === true &&
+            Configuration.manipulations.useButtonInput === true &&
             selectedElementIndex === 1
               ? { borderRadius: "36px " }
               : {}

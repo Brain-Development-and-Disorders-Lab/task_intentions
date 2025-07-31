@@ -33,6 +33,7 @@ export const getTrialConfiguration = (display: Display): Trial => {
     answer: "Option 1",
     isPractice: false,
     fetchData: false,
+    mode: "facilitator",
   };
 };
 

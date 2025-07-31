@@ -42,6 +42,9 @@ declare type TimelineNode = {
   fetchData?: boolean;
   loadingType?: "matching" | "social" | "default";
 
+  // Waiting screen
+  mode?: "facilitator" | "mri";
+
   // Attention-check plugin
   prompt?: string;
   style?: "default" | "radio";

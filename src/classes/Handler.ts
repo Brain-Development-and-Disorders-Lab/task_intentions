@@ -140,7 +140,12 @@ class Handler {
    * @param {number} friends number of friends
    * @param {number} socialCloseness social closeness rating
    */
-  public status(followers: number, averageLikes: number, friends: number, socialCloseness: number): void {
+  public status(
+    followers: number,
+    averageLikes: number,
+    friends: number,
+    socialCloseness: number
+  ): void {
     // Store the responses
     this.dataframe.followers = followers;
     this.dataframe.averageLikes = averageLikes;
