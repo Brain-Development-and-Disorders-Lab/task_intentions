@@ -414,7 +414,8 @@ if (Flags.isEnabled("enableStatusDisplay") === true) {
     spotlight: {
       enabled: true,
       target: "status",
-      message: "In some trials, you will be able to see your social standing in relation to your partner, based on the information you provided.",
+      message:
+        "In some trials, you will be able to see your social standing in relation to your partner, based on the information you provided.",
     },
   });
 }

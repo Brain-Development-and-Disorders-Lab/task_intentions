@@ -62,7 +62,9 @@ test("loads and displays Loading screen with social type", async () => {
   render(<Wrapper display={"loading"} props={props} />);
 
   await waitFor(() => {
-    expect(screen.getByText("Generating relative social status...")).toBeInTheDocument();
+    expect(
+      screen.getByText("Generating relative social status...")
+    ).toBeInTheDocument();
   });
 });
 

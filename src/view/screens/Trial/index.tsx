@@ -582,7 +582,6 @@ const Trial: FC<Props.Screens.Trial> = (
   return (
     <Keyboard onKeyDown={inputHandler} target={"document"}>
       <Box align="center" justify="center" fill>
-
         {/* Status component - display in practice cases only if the spotlight functionality is enabled */}
         {Flags.isEnabled("enableStatusDisplay") &&
           props.isPractice === true &&
@@ -616,7 +615,7 @@ const Trial: FC<Props.Screens.Trial> = (
                     borderRadius: "12px",
                     padding: "8px",
                     backgroundColor: "rgba(255, 255, 255, 0.95)",
-                    display: "inline-block"
+                    display: "inline-block",
                   }}
                 >
                   <Status
@@ -638,7 +637,7 @@ const Trial: FC<Props.Screens.Trial> = (
                     borderRadius: "8px",
                     padding: "16px",
                     boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-                    zIndex: 1001
+                    zIndex: 1001,
                   }}
                 >
                   <Text size="medium" margin={{ bottom: "medium" }}>
@@ -661,7 +660,7 @@ const Trial: FC<Props.Screens.Trial> = (
                 </Box>
               </Box>
             </>
-        )}
+          )}
 
         {/* Status component - display if enabled for this phase and not a practice trial */}
         {Flags.isEnabled("enableStatusDisplay") &&

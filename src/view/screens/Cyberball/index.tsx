@@ -13,13 +13,7 @@
  */
 
 // React import
-import React, {
-  FC,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
 
 // Components
 import { Box, Text } from "grommet";
@@ -82,7 +76,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   const positions = {
     participant: {
       x: Configuration.cyberball.viewWidth / 2,
-      y: Configuration.cyberball.viewHeight - Configuration.cyberball.playerSize / 2 - 80,
+      y:
+        Configuration.cyberball.viewHeight -
+        Configuration.cyberball.playerSize / 2 -
+        80,
       avatar: participantAvatarIndex,
     },
     partnerA: {
@@ -91,7 +88,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       avatar: 0,
     },
     partnerB: {
-      x: Configuration.cyberball.viewWidth - Configuration.cyberball.playerSize / 2 - 20,
+      x:
+        Configuration.cyberball.viewWidth -
+        Configuration.cyberball.playerSize / 2 -
+        20,
       y: Configuration.cyberball.playerSize / 2 + 80,
       avatar: 1,
     },
@@ -142,8 +142,11 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     }
   }, [gameState, props]);
 
-    // Ball animation with arc trajectory
-  const animateBall = (from: { x: number; y: number }, to: { x: number; y: number }) => {
+  // Ball animation with arc trajectory
+  const animateBall = (
+    from: { x: number; y: number },
+    to: { x: number; y: number }
+  ) => {
     setIsAnimating(true);
 
     const startTime = Date.now();
@@ -159,7 +162,8 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
       // Linear interpolation for x and y
       const newX = from.x + (to.x - from.x) * progress;
-      const newY = from.y + (to.y - from.y) * progress - (arcHeight * arcProgress);
+      const newY =
+        from.y + (to.y - from.y) * progress - arcHeight * arcProgress;
 
       setBallPosition({ x: newX, y: newY });
 
@@ -178,7 +182,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     if (gameState.ballOwner !== "participant" || isAnimating) return;
 
     // Animate ball to target
-    animateBall(positions.participant, { x: positions[target].x, y: positions[target].y });
+    animateBall(positions.participant, {
+      x: positions[target].x,
+      y: positions[target].y,
+    });
 
     // Update game state
     setGameState(prev => ({
@@ -222,7 +229,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     }
 
     // Animate ball to target
-    animateBall(positions[partner], { x: positions[target].x, y: positions[target].y });
+    animateBall(positions[partner], {
+      x: positions[target].x,
+      y: positions[target].y,
+    });
 
     // Update game state
     setGameState(prev => ({
@@ -230,7 +240,9 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       ballOwner: target,
       tossCount: prev.tossCount + 1,
       [target === "partnerA" ? "partnerATossCount" : "partnerBTossCount"]:
-        prev[target === "partnerA" ? "partnerATossCount" : "partnerBTossCount"] + 1,
+        prev[
+          target === "partnerA" ? "partnerATossCount" : "partnerBTossCount"
+        ] + 1,
     }));
 
     // If ball went to another partner, schedule their response
@@ -256,8 +268,12 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         onClick={() => handleParticipantToss("partnerA")}
         style={{
           position: "absolute",
-          top: `${positions.partnerA.y - Configuration.cyberball.playerSize / 2}px`,
-          left: `${positions.partnerA.x - Configuration.cyberball.playerSize / 2}px`,
+          top: `${
+            positions.partnerA.y - Configuration.cyberball.playerSize / 2
+          }px`,
+          left: `${
+            positions.partnerA.x - Configuration.cyberball.playerSize / 2
+          }px`,
           cursor:
             gameState.ballOwner === "participant" && !isAnimating
               ? "pointer"
@@ -284,8 +300,12 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         onClick={() => handleParticipantToss("partnerB")}
         style={{
           position: "absolute",
-          top: `${positions.partnerB.y - Configuration.cyberball.playerSize / 2}px`,
-          left: `${positions.partnerB.x - Configuration.cyberball.playerSize / 2}px`,
+          top: `${
+            positions.partnerB.y - Configuration.cyberball.playerSize / 2
+          }px`,
+          left: `${
+            positions.partnerB.x - Configuration.cyberball.playerSize / 2
+          }px`,
           cursor:
             gameState.ballOwner === "participant" && !isAnimating
               ? "pointer"
@@ -311,8 +331,12 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         height={`${Configuration.cyberball.playerSize}px`}
         style={{
           position: "absolute",
-          top: `${positions.participant.y - Configuration.cyberball.playerSize / 2}px`,
-          left: `${positions.participant.x - Configuration.cyberball.playerSize / 2}px`,
+          top: `${
+            positions.participant.y - Configuration.cyberball.playerSize / 2
+          }px`,
+          left: `${
+            positions.participant.x - Configuration.cyberball.playerSize / 2
+          }px`,
         }}
       >
         <Avatar
@@ -362,7 +386,9 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         }}
       >
         <Text size="medium" weight="bold">
-          {gameState.ballOwner === "participant" ? "Throw the ball!" : "Waiting..."}
+          {gameState.ballOwner === "participant"
+            ? "Throw the ball!"
+            : "Waiting..."}
         </Text>
       </Box>
     </Box>

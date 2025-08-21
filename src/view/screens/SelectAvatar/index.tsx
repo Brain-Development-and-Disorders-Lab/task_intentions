@@ -123,7 +123,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
                 name={avatar}
                 size={128} // Size is fixed at 128
                 state={selectedAvatarName}
-                setState={(avatarName) => {
+                setState={avatarName => {
                   setSelectedAvatarName(avatarName);
                   setSelectedAvatarIndex(i);
                 }}

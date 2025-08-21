@@ -92,9 +92,12 @@ describe("Cyberball Screen", () => {
     }
 
     // Wait for the ball to be tossed and then returned
-    await waitFor(() => {
-      expect(mockHandler).not.toHaveBeenCalled(); // Game should still be running
-    }, { timeout: 3000 });
+    await waitFor(
+      () => {
+        expect(mockHandler).not.toHaveBeenCalled(); // Game should still be running
+      },
+      { timeout: 3000 }
+    );
   });
 
   it("calls handler when game completes", async () => {

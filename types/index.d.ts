@@ -78,29 +78,29 @@ declare type Options = "Option 1" | "Option 2";
 // Trial type to enforce parameters
 declare type Trial = {
   // Basic trial identification
-  trial: number;                    // Trial number/identifier
-  display: Display;                 // Screen type to display (e.g., "playerChoice", "loading", etc.)
+  trial: number; // Trial number/identifier
+  display: Display; // Screen type to display (e.g., "playerChoice", "loading", etc.)
 
   // Game option parameters (used by Trial screen)
-  optionOneParticipant: number;     // Points for participant in Option 1
-  optionOnePartner: number;         // Points for partner in Option 1
-  optionTwoParticipant: number;     // Points for participant in Option 2
-  optionTwoPartner: number;         // Points for partner in Option 2
+  optionOneParticipant: number; // Points for participant in Option 1
+  optionOnePartner: number; // Points for partner in Option 1
+  optionTwoParticipant: number; // Points for participant in Option 2
+  optionTwoPartner: number; // Points for partner in Option 2
 
   // Partner type information
-  typeOne: string;                  // Partner type for Option 1
-  typeTwo: string;                  // Partner type for Option 2
+  typeOne: string; // Partner type for Option 1
+  typeTwo: string; // Partner type for Option 2
 
   // Avatar selection (used by SelectAvatar screen)
-  avatar: 0;                        // Avatar index (currently hardcoded to 0)
+  avatar: 0; // Avatar index (currently hardcoded to 0)
 
   // Game logic
-  answer: Options;                  // Correct answer for the trial ("Option 1" or "Option 2")
-  isPractice: boolean;              // Whether this is a practice trial
+  answer: Options; // Correct answer for the trial ("Option 1" or "Option 2")
+  isPractice: boolean; // Whether this is a practice trial
 
   // Loading screen configuration (used by Loading screen)
   loadingType?: "matching" | "social" | "default"; // Type of loading: "matching" (partner matching), "social" (status generation), or "default" (generic loading)
-  fetchData: boolean;               // Whether to fetch data from server (only used when loadingType is "matching")
+  fetchData: boolean; // Whether to fetch data from server (only used when loadingType is "matching")
   mode: "facilitator" | "mri";
 
   // Spotlight configuration (used by Trial screen)
