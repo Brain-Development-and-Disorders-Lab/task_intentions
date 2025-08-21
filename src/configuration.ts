@@ -50,6 +50,7 @@ export const Configuration = {
     enableInferenceQuestions: true,
     enableClassificationQuestions: true,
     enableAgencyQuestions: true,
+    enableCyberball: false,
 
     // Data Collection Features
     enableLocalStorage: true,
@@ -93,5 +94,21 @@ export const Configuration = {
     },
     colours: ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"],
     variant: "beam",
+  },
+
+  // Cyberball configuration, timings and behavioral parameters
+  cyberball: {
+    // Timings
+    inclusionDuration: 30000,
+    exclusionDuration: 60000,
+    tossInterval: 2000,
+    totalDuration: 90000,
+
+    // Visual parameters
+    ballSize: 40,
+    ballColor: "#FF6B6B",
+    playerSize: 80,
+    viewWidth: 800,
+    viewHeight: 600,
   },
 };

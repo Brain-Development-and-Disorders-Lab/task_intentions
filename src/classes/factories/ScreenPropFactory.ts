@@ -224,6 +224,16 @@ class ScreenPropFactory implements Factory {
         };
         break;
 
+      // Cyberball screen
+      case "cyberball":
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          probabilities: this.trial.probabilities,
+          handler: this.handler.callback.bind(this.handler),
+        };
+        break;
+
       // Default error state
       default:
         // Log an error message and finish the trial

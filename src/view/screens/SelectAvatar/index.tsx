@@ -45,7 +45,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
   // Configure relevant states
   const [selectedAvatarName, setSelectedAvatarName] = useState("none");
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(
-    experiment.getState().get("participantAvatar")
+    experiment.getState().get("participantAvatar") || 0
   );
 
   /**
@@ -60,7 +60,7 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
     if (event.repeat) return;
     event.preventDefault();
 
-    let selectedIndex = experiment.getState().get("participantAvatar");
+    let selectedIndex = experiment.getState().get("participantAvatar") || 0;
     if (event.key.toString() === BINDINGS.NEXT) {
       // Increment `selectedIndex`, reset if required
       if (selectedIndex + 1 > avatars.length - 1) {
@@ -70,7 +70,8 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
       }
       // Apply the value of `selectedIndex`
       experiment.getState().set("participantAvatar", selectedIndex);
-      setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
+      setSelectedAvatarIndex(selectedIndex);
+      setSelectedAvatarName(avatars[selectedIndex]);
     } else if (event.key.toString() === BINDINGS.PREVIOUS) {
       // Decrement `selectedIndex`, reset if required
       if (selectedIndex - 1 < 0) {
@@ -80,9 +81,10 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
       }
       // Apply the value of `selectedIndex`
       experiment.getState().set("participantAvatar", selectedIndex);
-      setSelectedAvatarIndex(experiment.getState().get("participantAvatar"));
+      setSelectedAvatarIndex(selectedIndex);
+      setSelectedAvatarName(avatars[selectedIndex]);
     } else if (event.key.toString() === BINDINGS.SELECT) {
-      // Complete the avatar selection by passing the handler the avatar name
+      // Complete the avatar selection by passing the handler the avatar index
       props.handler(selectedIndex);
     }
   };
@@ -121,7 +123,10 @@ const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
                 name={avatar}
                 size={128} // Size is fixed at 128
                 state={selectedAvatarName}
-                setState={setSelectedAvatarName}
+                setState={avatarName => {
+                  setSelectedAvatarName(avatarName);
+                  setSelectedAvatarIndex(i);
+                }}
               />
             </Box>
           );

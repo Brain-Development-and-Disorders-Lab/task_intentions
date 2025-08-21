@@ -35,6 +35,7 @@ import Loading from "../../screens/Loading";
 import Waiting from "../../screens/Waiting";
 import End from "../../screens/End";
 import Summary from "../../screens/Summary";
+import Cyberball from "../../screens/Cyberball";
 
 /**
  * @summary Generate a 'Wrapper' component that acts as a container for all React screens and components,
@@ -127,6 +128,10 @@ const Wrapper: FC<Props.Components.Wrapper> = (
 
         {activeDisplay === "waiting" && (
           <Waiting {...(props.props as Props.Screens.Waiting)} />
+        )}
+
+        {activeDisplay === "cyberball" && (
+          <Cyberball {...(props.props as Props.Screens.Cyberball)} />
         )}
 
         {activeDisplay === "end" && <End />}
