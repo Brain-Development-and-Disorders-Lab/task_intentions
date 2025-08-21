@@ -61,9 +61,6 @@ import "jspsych-attention-check";
 // Import the custom plugin before adding it to the timeline
 import "./plugin";
 
-// Import Cyberball screen
-import Cyberball from "./view/screens/Cyberball";
-
 // Create a new Experiment instance
 const experiment = new Experiment(Configuration);
 consola.info("Experiment start:", new Date().toISOString());
@@ -125,7 +122,7 @@ if (Flags.isEnabled("enableFullscreen")) {
   });
 }
 
-let phaseOneInstructions = [
+let initialInstructions = [
   // Overall instructions
   react2html(
     <Grommet>
@@ -186,6 +183,9 @@ let phaseOneInstructions = [
       </Box>
     </Grommet>
   ),
+];
+
+const avatarInstructions = [
   react2html(
     <Grommet>
       <Box style={{ maxWidth: "50%", margin: "auto" }}>
@@ -193,17 +193,8 @@ let phaseOneInstructions = [
           Instructions
         </Heading>
         <Heading level={2} margin="small" fill>
-          Stage one
+          Avatar
         </Heading>
-        <Paragraph margin="small" size="large" fill>
-          In this stage, <b>you</b> are tasked with distributing points between
-          yourself and your partner. You may choose to distribute the points
-          however you like. This stage will consist of 36 rounds.
-        </Paragraph>
-        <Paragraph margin="small" size="large" fill>
-          Remember, the number of points each player holds at the end of the
-          game will determine if they are entered into the bonus lottery.
-        </Paragraph>
         <Paragraph margin="small" size="large" fill>
           Click &#39;Next &gt;&#39; to select an avatar to represent you while
           you play this game. You will then play <b>3</b> practice rounds before
@@ -216,7 +207,7 @@ let phaseOneInstructions = [
 
 // Add controls instructions if using alternate input
 if (Configuration.manipulations.useButtonInput === true) {
-  phaseOneInstructions = [
+  initialInstructions = [
     react2html(
       <Grommet>
         <Box style={{ maxWidth: "50%", margin: "auto" }}>
@@ -262,14 +253,14 @@ if (Configuration.manipulations.useButtonInput === true) {
         </Box>
       </Grommet>
     ),
-    ...phaseOneInstructions,
+    ...initialInstructions,
   ];
 }
 
 // Insert the instructions into the timeline
 timeline.push({
   type: "instructions",
-  pages: phaseOneInstructions,
+  pages: [...initialInstructions, ...avatarInstructions],
   allow_keys: Configuration.manipulations.useButtonInput,
   key_forward: BINDINGS.NEXT,
   key_backward: BINDINGS.PREVIOUS,
@@ -285,6 +276,39 @@ timeline.push({
 
 // Add Cyberball screen if enabled
 if (Flags.isEnabled("enableCyberball")) {
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              You will now play a short ball-tossing game with two partners.
+              When you have the ball, you can choose to <b>throw it to one of your partners</b>.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Click on the partner you want to throw the ball to.
+              If you throw it to your partner, they can either <b>throw it back to you</b> or <b>throw it to the other partner</b>.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              After a duration, this game will end and you will continue with the next stage of the task.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue and play the game.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
   timeline.push({
     type: Configuration.studyName,
     display: "cyberball",
@@ -317,30 +341,56 @@ if (Flags.isEnabled("enableStatusQuestionnaire") === true) {
   });
 }
 
+const phaseOneInstructions = [
+  react2html(
+    <Grommet>
+      <Box style={{ maxWidth: "50%", margin: "auto" }}>
+        <Heading level={1} margin="small" fill>
+          Instructions
+        </Heading>
+        <Heading level={2} margin="small" fill>
+          Stage one
+        </Heading>
+        <Paragraph margin="small" size="large" fill>
+          In this stage, <b>you</b> are tasked with distributing points between
+          yourself and your partner. You may choose to distribute the points
+          however you like. This stage will consist of 36 rounds.
+        </Paragraph>
+        <Paragraph margin="small" size="large" fill>
+          Remember, the number of points each player holds at the end of the
+          game will determine if they are entered into the bonus lottery.
+        </Paragraph>
+      </Box>
+    </Grommet>
+  ),
+];
+
+const phaseOnePracticeInstructions = [
+  react2html(
+    <Grommet>
+      <Box>
+        <Heading level={1} margin="small" fill>
+          Instructions
+        </Heading>
+        <Paragraph margin="small" size="large" fill>
+          Let&#39;s get used to how the game looks with some practice trials.
+        </Paragraph>
+        <Paragraph margin="small" size="large" fill>
+          In these practice trials, the points will not count toward your
+          total and your partner is not real.
+        </Paragraph>
+        <Paragraph margin="small" size="large" fill>
+          Press &#39;Next &gt;&#39; to continue.
+        </Paragraph>
+      </Box>
+    </Grommet>
+  ),
+];
+
 // Pre-'playerChoice' instructions
 timeline.push({
   type: "instructions",
-  pages: [
-    react2html(
-      <Grommet>
-        <Box>
-          <Heading level={1} margin="small" fill>
-            Instructions
-          </Heading>
-          <Paragraph margin="small" size="large" fill>
-            Let&#39;s get used to how the game looks with some practice trials.
-          </Paragraph>
-          <Paragraph margin="small" size="large" fill>
-            In these practice trials, the points will not count toward your
-            total and your partner is not real.
-          </Paragraph>
-          <Paragraph margin="small" size="large" fill>
-            Press &#39;Next &gt;&#39; to continue.
-          </Paragraph>
-        </Box>
-      </Grommet>
-    ),
-  ],
+  pages: [...phaseOneInstructions, ...phaseOnePracticeInstructions],
   allow_keys: Configuration.manipulations.useButtonInput,
   key_forward: BINDINGS.NEXT,
   key_backward: BINDINGS.PREVIOUS,
@@ -484,7 +534,7 @@ timeline.push({
   timeline: [
     {
       type: "instructions",
-      pages: phaseOneInstructions,
+      pages: [...initialInstructions, ...phaseOneInstructions],
       allow_keys: Configuration.manipulations.useButtonInput,
       key_forward: BINDINGS.NEXT,
       key_backward: BINDINGS.PREVIOUS,
@@ -537,7 +587,7 @@ timeline.push({
   timeline: [
     {
       type: "instructions",
-      pages: phaseOneInstructions,
+      pages: [...initialInstructions, ...phaseOneInstructions],
       allow_keys: Configuration.manipulations.useButtonInput,
       key_forward: BINDINGS.NEXT,
       key_backward: BINDINGS.PREVIOUS,
