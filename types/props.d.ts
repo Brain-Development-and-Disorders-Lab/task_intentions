@@ -112,7 +112,7 @@ declare namespace Props {
 
     // SelectAvatar screen
     type SelectAvatar = GenericScreenProps & {
-      handler: (selectedName: string) => void;
+      handler: (selectedIndex: number) => void;
     };
 
     // Inference screen
