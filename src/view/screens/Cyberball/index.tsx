@@ -57,7 +57,6 @@ interface GameState {
 const Cyberball: FC<Props.Screens.Cyberball> = (
   props: Props.Screens.Cyberball
 ): ReactElement => {
-  // Game state
   const [gameState, setGameState] = useState<GameState>({
     ballOwner: "participant",
     tossCount: 0,
@@ -70,7 +69,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   });
 
   // Simple state
-  const [ballPosition, setBallPosition] = useState({ x: 400, y: 500 }); // Start at participant position
+  const [ballPosition, setBallPosition] = useState({ x: 400, y: 480 }); // Start at participant position
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Refs
@@ -82,18 +81,18 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   // Player positions (static)
   const positions = {
     participant: {
-      x: Configuration.cyberball.viewWidth / 2, // 400
-      y: Configuration.cyberball.viewHeight - Configuration.cyberball.playerSize / 2 - 60, // 500 (moved up 40px)
+      x: Configuration.cyberball.viewWidth / 2,
+      y: Configuration.cyberball.viewHeight - Configuration.cyberball.playerSize / 2 - 80,
       avatar: participantAvatarIndex,
     },
     partnerA: {
-      x: Configuration.cyberball.playerSize / 2 + 20, // 60
-      y: Configuration.cyberball.playerSize / 2 + 20, // 60
+      x: Configuration.cyberball.playerSize / 2 + 20,
+      y: Configuration.cyberball.playerSize / 2 + 80,
       avatar: 0,
     },
     partnerB: {
-      x: Configuration.cyberball.viewWidth - Configuration.cyberball.playerSize / 2 - 20, // 740
-      y: Configuration.cyberball.playerSize / 2 + 20, // 60
+      x: Configuration.cyberball.viewWidth - Configuration.cyberball.playerSize / 2 - 20,
+      y: Configuration.cyberball.playerSize / 2 + 80,
       avatar: 1,
     },
   };
@@ -122,11 +121,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         clearInterval(gameTimerRef.current);
       }
     };
-  }, [
-    gameState.currentPhase,
-    gameState.phaseStartTime,
-    Configuration.cyberball.inclusionDuration,
-  ]);
+  }, [gameState.currentPhase, gameState.phaseStartTime]);
 
   // Game completion check
   useEffect(() => {
@@ -145,17 +140,37 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       };
       props.handler(finalState);
     }
-  }, [gameState, Configuration.cyberball.totalDuration, props]);
+  }, [gameState, props]);
 
-  // Simple ball animation
-  const animateBall = (to: { x: number; y: number }) => {
+    // Ball animation with arc trajectory
+  const animateBall = (from: { x: number; y: number }, to: { x: number; y: number }) => {
     setIsAnimating(true);
-    setBallPosition(to);
 
-    // Simple timeout to simulate animation duration
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 300);
+    const startTime = Date.now();
+    const duration = 600; // Animation duration in ms
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Create arc trajectory (parabolic motion)
+      const arcHeight = 80;
+      const arcProgress = 4 * progress * (1 - progress);
+
+      // Linear interpolation for x and y
+      const newX = from.x + (to.x - from.x) * progress;
+      const newY = from.y + (to.y - from.y) * progress - (arcHeight * arcProgress);
+
+      setBallPosition({ x: newX, y: newY });
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setIsAnimating(false);
+      }
+    };
+
+    requestAnimationFrame(animate);
   };
 
   // Handle participant toss
@@ -163,7 +178,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     if (gameState.ballOwner !== "participant" || isAnimating) return;
 
     // Animate ball to target
-    animateBall({ x: positions[target].x, y: positions[target].y });
+    animateBall(positions.participant, { x: positions[target].x, y: positions[target].y });
 
     // Update game state
     setGameState(prev => ({
@@ -207,7 +222,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     }
 
     // Animate ball to target
-    animateBall({ x: positions[target].x, y: positions[target].y });
+    animateBall(positions[partner], { x: positions[target].x, y: positions[target].y });
 
     // Update game state
     setGameState(prev => ({
