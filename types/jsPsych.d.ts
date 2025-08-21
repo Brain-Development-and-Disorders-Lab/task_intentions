@@ -50,6 +50,15 @@ declare type TimelineNode = {
   // Waiting screen
   mode?: "facilitator" | "mri";
 
+  // Cyberball screen
+  probabilities?: {
+    inclusion: number;
+    exclusion: {
+      partnerA: number;
+      partnerB: number;
+    };
+  };
+
   // Attention-check plugin
   prompt?: string;
   style?: "default" | "radio";

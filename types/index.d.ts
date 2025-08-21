@@ -57,7 +57,8 @@ declare type Display =
   | "status"
   | "summary"
   | "end"
-  | "waiting";
+  | "waiting"
+  | "cyberball";
 
 // The three partner types
 declare type Partner = "Test" | "Prosocial" | "Individualist" | "Competitive";
@@ -107,6 +108,15 @@ declare type Trial = {
     enabled: boolean;
     target: "status" | "options" | "none";
     message: string;
+  };
+
+  // Cyberball screen
+  probabilities?: {
+    inclusion: number;
+    exclusion: {
+      partnerA: number;
+      partnerB: number;
+    };
   };
 };
 

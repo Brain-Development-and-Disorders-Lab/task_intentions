@@ -61,6 +61,9 @@ import "jspsych-attention-check";
 // Import the custom plugin before adding it to the timeline
 import "./plugin";
 
+// Import Cyberball screen
+import Cyberball from "./view/screens/Cyberball";
+
 // Create a new Experiment instance
 const experiment = new Experiment(Configuration);
 consola.info("Experiment start:", new Date().toISOString());
@@ -279,6 +282,21 @@ timeline.push({
   type: Configuration.studyName,
   display: "selection",
 });
+
+// Add Cyberball screen if enabled
+if (Flags.isEnabled("enableCyberball")) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "cyberball",
+    probabilities: {
+      inclusion: 0.5,
+      exclusion: {
+        partnerA: 0.0,
+        partnerB: 0.1,
+      },
+    },
+  });
+}
 
 // If the status display is enabled, check if the flags need to be updated to match the manipulations
 if (

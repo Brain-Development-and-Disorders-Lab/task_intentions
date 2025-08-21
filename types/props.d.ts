@@ -21,7 +21,8 @@ declare namespace Props {
         | Screens.Classification
         | Screens.Status
         | Screens.Summary
-        | Screens.Waiting;
+        | Screens.Waiting
+        | Screens.Cyberball;
     };
 
     // Option component
@@ -150,6 +151,23 @@ declare namespace Props {
     type Waiting = GenericScreenProps & {
       mode: "facilitator" | "mri";
       handler: () => void;
+    };
+
+    // Cyberball screen
+    type Cyberball = GenericScreenProps & {
+      probabilities: {
+        inclusion: number, // Probability of partners passing to participant
+        exclusion: {
+          partnerA: number, // Probability of partner A passing to participant
+          partnerB: number, // Probability of partner B passing to participant
+        },
+      };
+      handler: (gameState: {
+        phase: string;
+        participantCatchCount: number;
+        participantTossCount: number;
+        exclusionStartTime: number | null;
+      }) => void;
     };
   }
 }

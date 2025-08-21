@@ -26,9 +26,9 @@ export const Configuration = {
     requireID: false,
     useButtonInput: false,
     useOfflinePackages: true,
-    enableStatusPhaseOne: false,
-    enableStatusPhaseTwo: false,
-    enableStatusPhaseThree: false,
+    enableStatusPhaseOne: true,
+    enableStatusPhaseTwo: true,
+    enableStatusPhaseThree: true,
   },
 
   // Feature flags, configure these before building for deployment
@@ -40,8 +40,8 @@ export const Configuration = {
     enableAvatarSelection: true,
     enableProgressIndicators: true,
     enablePreviousExperimentPrompt: false,
-    enableStatusDisplay: false,
-    enableStatusQuestionnaire: false,
+    enableStatusDisplay: true,
+    enableStatusQuestionnaire: true,
 
     // Experiment Features
     enablePracticeTrials: true,
@@ -50,6 +50,7 @@ export const Configuration = {
     enableInferenceQuestions: true,
     enableClassificationQuestions: true,
     enableAgencyQuestions: true,
+    enableCyberball: true,
 
     // Data Collection Features
     enableLocalStorage: true,
@@ -93,5 +94,30 @@ export const Configuration = {
     },
     colours: ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"],
     variant: "beam",
+  },
+
+  // Cyberball configuration, timings and behavioralparameters
+  cyberball: {
+    // Timings
+    fairPlayDuration: 30000,
+    exclusionDuration: 60000,
+    ballTossInterval: 2000,
+    totalDuration: 90000,
+
+    // Visual parameters
+    ballSize: 40,
+    ballSpeed: 600,
+    playerSize: 80,
+    fieldWidth: 800,
+    fieldHeight: 600,
+    ballColor: "#FF6B6B",
+    playerColors: ["#4ECDC4", "#45B7D1", "#96CEB4"],
+
+    instructions: "You will be playing a ball-tossing game with two other partners. While you have the ball, click the partner you wish to throw the ball to.",
+    playerNames: ["You", "Partner 1", "Partner 2"],
+
+    // Behavioral parameters
+    fairPlayParticipantTossProbability: 0.7,
+    exclusionParticipantTossProbability: 0.2,
   },
 };
