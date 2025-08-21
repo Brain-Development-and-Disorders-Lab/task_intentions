@@ -70,7 +70,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   });
 
   // Simple state
-  const [ballPosition, setBallPosition] = useState({ x: 400, y: 540 }); // Start at participant position
+  const [ballPosition, setBallPosition] = useState({ x: 400, y: 500 }); // Start at participant position
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Refs
@@ -83,7 +83,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   const positions = {
     participant: {
       x: Configuration.cyberball.viewWidth / 2, // 400
-      y: Configuration.cyberball.viewHeight - Configuration.cyberball.playerSize / 2 - 20, // 540
+      y: Configuration.cyberball.viewHeight - Configuration.cyberball.playerSize / 2 - 60, // 500 (moved up 40px)
       avatar: participantAvatarIndex,
     },
     partnerA: {
@@ -330,6 +330,26 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
           zIndex: 1000,
         }}
       />
+
+      {/* Status Bar */}
+      <Box
+        style={{
+          position: "absolute",
+          bottom: "0",
+          left: "0",
+          right: "0",
+          background: "rgba(0, 0, 0, 0.8)",
+          color: "white",
+          padding: "10px",
+          textAlign: "center",
+          borderBottomLeftRadius: "10px",
+          borderBottomRightRadius: "10px",
+        }}
+      >
+        <Text size="medium" weight="bold">
+          {gameState.ballOwner === "participant" ? "Throw the ball!" : "Waiting..."}
+        </Text>
+      </Box>
     </Box>
   );
 };
