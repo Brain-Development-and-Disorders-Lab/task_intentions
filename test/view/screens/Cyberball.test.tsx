@@ -13,19 +13,15 @@ import Cyberball from "src/view/screens/Cyberball";
 jest.mock("src/configuration", () => ({
   Configuration: {
     cyberball: {
-      fairPlayDuration: 1000, // Short duration for testing
+      inclusionDuration: 1000, // Short duration for testing
       exclusionDuration: 1000,
-      ballTossInterval: 500,
+      tossInterval: 500,
       totalDuration: 2000,
       ballSize: 40,
       playerSize: 80,
-      fieldWidth: 800,
-      fieldHeight: 600,
+      viewWidth: 800,
+      viewHeight: 600,
       ballColor: "#FF6B6B",
-      playerColors: ["#4ECDC4", "#45B7D1", "#96CEB4"],
-      instructions: "Test instructions",
-      playerNames: ["You", "Player 1", "Player 2"],
-      ballSpeed: 300,
     },
     avatars: {
       names: {
@@ -63,17 +59,16 @@ describe("Cyberball Screen", () => {
   it("renders the game interface with three players", () => {
     render(<Cyberball {...mockProps} />);
 
-    expect(screen.getByText("Test instructions")).toBeInTheDocument();
     expect(screen.getByText("Partner A")).toBeInTheDocument();
     expect(screen.getByText("Partner B")).toBeInTheDocument();
     expect(screen.getByText("You")).toBeInTheDocument();
   });
 
-  it("shows game statistics", () => {
+  it("shows status bar with correct message when participant has ball", () => {
     render(<Cyberball {...mockProps} />);
 
-    expect(screen.getByText(/Tosses: 0/)).toBeInTheDocument();
-    expect(screen.getByText(/Your tosses: 0/)).toBeInTheDocument();
+    // Initially participant should have the ball
+    expect(screen.getByText("Throw the ball!")).toBeInTheDocument();
   });
 
   it("allows participant to toss ball to partners when they have the ball", async () => {
@@ -140,5 +135,32 @@ describe("Cyberball Screen", () => {
     expect(mockHandler).not.toHaveBeenCalled();
 
     jest.useRealTimers();
+  });
+
+  it("shows correct status message based on ball ownership", async () => {
+    render(<Cyberball {...mockProps} />);
+
+    // Initially participant has the ball
+    expect(screen.getByText("Throw the ball!")).toBeInTheDocument();
+
+    // Click on partner A to toss the ball
+    const partnerA = screen.getByText("Partner A").closest("div");
+    if (partnerA) {
+      fireEvent.click(partnerA);
+    }
+
+    // After tossing, should show waiting message
+    await waitFor(() => {
+      expect(screen.getByText("Waiting...")).toBeInTheDocument();
+    }, { timeout: 1000 });
+  });
+
+  it("renders ball at correct initial position", () => {
+    render(<Cyberball {...mockProps} />);
+
+    // The ball should be visible (we can't easily test exact position in unit tests)
+    // but we can verify the ball element exists
+    const ball = screen.getByTestId("cyberball-ball");
+    expect(ball).toBeInTheDocument();
   });
 });

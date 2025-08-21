@@ -284,7 +284,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       >
         <Avatar
           size={Configuration.cyberball.playerSize}
-          name={Configuration.avatars.names.partner[positions.partnerA.avatar]}
+          name={"partnerA"}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
@@ -316,7 +316,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       >
         <Avatar
           size={Configuration.cyberball.playerSize}
-          name={Configuration.avatars.names.partner[positions.partnerB.avatar]}
+          name={"partnerB"}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
@@ -356,6 +356,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
       {/* Ball */}
       <Box
+        data-testid="cyberball-ball"
         width={`${Configuration.cyberball.ballSize}px`}
         height={`${Configuration.cyberball.ballSize}px`}
         background={Configuration.cyberball.ballColor}
