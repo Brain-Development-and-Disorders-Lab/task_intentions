@@ -26,9 +26,9 @@ export const Configuration = {
     requireID: false,
     useButtonInput: false,
     useOfflinePackages: true,
-    enableStatusPhaseOne: true,
-    enableStatusPhaseTwo: true,
-    enableStatusPhaseThree: true,
+    enableStatusPhaseOne: false,
+    enableStatusPhaseTwo: false,
+    enableStatusPhaseThree: false,
   },
 
   // Feature flags, configure these before building for deployment
@@ -40,8 +40,8 @@ export const Configuration = {
     enableAvatarSelection: true,
     enableProgressIndicators: true,
     enablePreviousExperimentPrompt: false,
-    enableStatusDisplay: true,
-    enableStatusQuestionnaire: true,
+    enableStatusDisplay: false,
+    enableStatusQuestionnaire: false,
 
     // Experiment Features
     enablePracticeTrials: true,
@@ -50,7 +50,7 @@ export const Configuration = {
     enableInferenceQuestions: true,
     enableClassificationQuestions: true,
     enableAgencyQuestions: true,
-    enableCyberball: true,
+    enableCyberball: false,
 
     // Data Collection Features
     enableLocalStorage: true,
