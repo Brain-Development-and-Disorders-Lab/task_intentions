@@ -96,28 +96,19 @@ export const Configuration = {
     variant: "beam",
   },
 
-  // Cyberball configuration, timings and behavioralparameters
+  // Cyberball configuration, timings and behavioral parameters
   cyberball: {
     // Timings
-    fairPlayDuration: 30000,
+    inclusionDuration: 30000,
     exclusionDuration: 60000,
-    ballTossInterval: 2000,
+    tossInterval: 2000,
     totalDuration: 90000,
 
     // Visual parameters
     ballSize: 40,
-    ballSpeed: 600,
-    playerSize: 80,
-    fieldWidth: 800,
-    fieldHeight: 600,
     ballColor: "#FF6B6B",
-    playerColors: ["#4ECDC4", "#45B7D1", "#96CEB4"],
-
-    instructions: "You will be playing a ball-tossing game with two other partners. While you have the ball, click the partner you wish to throw the ball to.",
-    playerNames: ["You", "Partner 1", "Partner 2"],
-
-    // Behavioral parameters
-    fairPlayParticipantTossProbability: 0.7,
-    exclusionParticipantTossProbability: 0.2,
+    playerSize: 80,
+    viewWidth: 800,
+    viewHeight: 600,
   },
 };

@@ -156,11 +156,11 @@ declare namespace Props {
     // Cyberball screen
     type Cyberball = GenericScreenProps & {
       probabilities: {
-        inclusion: number, // Probability of partners passing to participant
+        inclusion: number; // Probability of partners passing to participant
         exclusion: {
-          partnerA: number, // Probability of partner A passing to participant
-          partnerB: number, // Probability of partner B passing to participant
-        },
+          partnerA: number; // Probability of partner A passing to participant
+          partnerB: number; // Probability of partner B passing to participant
+        };
       };
       handler: (gameState: {
         phase: string;
