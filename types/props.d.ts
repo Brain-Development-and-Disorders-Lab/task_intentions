@@ -20,6 +20,7 @@ declare namespace Props {
         | Screens.Agency
         | Screens.Classification
         | Screens.Status
+        | Screens.DASS
         | Screens.Summary
         | Screens.Waiting
         | Screens.Cyberball;
@@ -140,6 +141,12 @@ declare namespace Props {
         socialMediaFollowers: number,
         socialMediaFollowing: number
       ) => void;
+    };
+
+    // DASS screen
+    type DASS = GenericScreenProps & {
+      version: "adult" | "adolescent";
+      handler: (responses: number[]) => void;
     };
 
     // Summary screen

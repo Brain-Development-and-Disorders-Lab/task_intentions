@@ -55,6 +55,7 @@ declare type Display =
   | "agency"
   | "classification"
   | "status"
+  | "dass"
   | "summary"
   | "end"
   | "waiting"

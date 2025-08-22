@@ -42,6 +42,7 @@ export const Configuration = {
     enablePreviousExperimentPrompt: false,
     enableStatusDisplay: false,
     enableStatusQuestionnaire: false,
+    enableDASS: false,
 
     // Experiment Features
     enablePracticeTrials: true,

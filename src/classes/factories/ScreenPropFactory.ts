@@ -188,6 +188,17 @@ class ScreenPropFactory implements Factory {
         };
         break;
 
+      // DASS screen
+      case "dass":
+        // Setup the props
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          version: "adult",
+          handler: this.handler.dass.bind(this.handler),
+        };
+        break;
+
       // Summary screen
       case "summary":
         // Setup the props

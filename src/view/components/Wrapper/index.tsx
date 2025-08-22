@@ -30,6 +30,7 @@ import Inference from "../../screens/Questionnaires/Inference";
 import Classification from "../../screens/Questionnaires/Classification";
 import SelectAvatar from "../../screens/SelectAvatar";
 import Status from "../../screens/Questionnaires/Status";
+import DASS from "../../screens/Questionnaires/DASS";
 import Matched from "../../screens/Matched";
 import Loading from "../../screens/Loading";
 import Waiting from "../../screens/Waiting";
@@ -106,6 +107,10 @@ const Wrapper: FC<Props.Components.Wrapper> = (
         {/* Status questions */}
         {activeDisplay === "status" && (
           <Status {...(props.props as Props.Screens.Status)} />
+        )}
+
+        {activeDisplay === "dass" && (
+          <DASS {...(props.props as Props.Screens.DASS)} />
         )}
 
         {activeDisplay === "classification" && (

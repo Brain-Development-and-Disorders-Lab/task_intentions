@@ -176,6 +176,16 @@ class Handler {
 
     // We don't call the callback on a timer
   }
+
+  /**
+   * Handler called after DASS questionnaire completed
+   * @param {number[]} responses array of responses (0-3) for each question
+   */
+  public dass(responses: number[]): void {
+    // TODO: Store DASS responses in the dataframe
+    console.log("DASS responses:", responses);
+    this.callback();
+  }
 }
 
 export default Handler;
