@@ -134,10 +134,11 @@ declare namespace Props {
     // Status screen
     type Status = GenericScreenProps & {
       handler: (
-        followers: number,
-        averageLikes: number,
-        friends: number,
-        socialCloseness: number
+        closeFriends: number,
+        partyInvitations: number,
+        meanPeople: number,
+        socialMediaFollowers: number,
+        socialMediaFollowing: number
       ) => void;
     };
 
