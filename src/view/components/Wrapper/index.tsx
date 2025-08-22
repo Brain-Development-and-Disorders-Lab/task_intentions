@@ -24,12 +24,12 @@ import "src/scss/styles.scss";
 import { Theme } from "src/theme";
 
 // Screens used throughout the task
-import Agency from "../../screens/Agency";
+import Agency from "../../screens/Questionnaires/Agency";
 import Trial from "../../screens/Trial";
-import Inference from "../../screens/Inference";
-import Classification from "../../screens/Classification";
+import Inference from "../../screens/Questionnaires/Inference";
+import Classification from "../../screens/Questionnaires/Classification";
 import SelectAvatar from "../../screens/SelectAvatar";
-import Status from "../../screens/Status";
+import Status from "../../screens/Questionnaires/Status";
 import Matched from "../../screens/Matched";
 import Loading from "../../screens/Loading";
 import Waiting from "../../screens/Waiting";
