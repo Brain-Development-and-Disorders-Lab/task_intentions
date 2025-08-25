@@ -18,9 +18,53 @@ import React, { FC, ReactElement, useState } from "react";
 import { Box, Button, Paragraph, RadioButtonGroup, Heading } from "grommet";
 import { LinkNext } from "grommet-icons";
 
-// DASS question sets
-const ADULT_QUESTIONS = Array.from({length: 21}, (_, i) => `Question ${i + 1} for adults`);
-const ADOLESCENT_QUESTIONS = Array.from({length: 21}, (_, i) => `Question ${i + 1} for adolescents`);
+// Question sets
+const ADULT_QUESTIONS = [
+  "I found it hard to wind down",
+  "I was aware of dryness of my mouth",
+  "I couldn't seem to experience any positive feeling at all",
+  "I experienced breathing difficulty (e.g. excessively rapid breathing, breathlessness in the absence of physical exertion) ",
+  "I found it difficult to work up the initiative to do things",
+  "I tended to over-react to situations",
+  "I experienced trembling (e.g., in the hands)",
+  "I felt that I was using a lot of nervous energy",
+  "I was worried about situations in which I might panic and make a fool of myself",
+  "I felt that I had nothing to look forward to",
+  "I found myself getting agitated",
+  "I found it difficult to relax",
+  "I felt down-hearted and blue",
+  "I was intolerant of anything that kept me from getting on with what I was doing",
+  "I felt I was close to panic",
+  "I was unable to become enthusiastic about anything",
+  "I felt I wasn't worth much as a person",
+  "I felt that I was rather touchy",
+  "I was aware of the action of my heart in the absence of physical exertion (e.g., sense of heart rate increase, heart missing a beat)",
+  "I felt scared without any good reason",
+  "I felt that life was meaningless",
+];
+const ADOLESCENT_QUESTIONS = [
+  "I got upset about little things",
+  "I felt dizzy, like I was about to faint",
+  "I did not enjoy anything",
+  "I had trouble breathing (e.g. fast breathing), even though I wasn't exercising and I was not sick",
+  "I hated my life",
+  "I found myself over-reacting to situations",
+  "My hands felt shaky",
+  "I was stressing about lots of things",
+  "I felt terrified",
+  "There was nothing nice I could look forward to",
+  "I was easily irritated",
+  "I found it difficult to relax",
+  "I could not stop feeling sad",
+  "I got annoyed when people interrupted me",
+  "I felt like I was about to panic",
+  "I hated myself",
+  "I felt like I was no good",
+  "I was easily annoyed",
+  "I could feel my heart beating really fast, even though I hadn't done any hard exercise",
+  "I felt scared for no good reason",
+  "I felt that life was terrible",
+];
 
 /**
  * @summary Generate a 'DASS' screen component with two pages for collecting DASS-21 responses
@@ -139,7 +183,7 @@ const DASS: FC<Props.Screens.DASS> = (
               round="small"
               background="light-1"
             >
-              <Paragraph margin="none" size="small" style={{ flex: 1 }}>
+              <Paragraph margin="none" size="small" textAlign="start" style={{ flex: 1 }}>
                 {index + 1}. {question}
               </Paragraph>
 
@@ -221,7 +265,7 @@ const DASS: FC<Props.Screens.DASS> = (
               round={"small"}
               background={"light-1"}
             >
-              <Paragraph margin="none" size="small" style={{ flex: 1 }}>
+              <Paragraph margin="none" size="small" textAlign="start" style={{ flex: 1 }}>
                 {index + 8}. {question}
               </Paragraph>
 
@@ -300,7 +344,7 @@ const DASS: FC<Props.Screens.DASS> = (
             round="small"
             background="light-1"
           >
-            <Paragraph margin="none" size="small" style={{ flex: 1 }}>
+            <Paragraph margin="none" size="small" textAlign="start" style={{ flex: 1 }}>
               {index + 15}. {question}
             </Paragraph>
 

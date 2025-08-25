@@ -1287,6 +1287,14 @@ timeline.push({
   display: "agency",
 });
 
+// DASS screen
+if (Flags.isEnabled("enableDASS") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "dass",
+  });
+}
+
 // End screen
 timeline.push({
   type: Configuration.studyName,
