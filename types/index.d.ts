@@ -124,32 +124,45 @@ declare type Trial = {
 
 // Data type used to enforce trial data storage format
 declare type TrialData = {
+  // Trial identification
   trial: number;
   display: Display;
   participantID: string;
+
+  // Points
   playerPoints_option1: number;
   partnerPoints_option1: number;
   playerPoints_option2: number;
   partnerPoints_option2: number;
   playerPoints_selected: number;
   partnerPoints_selected: number;
+
+  // Trial state
   selectedOption_player: NaN | 1 | 2; // uses 1 and 2 rather than strings
   realAnswer: Options;
-  inferenceResponse_Selfish: number;
-  inferenceResponse_Harm: number;
-  agencyResponse: number;
-  classification: string;
-  followers: number;
-  averageLikes: number;
-  friends: number;
-  socialCloseness: number;
   trialDuration: number;
   correctGuess: NaN | 0 | 1; // 0 incorrect; 1 correct
+
+  // Model parameters
   server_alpha_ppt: number;
   server_beta_ppt: number;
   server_alpha_par: number;
   server_beta_par: number;
+
+  // Signal timestamps
   signalTimestamps: number[];
+
+  // Questionnaire responses
+  questionnaireResponseInferenceSelfish: number;
+  questionnaireResponseInferenceHarm: number;
+  questionnaireResponseAgency: number;
+  questionnaireResponseClassification: string;
+  questionnaireResponseStatusFollowers: number;
+  questionnaireResponseStatusAverageLikes: number;
+  questionnaireResponseStatusFriends: number;
+  questionnaireResponseStatusSocialCloseness: number;
+  questionnaireResponsesDASS: number[];
+  questionnaireResponsesScreentime: number[];
 };
 
 // Type to represent the active state of a trial

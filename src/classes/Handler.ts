@@ -15,6 +15,9 @@
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 
+// Logging library
+import consola from "consola";
+
 /**
  * @summary Utility class exposing each of the different handlers
  * used by the screens of the game
@@ -53,6 +56,7 @@ class Handler {
     points: { options: Points },
     answer: Options
   ): void {
+    consola.debug("Option response:", option, points, answer);
     // Store the correct answer
     this.dataframe.realAnswer = answer;
 
@@ -87,6 +91,7 @@ class Handler {
    * @param {number} selection avatar selection key
    */
   public selection(selection: number): void {
+    consola.debug("Selection response:", selection);
     // Update the global Experiment state
     window.Experiment.getState().set("participantAvatar", selection);
 
@@ -100,9 +105,10 @@ class Handler {
    * @param {number} two value of the second slider
    */
   public inference(one: number, two: number): void {
+    consola.debug("Inference responses:", one, two);
     // Store the responses
-    this.dataframe.inferenceResponse_Selfish = one;
-    this.dataframe.inferenceResponse_Harm = two;
+    this.dataframe.questionnaireResponseInferenceSelfish = one;
+    this.dataframe.questionnaireResponseInferenceHarm = two;
 
     // Finish trial
     this.callback();
@@ -113,8 +119,9 @@ class Handler {
    * @param {number} value value of the agency slider
    */
   public agency(value: number): void {
+    consola.debug("Agency response:", value);
     // Store the responses
-    this.dataframe.agencyResponse = value;
+    this.dataframe.questionnaireResponseAgency = value;
 
     // Finish trial
     this.callback();
@@ -126,8 +133,9 @@ class Handler {
    * of their partner
    */
   public classification(type: string): void {
+    consola.debug("Classification response:", type);
     // Store the responses
-    this.dataframe.classification = type;
+    this.dataframe.questionnaireResponseClassification = type;
 
     // Finish trial
     this.callback();
@@ -146,11 +154,12 @@ class Handler {
     friends: number,
     socialCloseness: number
   ): void {
+    consola.debug("Status responses:", followers, averageLikes, friends, socialCloseness);
     // Store the responses
-    this.dataframe.followers = followers;
-    this.dataframe.averageLikes = averageLikes;
-    this.dataframe.friends = friends;
-    this.dataframe.socialCloseness = socialCloseness;
+    this.dataframe.questionnaireResponseStatusFollowers = followers;
+    this.dataframe.questionnaireResponseStatusAverageLikes = averageLikes;
+    this.dataframe.questionnaireResponseStatusFriends = friends;
+    this.dataframe.questionnaireResponseStatusSocialCloseness = socialCloseness;
 
     // Finish trial
     this.callback();
@@ -166,6 +175,7 @@ class Handler {
     participantParameters: number[],
     partnerParameters: number[]
   ): void {
+    consola.debug("Loading responses:", participantParameters, partnerParameters);
     // Store participant parameters
     this.dataframe.server_alpha_ppt = participantParameters[0];
     this.dataframe.server_beta_ppt = participantParameters[1];
@@ -182,19 +192,19 @@ class Handler {
    * @param {number[]} responses array of responses (0-3) for each question
    */
   public dass(responses: number[]): void {
-    // TODO: Store DASS responses in the dataframe
-    console.log("DASS responses:", responses);
+    consola.debug("DASS responses:", responses);
+    this.dataframe.questionnaireResponsesDASS = responses;
     this.callback();
   }
 
   /**
    * Handler called after screentime questionnaire completed
-   * @param {number} weekdayTime value of the weekday slider
-   * @param {number} weekendTime value of the weekend slider
+   * @param {number} weekdayTime value of the weekday response
+   * @param {number} weekendTime value of the weekend response
    */
   public screentime(weekdayTime: number, weekendTime: number): void {
-    // TODO: Store screentime responses in the dataframe
-    console.log("Screentime responses:", weekdayTime, weekendTime);
+    consola.debug("Screentime responses:", weekdayTime, weekendTime);
+    this.dataframe.questionnaireResponsesScreentime = [weekdayTime, weekendTime];
     this.callback();
   }
 }
