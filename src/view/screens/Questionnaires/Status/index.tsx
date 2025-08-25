@@ -18,8 +18,6 @@ import React, { FC, ReactElement, useState } from "react";
 import { Box, Button, Paragraph, TextInput, RadioButtonGroup, Heading } from "grommet";
 import { LinkNext } from "grommet-icons";
 
-
-
 /**
  * @summary Generate a 'Status' screen component with two pages for collecting social status information
  * @param {Props.Screens.Status} props Component props containing:
@@ -91,7 +89,7 @@ const Status: FC<Props.Screens.Status> = (
                   </Box>
 
                   {/* Scale */}
-                                     <RadioButtonGroup
+                  <RadioButtonGroup
                      name="party-invitations"
                      direction="row"
                      gap="medium"
@@ -133,7 +131,7 @@ const Status: FC<Props.Screens.Status> = (
                   </Box>
 
                   {/* Scale */}
-                                     <RadioButtonGroup
+                  <RadioButtonGroup
                      name="mean-people"
                      direction="row"
                      gap="medium"

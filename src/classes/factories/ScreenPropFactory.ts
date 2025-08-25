@@ -199,6 +199,16 @@ class ScreenPropFactory implements Factory {
         };
         break;
 
+      // Screentime screen
+      case "screentime":
+        // Setup the props
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          handler: this.handler.screentime.bind(this.handler),
+        };
+        break;
+
       // Summary screen
       case "summary":
         // Setup the props

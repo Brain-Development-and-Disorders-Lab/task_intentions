@@ -186,6 +186,17 @@ class Handler {
     console.log("DASS responses:", responses);
     this.callback();
   }
+
+  /**
+   * Handler called after screentime questionnaire completed
+   * @param {number} weekdayTime value of the weekday slider
+   * @param {number} weekendTime value of the weekend slider
+   */
+  public screentime(weekdayTime: number, weekendTime: number): void {
+    // TODO: Store screentime responses in the dataframe
+    console.log("Screentime responses:", weekdayTime, weekendTime);
+    this.callback();
+  }
 }
 
 export default Handler;

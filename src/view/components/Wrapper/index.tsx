@@ -31,6 +31,7 @@ import Classification from "../../screens/Questionnaires/Classification";
 import SelectAvatar from "../../screens/SelectAvatar";
 import Status from "../../screens/Questionnaires/Status";
 import DASS from "../../screens/Questionnaires/DASS";
+import Screentime from "../../screens/Questionnaires/Screentime";
 import Matched from "../../screens/Matched";
 import Loading from "../../screens/Loading";
 import Waiting from "../../screens/Waiting";
@@ -111,6 +112,10 @@ const Wrapper: FC<Props.Components.Wrapper> = (
 
         {activeDisplay === "dass" && (
           <DASS {...(props.props as Props.Screens.DASS)} />
+        )}
+
+        {activeDisplay === "screentime" && (
+          <Screentime {...(props.props as Props.Screens.Screentime)} />
         )}
 
         {activeDisplay === "classification" && (

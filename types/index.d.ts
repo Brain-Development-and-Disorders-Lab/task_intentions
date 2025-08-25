@@ -56,6 +56,7 @@ declare type Display =
   | "classification"
   | "status"
   | "dass"
+  | "screentime"
   | "summary"
   | "end"
   | "waiting"

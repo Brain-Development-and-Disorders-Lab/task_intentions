@@ -330,11 +330,11 @@ if (
 ) {
   // Enable the status display and the questionnaire globally
   Flags.setValue("enableStatusDisplay", true);
-  Flags.setValue("enableStatusQuestionnaire", true);
+  Flags.setValue("enableQuestionnaireStatus", true);
 }
 
 // Insert the status questionnaire if enabled
-if (Flags.isEnabled("enableStatusQuestionnaire") === true) {
+if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
   timeline.push({
     type: Configuration.studyName,
     display: "status",
@@ -1287,8 +1287,16 @@ timeline.push({
   display: "agency",
 });
 
+// Screen time questionnaire
+if (Flags.isEnabled("enableQuestionnaireScreentime") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "screentime",
+  });
+}
+
 // DASS screen
-if (Flags.isEnabled("enableDASS") === true) {
+if (Flags.isEnabled("enableQuestionnaireDASS") === true) {
   timeline.push({
     type: Configuration.studyName,
     display: "dass",
