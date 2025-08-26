@@ -41,7 +41,11 @@ export const Configuration = {
     enableProgressIndicators: true,
     enablePreviousExperimentPrompt: false,
     enableStatusDisplay: false,
-    enableStatusQuestionnaire: false,
+
+    // Questionnaire Features
+    enableQuestionnaireStatus: false,
+    enableQuestionnaireDASS: false,
+    enableQuestionnaireScreentime: false,
 
     // Experiment Features
     enablePracticeTrials: true,
