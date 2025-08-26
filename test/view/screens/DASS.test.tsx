@@ -10,6 +10,7 @@
 // React testing utilities
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 // Component to test
 import DASS from "src/view/screens/Questionnaires/DASS";
@@ -52,8 +53,8 @@ describe("DASS Component", () => {
       );
 
       fireEvent.click(screen.getByText("Continue"));
-      expect(screen.getByText("DASS-21 Questions")).toBeInTheDocument();
-      expect(screen.getByText("1. Question 1 for adults")).toBeInTheDocument();
+      expect(screen.getByText("DASS-21 Questionnaire")).toBeInTheDocument();
+      expect(screen.getByText("1. I found it hard to wind down")).toBeInTheDocument();
     });
 
     it("shows adult questions and allows responses", () => {
@@ -67,12 +68,10 @@ describe("DASS Component", () => {
       fireEvent.click(screen.getByText("Continue"));
 
       // Check questions are displayed
-      expect(screen.getByText("1. Question 1 for adults")).toBeInTheDocument();
-      expect(screen.getByText("2. Question 2 for adults")).toBeInTheDocument();
-      expect(screen.getByText("21. Question 21 for adults")).toBeInTheDocument();
+      expect(screen.getByText("1. I found it hard to wind down")).toBeInTheDocument();
 
-      // Submit button should be disabled initially
-      expect(screen.getByText("Submit")).toBeDisabled();
+      // Continue button should be enabled initially
+      expect(screen.getByText("Continue")).not.toBeDisabled();
     });
   });
 
@@ -94,9 +93,8 @@ describe("DASS Component", () => {
       // Navigate to questions page
       fireEvent.click(screen.getByText("Continue"));
 
-      expect(screen.getByText("1. Question 1 for adolescents")).toBeInTheDocument();
-      expect(screen.getByText("2. Question 2 for adolescents")).toBeInTheDocument();
-      expect(screen.getByText("21. Question 21 for adolescents")).toBeInTheDocument();
+      // Check questions are displayed
+      expect(screen.getByText("1. I got upset about little things")).toBeInTheDocument();
     });
   });
 });

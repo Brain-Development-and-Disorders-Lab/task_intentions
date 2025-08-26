@@ -80,8 +80,8 @@ test("check the Inference handler", async () => {
   const dataframe = handler.getDataframe();
 
   // Validate the stored responses
-  expect(dataframe.inferenceResponse_Selfish).toBe(1);
-  expect(dataframe.inferenceResponse_Harm).toBe(2);
+  expect(dataframe.questionnaireResponseInferenceSelfish).toBe(1);
+  expect(dataframe.questionnaireResponseInferenceHarm).toBe(2);
 });
 
 // Agency handler
@@ -91,7 +91,7 @@ test("check the Agency handler", async () => {
   const dataframe = handler.getDataframe();
 
   // Validate the stored responses
-  expect(dataframe.agencyResponse).toBe(1);
+  expect(dataframe.questionnaireResponseAgency).toBe(1);
 });
 
 // Classification handler
@@ -101,5 +101,5 @@ test("check the Classification handler", async () => {
   const dataframe = handler.getDataframe();
 
   // Validate the stored responses
-  expect(dataframe.classification).toBe("Prosocial");
+  expect(dataframe.questionnaireResponseClassification).toBe("Prosocial");
 });
