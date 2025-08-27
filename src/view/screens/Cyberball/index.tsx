@@ -61,6 +61,16 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   // Configuration
   const participantAvatarIndex = Configuration.state.participantAvatar;
 
+  // Generate random 6-character alphanumeric IDs for partners
+  const generatePartnerID = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    return Array.from({ length: 6 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
+  };
+
+  // Partner IDs (generated once per component instance)
+  const partnerAID = useRef(generatePartnerID()).current;
+  const partnerBID = useRef(generatePartnerID()).current;
+
   // Player positions (static)
   const positions = {
     participant: {
@@ -231,7 +241,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       {/* Partner A (Top Left) */}
       <Box
         width={`${Configuration.cyberball.playerSize}px`}
-        height={`${Configuration.cyberball.playerSize}px`}
+        height={`${Configuration.cyberball.playerSize + 20}px`}
         onClick={() => handleParticipantToss("partnerA")}
         style={{
           position: "absolute",
@@ -354,7 +364,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         </Box>
 
         <Avatar
-          size={Configuration.cyberball.playerSize}
+          size={Configuration.cyberball.playerSize + 8}
           name={"partnerA"}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
@@ -362,12 +372,15 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         <Text size="small" textAlign="center" margin={{ top: "xsmall" }}>
           Partner A
         </Text>
+        <Text size="xsmall" textAlign="center" margin={{ top: "xxsmall" }}>
+          ({partnerAID})
+        </Text>
       </Box>
 
       {/* Partner B (Top Right) */}
       <Box
         width={`${Configuration.cyberball.playerSize}px`}
-        height={`${Configuration.cyberball.playerSize}px`}
+        height={`${Configuration.cyberball.playerSize + 20}px`}
         onClick={() => handleParticipantToss("partnerB")}
         style={{
           position: "absolute",
@@ -386,13 +399,16 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         }}
       >
         <Avatar
-          size={Configuration.cyberball.playerSize}
+          size={Configuration.cyberball.playerSize + 8}
           name={"partnerB"}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
         <Text size="small" textAlign="center" margin={{ top: "xsmall" }}>
           Partner B
+        </Text>
+        <Text size="xsmall" textAlign="center" margin={{ top: "xxsmall" }}>
+          ({partnerBID})
         </Text>
       </Box>
 
