@@ -149,17 +149,19 @@ class Handler {
    * @param {number} socialCloseness social closeness rating
    */
   public status(
-    followers: number,
-    averageLikes: number,
-    friends: number,
-    socialCloseness: number
+    closeFriends: number,
+    partyInvitations: number,
+    meanPeople: number,
+    socialMediaFollowers: number,
+    socialMediaFollowing: number
   ): void {
-    consola.debug("Status responses:", followers, averageLikes, friends, socialCloseness);
+    consola.debug("Status responses:", closeFriends, partyInvitations, meanPeople, socialMediaFollowers, socialMediaFollowing);
     // Store the responses
-    this.dataframe.questionnaireResponseStatusFollowers = followers;
-    this.dataframe.questionnaireResponseStatusAverageLikes = averageLikes;
-    this.dataframe.questionnaireResponseStatusFriends = friends;
-    this.dataframe.questionnaireResponseStatusSocialCloseness = socialCloseness;
+    this.dataframe.questionnaireResponseCloseFriends = closeFriends;
+    this.dataframe.questionnaireResponsePartyInvitations = partyInvitations;
+    this.dataframe.questionnaireResponseMeanPeople = meanPeople;
+    this.dataframe.questionnaireResponseSocialMediaFollowers = socialMediaFollowers;
+    this.dataframe.questionnaireResponseSocialMediaFollowing = socialMediaFollowing;
 
     // Finish trial
     this.callback();
@@ -205,6 +207,20 @@ class Handler {
   public screentime(weekdayTime: number, weekendTime: number): void {
     consola.debug("Screentime responses:", weekdayTime, weekendTime);
     this.dataframe.questionnaireResponsesScreentime = [weekdayTime, weekendTime];
+    this.callback();
+  }
+
+  /**
+   * Handler called after Cyberball game completed
+   * @param {number} tossCount number of times the ball was tossed
+   * @param {number} participantTossCount number of times the participant tossed the ball
+   * @param {number} participantCatchCount number of times the participant caught the ball
+   */
+  public cyberball(tossCount: number, participantTossCount: number, participantCatchCount: number): void {
+    consola.debug("Cyberball statistics:", tossCount, participantTossCount, participantCatchCount);
+    this.dataframe.cyberballTossCount = tossCount;
+    this.dataframe.cyberballParticipantCatchCount = participantCatchCount;
+    this.dataframe.cyberballParticipantTossCount = participantTossCount;
     this.callback();
   }
 }

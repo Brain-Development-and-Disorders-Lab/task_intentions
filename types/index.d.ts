@@ -154,15 +154,21 @@ declare type TrialData = {
   // Signal timestamps
   signalTimestamps: number[];
 
+  // Cyberball data
+  cyberballTossCount: number;
+  cyberballParticipantTossCount: number;
+  cyberballParticipantCatchCount: number;
+
   // Questionnaire responses
   questionnaireResponseInferenceSelfish: number;
   questionnaireResponseInferenceHarm: number;
   questionnaireResponseAgency: number;
   questionnaireResponseClassification: string;
-  questionnaireResponseStatusFollowers: number;
-  questionnaireResponseStatusAverageLikes: number;
-  questionnaireResponseStatusFriends: number;
-  questionnaireResponseStatusSocialCloseness: number;
+  questionnaireResponseCloseFriends: number;
+  questionnaireResponsePartyInvitations: number;
+  questionnaireResponseMeanPeople: number;
+  questionnaireResponseSocialMediaFollowers: number;
+  questionnaireResponseSocialMediaFollowing: number;
   questionnaireResponsesDASS: number[];
   questionnaireResponsesScreentime: number[];
 };

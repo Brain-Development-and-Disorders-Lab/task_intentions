@@ -27,6 +27,9 @@ export const Configuration = {
     useButtonInput: false,
     useOfflinePackages: true,
 
+    // Questionnaire features
+    enableEndingQuestionnaires: false,
+
     // Status features
     enableStatusPhaseOne: false,
     enableStatusPhaseTwo: false,

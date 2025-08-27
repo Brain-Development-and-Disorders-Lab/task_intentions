@@ -253,7 +253,7 @@ class ScreenPropFactory implements Factory {
           isInclusive: this.trial.isInclusive,
           partnerHighStatus: this.trial.partnerHighStatus,
           probabilities: this.trial.probabilities,
-          handler: this.handler.callback.bind(this.handler),
+          handler: this.handler.cyberball.bind(this.handler),
         };
         break;
 

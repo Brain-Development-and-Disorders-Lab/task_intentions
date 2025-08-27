@@ -178,10 +178,7 @@ declare namespace Props {
           partnerB: number; // Probability of partner B passing to participant
         };
       };
-      handler: (gameState: {
-        participantCatchCount: number;
-        participantTossCount: number;
-      }) => void;
+      handler: (tossCount: number, participantTossCount: number, participantCatchCount: number) => void;
     };
   }
 }

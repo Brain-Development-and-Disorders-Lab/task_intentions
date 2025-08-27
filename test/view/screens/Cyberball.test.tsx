@@ -68,7 +68,7 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Initially participant should have the ball
-    expect(screen.getByText("Throw the ball!")).toBeInTheDocument();
+    expect(screen.getByText("Click on a partner to throw the ball to them!")).toBeInTheDocument();
   });
 
   it("allows participant to toss ball to partners when they have the ball", async () => {
@@ -105,10 +105,9 @@ describe("Cyberball Screen", () => {
 
     await waitFor(() => {
       expect(mockHandler).toHaveBeenCalledWith(
-        expect.objectContaining({
-          participantCatchCount: expect.any(Number),
-          participantTossCount: expect.any(Number),
-        })
+        expect.any(Number),
+        expect.any(Number),
+        expect.any(Number)
       );
     });
 
@@ -141,7 +140,7 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Initially participant has the ball
-    expect(screen.getByText("Throw the ball!")).toBeInTheDocument();
+    expect(screen.getByText("Click on a partner to throw the ball to them!")).toBeInTheDocument();
 
     // Click on partner A to toss the ball
     const partnerA = screen.getByText("Partner A").closest("div");
@@ -151,7 +150,7 @@ describe("Cyberball Screen", () => {
 
     // After tossing, should show waiting message
     await waitFor(() => {
-      expect(screen.getByText("Waiting...")).toBeInTheDocument();
+      expect(screen.getByText("Waiting to receive the ball...")).toBeInTheDocument();
     }, { timeout: 1000 });
   });
 
