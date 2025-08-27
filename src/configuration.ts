@@ -115,7 +115,7 @@ export const Configuration = {
     // Visual parameters
     ballSize: 40,
     ballColor: "#FF6B6B",
-    playerSize: 80,
+    playerSize: 100,
     viewWidth: 800,
     viewHeight: 600,
   },
