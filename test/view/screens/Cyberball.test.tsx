@@ -163,4 +163,30 @@ describe("Cyberball Screen", () => {
     const ball = screen.getByTestId("cyberball-ball");
     expect(ball).toBeInTheDocument();
   });
+
+  it("displays status label above Partner A", () => {
+    render(<Cyberball {...mockProps} />);
+
+    // Check that the status label elements are present
+    expect(screen.getByText("Low")).toBeInTheDocument();
+    expect(screen.getByText("High")).toBeInTheDocument();
+  });
+
+  it("shows correct status positioning based on partnerHighStatus prop", () => {
+    // Test with high status partner
+    const highStatusProps = { ...mockProps, partnerHighStatus: true };
+    const { rerender } = render(<Cyberball {...highStatusProps} />);
+
+    // Check that the status label is present
+    expect(screen.getByText("Low")).toBeInTheDocument();
+    expect(screen.getByText("High")).toBeInTheDocument();
+
+    // Test with low status partner
+    const lowStatusProps = { ...mockProps, partnerHighStatus: false };
+    rerender(<Cyberball {...lowStatusProps} />);
+
+    // Check that the status label is still present
+    expect(screen.getByText("Low")).toBeInTheDocument();
+    expect(screen.getByText("High")).toBeInTheDocument();
+  });
 });

@@ -249,6 +249,110 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
             gameState.ballOwner === "participant" && !isAnimating ? 1 : 0.7,
         }}
       >
+        {/* Social status label above Partner A */}
+        <Box
+          align="center"
+          direction="column"
+          gap="xxsmall"
+          width="150px"
+          style={{
+            position: "absolute",
+            top: "-70px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+          }}
+        >
+          {/* Avatars and arrows above the bar */}
+          <Box
+            width="100%"
+            height="32px"
+            style={{ position: "relative" }}
+            margin={{ bottom: "xxsmall" }}
+          >
+            {/* Participant avatar and arrow */}
+            <Box
+              align="center"
+              style={{
+                position: "absolute",
+                left: props.partnerHighStatus ? "20%" : "80%",
+                top: 0,
+                transform: "translateX(-50%)",
+                zIndex: 2,
+              }}
+            >
+              <Avatar
+                size={24}
+                name={
+                  Configuration.avatars.names.participant[
+                    positions.participant.avatar
+                  ]
+                }
+                variant={Configuration.avatars.variant as AvatarStyles}
+                colors={Configuration.avatars.colours}
+              />
+              {/* Downward arrow */}
+              <Box
+                as="svg"
+                width="8px"
+                height="7px"
+                style={{ display: "block" }}
+                margin={{ top: "xxsmall" }}
+              >
+                <polygon points="4,7 0,0 8,0" fill="#89C2D9" />
+              </Box>
+            </Box>
+
+            {/* Partner A avatar and arrow */}
+            <Box
+              align="center"
+              style={{
+                position: "absolute",
+                left: props.partnerHighStatus ? "80%" : "20%",
+                top: 0,
+                transform: "translateX(-50%)",
+                zIndex: 2,
+              }}
+            >
+              <Avatar
+                size={24}
+                name={"partnerA"}
+                variant={Configuration.avatars.variant as AvatarStyles}
+                colors={Configuration.avatars.colours}
+              />
+              {/* Downward arrow */}
+              <Box
+                as="svg"
+                width="8px"
+                height="7px"
+                style={{ display: "block" }}
+                margin={{ top: "xxsmall" }}
+              >
+                <polygon points="4,7 0,0 8,0" fill="#89C2D9" />
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Solid color bar with rounded corners */}
+          <Box
+            width="100%"
+            height="3px"
+            background="#2A6F97"
+            round="small"
+            style={{ position: "relative" }}
+          />
+
+          {/* Scale labels */}
+          <Box direction="row" justify="between" width="100%">
+            <Text size="xsmall" textAlign="center" weight="bold">
+              Low
+            </Text>
+            <Text size="xsmall" textAlign="center" weight="bold">
+              High
+            </Text>
+          </Box>
+        </Box>
+
         <Avatar
           size={Configuration.cyberball.playerSize}
           name={"partnerA"}
