@@ -113,6 +113,8 @@ declare type Trial = {
   };
 
   // Cyberball screen
+  isInclusive?: boolean;
+  partnerHighStatus?: boolean;
   probabilities?: {
     inclusion: number;
     exclusion: {
