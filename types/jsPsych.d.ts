@@ -58,6 +58,8 @@ declare type TimelineNode = {
       partnerB: number;
     };
   };
+  isInclusive?: boolean;
+  partnerHighStatus?: boolean;
 
   // Attention-check plugin
   prompt?: string;

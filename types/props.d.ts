@@ -169,6 +169,8 @@ declare namespace Props {
 
     // Cyberball screen
     type Cyberball = GenericScreenProps & {
+      isInclusive: boolean; // Operate exclusively as inclusive or exclusive
+      partnerHighStatus: boolean; // Partner A is high status or low status
       probabilities: {
         inclusion: number; // Probability of partners passing to participant
         exclusion: {
@@ -177,10 +179,8 @@ declare namespace Props {
         };
       };
       handler: (gameState: {
-        phase: string;
         participantCatchCount: number;
         participantTossCount: number;
-        exclusionStartTime: number | null;
       }) => void;
     };
   }

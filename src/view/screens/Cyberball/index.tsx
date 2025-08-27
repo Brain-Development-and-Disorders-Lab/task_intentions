@@ -2,11 +2,11 @@
  * @file `Cyberball` screen for social exclusion paradigm.
  *
  * This screen implements the classic Cyberball paradigm where participants
- * play a virtual ball-tossing game that transitions from fair play to
- * social exclusion. Key features include:
+ * play a virtual ball-tossing game that operates in either inclusive or
+ * exclusive mode for the full duration. Key features include:
  * - Realistic ball-tossing animations
  * - Configurable game parameters
- * - Smooth transition from inclusion to exclusion
+ * - Single mode operation (inclusive or exclusive)
  * - Data collection for social exclusion research
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
@@ -23,29 +23,20 @@ import Avatar from "boring-neutral-avatars";
 import { Configuration } from "src/configuration";
 
 // Types
-interface CyberballState {
-  phase: "inclusion" | "exclusion";
-  participantCatchCount: number;
-  participantTossCount: number;
-  exclusionStartTime: number | null;
-}
-
 interface GameState {
   ballOwner: "participant" | "partnerA" | "partnerB";
   tossCount: number;
   participantTossCount: number;
   partnerATossCount: number;
   partnerBTossCount: number;
-  currentPhase: "inclusion" | "exclusion";
   gameStartTime: number;
-  phaseStartTime: number;
 }
 
 /**
  * Cyberball screen component that implements the social exclusion paradigm
  * @component
  * @param {Props.Screens.Cyberball} props - Component props
- * @param {(state: CyberballState) => void} props.handler - Callback function when game completes
+ * @param {(state: { participantCatchCount: number; participantTossCount: number }) => void} props.handler - Callback function when game completes
  * @returns {ReactElement} Cyberball game screen
  */
 const Cyberball: FC<Props.Screens.Cyberball> = (
@@ -57,9 +48,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     participantTossCount: 0,
     partnerATossCount: 0,
     partnerBTossCount: 0,
-    currentPhase: "inclusion",
     gameStartTime: Date.now(),
-    phaseStartTime: Date.now(),
   });
 
   // Simple state
@@ -71,6 +60,16 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
   // Configuration
   const participantAvatarIndex = Configuration.state.participantAvatar;
+
+  // Generate random 6-character alphanumeric IDs for partners
+  const generatePartnerID = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    return Array.from({ length: 6 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
+  };
+
+  // Partner IDs (generated once per component instance)
+  const partnerAID = useRef(generatePartnerID()).current;
+  const partnerBID = useRef(generatePartnerID()).current;
 
   // Player positions (static)
   const positions = {
@@ -97,49 +96,27 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     },
   };
 
-  // Phase transition logic
+  // Game completion check
   useEffect(() => {
-    const checkPhaseTransition = () => {
+    const checkGameCompletion = () => {
       const currentTime = Date.now();
-      const timeInPhase = currentTime - gameState.phaseStartTime;
+      const totalGameTime = currentTime - gameState.gameStartTime;
 
-      if (
-        gameState.currentPhase === "inclusion" &&
-        timeInPhase >= Configuration.cyberball.inclusionDuration
-      ) {
-        setGameState(prev => ({
-          ...prev,
-          currentPhase: "exclusion",
-          phaseStartTime: currentTime,
-        }));
+      if (totalGameTime >= Configuration.cyberball.totalDuration) {
+        const finalState = {
+          participantCatchCount: gameState.participantTossCount,
+          participantTossCount: gameState.participantTossCount,
+        };
+        props.handler(finalState);
       }
     };
 
-    gameTimerRef.current = setInterval(checkPhaseTransition, 100);
+    gameTimerRef.current = setInterval(checkGameCompletion, 100);
     return () => {
       if (gameTimerRef.current) {
         clearInterval(gameTimerRef.current);
       }
     };
-  }, [gameState.currentPhase, gameState.phaseStartTime]);
-
-  // Game completion check
-  useEffect(() => {
-    const currentTime = Date.now();
-    const totalGameTime = currentTime - gameState.gameStartTime;
-
-    if (totalGameTime >= Configuration.cyberball.totalDuration) {
-      const finalState: CyberballState = {
-        phase: gameState.currentPhase,
-        participantCatchCount: gameState.participantTossCount,
-        participantTossCount: gameState.participantTossCount,
-        exclusionStartTime:
-          gameState.currentPhase === "exclusion"
-            ? gameState.phaseStartTime
-            : null,
-      };
-      props.handler(finalState);
-    }
   }, [gameState, props]);
 
   // Ball animation with arc trajectory
@@ -203,19 +180,19 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
   // Handle partner response
   const handlePartnerResponse = (partner: "partnerA" | "partnerB") => {
-    // Determine target based on current phase and probabilities
+    // Determine target based on mode and probabilities
     let target: "participant" | "partnerA" | "partnerB";
     const random = Math.random();
 
-    if (gameState.currentPhase === "inclusion") {
-      // Inclusion phase: use inclusion probability
+    if (props.isInclusive) {
+      // Inclusive mode: use inclusion probability
       if (random < props.probabilities.inclusion) {
         target = "participant";
       } else {
         target = partner === "partnerA" ? "partnerB" : "partnerA";
       }
     } else {
-      // Exclusion phase: use exclusion probability
+      // Exclusive mode: use exclusion probability
       const exclusionProb =
         partner === "partnerA"
           ? props.probabilities.exclusion.partnerA
@@ -264,7 +241,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       {/* Partner A (Top Left) */}
       <Box
         width={`${Configuration.cyberball.playerSize}px`}
-        height={`${Configuration.cyberball.playerSize}px`}
+        height={`${Configuration.cyberball.playerSize + 20}px`}
         onClick={() => handleParticipantToss("partnerA")}
         style={{
           position: "absolute",
@@ -282,8 +259,112 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
             gameState.ballOwner === "participant" && !isAnimating ? 1 : 0.7,
         }}
       >
+        {/* Social status label above Partner A */}
+        <Box
+          align="center"
+          direction="column"
+          gap="xxsmall"
+          width="150px"
+          style={{
+            position: "absolute",
+            top: "-70px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+          }}
+        >
+          {/* Avatars and arrows above the bar */}
+          <Box
+            width="100%"
+            height="32px"
+            style={{ position: "relative" }}
+            margin={{ bottom: "xxsmall" }}
+          >
+            {/* Participant avatar and arrow */}
+            <Box
+              align="center"
+              style={{
+                position: "absolute",
+                left: props.partnerHighStatus ? "20%" : "80%",
+                top: 0,
+                transform: "translateX(-50%)",
+                zIndex: 2,
+              }}
+            >
+              <Avatar
+                size={24}
+                name={
+                  Configuration.avatars.names.participant[
+                    positions.participant.avatar
+                  ]
+                }
+                variant={Configuration.avatars.variant as AvatarStyles}
+                colors={Configuration.avatars.colours}
+              />
+              {/* Downward arrow */}
+              <Box
+                as="svg"
+                width="8px"
+                height="7px"
+                style={{ display: "block" }}
+                margin={{ top: "xxsmall" }}
+              >
+                <polygon points="4,7 0,0 8,0" fill="#89C2D9" />
+              </Box>
+            </Box>
+
+            {/* Partner A avatar and arrow */}
+            <Box
+              align="center"
+              style={{
+                position: "absolute",
+                left: props.partnerHighStatus ? "80%" : "20%",
+                top: 0,
+                transform: "translateX(-50%)",
+                zIndex: 2,
+              }}
+            >
+              <Avatar
+                size={24}
+                name={"partnerA"}
+                variant={Configuration.avatars.variant as AvatarStyles}
+                colors={Configuration.avatars.colours}
+              />
+              {/* Downward arrow */}
+              <Box
+                as="svg"
+                width="8px"
+                height="7px"
+                style={{ display: "block" }}
+                margin={{ top: "xxsmall" }}
+              >
+                <polygon points="4,7 0,0 8,0" fill="#89C2D9" />
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Solid color bar with rounded corners */}
+          <Box
+            width="100%"
+            height="3px"
+            background="#2A6F97"
+            round="small"
+            style={{ position: "relative" }}
+          />
+
+          {/* Scale labels */}
+          <Box direction="row" justify="between" width="100%">
+            <Text size="xsmall" textAlign="center" weight="bold">
+              Low
+            </Text>
+            <Text size="xsmall" textAlign="center" weight="bold">
+              High
+            </Text>
+          </Box>
+        </Box>
+
         <Avatar
-          size={Configuration.cyberball.playerSize}
+          size={Configuration.cyberball.playerSize + 8}
           name={"partnerA"}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
@@ -291,12 +372,15 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         <Text size="small" textAlign="center" margin={{ top: "xsmall" }}>
           Partner A
         </Text>
+        <Text size="xsmall" textAlign="center" margin={{ top: "xxsmall" }}>
+          ({partnerAID})
+        </Text>
       </Box>
 
       {/* Partner B (Top Right) */}
       <Box
         width={`${Configuration.cyberball.playerSize}px`}
-        height={`${Configuration.cyberball.playerSize}px`}
+        height={`${Configuration.cyberball.playerSize + 20}px`}
         onClick={() => handleParticipantToss("partnerB")}
         style={{
           position: "absolute",
@@ -315,13 +399,16 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         }}
       >
         <Avatar
-          size={Configuration.cyberball.playerSize}
+          size={Configuration.cyberball.playerSize + 8}
           name={"partnerB"}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
         <Text size="small" textAlign="center" margin={{ top: "xsmall" }}>
           Partner B
+        </Text>
+        <Text size="xsmall" textAlign="center" margin={{ top: "xxsmall" }}>
+          ({partnerBID})
         </Text>
       </Box>
 

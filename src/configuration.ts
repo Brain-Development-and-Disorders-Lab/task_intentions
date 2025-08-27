@@ -26,9 +26,16 @@ export const Configuration = {
     requireID: false,
     useButtonInput: false,
     useOfflinePackages: true,
+
+    // Status features
     enableStatusPhaseOne: false,
     enableStatusPhaseTwo: false,
     enableStatusPhaseThree: false,
+
+    // Cyberball features
+    enableCyberball: false,
+    cyberballIsInclusive: true,
+    cyberballPartnerHighStatus: true,
   },
 
   // Feature flags, configure these before building for deployment
@@ -43,6 +50,9 @@ export const Configuration = {
     enableStatusDisplay: false,
 
     // Questionnaire Features
+    enableInferenceQuestions: true,
+    enableClassificationQuestions: true,
+    enableAgencyQuestions: true,
     enableQuestionnaireStatus: false,
     enableQuestionnaireDASS: false,
     enableQuestionnaireScreentime: false,
@@ -51,10 +61,6 @@ export const Configuration = {
     enablePracticeTrials: true,
     enableAttentionChecks: true,
     enablePartnerMatching: true,
-    enableInferenceQuestions: true,
-    enableClassificationQuestions: true,
-    enableAgencyQuestions: true,
-    enableCyberball: false,
 
     // Data Collection Features
     enableLocalStorage: true,
@@ -103,15 +109,13 @@ export const Configuration = {
   // Cyberball configuration, timings and behavioral parameters
   cyberball: {
     // Timings
-    inclusionDuration: 30000,
-    exclusionDuration: 60000,
     tossInterval: 2000,
-    totalDuration: 90000,
+    totalDuration: 60000,
 
     // Visual parameters
     ballSize: 40,
     ballColor: "#FF6B6B",
-    playerSize: 80,
+    playerSize: 100,
     viewWidth: 800,
     viewHeight: 600,
   },
