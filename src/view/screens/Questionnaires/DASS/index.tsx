@@ -15,7 +15,7 @@
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
-import { Box, Button, Paragraph, RadioButtonGroup, Heading } from "grommet";
+import { Box, Button, Paragraph, RadioButtonGroup, Heading, Text } from "grommet";
 import { LinkNext } from "grommet-icons";
 
 // Question sets
@@ -66,6 +66,13 @@ const ADOLESCENT_QUESTIONS = [
   "I felt that life was terrible",
 ];
 
+const SCORING = [
+  "0 = Did not apply to me at all",
+  "1 = Applied to me to some degree, or some of the time",
+  "2 = Applied to me to a considerable degree or a good part of time",
+  "3 = Applied to me very much or most of the time",
+];
+
 /**
  * @summary Generate a 'DASS' screen component with two pages for collecting DASS-21 responses
  * @param {Props.Screens.DASS} props Component props containing:
@@ -110,26 +117,43 @@ const DASS: FC<Props.Screens.DASS> = (
       <Box
         justify={"center"}
         align={"center"}
-        gap={"small"}
+        gap={"xsmall"}
         style={{ maxWidth: "70%", margin: "auto" }}
         animation={["fadeIn"]}
       >
-        <Heading level={3} margin="small" fill>
+        <Heading level={3} margin={"small"} fill>
           DASS-21 Questionnaire
         </Heading>
-        <Paragraph margin="xsmall" size="small" textAlign="center" color="dark-4">
+        <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
           Page 1 of 4
         </Paragraph>
 
-        <Paragraph margin="medium" size="large" fill textAlign="center">
+        <Paragraph margin={"small"} size={"large"} fill textAlign={"center"}>
           The following questions ask about how you have been feeling over the past week.
           Please indicate how much each statement applied to you over the past week.
         </Paragraph>
 
-        <Paragraph margin="medium" size="large" fill textAlign="center">
+        <Paragraph margin={"small"} size={"large"} fill textAlign={"center"}>
           There are no right or wrong answers. Please respond to each question based on
           how you have been feeling, not how you think you should feel.
         </Paragraph>
+
+        <Paragraph margin={"small"} size={"large"} fill textAlign={"center"}>
+          Scoring:
+        </Paragraph>
+
+        <Box direction={"row"} gap={"small"} pad={"small"} width={"80%"}>
+          <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            {SCORING.slice(0, 2).map((score, index) => (
+              <Text key={index} size={"small"} textAlign={"start"}>{score}</Text>
+            ))}
+          </Box>
+          <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            {SCORING.slice(2).map((score, index) => (
+              <Text key={index} size={"small"} textAlign={"start"}>{score}</Text>
+            ))}
+          </Box>
+        </Box>
 
         <Box
           margin={"none"}
@@ -139,8 +163,8 @@ const DASS: FC<Props.Screens.DASS> = (
         >
           <Button
             primary
-            color="button"
-            label="Continue"
+            color={"button"}
+            label={"Continue"}
             icon={<LinkNext />}
             reverse
             onClick={() => setCurrentPage(2)}
@@ -156,41 +180,50 @@ const DASS: FC<Props.Screens.DASS> = (
       <Box
         justify={"center"}
         align={"center"}
-        gap={"small"}
+        gap={"xsmall"}
         style={{ maxWidth: "80%", margin: "auto" }}
         animation={["fadeIn"]}
       >
-        <Heading level={3} margin="small" fill>
+        <Heading level={3} margin={"xsmall"} fill>
           DASS-21 Questionnaire
         </Heading>
-        <Paragraph margin="xsmall" size="small" textAlign="center" color="dark-4">
-          Page 2 of 4
-        </Paragraph>
+        <Box direction={"row"} gap={"small"} fill pad={"small"}>
+          <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            {SCORING.slice(0, 2).map((score, index) => (
+              <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+            ))}
+          </Box>
+          <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            {SCORING.slice(2).map((score, index) => (
+              <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+            ))}
+          </Box>
+        </Box>
         <Box
-          direction="column"
-          gap="small"
-          width="100%"
+          direction={"column"}
+          gap={"small"}
+          width={"100%"}
           style={{ maxHeight: "70vh", overflowY: "auto" }}
         >
           {pages[0].map((question: string, index: number) => (
             <Box
               key={index}
-              direction="row"
-              align="center"
-              gap="medium"
-              pad="small"
+              direction={"row"}
+              align={"center"}
+              gap={"medium"}
+              pad={"small"}
               border={{ color: "light-3", size: "xsmall" }}
-              round="small"
-              background="light-1"
+              round={"small"}
+              background={"light-1"}
             >
-              <Paragraph margin="none" size="small" textAlign="start" style={{ flex: 1 }}>
+              <Paragraph margin={"none"} size={"small"} textAlign={"start"} style={{ flex: 1 }}>
                 {index + 1}. {question}
               </Paragraph>
 
               <RadioButtonGroup
                 name={`dass-${index}`}
-                direction="row"
-                gap="small"
+                direction={"row"}
+                gap={"small"}
                 options={[
                   { label: "0", value: 0 },
                   { label: "1", value: 1 },
@@ -204,25 +237,26 @@ const DASS: FC<Props.Screens.DASS> = (
           ))}
         </Box>
 
+        <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
+          Page 2 of 4
+        </Paragraph>
+
         <Box
-          direction="row"
-          gap="medium"
-          margin={"medium"}
+          direction={"row"}
+          gap={"medium"}
+          margin={"none"}
           pad={"none"}
-          border={{ color: "transparent", size: "large" }}
-          round
         >
           <Button
             primary
-            color="button"
-            label="Back"
+            color={"button"}
+            label={"Back"}
             onClick={() => setCurrentPage(1)}
-            disabled={true}
           />
           <Button
             primary
-            color="button"
-            label="Continue"
+            color={"button"}
+            label={"Continue"}
             icon={<LinkNext />}
             reverse
             onClick={() => setCurrentPage(3)}
@@ -238,16 +272,25 @@ const DASS: FC<Props.Screens.DASS> = (
       <Box
         justify={"center"}
         align={"center"}
-        gap={"small"}
+        gap={"xsmall"}
         style={{ maxWidth: "80%", margin: "auto" }}
         animation={["fadeIn"]}
       >
         <Heading level={3} margin={"small"} fill>
           DASS-21 Questionnaire
         </Heading>
-        <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
-          Page 3 of 4
-        </Paragraph>
+        <Box direction={"row"} gap={"small"} fill pad={"small"}>
+          <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            {SCORING.slice(0, 2).map((score, index) => (
+              <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+            ))}
+          </Box>
+          <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            {SCORING.slice(2).map((score, index) => (
+              <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+            ))}
+          </Box>
+        </Box>
         <Box
           direction={"column"}
           gap={"small"}
@@ -265,14 +308,14 @@ const DASS: FC<Props.Screens.DASS> = (
               round={"small"}
               background={"light-1"}
             >
-              <Paragraph margin="none" size="small" textAlign="start" style={{ flex: 1 }}>
+              <Paragraph margin={"none"} size={"small"} textAlign={"start"} style={{ flex: 1 }}>
                 {index + 8}. {question}
               </Paragraph>
 
               <RadioButtonGroup
                 name={`dass-${index + 7}`}
-                direction="row"
-                gap="small"
+                direction={"row"}
+                gap={"small"}
                 options={[
                   { label: "0", value: 0 },
                   { label: "1", value: 1 },
@@ -285,24 +328,27 @@ const DASS: FC<Props.Screens.DASS> = (
             </Box>
           ))}
         </Box>
+
+        <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
+          Page 3 of 4
+        </Paragraph>
+
         <Box
-          direction="row"
-          gap="medium"
-          margin={"medium"}
+          direction={"row"}
+          gap={"medium"}
+          margin={"none"}
           pad={"none"}
-          border={{ color: "transparent", size: "large" }}
-          round
         >
           <Button
             primary
-            color="button"
-            label="Back"
+            color={"button"}
+            label={"Back"}
             onClick={() => setCurrentPage(2)}
           />
           <Button
             primary
-            color="button"
-            label="Continue"
+            color={"button"}
+            label={"Continue"}
             icon={<LinkNext />}
             reverse
             onClick={() => setCurrentPage(4)}
@@ -317,41 +363,50 @@ const DASS: FC<Props.Screens.DASS> = (
     <Box
       justify={"center"}
       align={"center"}
-      gap={"small"}
+      gap={"xsmall"}
       style={{ maxWidth: "80%", margin: "auto" }}
       animation={["fadeIn"]}
     >
-      <Heading level={3} margin="small" fill>
+      <Heading level={3} margin={"small"} fill>
         DASS-21 Questionnaire
       </Heading>
-      <Paragraph margin="xsmall" size="small" textAlign="center" color="dark-4">
-        Page 4 of 4
-      </Paragraph>
+      <Box direction={"row"} gap={"small"} fill pad={"small"}>
+        <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+          {SCORING.slice(0, 2).map((score, index) => (
+            <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+          ))}
+        </Box>
+        <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+          {SCORING.slice(2).map((score, index) => (
+            <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+          ))}
+        </Box>
+      </Box>
       <Box
-        direction="column"
-        gap="small"
-        width="100%"
+        direction={"column"}
+        gap={"small"}
+        width={"100%"}
         style={{ maxHeight: "70vh", overflowY: "auto" }}
       >
         {pages[2].map((question: string, index: number) => (
           <Box
             key={index + 14}
-            direction="row"
-            align="center"
-            gap="small"
-            pad="small"
+            direction={"row"}
+            align={"center"}
+            gap={"small"}
+            pad={"small"}
             border={{ color: "light-3", size: "xsmall" }}
-            round="small"
-            background="light-1"
+            round={"small"}
+            background={"light-1"}
           >
-            <Paragraph margin="none" size="small" textAlign="start" style={{ flex: 1 }}>
+            <Paragraph margin={"none"} size={"small"} textAlign={"start"} style={{ flex: 1 }}>
               {index + 15}. {question}
             </Paragraph>
 
             <RadioButtonGroup
               name={`dass-${index + 14}`}
-              direction="row"
-              gap="small"
+              direction={"row"}
+              gap={"small"}
               options={[
                 { label: "0", value: 0 },
                 { label: "1", value: 1 },
@@ -364,28 +419,31 @@ const DASS: FC<Props.Screens.DASS> = (
           </Box>
         ))}
       </Box>
+
+      <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
+        Page 4 of 4
+      </Paragraph>
+
       <Box
-        direction="row"
-        gap="medium"
-        margin={"medium"}
+        direction={"row"}
+        gap={"medium"}
+        margin={"none"}
         pad={"none"}
-        border={{ color: "transparent", size: "large" }}
-        round
       >
         <Button
           primary
-          color="button"
-          label="Back"
+          color={"button"}
+          label={"Back"}
           onClick={() => setCurrentPage(3)}
         />
         <Button
           primary
-          color="button"
-          label="Submit"
+          color={"button"}
+          label={"Submit"}
           disabled={!allAnswered}
           icon={<LinkNext />}
-          reverse
           onClick={() => props.handler(responses)}
+          reverse
         />
       </Box>
     </Box>
