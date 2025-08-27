@@ -13,10 +13,8 @@ import Cyberball from "src/view/screens/Cyberball";
 jest.mock("src/configuration", () => ({
   Configuration: {
     cyberball: {
-      inclusionDuration: 1000, // Short duration for testing
-      exclusionDuration: 1000,
       tossInterval: 500,
-      totalDuration: 2000,
+      totalDuration: 2000, // Short duration for testing
       ballSize: 40,
       playerSize: 80,
       viewWidth: 800,
@@ -42,6 +40,8 @@ describe("Cyberball Screen", () => {
   const mockProps = {
     trial: 1,
     display: "cyberball" as const,
+    isInclusive: true,
+    partnerHighStatus: true,
     probabilities: {
       inclusion: 0.7,
       exclusion: {
@@ -106,10 +106,8 @@ describe("Cyberball Screen", () => {
     await waitFor(() => {
       expect(mockHandler).toHaveBeenCalledWith(
         expect.objectContaining({
-          phase: expect.stringMatching(/inclusion|exclusion/),
           participantCatchCount: expect.any(Number),
           participantTossCount: expect.any(Number),
-          exclusionStartTime: expect.any(Number),
         })
       );
     });
@@ -117,22 +115,24 @@ describe("Cyberball Screen", () => {
     jest.useRealTimers();
   });
 
-  it("transitions from inclusion to exclusion phase", async () => {
+  it("operates in single mode throughout the game", async () => {
     jest.useFakeTimers();
 
     render(<Cyberball {...mockProps} />);
 
-    // Fast-forward to just before phase transition
-    jest.advanceTimersByTime(900);
-
-    // Game should still be in inclusion phase
-    expect(mockHandler).not.toHaveBeenCalled();
-
-    // Fast-forward past the inclusion phase
-    jest.advanceTimersByTime(200);
+    // Fast-forward to just before game completion
+    jest.advanceTimersByTime(1900);
 
     // Game should still be running (not completed yet)
     expect(mockHandler).not.toHaveBeenCalled();
+
+    // Fast-forward past the total duration
+    jest.advanceTimersByTime(200);
+
+    // Game should now be completed
+    await waitFor(() => {
+      expect(mockHandler).toHaveBeenCalled();
+    });
 
     jest.useRealTimers();
   });

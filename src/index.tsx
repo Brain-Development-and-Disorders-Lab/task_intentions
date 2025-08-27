@@ -275,7 +275,7 @@ timeline.push({
 });
 
 // Add Cyberball screen if enabled
-if (Flags.isEnabled("enableCyberball")) {
+if (Configuration.manipulations.enableCyberball === true) {
   timeline.push({
     type: "instructions",
     pages: [
@@ -312,6 +312,8 @@ if (Flags.isEnabled("enableCyberball")) {
   timeline.push({
     type: Configuration.studyName,
     display: "cyberball",
+    isInclusive: Configuration.manipulations.cyberballIsInclusive,
+    partnerHighStatus: Configuration.manipulations.cyberballPartnerHighStatus,
     probabilities: {
       inclusion: 0.5,
       exclusion: {

@@ -2,11 +2,11 @@
  * @file `Cyberball` screen for social exclusion paradigm.
  *
  * This screen implements the classic Cyberball paradigm where participants
- * play a virtual ball-tossing game that transitions from fair play to
- * social exclusion. Key features include:
+ * play a virtual ball-tossing game that operates in either inclusive or
+ * exclusive mode for the full duration. Key features include:
  * - Realistic ball-tossing animations
  * - Configurable game parameters
- * - Smooth transition from inclusion to exclusion
+ * - Single mode operation (inclusive or exclusive)
  * - Data collection for social exclusion research
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
@@ -23,29 +23,20 @@ import Avatar from "boring-neutral-avatars";
 import { Configuration } from "src/configuration";
 
 // Types
-interface CyberballState {
-  phase: "inclusion" | "exclusion";
-  participantCatchCount: number;
-  participantTossCount: number;
-  exclusionStartTime: number | null;
-}
-
 interface GameState {
   ballOwner: "participant" | "partnerA" | "partnerB";
   tossCount: number;
   participantTossCount: number;
   partnerATossCount: number;
   partnerBTossCount: number;
-  currentPhase: "inclusion" | "exclusion";
   gameStartTime: number;
-  phaseStartTime: number;
 }
 
 /**
  * Cyberball screen component that implements the social exclusion paradigm
  * @component
  * @param {Props.Screens.Cyberball} props - Component props
- * @param {(state: CyberballState) => void} props.handler - Callback function when game completes
+ * @param {(state: { participantCatchCount: number; participantTossCount: number }) => void} props.handler - Callback function when game completes
  * @returns {ReactElement} Cyberball game screen
  */
 const Cyberball: FC<Props.Screens.Cyberball> = (
@@ -57,9 +48,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     participantTossCount: 0,
     partnerATossCount: 0,
     partnerBTossCount: 0,
-    currentPhase: "inclusion",
     gameStartTime: Date.now(),
-    phaseStartTime: Date.now(),
   });
 
   // Simple state
@@ -97,49 +86,27 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     },
   };
 
-  // Phase transition logic
+  // Game completion check
   useEffect(() => {
-    const checkPhaseTransition = () => {
+    const checkGameCompletion = () => {
       const currentTime = Date.now();
-      const timeInPhase = currentTime - gameState.phaseStartTime;
+      const totalGameTime = currentTime - gameState.gameStartTime;
 
-      if (
-        gameState.currentPhase === "inclusion" &&
-        timeInPhase >= Configuration.cyberball.inclusionDuration
-      ) {
-        setGameState(prev => ({
-          ...prev,
-          currentPhase: "exclusion",
-          phaseStartTime: currentTime,
-        }));
+      if (totalGameTime >= Configuration.cyberball.totalDuration) {
+        const finalState = {
+          participantCatchCount: gameState.participantTossCount,
+          participantTossCount: gameState.participantTossCount,
+        };
+        props.handler(finalState);
       }
     };
 
-    gameTimerRef.current = setInterval(checkPhaseTransition, 100);
+    gameTimerRef.current = setInterval(checkGameCompletion, 100);
     return () => {
       if (gameTimerRef.current) {
         clearInterval(gameTimerRef.current);
       }
     };
-  }, [gameState.currentPhase, gameState.phaseStartTime]);
-
-  // Game completion check
-  useEffect(() => {
-    const currentTime = Date.now();
-    const totalGameTime = currentTime - gameState.gameStartTime;
-
-    if (totalGameTime >= Configuration.cyberball.totalDuration) {
-      const finalState: CyberballState = {
-        phase: gameState.currentPhase,
-        participantCatchCount: gameState.participantTossCount,
-        participantTossCount: gameState.participantTossCount,
-        exclusionStartTime:
-          gameState.currentPhase === "exclusion"
-            ? gameState.phaseStartTime
-            : null,
-      };
-      props.handler(finalState);
-    }
   }, [gameState, props]);
 
   // Ball animation with arc trajectory
@@ -203,19 +170,19 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
   // Handle partner response
   const handlePartnerResponse = (partner: "partnerA" | "partnerB") => {
-    // Determine target based on current phase and probabilities
+    // Determine target based on mode and probabilities
     let target: "participant" | "partnerA" | "partnerB";
     const random = Math.random();
 
-    if (gameState.currentPhase === "inclusion") {
-      // Inclusion phase: use inclusion probability
+    if (props.isInclusive) {
+      // Inclusive mode: use inclusion probability
       if (random < props.probabilities.inclusion) {
         target = "participant";
       } else {
         target = partner === "partnerA" ? "partnerB" : "partnerA";
       }
     } else {
-      // Exclusion phase: use exclusion probability
+      // Exclusive mode: use exclusion probability
       const exclusionProb =
         partner === "partnerA"
           ? props.probabilities.exclusion.partnerA

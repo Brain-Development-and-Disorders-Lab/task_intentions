@@ -250,6 +250,8 @@ class ScreenPropFactory implements Factory {
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
+          isInclusive: this.trial.isInclusive,
+          partnerHighStatus: this.trial.partnerHighStatus,
           probabilities: this.trial.probabilities,
           handler: this.handler.callback.bind(this.handler),
         };
