@@ -27,6 +27,7 @@ interface GameState {
   ballOwner: "participant" | "partnerA" | "partnerB";
   tossCount: number;
   participantTossCount: number;
+  participantCatchCount: number;
   partnerATossCount: number;
   partnerBTossCount: number;
   gameStartTime: number;
@@ -36,7 +37,7 @@ interface GameState {
  * Cyberball screen component that implements the social exclusion paradigm
  * @component
  * @param {Props.Screens.Cyberball} props - Component props
- * @param {(state: { participantCatchCount: number; participantTossCount: number }) => void} props.handler - Callback function when game completes
+ * @param {(tossCount: number, participantTossCount: number, participantCatchCount: number) => void} props.handler - Callback function when game completes
  * @returns {ReactElement} Cyberball game screen
  */
 const Cyberball: FC<Props.Screens.Cyberball> = (
@@ -46,6 +47,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     ballOwner: "participant",
     tossCount: 0,
     participantTossCount: 0,
+    participantCatchCount: 0,
     partnerATossCount: 0,
     partnerBTossCount: 0,
     gameStartTime: Date.now(),
@@ -103,11 +105,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       const totalGameTime = currentTime - gameState.gameStartTime;
 
       if (totalGameTime >= Configuration.cyberball.totalDuration) {
-        const finalState = {
-          participantCatchCount: gameState.participantTossCount,
-          participantTossCount: gameState.participantTossCount,
-        };
-        props.handler(finalState);
+        props.handler(gameState.tossCount, gameState.participantTossCount, gameState.participantCatchCount);
       }
     };
 
@@ -188,6 +186,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       // Inclusive mode: use inclusion probability
       if (random < props.probabilities.inclusion) {
         target = "participant";
+        setGameState(prev => ({
+          ...prev,
+          participantCatchCount: prev.participantCatchCount + 1,
+        }));
       } else {
         target = partner === "partnerA" ? "partnerB" : "partnerA";
       }
@@ -200,6 +202,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
       if (random < exclusionProb) {
         target = "participant";
+        setGameState(prev => ({
+          ...prev,
+          participantCatchCount: prev.participantCatchCount + 1,
+        }));
       } else {
         target = partner === "partnerA" ? "partnerB" : "partnerA";
       }
@@ -212,15 +218,18 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     });
 
     // Update game state
-    setGameState(prev => ({
-      ...prev,
-      ballOwner: target,
-      tossCount: prev.tossCount + 1,
-      [target === "partnerA" ? "partnerATossCount" : "partnerBTossCount"]:
-        prev[
-          target === "partnerA" ? "partnerATossCount" : "partnerBTossCount"
-        ] + 1,
-    }));
+    setGameState(prev => {
+      const updated = {
+        ...prev,
+        ballOwner: target,
+        tossCount: prev.tossCount + 1,
+        [target === "partnerA" ? "partnerATossCount" : "partnerBTossCount"]:
+          prev[
+            target === "partnerA" ? "partnerATossCount" : "partnerBTossCount"
+          ] + 1,
+      };
+      return updated;
+    });
 
     // If ball went to another partner, schedule their response
     if (target !== "participant") {
@@ -326,7 +335,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
             >
               <Avatar
                 size={24}
-                name={"partnerA"}
+                name={partnerAID}
                 variant={Configuration.avatars.variant as AvatarStyles}
                 colors={Configuration.avatars.colours}
               />
@@ -365,7 +374,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
         <Avatar
           size={Configuration.cyberball.playerSize + 8}
-          name={"partnerA"}
+          name={partnerAID}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
@@ -400,7 +409,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       >
         <Avatar
           size={Configuration.cyberball.playerSize + 8}
-          name={"partnerB"}
+          name={partnerBID}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
@@ -475,8 +484,8 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       >
         <Text size="medium" weight="bold">
           {gameState.ballOwner === "participant"
-            ? "Throw the ball!"
-            : "Waiting..."}
+            ? "Click on a partner to throw the ball to them!"
+            : "Waiting to receive the ball..."}
         </Text>
       </Box>
     </Box>
