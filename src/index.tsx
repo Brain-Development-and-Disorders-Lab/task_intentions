@@ -176,10 +176,32 @@ let initialInstructions = [
           In stage three, you will play with <b>yet another new partner</b>{" "}
           where <b>you</b> will again be choosing how to split the points.
         </Paragraph>
+      </Box>
+    </Grommet>
+  ),
+  // Part one instructions
+  react2html(
+    <Grommet>
+      <Box style={{ maxWidth: "50%", margin: "auto" }}>
+        <Heading level={1} margin="small" fill>
+          Instructions
+        </Heading>
+        <Heading level={2} margin="small" fill>
+          Overview
+        </Heading>
         <Paragraph margin="small" size="large" fill>
           At the end of all the stages you will be shown a summary of how many
           points you and your partner accumulated during that phase.
         </Paragraph>
+        {(Configuration.manipulations.enableStatusPhaseOne === true ||
+          Configuration.manipulations.enableStatusPhaseTwo === true ||
+          Configuration.manipulations.enableStatusPhaseThree === true ||
+          Configuration.manipulations.enableCyberball === true ||
+          Configuration.manipulations.enableEndingQuestionnaires === true) && (
+          <Paragraph margin="small" size="large" fill>
+            There will be some extra questionnaires before commencing the stages and after completing all the stages.
+          </Paragraph>
+        )}
       </Box>
     </Grommet>
   ),
@@ -196,9 +218,8 @@ const avatarInstructions = [
           Avatar
         </Heading>
         <Paragraph margin="small" size="large" fill>
-          Click &#39;Next &gt;&#39; to select an avatar to represent you while
-          you play this game. You will then play <b>3</b> practice rounds before
-          you are matched with your partner.
+          Click &#39;Next &gt;&#39; to select an avatar to represent you for
+          the duration of the study.
         </Paragraph>
       </Box>
     </Grommet>
@@ -274,6 +295,66 @@ timeline.push({
   display: "selection",
 });
 
+// If the status display is enabled, check if the flags need to be updated to match the manipulations
+if (
+  Configuration.manipulations.enableStatusPhaseOne === true ||
+  Configuration.manipulations.enableStatusPhaseTwo === true ||
+  Configuration.manipulations.enableStatusPhaseThree === true ||
+  Configuration.manipulations.enableCyberball === true
+) {
+  // Enable the status display and the questionnaire globally
+  Flags.setValue("enableStatusDisplay", true);
+  Flags.setValue("enableQuestionnaireStatus", true);
+} else {
+  // Ensure all status display and questionnaires are disabled
+  Flags.setValue("enableStatusDisplay", false);
+  Flags.setValue("enableQuestionnaireStatus", false);
+}
+
+// Ensure flags are set for the ending questionnaires
+Flags.setValue("enableQuestionnaireScreentime", Configuration.manipulations.enableEndingQuestionnaires);
+Flags.setValue("enableQuestionnaireDASS", Configuration.manipulations.enableEndingQuestionnaires);
+
+// Insert the status questionnaire if enabled
+if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "status",
+  });
+}
+
+// Show a matching screen for the social partner
+if (Flags.isEnabled("enableStatusDisplay") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loading",
+    loadingType: "social",
+    fetchData: false,
+  });
+}
+
+// Introduce the status display if enabled
+if (Flags.isEnabled("enableStatusDisplay") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    optionOneParticipant: 5,
+    optionOnePartner: 9,
+    optionTwoParticipant: 9,
+    optionTwoPartner: 9,
+    typeOne: "",
+    typeTwo: "",
+    display: "playerChoicePractice",
+    answer: "Option 1",
+    isPractice: true,
+    spotlight: {
+      enabled: true,
+      target: "status",
+      message:
+        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided.",
+    },
+  });
+}
+
 // Add Cyberball screen if enabled
 if (Configuration.manipulations.enableCyberball === true) {
   timeline.push({
@@ -281,9 +362,12 @@ if (Configuration.manipulations.enableCyberball === true) {
     pages: [
       react2html(
         <Grommet>
-          <Box>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
             <Heading level={1} margin="small" fill>
               Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Ball-Tossing Game
             </Heading>
             <Paragraph margin="small" size="large" fill>
               You will now play a short ball-tossing game with two partners.
@@ -322,24 +406,33 @@ if (Configuration.manipulations.enableCyberball === true) {
       },
     },
   });
-}
-
-// If the status display is enabled, check if the flags need to be updated to match the manipulations
-if (
-  Configuration.manipulations.enableStatusPhaseOne === true ||
-  Configuration.manipulations.enableStatusPhaseTwo === true ||
-  Configuration.manipulations.enableStatusPhaseThree === true
-) {
-  // Enable the status display and the questionnaire globally
-  Flags.setValue("enableStatusDisplay", true);
-  Flags.setValue("enableQuestionnaireStatus", true);
-}
-
-// Insert the status questionnaire if enabled
-if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
   timeline.push({
-    type: Configuration.studyName,
-    display: "status",
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Ball-Tossing Game
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              That concludes the ball-tossing game! You will now continue with the next stage of the task.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
   });
 }
 
@@ -351,7 +444,7 @@ const phaseOneInstructions = [
           Instructions
         </Heading>
         <Heading level={2} margin="small" fill>
-          Stage one
+          Stage One
         </Heading>
         <Paragraph margin="small" size="large" fill>
           In this stage, <b>you</b> are tasked with distributing points between
@@ -370,16 +463,19 @@ const phaseOneInstructions = [
 const phaseOnePracticeInstructions = [
   react2html(
     <Grommet>
-      <Box>
+      <Box style={{ maxWidth: "50%", margin: "auto" }}>
         <Heading level={1} margin="small" fill>
           Instructions
+        </Heading>
+        <Heading level={2} margin="small" fill>
+          Stage One
         </Heading>
         <Paragraph margin="small" size="large" fill>
           Let&#39;s get used to how the game looks with some practice trials.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           In these practice trials, the points will not count toward your
-          total and your partner is not real.
+          total and your partner is not real. You will play <b>3</b> practice trials.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           Press &#39;Next &gt;&#39; to continue.
@@ -440,51 +536,23 @@ timeline.push({
   isPractice: true,
 });
 
-// Show a matching screen for the social partner
-if (Flags.isEnabled("enableStatusDisplay") === true) {
-  timeline.push({
-    type: Configuration.studyName,
-    display: "loading",
-    loadingType: "social",
-    fetchData: false,
-  });
-}
-
-// Introduce the status display if enabled
-if (Flags.isEnabled("enableStatusDisplay") === true) {
-  timeline.push({
-    type: Configuration.studyName,
-    optionOneParticipant: 5,
-    optionOnePartner: 9,
-    optionTwoParticipant: 9,
-    optionTwoPartner: 9,
-    typeOne: "",
-    typeTwo: "",
-    display: "playerChoicePractice",
-    answer: "Option 1",
-    isPractice: true,
-    spotlight: {
-      enabled: true,
-      target: "status",
-      message:
-        "In some trials, you will be able to see your social standing in relation to your partner, based on the information you provided.",
-    },
-  });
-}
-
 // Post-'playerChoice' instructions
 timeline.push({
   type: "instructions",
   pages: [
     react2html(
       <Grommet>
-        <Box>
+        <Box style={{ maxWidth: "50%", margin: "auto" }}>
           <Heading level={1} margin="small" fill>
             Instructions
           </Heading>
+          <Heading level={2} margin="small" fill>
+            Stage One
+          </Heading>
           <Paragraph margin="small" size="large" fill>
             The practice trials are now over. Let&#39;s start the first stage of
-            the game.
+            the game. You will answer a few questions before commencing the stage
+            to ensure you understand the instructions.
           </Paragraph>
           <Paragraph margin="small" size="large" fill>
             Press &#39;Next &gt;&#39; to begin!
@@ -619,6 +687,9 @@ timeline.push({
           <Heading level={1} margin="small" fill>
             Instructions
           </Heading>
+          <Heading level={2} margin="small" fill>
+            Matching
+          </Heading>
           <Paragraph margin="small" size="large" fill>
             You will now be matched with a partner.
           </Paragraph>
@@ -719,7 +790,7 @@ for (let i = 0; i < dataCollection.length; i++) {
                 Instructions
               </Heading>
               <Heading level={2} margin="small" fill>
-                Stage two
+                Stage Two
               </Heading>
               <Paragraph margin="small" size="large" fill>
                 In this stage, <b>you will play with a new partner</b>. This
@@ -754,6 +825,9 @@ for (let i = 0; i < dataCollection.length; i++) {
             <Box style={{ maxWidth: "50%", margin: "auto" }}>
               <Heading level={1} margin="small" fill>
                 Instructions
+              </Heading>
+              <Heading level={2} margin="small" fill>
+                Stage Two
               </Heading>
               <Paragraph margin="small" size="large" fill>
                 Let&#39;s get used to how stage two looks with some practice
@@ -829,13 +903,17 @@ for (let i = 0; i < dataCollection.length; i++) {
         pages: [
           react2html(
             <Grommet>
-              <Box>
+              <Box style={{ maxWidth: "50%", margin: "auto" }}>
                 <Heading level={1} margin="small" fill>
                   Instructions
                 </Heading>
+                <Heading level={2} margin="small" fill>
+                  Stage Two
+                </Heading>
                 <Paragraph margin="small" size="large" fill>
                   The practice trials are now over. Let&#39;s start the second
-                  stage of the game.
+                  stage of the game. You will answer a few questions before commencing the stage
+                  to ensure you understand the instructions.
                 </Paragraph>
                 <Paragraph margin="small" size="large" fill>
                   Press &#39;Next &gt;&#39; to begin!
@@ -856,7 +934,7 @@ for (let i = 0; i < dataCollection.length; i++) {
         type: "attention-check",
         style: "radio",
         prompt:
-          "In this part of task, " +
+          "In Stage Two, " +
           "who will be choosing the points you and your partner get?",
         responses: ["Me", "By lottery", "My partner"],
         correct: 2,
@@ -973,6 +1051,9 @@ for (let i = 0; i < dataCollection.length; i++) {
                 <Heading level={1} margin="small" fill>
                   Instructions
                 </Heading>
+                <Heading level={2} margin="small" fill>
+                  Matching
+                </Heading>
                 <Paragraph margin="small" size="large" fill>
                   You will now be matched with a partner.
                 </Paragraph>
@@ -1054,7 +1135,7 @@ for (let i = 0; i < dataCollection.length; i++) {
                 Instructions
               </Heading>
               <Heading level={2} margin="small" fill>
-                Stage three
+                Stage Three
               </Heading>
               <Paragraph margin="small" size="large" fill>
                 In the final stage of this game, <b>you</b> will again be
@@ -1070,6 +1151,8 @@ for (let i = 0; i < dataCollection.length; i++) {
               <Paragraph margin="small" size="large" fill>
                 Click &#39;Next &gt;&#39; to be matched with your partner and
                 start stage three. There will be no practice trials beforehand.
+                You will answer a few questions before commencing the stage
+                to ensure you understand the instructions.
               </Paragraph>
             </Box>
           </Grommet>
@@ -1091,17 +1174,17 @@ for (let i = 0; i < dataCollection.length; i++) {
         type: "attention-check",
         style: "radio",
         prompt:
-          "Who is going to be your interaction partner in this next phase?",
+          "Who is going to be your interaction partner in Stage Three?",
         responses: [
           "A new anonymous partner.",
-          "My partner from the last phase.",
+          "My partner from Stage Two.",
         ],
         correct: 0,
         feedback: {
           correct:
-            "Correct! You will be interacting with a new anonymous partner in this next phase.",
+            "Correct! You will be interacting with a new anonymous partner in Stage Three.",
           incorrect:
-            "Incorrect. You will be interacting with a new anonymous partner in this next phase. Please review the following instructions.",
+            "Incorrect. You will be interacting with a new anonymous partner in Stage Three. Please review the following instructions.",
         },
         input_schema: {
           select:
@@ -1153,6 +1236,9 @@ for (let i = 0; i < dataCollection.length; i++) {
               <Box>
                 <Heading level={1} margin="small" fill>
                   Instructions
+                </Heading>
+                <Heading level={2} margin="small" fill>
+                  Matching
                 </Heading>
                 <Paragraph margin="small" size="large" fill>
                   You will now be matched with a partner.
@@ -1289,20 +1375,23 @@ timeline.push({
   display: "agency",
 });
 
-// Screen time questionnaire
-if (Flags.isEnabled("enableQuestionnaireScreentime") === true) {
-  timeline.push({
-    type: Configuration.studyName,
-    display: "screentime",
-  });
-}
+// Extra questionnaires
+if (Configuration.manipulations.enableEndingQuestionnaires === true) {
+  // Screen time questionnaire
+  if (Flags.isEnabled("enableQuestionnaireScreentime") === true) {
+    timeline.push({
+      type: Configuration.studyName,
+      display: "screentime",
+    });
+  }
 
-// DASS screen
-if (Flags.isEnabled("enableQuestionnaireDASS") === true) {
-  timeline.push({
-    type: Configuration.studyName,
-    display: "dass",
-  });
+  // DASS screen
+  if (Flags.isEnabled("enableQuestionnaireDASS") === true) {
+    timeline.push({
+      type: Configuration.studyName,
+      display: "dass",
+    });
+  }
 }
 
 // End screen
