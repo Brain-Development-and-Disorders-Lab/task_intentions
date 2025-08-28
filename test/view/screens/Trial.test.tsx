@@ -38,6 +38,14 @@ jest.mock("src/configuration", () => ({
       enableStatusPhaseOne: false,
       enableStatusPhaseTwo: false,
       enableStatusPhaseThree: false,
+      isPartnerHighStatusPhaseOne: false,
+      isPartnerHighStatusPhaseTwo: false,
+      isPartnerHighStatusPhaseThree: false,
+    },
+    statusDisplay: {
+      low: 55,
+      high: 80,
+      variance: 2,
     },
   },
 }));

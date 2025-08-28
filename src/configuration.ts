@@ -29,16 +29,22 @@ export const Configuration = {
 
     // Questionnaire features
     enableEndingQuestionnaires: false,
+    enableAdolescentDASS: false,
 
-    // Status features
+    // Status enablement features
     enableStatusPhaseOne: false,
     enableStatusPhaseTwo: false,
     enableStatusPhaseThree: false,
 
+    // Status behavior features
+    isPartnerHighStatusPhaseOne: false,
+    isPartnerHighStatusPhaseTwo: false,
+    isPartnerHighStatusPhaseThree: false,
+
     // Cyberball features
     enableCyberball: false,
     cyberballIsInclusive: true,
-    cyberballPartnerHighStatus: true,
+    cyberballIsPartnerHighStatus: true,
   },
 
   // Feature flags, configure these before building for deployment
@@ -122,4 +128,11 @@ export const Configuration = {
     viewWidth: 800,
     viewHeight: 600,
   },
+
+  // Status display configuration
+  statusDisplay: {
+    low: 55,
+    high: 80,
+    variance: 2,
+  }
 };

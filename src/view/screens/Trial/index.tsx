@@ -191,6 +191,26 @@ const Trial: FC<Props.Screens.Trial> = (
     }
   }
 
+  // Calculate status values for participant and partner during actual trials
+  let participantStatus = Configuration.statusDisplay.low;
+  let partnerStatus = Configuration.statusDisplay.high;
+  if (Flags.isEnabled("enableStatusDisplay") && props.isPractice === false) {
+    // If status display is enabled, interpret and apply the manipulations
+    if (props.display === "playerChoice" && Configuration.manipulations.enableStatusPhaseOne) {
+      // Phase One: If `isHighStatusPhaseOne` is true, then the participant is low status and the partner is high status
+      participantStatus = Configuration.manipulations.isPartnerHighStatusPhaseOne ? Configuration.statusDisplay.low : Configuration.statusDisplay.high;
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseOne ? Configuration.statusDisplay.high : Configuration.statusDisplay.low;
+    } else if (props.display === "playerGuess" && Configuration.manipulations.enableStatusPhaseTwo) {
+      // Phase Two: If `isHighStatusPhaseTwo` is true, then the participant is low status and the partner is high status
+      participantStatus = Configuration.manipulations.isPartnerHighStatusPhaseTwo ? Configuration.statusDisplay.low : Configuration.statusDisplay.high;
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseTwo ? Configuration.statusDisplay.high : Configuration.statusDisplay.low;
+    } else if (props.display === "playerChoice2" && Configuration.manipulations.enableStatusPhaseThree) {
+      // Phase Three: If `isHighStatusPhaseThree` is true, then the participant is low status and the partner is high status
+      participantStatus = Configuration.manipulations.isPartnerHighStatusPhaseThree ? Configuration.statusDisplay.low : Configuration.statusDisplay.high;
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseThree ? Configuration.statusDisplay.high : Configuration.statusDisplay.low;
+    }
+  }
+
   /**
    * Handles the selection of an option during a trial
    * @param {("Option 1" | "Option 2")} option - The selected option identifier
@@ -619,8 +639,8 @@ const Trial: FC<Props.Screens.Trial> = (
                   }}
                 >
                   <Status
-                    participantStatus={45}
-                    partnerStatus={75}
+                    participantStatus={participantStatus}
+                    partnerStatus={partnerStatus}
                     isPractice
                   />
                 </Box>
@@ -678,8 +698,8 @@ const Trial: FC<Props.Screens.Trial> = (
               margin={{ bottom: "medium" }}
             >
               <Status
-                participantStatus={75} // Mock value - replace with real data
-                partnerStatus={45} // Mock value - replace with real data
+                participantStatus={participantStatus}
+                partnerStatus={partnerStatus}
               />
             </Box>
           )}
