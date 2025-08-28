@@ -127,4 +127,11 @@ export const Configuration = {
     viewWidth: 800,
     viewHeight: 600,
   },
+
+  // Status display configuration
+  statusDisplay: {
+    low: 55,
+    high: 80,
+    variance: 2,
+  }
 };
