@@ -30,10 +30,15 @@ export const Configuration = {
     // Questionnaire features
     enableEndingQuestionnaires: false,
 
-    // Status features
+    // Status enablement features
     enableStatusPhaseOne: false,
     enableStatusPhaseTwo: false,
     enableStatusPhaseThree: false,
+
+    // Status behavior features
+    isHighStatusPhaseOne: false,
+    isHighStatusPhaseTwo: false,
+    isHighStatusPhaseThree: false,
 
     // Cyberball features
     enableCyberball: false,
