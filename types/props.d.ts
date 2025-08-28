@@ -22,6 +22,7 @@ declare namespace Props {
         | Screens.Status
         | Screens.DASS
         | Screens.Screentime
+        | Screens.Demographics
         | Screens.Summary
         | Screens.Waiting
         | Screens.Cyberball;
@@ -153,6 +154,20 @@ declare namespace Props {
     // Screentime screen
     type Screentime = GenericScreenProps & {
       handler: (weekdayTime: number, weekendTime: number) => void;
+    };
+
+    // Demographics screen
+    type Demographics = GenericScreenProps & {
+      version: "adult" | "adolescent";
+      handler: (
+        age: number,
+        genderIdentity: string,
+        ethnicity: string,
+        householdIncome: string,
+        education: string,
+        socialMediaDaily: boolean,
+        socialMediaPlatforms: string,
+      ) => void;
     };
 
     // Summary screen

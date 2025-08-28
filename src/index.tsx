@@ -1400,6 +1400,14 @@ if (Configuration.manipulations.enableEndingQuestionnaires === true) {
       display: "dass",
     });
   }
+
+  // Demographics screen
+  if (Flags.isEnabled("enableQuestionnaireDemographics") === true) {
+    timeline.push({
+      type: Configuration.studyName,
+      display: "demographics",
+    });
+  }
 }
 
 // End screen

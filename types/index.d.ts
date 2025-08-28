@@ -57,6 +57,7 @@ declare type Display =
   | "status"
   | "dass"
   | "screentime"
+  | "demographics"
   | "summary"
   | "end"
   | "waiting"
@@ -171,6 +172,13 @@ declare type TrialData = {
   questionnaireResponseSocialMediaFollowing: number;
   questionnaireResponsesDASS: number[];
   questionnaireResponsesScreentime: number[];
+  questionnaireResponsesDemographicsAge: number;
+  questionnaireResponsesDemographicsGender: string;
+  questionnaireResponsesDemographicsEthnicity: string;
+  questionnaireResponsesDemographicsHouseholdIncome: string;
+  questionnaireResponsesDemographicsEducation: string;
+  questionnaireResponsesDemographicsSocialMediaDaily: boolean;
+  questionnaireResponsesDemographicsSocialMediaPlatforms: string;
 };
 
 // Type to represent the active state of a trial

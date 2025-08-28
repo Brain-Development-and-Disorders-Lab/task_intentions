@@ -167,6 +167,13 @@ jsPsych.plugins[Configuration.studyName] = (() => {
       questionnaireResponseSocialMediaFollowing: NaN,
       questionnaireResponsesDASS: [],
       questionnaireResponsesScreentime: [],
+      questionnaireResponsesDemographicsAge: NaN,
+      questionnaireResponsesDemographicsGender: "",
+      questionnaireResponsesDemographicsEthnicity: "",
+      questionnaireResponsesDemographicsHouseholdIncome: "",
+      questionnaireResponsesDemographicsEducation: "",
+      questionnaireResponsesDemographicsSocialMediaDaily: false,
+      questionnaireResponsesDemographicsSocialMediaPlatforms: "",
     };
 
     // Disable keyboard input beforehand
