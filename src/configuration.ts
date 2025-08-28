@@ -36,14 +36,14 @@ export const Configuration = {
     enableStatusPhaseThree: false,
 
     // Status behavior features
-    isHighStatusPhaseOne: false,
-    isHighStatusPhaseTwo: false,
-    isHighStatusPhaseThree: false,
+    isPartnerHighStatusPhaseOne: false,
+    isPartnerHighStatusPhaseTwo: false,
+    isPartnerHighStatusPhaseThree: false,
 
     // Cyberball features
     enableCyberball: false,
     cyberballIsInclusive: true,
-    cyberballPartnerHighStatus: true,
+    cyberballIsPartnerHighStatus: true,
   },
 
   // Feature flags, configure these before building for deployment

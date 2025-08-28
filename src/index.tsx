@@ -397,7 +397,7 @@ if (Configuration.manipulations.enableCyberball === true) {
     type: Configuration.studyName,
     display: "cyberball",
     isInclusive: Configuration.manipulations.cyberballIsInclusive,
-    partnerHighStatus: Configuration.manipulations.cyberballPartnerHighStatus,
+    partnerHighStatus: Configuration.manipulations.cyberballIsPartnerHighStatus,
     probabilities: {
       inclusion: 0.5,
       exclusion: {
