@@ -8,6 +8,26 @@ Before building or previewing the client, ensure that the Node.js version 14+ is
 
 After installing Yarn, run `yarn` in the top-level repository directory to install all dependencies. Refer to [Development](#development) below for other commands to build and preview the client.
 
+#### Experiment Manipulations
+
+| Parameter                         | Type    | Description                                    | Notes                                                                                                                                               |
+| --------------------------------- | ------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **partner**                       | string  | Sets the partner type for testing purposes     | `"test"` is a shorter collection of trials, otherwise use `"default"`                                                                               |
+| **requireID**                     | boolean | Controls whether participant ID is required    |                                                                                                                                                     |
+| **useButtonInput**                | boolean | Enables button-based input scheme              | Includes additional instructions, enables selection indicators for all screens                                                                      |
+| **useOfflinePackages**            | boolean | Enables offline R package usage                | Only use for local deployments                                                                                                                      |
+| **enableEndingQuestionnaires**    | boolean | Controls post-experiment questionnaire display | Shows a DASS and social media usage questionnaire at the conclusion of the experiment                                                               |
+| **enableAdolescentDASS**          | boolean | Enables adolescent-specific DASS questionnaire | Requires `enableEndingQuestionnaires` to be `true`, uses the adolescent question set if `true`, else `false` to show the adult set                  |
+| **enableStatusPhaseOne**          | boolean | Enables social status display in first phase   | Includes additional instructions and social status questionnaire prior to experiment starting, shows status display above partner in Phase One      |
+| **enableStatusPhaseTwo**          | boolean | Enables social status display in second phase  | Includes additional instructions and social status questionnaire prior to experiment starting, shows status display above partner in Phase Two      |
+| **enableStatusPhaseThree**        | boolean | Enables social status display in third phase   | Includes additional instructions and social status questionnaire prior to experiment starting, shows status display above partner in Phase Three    |
+| **isPartnerHighStatusPhaseOne**   | boolean | Sets partner as high status in first phase     | Requires `enableStatusPhaseOne` to be `true`                                                                                                        |
+| **isPartnerHighStatusPhaseTwo**   | boolean | Sets partner as high status in second phase    | Requires `isPartnerHighStatusPhaseTwo` to be `true`                                                                                                 |
+| **isPartnerHighStatusPhaseThree** | boolean | Sets partner as high status in third phase     | Requires `isPartnerHighStatusPhaseThree` to be `true`                                                                                               |
+| **enableCyberball**               | boolean | Enables Cyberball exclusion/inclusion task     | Includes additional instructions and social status questionnaire prior to experiment starting                                                       |
+| **cyberballIsInclusive**          | boolean | Controls whether Cyberball task is inclusive   | Cyberball operates in inclusion mode when `true`, otherwise operating in exclusion mode, changes to probabilities can be made in `configuration.ts` |
+| **cyberballIsPartnerHighStatus**  | boolean | Sets partner as high status in Cyberball task  | Shows social status display above Partner A, partner has high status when `true`, otherwise low status when `false`                                 |
+
 ### Server
 
 > [!CAUTION]
