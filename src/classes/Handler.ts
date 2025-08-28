@@ -227,6 +227,36 @@ class Handler {
   }
 
   /**
+   * Handler called after demographics questionnaire completed
+   * @param {number} age age of the participant
+   * @param {string} genderIdentity gender identity of the participant
+   * @param {string} ethnicity ethnicity of the participant
+   * @param {string} householdIncome household income of the participant
+   * @param {string} education education of the participant
+   * @param {boolean} socialMediaDaily whether the participant uses social media daily
+   * @param {string} socialMediaPlatforms social media platforms used by the participant
+   */
+  public demographics(
+    age: number,
+    genderIdentity: string,
+    ethnicity: string,
+    householdIncome: string,
+    education: string,
+    socialMediaDaily: boolean,
+    socialMediaPlatforms: string
+  ): void {
+    consola.debug("Demographics responses:", age, genderIdentity, ethnicity, householdIncome, education, socialMediaDaily, socialMediaPlatforms);
+    this.dataframe.questionnaireResponsesDemographicsAge = age;
+    this.dataframe.questionnaireResponsesDemographicsGender = genderIdentity;
+    this.dataframe.questionnaireResponsesDemographicsEthnicity = ethnicity;
+    this.dataframe.questionnaireResponsesDemographicsHouseholdIncome = householdIncome;
+    this.dataframe.questionnaireResponsesDemographicsEducation = education;
+    this.dataframe.questionnaireResponsesDemographicsSocialMediaDaily = socialMediaDaily;
+    this.dataframe.questionnaireResponsesDemographicsSocialMediaPlatforms = socialMediaPlatforms;
+    this.callback();
+  }
+
+  /**
    * Handler called after Cyberball game completed
    * @param {number} tossCount number of times the ball was tossed
    * @param {number} participantTossCount number of times the participant tossed the ball

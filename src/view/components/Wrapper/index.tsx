@@ -32,10 +32,12 @@ import SelectAvatar from "../../screens/SelectAvatar";
 import Status from "../../screens/Questionnaires/Status";
 import DASS from "../../screens/Questionnaires/DASS";
 import Screentime from "../../screens/Questionnaires/Screentime";
+import Demographics from "../../screens/Questionnaires/Demographics";
 import Matched from "../../screens/Matched";
 import Loading from "../../screens/Loading";
 import Waiting from "../../screens/Waiting";
 import End from "../../screens/End";
+import Resources from "../../screens/Resources";
 import Summary from "../../screens/Summary";
 import Cyberball from "../../screens/Cyberball";
 
@@ -118,6 +120,10 @@ const Wrapper: FC<Props.Components.Wrapper> = (
           <Screentime {...(props.props as Props.Screens.Screentime)} />
         )}
 
+        {activeDisplay === "demographics" && (
+          <Demographics {...(props.props as Props.Screens.Demographics)} />
+        )}
+
         {activeDisplay === "classification" && (
           <Classification {...(props.props as Props.Screens.Classification)} />
         )}
@@ -143,6 +149,8 @@ const Wrapper: FC<Props.Components.Wrapper> = (
         {activeDisplay === "cyberball" && (
           <Cyberball {...(props.props as Props.Screens.Cyberball)} />
         )}
+
+        {activeDisplay === "resources" && <Resources {...(props.props as any)} />}
 
         {activeDisplay === "end" && <End />}
       </ThemeContext.Extend>

@@ -39,7 +39,6 @@ declare type ScreenProps = {
   duration: number;
 };
 
-// Ensure Display type includes 'waiting'
 declare type Display =
   | "playerChoice"
   | "playerChoicePractice"
@@ -57,10 +56,12 @@ declare type Display =
   | "status"
   | "dass"
   | "screentime"
+  | "demographics"
   | "summary"
   | "end"
   | "waiting"
-  | "cyberball";
+  | "cyberball"
+  | "resources";
 
 // The three partner types
 declare type Partner = "Test" | "Prosocial" | "Individualist" | "Competitive";
@@ -171,6 +172,13 @@ declare type TrialData = {
   questionnaireResponseSocialMediaFollowing: number;
   questionnaireResponsesDASS: number[];
   questionnaireResponsesScreentime: number[];
+  questionnaireResponsesDemographicsAge: number;
+  questionnaireResponsesDemographicsGender: string;
+  questionnaireResponsesDemographicsEthnicity: string;
+  questionnaireResponsesDemographicsHouseholdIncome: string;
+  questionnaireResponsesDemographicsEducation: string;
+  questionnaireResponsesDemographicsSocialMediaDaily: boolean;
+  questionnaireResponsesDemographicsSocialMediaPlatforms: string;
 };
 
 // Type to represent the active state of a trial
