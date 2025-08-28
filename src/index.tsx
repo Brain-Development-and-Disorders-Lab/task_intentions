@@ -1408,6 +1408,12 @@ if (Configuration.manipulations.enableEndingQuestionnaires === true) {
       display: "demographics",
     });
   }
+
+  // Resources screen
+  timeline.push({
+    type: Configuration.studyName,
+    display: "resources",
+  });
 }
 
 // End screen

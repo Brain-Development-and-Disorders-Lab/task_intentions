@@ -39,7 +39,6 @@ declare type ScreenProps = {
   duration: number;
 };
 
-// Ensure Display type includes 'waiting'
 declare type Display =
   | "playerChoice"
   | "playerChoicePractice"
@@ -61,7 +60,8 @@ declare type Display =
   | "summary"
   | "end"
   | "waiting"
-  | "cyberball";
+  | "cyberball"
+  | "resources";
 
 // The three partner types
 declare type Partner = "Test" | "Prosocial" | "Individualist" | "Competitive";

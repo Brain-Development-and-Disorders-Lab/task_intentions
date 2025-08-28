@@ -37,6 +37,7 @@ import Matched from "../../screens/Matched";
 import Loading from "../../screens/Loading";
 import Waiting from "../../screens/Waiting";
 import End from "../../screens/End";
+import Resources from "../../screens/Resources";
 import Summary from "../../screens/Summary";
 import Cyberball from "../../screens/Cyberball";
 
@@ -148,6 +149,8 @@ const Wrapper: FC<Props.Components.Wrapper> = (
         {activeDisplay === "cyberball" && (
           <Cyberball {...(props.props as Props.Screens.Cyberball)} />
         )}
+
+        {activeDisplay === "resources" && <Resources {...(props.props as any)} />}
 
         {activeDisplay === "end" && <End />}
       </ThemeContext.Extend>
