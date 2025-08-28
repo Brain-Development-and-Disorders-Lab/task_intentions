@@ -29,6 +29,7 @@ export const Configuration = {
 
     // Questionnaire features
     enableEndingQuestionnaires: false,
+    enableAdolescentDASS: false,
 
     // Status enablement features
     enableStatusPhaseOne: false,
