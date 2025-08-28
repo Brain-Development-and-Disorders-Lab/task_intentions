@@ -65,8 +65,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
   // Generate random 6-character alphanumeric IDs for partners
   const generatePartnerID = () => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    return Array.from({ length: 6 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    return Array.from({ length: 6 }, () =>
+      chars.charAt(Math.floor(Math.random() * chars.length))
+    ).join("");
   };
 
   // Partner IDs (generated once per component instance)
@@ -105,7 +107,11 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       const totalGameTime = currentTime - gameState.gameStartTime;
 
       if (totalGameTime >= Configuration.cyberball.totalDuration) {
-        props.handler(gameState.tossCount, gameState.participantTossCount, gameState.participantCatchCount);
+        props.handler(
+          gameState.tossCount,
+          gameState.participantTossCount,
+          gameState.participantCatchCount
+        );
       }
     };
 

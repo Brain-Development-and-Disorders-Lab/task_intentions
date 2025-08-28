@@ -134,5 +134,5 @@ export const Configuration = {
     low: 55,
     high: 80,
     variance: 2,
-  }
+  },
 };

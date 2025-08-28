@@ -15,7 +15,14 @@
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
-import { Box, Button, Paragraph, TextInput, RadioButtonGroup, Heading } from "grommet";
+import {
+  Box,
+  Button,
+  Paragraph,
+  TextInput,
+  RadioButtonGroup,
+  Heading,
+} from "grommet";
 import { LinkNext } from "grommet-icons";
 
 /**
@@ -83,29 +90,42 @@ const Status: FC<Props.Screens.Status> = (
               <Box justify="center" align="center" width="100%">
                 <Box direction="column" align="center" gap="xsmall">
                   {/* Scale labels */}
-                  <Box direction="row" justify="between" width="100%" style={{ minWidth: "500px" }}>
-                    <Paragraph size="small" margin="none">Never</Paragraph>
-                    <Paragraph size="small" margin="none">All the Time</Paragraph>
+                  <Box
+                    direction="row"
+                    justify="between"
+                    width="100%"
+                    style={{ minWidth: "500px" }}
+                  >
+                    <Paragraph size="small" margin="none">
+                      Never
+                    </Paragraph>
+                    <Paragraph size="small" margin="none">
+                      All the Time
+                    </Paragraph>
                   </Box>
 
                   {/* Scale */}
                   <RadioButtonGroup
-                     name="party-invitations"
-                     direction="row"
-                     gap="medium"
-                     options={[
-                       { label: "0", value: 0 },
-                       { label: "1", value: 1 },
-                       { label: "2", value: 2 },
-                       { label: "3", value: 3 },
-                       { label: "4", value: 4 },
-                       { label: "5", value: 5 },
-                       { label: "6", value: 6 },
-                       { label: "7", value: 7 }
-                     ]}
-                     value={partyInvitations === -1 ? undefined : partyInvitations}
-                     onChange={event => setPartyInvitations(Number(event.target.value))}
-                   />
+                    name="party-invitations"
+                    direction="row"
+                    gap="medium"
+                    options={[
+                      { label: "0", value: 0 },
+                      { label: "1", value: 1 },
+                      { label: "2", value: 2 },
+                      { label: "3", value: 3 },
+                      { label: "4", value: 4 },
+                      { label: "5", value: 5 },
+                      { label: "6", value: 6 },
+                      { label: "7", value: 7 },
+                    ]}
+                    value={
+                      partyInvitations === -1 ? undefined : partyInvitations
+                    }
+                    onChange={event =>
+                      setPartyInvitations(Number(event.target.value))
+                    }
+                  />
                 </Box>
               </Box>
             </Box>
@@ -125,29 +145,40 @@ const Status: FC<Props.Screens.Status> = (
               <Box justify="center" align="center" width="100%">
                 <Box direction="column" align="center" gap="xsmall">
                   {/* Scale labels */}
-                  <Box direction="row" justify="between" width="100%" style={{ minWidth: "500px" }}>
-                    <Paragraph size="small" margin="none">Never</Paragraph>
-                    <Paragraph size="small" margin="none">All the Time</Paragraph>
+                  <Box
+                    direction="row"
+                    justify="between"
+                    width="100%"
+                    style={{ minWidth: "500px" }}
+                  >
+                    <Paragraph size="small" margin="none">
+                      Never
+                    </Paragraph>
+                    <Paragraph size="small" margin="none">
+                      All the Time
+                    </Paragraph>
                   </Box>
 
                   {/* Scale */}
                   <RadioButtonGroup
-                     name="mean-people"
-                     direction="row"
-                     gap="medium"
-                     options={[
-                       { label: "0", value: 0 },
-                       { label: "1", value: 1 },
-                       { label: "2", value: 2 },
-                       { label: "3", value: 3 },
-                       { label: "4", value: 4 },
-                       { label: "5", value: 5 },
-                       { label: "6", value: 6 },
-                       { label: "7", value: 7 }
-                     ]}
-                     value={meanPeople === -1 ? undefined : meanPeople}
-                     onChange={event => setMeanPeople(Number(event.target.value))}
-                   />
+                    name="mean-people"
+                    direction="row"
+                    gap="medium"
+                    options={[
+                      { label: "0", value: 0 },
+                      { label: "1", value: 1 },
+                      { label: "2", value: 2 },
+                      { label: "3", value: 3 },
+                      { label: "4", value: 4 },
+                      { label: "5", value: 5 },
+                      { label: "6", value: 6 },
+                      { label: "7", value: 7 },
+                    ]}
+                    value={meanPeople === -1 ? undefined : meanPeople}
+                    onChange={event =>
+                      setMeanPeople(Number(event.target.value))
+                    }
+                  />
                 </Box>
               </Box>
             </Box>
@@ -166,7 +197,9 @@ const Status: FC<Props.Screens.Status> = (
             label="Continue"
             disabled={
               // Disabled until all inputs have values
-              closeFriends.trim() === "" || partyInvitations === -1 || meanPeople === -1
+              closeFriends.trim() === "" ||
+              partyInvitations === -1 ||
+              meanPeople === -1
             }
             icon={<LinkNext />}
             reverse
@@ -238,7 +271,8 @@ const Status: FC<Props.Screens.Status> = (
           label="Submit"
           disabled={
             // Disabled until both inputs have values
-            socialMediaFollowers.trim() === "" || socialMediaFollowing.trim() === ""
+            socialMediaFollowers.trim() === "" ||
+            socialMediaFollowing.trim() === ""
           }
           icon={<LinkNext />}
           reverse

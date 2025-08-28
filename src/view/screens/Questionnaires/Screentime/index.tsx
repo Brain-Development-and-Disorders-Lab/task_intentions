@@ -28,7 +28,7 @@ const TIME_OPTIONS = [
   { label: "6", value: 6 },
   { label: "7", value: 7 },
   { label: "8", value: 8 },
-  { label: "9", value: 9 }
+  { label: "9", value: 9 },
 ];
 
 /**
@@ -62,7 +62,9 @@ const Screentime: FC<Props.Screens.Screentime> = (
       <Box direction={"row"} gap={"small"}>
         <Box direction={"column"} gap={"xxsmall"} align={"start"}>
           <Text size={"small"}>1 = Less than 30 minutes</Text>
-          <Text size={"small"}>2 = More than 30 minutes but less than an hour</Text>
+          <Text size={"small"}>
+            2 = More than 30 minutes but less than an hour
+          </Text>
           <Text size={"small"}>3 = One to two hours</Text>
           <Text size={"small"}>4 = Two to three hours</Text>
           <Text size={"small"}>5 = Three to four hours</Text>
@@ -91,7 +93,8 @@ const Screentime: FC<Props.Screens.Screentime> = (
           background="light-1"
         >
           <Text margin="none" size="medium" textAlign="start" weight="normal">
-            1. When you use social media sites or apps, how much time do you spend using them on a typically school day [weekday]?
+            1. When you use social media sites or apps, how much time do you
+            spend using them on a typically school day [weekday]?
           </Text>
 
           <Box direction="row" justify="center" gap="small" width="100%">
@@ -117,7 +120,8 @@ const Screentime: FC<Props.Screens.Screentime> = (
           background="light-1"
         >
           <Text margin="none" size="medium" textAlign="start" weight="normal">
-            2. When you use social media sites or apps, how much time in total do you spend using them on a typical weekend or holiday day?
+            2. When you use social media sites or apps, how much time in total
+            do you spend using them on a typical weekend or holiday day?
           </Text>
 
           <Box direction="row" justify="center" gap="small" width="100%">

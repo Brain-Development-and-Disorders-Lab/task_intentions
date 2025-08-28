@@ -32,7 +32,9 @@ describe("Screentime", () => {
         <Screentime {...mockProps} />
       </TestWrapper>
     );
-    expect(screen.getByText("Social Media Usage Questionnaire")).toBeInTheDocument();
+    expect(
+      screen.getByText("Social Media Usage Questionnaire")
+    ).toBeInTheDocument();
   });
 
   test("renders the scoring scale explanation", () => {
@@ -52,7 +54,9 @@ describe("Screentime", () => {
       </TestWrapper>
     );
     expect(screen.getByText(/typically school day/)).toBeInTheDocument();
-    expect(screen.getByText(/typical weekend or holiday day/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/typical weekend or holiday day/)
+    ).toBeInTheDocument();
   });
 
   test("renders radio button options for both questions", () => {

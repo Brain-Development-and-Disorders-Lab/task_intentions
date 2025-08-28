@@ -199,7 +199,8 @@ let initialInstructions = [
           Configuration.manipulations.enableCyberball === true ||
           Configuration.manipulations.enableEndingQuestionnaires === true) && (
           <Paragraph margin="small" size="large" fill>
-            There will be some extra questionnaires before commencing the stages and after completing all the stages.
+            There will be some extra questionnaires before commencing the stages
+            and after completing all the stages.
           </Paragraph>
         )}
       </Box>
@@ -218,8 +219,8 @@ const avatarInstructions = [
           Avatar
         </Heading>
         <Paragraph margin="small" size="large" fill>
-          Click &#39;Next &gt;&#39; to select an avatar to represent you for
-          the duration of the study.
+          Click &#39;Next &gt;&#39; to select an avatar to represent you for the
+          duration of the study.
         </Paragraph>
       </Box>
     </Grommet>
@@ -312,8 +313,14 @@ if (
 }
 
 // Ensure flags are set for the ending questionnaires
-Flags.setValue("enableQuestionnaireScreentime", Configuration.manipulations.enableEndingQuestionnaires);
-Flags.setValue("enableQuestionnaireDASS", Configuration.manipulations.enableEndingQuestionnaires);
+Flags.setValue(
+  "enableQuestionnaireScreentime",
+  Configuration.manipulations.enableEndingQuestionnaires
+);
+Flags.setValue(
+  "enableQuestionnaireDASS",
+  Configuration.manipulations.enableEndingQuestionnaires
+);
 
 // Insert the status questionnaire if enabled
 if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
@@ -371,14 +378,17 @@ if (Configuration.manipulations.enableCyberball === true) {
             </Heading>
             <Paragraph margin="small" size="large" fill>
               You will now play a short ball-tossing game with two partners.
-              When you have the ball, you can choose to <b>throw it to one of your partners</b>.
+              When you have the ball, you can choose to{" "}
+              <b>throw it to one of your partners</b>.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
-              Click on the partner you want to throw the ball to.
-              If you throw it to your partner, they can either <b>throw it back to you</b> or <b>throw it to the other partner</b>.
+              Click on the partner you want to throw the ball to. If you throw
+              it to your partner, they can either <b>throw it back to you</b> or{" "}
+              <b>throw it to the other partner</b>.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
-              After a duration, this game will end and you will continue with the next stage of the task.
+              After a duration, this game will end and you will continue with
+              the next stage of the task.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               Press &#39;Next &gt;&#39; to continue and play the game.
@@ -419,7 +429,8 @@ if (Configuration.manipulations.enableCyberball === true) {
               Ball-Tossing Game
             </Heading>
             <Paragraph margin="small" size="large" fill>
-              That concludes the ball-tossing game! You will now continue with the next stage of the task.
+              That concludes the ball-tossing game! You will now continue with
+              the next stage of the task.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               Press &#39;Next &gt;&#39; to continue.
@@ -474,8 +485,8 @@ const phaseOnePracticeInstructions = [
           Let&#39;s get used to how the game looks with some practice trials.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          In these practice trials, the points will not count toward your
-          total and your partner is not real. You will play <b>3</b> practice trials.
+          In these practice trials, the points will not count toward your total
+          and your partner is not real. You will play <b>3</b> practice trials.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           Press &#39;Next &gt;&#39; to continue.
@@ -551,8 +562,8 @@ timeline.push({
           </Heading>
           <Paragraph margin="small" size="large" fill>
             The practice trials are now over. Let&#39;s start the first stage of
-            the game. You will answer a few questions before commencing the stage
-            to ensure you understand the instructions.
+            the game. You will answer a few questions before commencing the
+            stage to ensure you understand the instructions.
           </Paragraph>
           <Paragraph margin="small" size="large" fill>
             Press &#39;Next &gt;&#39; to begin!
@@ -912,8 +923,9 @@ for (let i = 0; i < dataCollection.length; i++) {
                 </Heading>
                 <Paragraph margin="small" size="large" fill>
                   The practice trials are now over. Let&#39;s start the second
-                  stage of the game. You will answer a few questions before commencing the stage
-                  to ensure you understand the instructions.
+                  stage of the game. You will answer a few questions before
+                  commencing the stage to ensure you understand the
+                  instructions.
                 </Paragraph>
                 <Paragraph margin="small" size="large" fill>
                   Press &#39;Next &gt;&#39; to begin!
@@ -1151,8 +1163,8 @@ for (let i = 0; i < dataCollection.length; i++) {
               <Paragraph margin="small" size="large" fill>
                 Click &#39;Next &gt;&#39; to be matched with your partner and
                 start stage three. There will be no practice trials beforehand.
-                You will answer a few questions before commencing the stage
-                to ensure you understand the instructions.
+                You will answer a few questions before commencing the stage to
+                ensure you understand the instructions.
               </Paragraph>
             </Box>
           </Grommet>
@@ -1173,12 +1185,8 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "attention-check",
         style: "radio",
-        prompt:
-          "Who is going to be your interaction partner in Stage Three?",
-        responses: [
-          "A new anonymous partner.",
-          "My partner from Stage Two.",
-        ],
+        prompt: "Who is going to be your interaction partner in Stage Three?",
+        responses: ["A new anonymous partner.", "My partner from Stage Two."],
         correct: 0,
         feedback: {
           correct:

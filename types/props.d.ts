@@ -178,7 +178,11 @@ declare namespace Props {
           partnerB: number; // Probability of partner B passing to participant
         };
       };
-      handler: (tossCount: number, participantTossCount: number, participantCatchCount: number) => void;
+      handler: (
+        tossCount: number,
+        participantTossCount: number,
+        participantCatchCount: number
+      ) => void;
     };
   }
 }

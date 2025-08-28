@@ -197,7 +197,9 @@ class ScreenPropFactory implements Factory {
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
-          version: Configuration.manipulations.enableAdolescentDASS ? "adolescent" : "adult",
+          version: Configuration.manipulations.enableAdolescentDASS
+            ? "adolescent"
+            : "adult",
           handler: this.handler.dass.bind(this.handler),
         };
         break;

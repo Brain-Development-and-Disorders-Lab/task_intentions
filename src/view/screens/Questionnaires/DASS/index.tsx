@@ -15,7 +15,15 @@
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
-import { Box, Button, Paragraph, RadioButtonGroup, Heading, Text, Layer } from "grommet";
+import {
+  Box,
+  Button,
+  Paragraph,
+  RadioButtonGroup,
+  Heading,
+  Text,
+  Layer,
+} from "grommet";
 import { LinkNext } from "grommet-icons";
 
 // Question sets
@@ -90,7 +98,8 @@ const DASS: FC<Props.Screens.DASS> = (
   const [showModal, setShowModal] = useState(false);
 
   // Get the appropriate question set
-  const questions = props.version === "adult" ? ADULT_QUESTIONS : ADOLESCENT_QUESTIONS;
+  const questions =
+    props.version === "adult" ? ADULT_QUESTIONS : ADOLESCENT_QUESTIONS;
 
   // Initialize responses array with -1 (unanswered)
   const [responses, setResponses] = useState<number[]>(
@@ -101,7 +110,7 @@ const DASS: FC<Props.Screens.DASS> = (
   const pages = [
     questions.slice(0, 7),
     questions.slice(7, 14),
-    questions.slice(14)
+    questions.slice(14),
   ];
 
   // Update response for a specific question
@@ -117,7 +126,7 @@ const DASS: FC<Props.Screens.DASS> = (
   // Get unanswered question numbers
   const getUnansweredQuestions = () => {
     return responses
-      .map((response, index) => response === -1 ? index + 1 : null)
+      .map((response, index) => (response === -1 ? index + 1 : null))
       .filter(num => num !== null);
   };
 
@@ -136,7 +145,7 @@ const DASS: FC<Props.Screens.DASS> = (
     props.handler(responses);
   };
 
-    // Single return statement with conditional rendering
+  // Single return statement with conditional rendering
   return (
     <>
       {/* Modal for unanswered questions */}
@@ -169,8 +178,14 @@ const DASS: FC<Props.Screens.DASS> = (
               </Text>
             </Box>
 
-            <Paragraph margin={"none"} size={"small"} textAlign={"center"} color={"dark-3"}>
-              You can continue without answering these questions, or go back to complete them.
+            <Paragraph
+              margin={"none"}
+              size={"small"}
+              textAlign={"center"}
+              color={"dark-3"}
+            >
+              You can continue without answering these questions, or go back to
+              complete them.
             </Paragraph>
 
             <Box direction={"row"} gap={"small"} justify={"between"}>
@@ -203,18 +218,25 @@ const DASS: FC<Props.Screens.DASS> = (
           <Heading level={3} margin={"small"} fill>
             DASS-21 Questionnaire
           </Heading>
-          <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
+          <Paragraph
+            margin={"xsmall"}
+            size={"small"}
+            textAlign={"center"}
+            color={"dark-4"}
+          >
             Page 1 of 4
           </Paragraph>
 
           <Paragraph margin={"small"} size={"large"} fill textAlign={"center"}>
-            The following questions ask about how you have been feeling over the past week.
-            Please indicate how much each statement applied to you over the past week.
+            The following questions ask about how you have been feeling over the
+            past week. Please indicate how much each statement applied to you
+            over the past week.
           </Paragraph>
 
           <Paragraph margin={"small"} size={"large"} fill textAlign={"center"}>
-            There are no right or wrong answers. Please respond to each question based on
-            how you have been feeling, not how you think you should feel.
+            There are no right or wrong answers. Please respond to each question
+            based on how you have been feeling, not how you think you should
+            feel.
           </Paragraph>
 
           <Paragraph margin={"small"} size={"large"} fill textAlign={"center"}>
@@ -222,14 +244,28 @@ const DASS: FC<Props.Screens.DASS> = (
           </Paragraph>
 
           <Box direction={"row"} gap={"small"} pad={"small"} width={"80%"}>
-            <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            <Box
+              direction={"column"}
+              gap={"xxsmall"}
+              align={"start"}
+              width={"50%"}
+            >
               {SCORING.slice(0, 2).map((score, index) => (
-                <Text key={index} size={"small"} textAlign={"start"}>{score}</Text>
+                <Text key={index} size={"small"} textAlign={"start"}>
+                  {score}
+                </Text>
               ))}
             </Box>
-            <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            <Box
+              direction={"column"}
+              gap={"xxsmall"}
+              align={"start"}
+              width={"50%"}
+            >
               {SCORING.slice(2).map((score, index) => (
-                <Text key={index} size={"small"} textAlign={"start"}>{score}</Text>
+                <Text key={index} size={"small"} textAlign={"start"}>
+                  {score}
+                </Text>
               ))}
             </Box>
           </Box>
@@ -264,14 +300,28 @@ const DASS: FC<Props.Screens.DASS> = (
             DASS-21 Questionnaire
           </Heading>
           <Box direction={"row"} gap={"small"} fill pad={"small"}>
-            <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            <Box
+              direction={"column"}
+              gap={"xxsmall"}
+              align={"start"}
+              width={"50%"}
+            >
               {SCORING.slice(0, 2).map((score, index) => (
-                <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+                <Text key={index} size={"xsmall"} textAlign={"start"}>
+                  {score}
+                </Text>
               ))}
             </Box>
-            <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            <Box
+              direction={"column"}
+              gap={"xxsmall"}
+              align={"start"}
+              width={"50%"}
+            >
               {SCORING.slice(2).map((score, index) => (
-                <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+                <Text key={index} size={"xsmall"} textAlign={"start"}>
+                  {score}
+                </Text>
               ))}
             </Box>
           </Box>
@@ -292,7 +342,12 @@ const DASS: FC<Props.Screens.DASS> = (
                 round={"small"}
                 background={"light-1"}
               >
-                <Paragraph margin={"none"} size={"small"} textAlign={"start"} style={{ flex: 1 }}>
+                <Paragraph
+                  margin={"none"}
+                  size={"small"}
+                  textAlign={"start"}
+                  style={{ flex: 1 }}
+                >
                   {index + 1}. {question}
                 </Paragraph>
 
@@ -304,25 +359,27 @@ const DASS: FC<Props.Screens.DASS> = (
                     { label: "0", value: 0 },
                     { label: "1", value: 1 },
                     { label: "2", value: 2 },
-                    { label: "3", value: 3 }
+                    { label: "3", value: 3 },
                   ]}
                   value={responses[index] === -1 ? undefined : responses[index]}
-                  onChange={event => updateResponse(index, Number(event.target.value))}
+                  onChange={event =>
+                    updateResponse(index, Number(event.target.value))
+                  }
                 />
               </Box>
             ))}
           </Box>
 
-          <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
+          <Paragraph
+            margin={"xsmall"}
+            size={"small"}
+            textAlign={"center"}
+            color={"dark-4"}
+          >
             Page 2 of 4
           </Paragraph>
 
-          <Box
-            direction={"row"}
-            gap={"medium"}
-            margin={"none"}
-            pad={"none"}
-          >
+          <Box direction={"row"} gap={"medium"} margin={"none"} pad={"none"}>
             <Button
               primary
               color={"button"}
@@ -353,14 +410,28 @@ const DASS: FC<Props.Screens.DASS> = (
             DASS-21 Questionnaire
           </Heading>
           <Box direction={"row"} gap={"small"} fill pad={"small"}>
-            <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            <Box
+              direction={"column"}
+              gap={"xxsmall"}
+              align={"start"}
+              width={"50%"}
+            >
               {SCORING.slice(0, 2).map((score, index) => (
-                <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+                <Text key={index} size={"xsmall"} textAlign={"start"}>
+                  {score}
+                </Text>
               ))}
             </Box>
-            <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            <Box
+              direction={"column"}
+              gap={"xxsmall"}
+              align={"start"}
+              width={"50%"}
+            >
               {SCORING.slice(2).map((score, index) => (
-                <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+                <Text key={index} size={"xsmall"} textAlign={"start"}>
+                  {score}
+                </Text>
               ))}
             </Box>
           </Box>
@@ -381,7 +452,12 @@ const DASS: FC<Props.Screens.DASS> = (
                 round={"small"}
                 background={"light-1"}
               >
-                <Paragraph margin={"none"} size={"small"} textAlign={"start"} style={{ flex: 1 }}>
+                <Paragraph
+                  margin={"none"}
+                  size={"small"}
+                  textAlign={"start"}
+                  style={{ flex: 1 }}
+                >
                   {index + 8}. {question}
                 </Paragraph>
 
@@ -393,25 +469,31 @@ const DASS: FC<Props.Screens.DASS> = (
                     { label: "0", value: 0 },
                     { label: "1", value: 1 },
                     { label: "2", value: 2 },
-                    { label: "3", value: 3 }
+                    { label: "3", value: 3 },
                   ]}
-                  value={responses[index + 7] === -1 ? undefined : responses[index + 7]}
-                  onChange={event => updateResponse(index + 7, Number(event.target.value))}
+                  value={
+                    responses[index + 7] === -1
+                      ? undefined
+                      : responses[index + 7]
+                  }
+                  onChange={event =>
+                    updateResponse(index + 7, Number(event.target.value))
+                  }
                 />
               </Box>
             ))}
           </Box>
 
-          <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
+          <Paragraph
+            margin={"xsmall"}
+            size={"small"}
+            textAlign={"center"}
+            color={"dark-4"}
+          >
             Page 3 of 4
           </Paragraph>
 
-          <Box
-            direction={"row"}
-            gap={"medium"}
-            margin={"none"}
-            pad={"none"}
-          >
+          <Box direction={"row"} gap={"medium"} margin={"none"} pad={"none"}>
             <Button
               primary
               color={"button"}
@@ -442,14 +524,28 @@ const DASS: FC<Props.Screens.DASS> = (
             DASS-21 Questionnaire
           </Heading>
           <Box direction={"row"} gap={"small"} fill pad={"small"}>
-            <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            <Box
+              direction={"column"}
+              gap={"xxsmall"}
+              align={"start"}
+              width={"50%"}
+            >
               {SCORING.slice(0, 2).map((score, index) => (
-                <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+                <Text key={index} size={"xsmall"} textAlign={"start"}>
+                  {score}
+                </Text>
               ))}
             </Box>
-            <Box direction={"column"} gap={"xxsmall"} align={"start"} width={"50%"}>
+            <Box
+              direction={"column"}
+              gap={"xxsmall"}
+              align={"start"}
+              width={"50%"}
+            >
               {SCORING.slice(2).map((score, index) => (
-                <Text key={index} size={"xsmall"} textAlign={"start"}>{score}</Text>
+                <Text key={index} size={"xsmall"} textAlign={"start"}>
+                  {score}
+                </Text>
               ))}
             </Box>
           </Box>
@@ -470,7 +566,12 @@ const DASS: FC<Props.Screens.DASS> = (
                 round={"small"}
                 background={"light-1"}
               >
-                <Paragraph margin={"none"} size={"small"} textAlign={"start"} style={{ flex: 1 }}>
+                <Paragraph
+                  margin={"none"}
+                  size={"small"}
+                  textAlign={"start"}
+                  style={{ flex: 1 }}
+                >
                   {index + 15}. {question}
                 </Paragraph>
 
@@ -482,25 +583,31 @@ const DASS: FC<Props.Screens.DASS> = (
                     { label: "0", value: 0 },
                     { label: "1", value: 1 },
                     { label: "2", value: 2 },
-                    { label: "3", value: 3 }
+                    { label: "3", value: 3 },
                   ]}
-                  value={responses[index + 14] === -1 ? undefined : responses[index + 14]}
-                  onChange={event => updateResponse(index + 14, Number(event.target.value))}
+                  value={
+                    responses[index + 14] === -1
+                      ? undefined
+                      : responses[index + 14]
+                  }
+                  onChange={event =>
+                    updateResponse(index + 14, Number(event.target.value))
+                  }
                 />
               </Box>
             ))}
           </Box>
 
-          <Paragraph margin={"xsmall"} size={"small"} textAlign={"center"} color={"dark-4"}>
+          <Paragraph
+            margin={"xsmall"}
+            size={"small"}
+            textAlign={"center"}
+            color={"dark-4"}
+          >
             Page 4 of 4
           </Paragraph>
 
-          <Box
-            direction={"row"}
-            gap={"medium"}
-            margin={"none"}
-            pad={"none"}
-          >
+          <Box direction={"row"} gap={"medium"} margin={"none"} pad={"none"}>
             <Button
               primary
               color={"button"}
