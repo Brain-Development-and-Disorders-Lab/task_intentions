@@ -382,24 +382,46 @@ const Demographics: FC<Props.Screens.Demographics> = (
         Which social media platforms do you use? (Check all that apply)
       </Paragraph>
       <Box
-        pad={"xsmall"}
-        round
+        direction="row"
+        gap="medium"
+        justify="center"
         style={{ maxHeight: "300px", overflowY: "auto" }}
       >
-        {platformOptions.map((platform) => (
-          <CheckBox
-            key={platform}
-            label={platform}
-            checked={socialMediaPlatforms.includes(platform)}
-            onChange={(event) => {
-              if (event.target.checked) {
-                setSocialMediaPlatforms([...socialMediaPlatforms, platform]);
-              } else {
-                setSocialMediaPlatforms(socialMediaPlatforms.filter(p => p !== platform));
-              }
-            }}
-          />
-        ))}
+        {/* Left column */}
+        <Box gap="xsmall">
+          {platformOptions.slice(0, Math.ceil(platformOptions.length / 2)).map((platform) => (
+            <CheckBox
+              key={platform}
+              label={platform}
+              checked={socialMediaPlatforms.includes(platform)}
+              onChange={(event) => {
+                if (event.target.checked) {
+                  setSocialMediaPlatforms([...socialMediaPlatforms, platform]);
+                } else {
+                  setSocialMediaPlatforms(socialMediaPlatforms.filter(p => p !== platform));
+                }
+              }}
+            />
+          ))}
+        </Box>
+
+        {/* Right column */}
+        <Box gap="xsmall">
+          {platformOptions.slice(Math.ceil(platformOptions.length / 2)).map((platform) => (
+            <CheckBox
+              key={platform}
+              label={platform}
+              checked={socialMediaPlatforms.includes(platform)}
+              onChange={(event) => {
+                if (event.target.checked) {
+                  setSocialMediaPlatforms([...socialMediaPlatforms, platform]);
+                } else {
+                  setSocialMediaPlatforms(socialMediaPlatforms.filter(p => p !== platform));
+                }
+              }}
+            />
+          ))}
+        </Box>
       </Box>
 
       <Box
