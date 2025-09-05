@@ -63,17 +63,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   // Configuration
   const participantAvatarIndex = Configuration.state.participantAvatar;
 
-  // Generate random 6-character alphanumeric IDs for partners
-  const generatePartnerID = () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return Array.from({ length: 6 }, () =>
-      chars.charAt(Math.floor(Math.random() * chars.length))
-    ).join("");
-  };
-
-  // Partner IDs (generated once per component instance)
-  const partnerAID = useRef(generatePartnerID()).current;
-  const partnerBID = useRef(generatePartnerID()).current;
+  // Partner IDs (generated once after the loading screen)
+  const experiment = window.Experiment;
+  const partnerAID = experiment.getState().get("cyberballPartnerAID");
+  const partnerBID = experiment.getState().get("cyberballPartnerBID");
 
   // Player positions (static)
   const positions = {

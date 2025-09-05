@@ -85,13 +85,13 @@ declare namespace Props {
 
     // Loaded screen
     type Loaded = GenericScreenProps & {
-      loadingType: "matching" | "social";
+      loadingType: "matchingIntentions" | "matchingCyberball" | "social";
       handler: () => void;
     };
 
     // Loading screen
     type Loading = GenericScreenProps & {
-      loadingType: "matching" | "social" | "default";
+      loadingType: "matchingIntentions" | "matchingCyberball" | "social" | "default";
       fetchData?: boolean;
       handler?: (
         participantParameters: number[],

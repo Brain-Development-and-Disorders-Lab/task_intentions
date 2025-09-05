@@ -40,7 +40,7 @@ test("loads and displays Loading screen with matching type", async () => {
   const props: Props.Screens.Loading = {
     trial: 0,
     display: "loading",
-    loadingType: "matching",
+    loadingType: "matchingIntentions",
     fetchData: false,
     handler: (participantParameters, partnerParameters) => {
       console.info(participantParameters, partnerParameters);

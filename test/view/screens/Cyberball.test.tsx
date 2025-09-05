@@ -9,6 +9,9 @@ import "@testing-library/jest-dom";
 
 import Cyberball from "src/view/screens/Cyberball";
 
+// jsPsych wrapper library
+import Experiment from "neurocog";
+
 // Mock the configuration
 jest.mock("src/configuration", () => ({
   Configuration: {
@@ -54,6 +57,16 @@ describe("Cyberball Screen", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+
+    // Mock experiment wrapper
+    (window["Experiment"] as RecursivePartial<Experiment>) = {
+      getState: jest.fn(() => {
+        return {
+          get: jest.fn(),
+          set: jest.fn(),
+        };
+      }),
+    };
   });
 
   it("renders the game interface with three players", () => {

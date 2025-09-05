@@ -241,7 +241,7 @@ if (Configuration.manipulations.enableCyberball === true) {
               the next stage of the task.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
-              Press &#39;Next &gt;&#39; to choose an avatar and play the game.
+              Press &#39;Next &gt;&#39; to choose an avatar and play the first social game.
             </Paragraph>
           </Box>
         </Grommet>
@@ -507,6 +507,17 @@ if (Flags.isEnabled("enableStatusDisplay") === true) {
 
 // Add Cyberball screen if enabled
 if (Configuration.manipulations.enableCyberball === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loading",
+    loadingType: "matchingCyberball",
+  });
+
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loaded",
+    loadingType: "matchingCyberball",
+  });
 
   timeline.push({
     type: Configuration.studyName,
@@ -535,7 +546,7 @@ if (Configuration.manipulations.enableCyberball === true) {
             </Heading>
             <Paragraph margin="small" size="large" fill>
               That concludes the ball-tossing game! You will now continue with
-              the next stage of the task.
+              the next social game.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               Press &#39;Next &gt;&#39; to continue.
@@ -827,14 +838,14 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "loading",
-  loadingType: "matching",
+  loadingType: "matchingIntentions",
   fetchData: false,
 });
 
 timeline.push({
   type: Configuration.studyName,
   display: "loaded",
-  loadingType: "matching",
+  loadingType: "matchingIntentions",
 });
 
 // Set and store the data collection
@@ -1193,14 +1204,14 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "loading",
-        loadingType: "matching",
+        loadingType: "matchingIntentions",
         fetchData: true,
       });
 
       timeline.push({
         type: Configuration.studyName,
         display: "loaded",
-        loadingType: "matching",
+        loadingType: "matchingIntentions",
       });
 
       break;
@@ -1376,14 +1387,14 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "loading",
-        loadingType: "matching",
+        loadingType: "matchingIntentions",
         fetchData: false,
       });
 
       timeline.push({
         type: Configuration.studyName,
         display: "loaded",
-        loadingType: "matching",
+        loadingType: "matchingIntentions",
       });
 
       break;

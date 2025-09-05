@@ -102,8 +102,8 @@ declare type Trial = {
   isPractice: boolean; // Whether this is a practice trial
 
   // Loading screen configuration (used by Loading screen)
-  loadingType?: "matching" | "social" | "default"; // Type of loading: "matching" (partner matching), "social" (status generation), or "default" (generic loading)
-  fetchData: boolean; // Whether to fetch data from server (only used when loadingType is "matching")
+  loadingType?: "matchingIntentions" | "matchingCyberball" | "social" | "default"; // Type of loading: "matchingIntentions" (partner matching), "matchingCyberball" (cyberball partners), "social" (status generation), or "default" (generic loading)
+  fetchData: boolean; // Whether to fetch data from server (only used when loadingType is "matchingIntentions")
   mode: "facilitator" | "mri";
 
   // Spotlight configuration (used by Trial screen)

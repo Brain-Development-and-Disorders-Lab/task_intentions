@@ -27,7 +27,7 @@ import Compute from "src/classes/Compute";
 /**
  * @summary Generate a 'Loading' screen presenting a loading indicator and text based on the current state
  * @param {Props.Screens.Loading} props Component props containing:
- *  - state: {"matching" | "social" | "default"} The loading state to display
+ *  - state: {"matchingIntentions" | "matchingCyberball" | "social" | "default"} The loading state to display
  *  - fetchData?: {boolean} Flag indicating whether to fetch data from server (only for matching state)
  *  - handler?: {(participantParams: ModelParameters, partnerParams: ModelParameters) => void} Callback to handle model parameters (only for matching state)
  * @return {ReactElement} 'Loading' screen with loading indicator and state-specific status message
@@ -40,8 +40,10 @@ const Loading: FC<Props.Screens.Loading> = (
   // Get the appropriate text based on the loading type
   const getLoadingText = (): string => {
     switch (props.loadingType) {
-      case "matching":
+      case "matchingIntentions":
         return "Finding you a partner...";
+      case "matchingCyberball":
+        return "Finding you partners...";
       case "social":
         return "Generating relative social status...";
       case "default":
@@ -87,7 +89,7 @@ const Loading: FC<Props.Screens.Loading> = (
 
   const runMatching = async () => {
     // Launch request
-    if (props.fetchData && props.loadingType === "matching") {
+    if (props.fetchData && props.loadingType === "matchingIntentions") {
       // Setup a new 'Compute' instance
       const compute = new Compute();
       await compute.setup();
@@ -130,7 +132,7 @@ const Loading: FC<Props.Screens.Loading> = (
 
   // Run the matching process when first displayed (only for matching type)
   useEffect(() => {
-    if (props.loadingType === "matching") {
+    if (props.loadingType === "matchingIntentions") {
       runMatching();
     }
   });
