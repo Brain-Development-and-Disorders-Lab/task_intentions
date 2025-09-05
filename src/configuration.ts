@@ -125,9 +125,30 @@ export const Configuration = {
     // Visual parameters
     ballSize: 40,
     ballColor: "#FF6B6B",
-    playerSize: 100,
     viewWidth: 800,
     viewHeight: 600,
+
+    // Avatar sizes
+    participantAvatarSize: 100,
+    partnerAvatarSize: 120,
+
+    // Positioning of avatar containers
+    positions: {
+      participant: { x: 400, y: 480 },
+      partnerA: { x: 120, y: 140 },
+      partnerB: { x: 680, y: 140 },
+    },
+
+    // Positioning of ball targets
+    ballPositions: {
+      participant: { x: 400, y: 480 },
+      partnerA: { x: 120, y: 130 },
+      partnerB: { x: 680, y: 130 },
+    },
+
+    // Layout spacing
+    partnerMargin: 20,
+    participantBottomMargin: 80,
   },
 
   // Status display configuration

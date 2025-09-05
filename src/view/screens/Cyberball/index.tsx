@@ -54,7 +54,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   });
 
   // Simple state
-  const [ballPosition, setBallPosition] = useState({ x: 400, y: 480 }); // Start at participant position
+  const [ballPosition, setBallPosition] = useState(Configuration.cyberball.ballPositions.participant); // Start at participant position
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Refs
@@ -71,24 +71,15 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   // Player positions (static)
   const positions = {
     participant: {
-      x: Configuration.cyberball.viewWidth / 2,
-      y:
-        Configuration.cyberball.viewHeight -
-        Configuration.cyberball.playerSize / 2 -
-        80,
+      ...Configuration.cyberball.positions.participant,
       avatar: participantAvatarIndex,
     },
     partnerA: {
-      x: Configuration.cyberball.playerSize / 2 + 20,
-      y: Configuration.cyberball.playerSize / 2 + 80,
+      ...Configuration.cyberball.positions.partnerA,
       avatar: 0,
     },
     partnerB: {
-      x:
-        Configuration.cyberball.viewWidth -
-        Configuration.cyberball.playerSize / 2 -
-        20,
-      y: Configuration.cyberball.playerSize / 2 + 80,
+      ...Configuration.cyberball.positions.partnerB,
       avatar: 1,
     },
   };
@@ -156,10 +147,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     if (gameState.ballOwner !== "participant" || isAnimating) return;
 
     // Animate ball to target
-    animateBall(positions.participant, {
-      x: positions[target].x,
-      y: positions[target].y,
-    });
+    animateBall(Configuration.cyberball.ballPositions.participant, Configuration.cyberball.ballPositions[target]);
 
     // Update game state
     setGameState(prev => ({
@@ -211,10 +199,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     }
 
     // Animate ball to target
-    animateBall(positions[partner], {
-      x: positions[target].x,
-      y: positions[target].y,
-    });
+    animateBall(Configuration.cyberball.ballPositions[partner], Configuration.cyberball.ballPositions[target]);
 
     // Update game state
     setGameState(prev => {
@@ -248,17 +233,14 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     >
       {/* Partner A (Top Left) */}
       <Box
-        width={`${Configuration.cyberball.playerSize}px`}
-        height={`${Configuration.cyberball.playerSize + 20}px`}
+        width={`${Configuration.cyberball.partnerAvatarSize + 80}px`}
+        height={`${Configuration.cyberball.partnerAvatarSize + 20}px`}
         onClick={() => handleParticipantToss("partnerA")}
+        align="center"
         style={{
           position: "absolute",
-          top: `${
-            positions.partnerA.y - Configuration.cyberball.playerSize / 2
-          }px`,
-          left: `${
-            positions.partnerA.x - Configuration.cyberball.playerSize / 2
-          }px`,
+          top: `${positions.partnerA.y - Configuration.cyberball.partnerAvatarSize / 2}px`,
+          left: `${positions.partnerA.x - (Configuration.cyberball.partnerAvatarSize + 80) / 2}px`,
           cursor:
             gameState.ballOwner === "participant" && !isAnimating
               ? "pointer"
@@ -293,7 +275,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
               align="center"
               style={{
                 position: "absolute",
-                left: props.partnerHighStatus ? "20%" : "80%",
+                left: props.partnerHighStatus ? "60%" : "80%",
                 top: 0,
                 transform: "translateX(-50%)",
                 zIndex: 2,
@@ -326,7 +308,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
               align="center"
               style={{
                 position: "absolute",
-                left: props.partnerHighStatus ? "80%" : "20%",
+                left: props.partnerHighStatus ? "80%" : "60%",
                 top: 0,
                 transform: "translateX(-50%)",
                 zIndex: 2,
@@ -372,32 +354,31 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         </Box>
 
         <Avatar
-          size={Configuration.cyberball.playerSize + 8}
+          size={Configuration.cyberball.partnerAvatarSize + 8}
           name={partnerAID}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
-        <Text size="small" textAlign="center" margin={{ top: "xsmall" }}>
+        <Text size="small" textAlign="center" weight="bold" margin={{ top: "xsmall" }}>
           Partner A
         </Text>
         <Text size="xsmall" textAlign="center" margin={{ top: "xxsmall" }}>
-          ({partnerAID})
+          Prolific ID: hidden for anonymity
+          <br />
+          Internal ID: {partnerAID}
         </Text>
       </Box>
 
       {/* Partner B (Top Right) */}
       <Box
-        width={`${Configuration.cyberball.playerSize}px`}
-        height={`${Configuration.cyberball.playerSize + 20}px`}
+        width={`${Configuration.cyberball.partnerAvatarSize + 80}px`}
+        height={`${Configuration.cyberball.partnerAvatarSize + 20}px`}
+        align="center"
         onClick={() => handleParticipantToss("partnerB")}
         style={{
           position: "absolute",
-          top: `${
-            positions.partnerB.y - Configuration.cyberball.playerSize / 2
-          }px`,
-          left: `${
-            positions.partnerB.x - Configuration.cyberball.playerSize / 2
-          }px`,
+          top: `${positions.partnerB.y - Configuration.cyberball.partnerAvatarSize / 2}px`,
+          left: `${positions.partnerB.x - (Configuration.cyberball.partnerAvatarSize + 80) / 2}px`,
           cursor:
             gameState.ballOwner === "participant" && !isAnimating
               ? "pointer"
@@ -407,35 +388,33 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         }}
       >
         <Avatar
-          size={Configuration.cyberball.playerSize + 8}
+          size={Configuration.cyberball.partnerAvatarSize + 8}
           name={partnerBID}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
-        <Text size="small" textAlign="center" margin={{ top: "xsmall" }}>
+        <Text size="small" textAlign="center" weight="bold" margin={{ top: "xsmall" }}>
           Partner B
         </Text>
         <Text size="xsmall" textAlign="center" margin={{ top: "xxsmall" }}>
-          ({partnerBID})
+          Prolific ID: hidden for anonymity
+          <br />
+          Internal ID: {partnerBID}
         </Text>
       </Box>
 
       {/* Participant (Bottom Center) */}
       <Box
-        width={`${Configuration.cyberball.playerSize}px`}
-        height={`${Configuration.cyberball.playerSize}px`}
+        width={`${Configuration.cyberball.participantAvatarSize}px`}
+        height={`${Configuration.cyberball.participantAvatarSize}px`}
         style={{
           position: "absolute",
-          top: `${
-            positions.participant.y - Configuration.cyberball.playerSize / 2
-          }px`,
-          left: `${
-            positions.participant.x - Configuration.cyberball.playerSize / 2
-          }px`,
+          top: `${positions.participant.y - Configuration.cyberball.participantAvatarSize / 2}px`,
+          left: `${positions.participant.x - Configuration.cyberball.participantAvatarSize / 2}px`,
         }}
       >
         <Avatar
-          size={Configuration.cyberball.playerSize}
+          size={Configuration.cyberball.participantAvatarSize}
           name={
             Configuration.avatars.names.participant[
               positions.participant.avatar
@@ -444,7 +423,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />
-        <Text size="small" textAlign="center" margin={{ top: "xsmall" }}>
+        <Text size="small" textAlign="center" weight="bold" margin={{ top: "xsmall" }}>
           You
         </Text>
       </Box>

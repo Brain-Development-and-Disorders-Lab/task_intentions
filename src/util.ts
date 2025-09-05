@@ -239,12 +239,12 @@ export const setCompleted = (id: string, state: boolean): void => {
 };
 
 /**
- * Generate a random 6-character alphanumeric ID for a partner
+ * Generate a random 8-character alphanumeric ID for a partner
  * @return {string} the generated ID
  */
 export const generatePartnerID = (): string => {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return Array.from({ length: 6 }, () =>
+  return Array.from({ length: 8 }, () =>
     chars.charAt(Math.floor(Math.random() * chars.length))
   ).join("");
 };
