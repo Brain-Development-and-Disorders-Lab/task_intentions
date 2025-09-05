@@ -69,6 +69,7 @@ declare namespace Props {
       participantStatus: number;
       partnerStatus: number;
       isPractice?: boolean;
+      hidePartner?: boolean;
     };
   }
 
@@ -85,6 +86,7 @@ declare namespace Props {
     // Loaded screen
     type Loaded = GenericScreenProps & {
       loadingType: "matching" | "social";
+      handler: () => void;
     };
 
     // Loading screen

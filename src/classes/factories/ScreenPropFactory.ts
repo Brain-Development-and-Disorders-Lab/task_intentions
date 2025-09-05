@@ -106,17 +106,30 @@ class ScreenPropFactory implements Factory {
 
       // Loaded screen
       case "loaded":
-        returned.duration = 2000;
+        if (this.trial.loadingType === "social") {
+          // Indefinite duration for "social" loading completion
+          returned.duration = 0;
 
-        // Set the timeout callback function
-        returned.callback = this.handler.callback.bind(this.handler);
+          // Setup the props
+          returned.props = {
+            trial: this.trial.trial,
+            display: this.trial.display,
+            loadingType: this.trial.loadingType,
+            handler: this.handler.callback.bind(this.handler),
+          };
+        } else {
+          returned.duration = 2000;
 
-        // Setup the props
-        returned.props = {
-          trial: this.trial.trial,
-          display: this.trial.display,
-          loadingType: this.trial.loadingType,
-        };
+          // Set the timeout callback function
+          returned.callback = this.handler.callback.bind(this.handler);
+
+          // Setup the props
+          returned.props = {
+            trial: this.trial.trial,
+            display: this.trial.display,
+            loadingType: this.trial.loadingType,
+          };
+        }
         break;
 
       // Loading screen

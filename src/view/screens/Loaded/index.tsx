@@ -15,7 +15,9 @@
 import React, { FC, ReactElement } from "react";
 
 // Grommet UI components
-import { Box, Heading, Layer, WorldMap } from "grommet";
+import { Box, Button, Heading, Layer, Paragraph, WorldMap } from "grommet";
+import { LinkNext } from "grommet-icons";
+import Status from "src/view/components/Status";
 import Avatar from "boring-neutral-avatars";
 
 // Logging library
@@ -71,10 +73,28 @@ const Loaded: FC<Props.Screens.Loaded> = (props: Props.Screens.Loaded): ReactEle
   } else if (loadingType === "social") {
     return (
       <>
-        <WorldMap color="map" fill="horizontal" />
         <Layer plain full>
           <Box justify="center" align="center" gap="small" responsive fill>
-            <Heading>Social status found!</Heading>
+            <Status
+              participantStatus={70}
+              partnerStatus={0}
+              hidePartner
+            />
+            <Box style={{ maxWidth: "50%" }}>
+              <Paragraph margin="small" size="large" textAlign="center" fill>
+                This is where you rank in comparison to other players, from low standing to high standing.
+              </Paragraph>
+            </Box>
+            <Button
+              primary
+              color="button"
+              label="Continue"
+              icon={<LinkNext />}
+              reverse
+              onClick={() => {
+                props.handler();
+              }}
+            />
           </Box>
         </Layer>
       </>
