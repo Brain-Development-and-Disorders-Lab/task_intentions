@@ -33,7 +33,7 @@ import Status from "../../screens/Questionnaires/Status";
 import DASS from "../../screens/Questionnaires/DASS";
 import Screentime from "../../screens/Questionnaires/Screentime";
 import Demographics from "../../screens/Questionnaires/Demographics";
-import Matched from "../../screens/Matched";
+import Loaded from "../../screens/Loaded";
 import Loading from "../../screens/Loading";
 import Waiting from "../../screens/Waiting";
 import End from "../../screens/End";
@@ -47,7 +47,7 @@ import Cyberball from "../../screens/Cyberball";
  * @param {Props.Components.Wrapper} props Props containing:
  *  - display: {string} The current screen to display
  *  - props: {Props.Screens.Trial | Props.Screens.Inference | Props.Screens.Classification |
- *           Props.Screens.SelectAvatar | Props.Screens.Matched | Props.Screens.Matching |
+ *           Props.Screens.SelectAvatar | Props.Screens.Loaded | Props.Screens.Matching |
  *           Props.Screens.End | Props.Screens.Summary} Props for the child screen component
  * @return {ReactElement} 'Wrapper' component containing the themed child screen
  */
@@ -132,7 +132,7 @@ const Wrapper: FC<Props.Components.Wrapper> = (
           <SelectAvatar {...(props.props as Props.Screens.SelectAvatar)} />
         )}
 
-        {activeDisplay === "matched" && <Matched />}
+        {activeDisplay === "loaded" && <Loaded {...(props.props as Props.Screens.Loaded)} />}
 
         {activeDisplay === "loading" && (
           <Loading {...(props.props as Props.Screens.Loading)} />

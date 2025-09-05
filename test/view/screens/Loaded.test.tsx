@@ -32,12 +32,13 @@ beforeEach(() => {
   };
 });
 
-test("loads and displays Matched screen", async () => {
-  const props: Props.Screens.Matched = {
+test("loads and displays Loaded screen", async () => {
+  const props: Props.Screens.Loaded = {
     trial: 0,
-    display: "matched",
+    display: "loaded",
+    loadingType: "matching",
   };
-  render(<Wrapper display={"matched"} props={props} />);
+  render(<Wrapper display={"loaded"} props={props} />);
 
   await waitFor(() => screen.queryByText("Partner found!"));
   expect(screen.queryByText("Partner found!")).not.toBeNull();

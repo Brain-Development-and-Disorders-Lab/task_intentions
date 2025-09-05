@@ -12,7 +12,7 @@ declare namespace Props {
     type Wrapper = {
       display: Display;
       props:
-        | Screens.Matched
+        | Screens.Loaded
         | Screens.Loading
         | Screens.Trial
         | Screens.SelectAvatar
@@ -82,8 +82,10 @@ declare namespace Props {
     // End screen
     type End = GenericScreenProps;
 
-    // Matched screen
-    type Matched = GenericScreenProps;
+    // Loaded screen
+    type Loaded = GenericScreenProps & {
+      loadingType: "matching" | "social";
+    };
 
     // Loading screen
     type Loading = GenericScreenProps & {

@@ -468,12 +468,18 @@ if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
     show_clickable_nav: true,
   });
 
-  // Show a matching screen for the social partner
+  // Show a matching sequence for the social partner
   timeline.push({
     type: Configuration.studyName,
     display: "loading",
     loadingType: "social",
     fetchData: false,
+  });
+
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loaded",
+    loadingType: "social",
   });
 }
 
@@ -1193,7 +1199,8 @@ for (let i = 0; i < dataCollection.length; i++) {
 
       timeline.push({
         type: Configuration.studyName,
-        display: "matched",
+        display: "loaded",
+        loadingType: "matching",
       });
 
       break;

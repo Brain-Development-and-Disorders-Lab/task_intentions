@@ -34,6 +34,7 @@ export const getTrialConfiguration = (display: Display): Trial => {
     isPractice: false,
     fetchData: false,
     mode: "facilitator",
+    loadingType: "matching",
   };
 };
 

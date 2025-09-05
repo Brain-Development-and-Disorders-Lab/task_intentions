@@ -89,11 +89,11 @@ test("generate props for Inference screen", async () => {
   expect(generated.props).toHaveProperty("handler");
 });
 
-test("generate props for Matched screen", async () => {
+test("generate props for Loaded screen", async () => {
   // Create a new ScreenPropFactory instance
   const screenPropFactory = new ScreenPropFactory(
-    getTrialConfiguration("matched"),
-    getHandler("matched")
+    getTrialConfiguration("loaded"),
+    getHandler("loaded")
   );
 
   // Generate the props
@@ -101,7 +101,8 @@ test("generate props for Matched screen", async () => {
 
   // Check contents of props
   expect(generated.props.trial).toBe(1);
-  expect(generated.props.display).toBe("matched");
+  expect(generated.props.display).toBe("loaded");
+  expect(generated.props.loadingType).toBe("matching");
   expect(generated.props).not.toHaveProperty("handler");
 });
 
