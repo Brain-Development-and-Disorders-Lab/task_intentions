@@ -120,7 +120,7 @@ export const Configuration = {
   cyberball: {
     // Timings
     tossInterval: 2000,
-    totalDuration: 60000,
+    totalTosses: 20,
 
     // Visual parameters
     ballSize: 40,

@@ -291,92 +291,6 @@ timeline.push({
   display: "selection",
 });
 
-const intentionsInstructions = [
-  // Overall instructions
-  react2html(
-    <Grommet>
-      <Box style={{ maxWidth: "50%", margin: "auto" }}>
-        <Heading level={1} margin="small" fill>
-          Instructions
-        </Heading>
-        <Heading level={2} margin="small" fill>
-          Overview
-        </Heading>
-        <Paragraph margin="small" size="large" fill>
-          During this task you and a partner will be choosing how to divide a
-          sum of points between each other. Your ID will not be revealed to your
-          partner, and you won&#39;t be able to see the ID of your partner.
-        </Paragraph>
-        <Paragraph margin="small" size="large" fill>
-          This game consists of three stages. You are matched with a{" "}
-          <b>different</b> partner before each stage.
-        </Paragraph>
-        <Paragraph margin="small" size="large" fill>
-          You will be paid a bonus at the end of the game which depends upon the
-          number of points you each managed to accumulate while playing. If you
-          earn over 1000 points in total across all three stages, you will
-          automatically be placed into a lottery for your chance to win an extra
-          $20.
-        </Paragraph>
-      </Box>
-    </Grommet>
-  ),
-  // Part one instructions
-  react2html(
-    <Grommet>
-      <Box style={{ maxWidth: "50%", margin: "auto" }}>
-        <Heading level={1} margin="small" fill>
-          Instructions
-        </Heading>
-        <Heading level={2} margin="small" fill>
-          Overview
-        </Heading>
-        <Paragraph margin="small" size="large" fill>
-          In stage one of this game, <b>you</b> will be choosing how the points
-          are split between you and your partner.
-        </Paragraph>
-        <Paragraph margin="small" size="large" fill>
-          In stage two, you will play with a <b>new partner</b> for 54 rounds.
-          In this stage your <b>partner</b> will choose how to split the points.
-          You need to guess how your partner plans to divide the points each
-          round. You will earn bonus points for each correct prediction.
-        </Paragraph>
-        <Paragraph margin="small" size="large" fill>
-          In stage three, you will play with <b>yet another new partner</b>{" "}
-          where <b>you</b> will again be choosing how to split the points.
-        </Paragraph>
-      </Box>
-    </Grommet>
-  ),
-  // Part one instructions
-  react2html(
-    <Grommet>
-      <Box style={{ maxWidth: "50%", margin: "auto" }}>
-        <Heading level={1} margin="small" fill>
-          Instructions
-        </Heading>
-        <Heading level={2} margin="small" fill>
-          Overview
-        </Heading>
-        <Paragraph margin="small" size="large" fill>
-          At the end of all the stages you will be shown a summary of how many
-          points you and your partner accumulated during that phase.
-        </Paragraph>
-        {(Configuration.manipulations.enableStatusPhaseOne === true ||
-          Configuration.manipulations.enableStatusPhaseTwo === true ||
-          Configuration.manipulations.enableStatusPhaseThree === true ||
-          Configuration.manipulations.enableCyberball === true ||
-          Configuration.manipulations.enableEndingQuestionnaires === true) && (
-          <Paragraph margin="small" size="large" fill>
-            There will be some extra questionnaires before commencing the stages
-            and after completing all the stages.
-          </Paragraph>
-        )}
-      </Box>
-    </Grommet>
-  ),
-];
-
 // If the status display is enabled, check if the flags need to be updated to match the manipulations
 if (
   Configuration.manipulations.enableStatusPhaseOne === true ||
@@ -562,6 +476,87 @@ if (Configuration.manipulations.enableCyberball === true) {
     show_clickable_nav: true,
   });
 }
+
+const intentionsInstructions = [
+  // Overall instructions
+  react2html(
+    <Grommet>
+      <Box style={{ maxWidth: "50%", margin: "auto" }}>
+        <Heading level={1} margin="small" fill>
+          Instructions
+        </Heading>
+        <Heading level={2} margin="small" fill>
+          Overview
+        </Heading>
+        <Paragraph margin="small" size="large" fill>
+          During this task you and a partner will be choosing how to divide a
+          sum of points between each other. Your ID will not be revealed to your
+          partner, and you won&#39;t be able to see the ID of your partner.
+        </Paragraph>
+        <Paragraph margin="small" size="large" fill>
+          This game consists of three stages. You are matched with a{" "}
+          <b>different</b> partner before each stage.
+        </Paragraph>
+        <Paragraph margin="small" size="large" fill>
+          You will be paid a bonus at the end of the game which depends upon the
+          number of points you each managed to accumulate while playing. If you
+          earn over 1000 points in total across all three stages, you will
+          automatically be placed into a lottery for your chance to win an extra
+          $20.
+        </Paragraph>
+      </Box>
+    </Grommet>
+  ),
+  // Part one instructions
+  react2html(
+    <Grommet>
+      <Box style={{ maxWidth: "50%", margin: "auto" }}>
+        <Heading level={1} margin="small" fill>
+          Instructions
+        </Heading>
+        <Heading level={2} margin="small" fill>
+          Overview
+        </Heading>
+        <Paragraph margin="small" size="large" fill>
+          In stage one of this game, <b>you</b> will be choosing how the points
+          are split between you and your partner.
+        </Paragraph>
+        <Paragraph margin="small" size="large" fill>
+          In stage two, you will play with a <b>new partner</b> for 54 rounds.
+          In this stage your <b>partner</b> will choose how to split the points.
+          You need to guess how your partner plans to divide the points each
+          round. You will earn bonus points for each correct prediction.
+        </Paragraph>
+        <Paragraph margin="small" size="large" fill>
+          In stage three, you will play with <b>yet another new partner</b>{" "}
+          where <b>you</b> will again be choosing how to split the points.
+        </Paragraph>
+      </Box>
+    </Grommet>
+  ),
+  // Part one instructions
+  react2html(
+    <Grommet>
+      <Box style={{ maxWidth: "50%", margin: "auto" }}>
+        <Heading level={1} margin="small" fill>
+          Instructions
+        </Heading>
+        <Heading level={2} margin="small" fill>
+          Overview
+        </Heading>
+        <Paragraph margin="small" size="large" fill>
+          At the end of all the stages you will be shown a summary of how many
+          points you and your partner accumulated during that phase.
+        </Paragraph>
+        {Configuration.manipulations.enableEndingQuestionnaires === true && (
+          <Paragraph margin="small" size="large" fill>
+            There will be some extra questionnaires after completing all the stages.
+          </Paragraph>
+        )}
+      </Box>
+    </Grommet>
+  ),
+];
 
 const phaseOneInstructions = [
   react2html(
