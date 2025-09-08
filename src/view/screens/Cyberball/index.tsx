@@ -13,7 +13,7 @@
  */
 
 // React import
-import React, { FC, ReactElement, useRef, useReducer } from "react";
+import React, { FC, ReactElement, useRef, useReducer, useState } from "react";
 
 // Components
 import { Box, Text } from "grommet";
@@ -51,6 +51,9 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
   // Force re-render mechanism
   const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+  // Game completion state
+  const [isGameFinished, setIsGameFinished] = useState(false);
 
   // Configuration
   const participantAvatarIndex = Configuration.state.participantAvatar;
@@ -103,7 +106,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
 
     // Check if game is complete
     if (gameState.current.tossCount >= Configuration.cyberball.totalTosses) {
-      props.handler(gameState.current.tossCount, gameState.current.participantTossCount, gameState.current.participantCatchCount);
+      setIsGameFinished(true);
+      setTimeout(() => {
+        props.handler(gameState.current.tossCount, gameState.current.participantTossCount, gameState.current.participantCatchCount);
+      }, 3000);
     } else {
       if (receiver !== "participant") {
         setTimeout(() => {
@@ -422,11 +428,36 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
         }}
       >
         <Text size="medium" weight="bold">
-          {gameState.current.ballOwner === "participant"
+          {isGameFinished
+            ? "Game Complete!"
+            : gameState.current.ballOwner === "participant"
             ? "Click on a partner to throw the ball to them!"
             : "Waiting to receive the ball..."}
         </Text>
       </Box>
+
+      {/* Message overlay signalling game completion */}
+      {isGameFinished && (
+        <Box
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            background: "rgba(0, 0, 0, 0.9)",
+            color: "white",
+            padding: "20px 40px",
+            borderRadius: "10px",
+            zIndex: 2000,
+            textAlign: "center",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <Text size="xlarge" weight="bold">
+            Finished!
+          </Text>
+        </Box>
+      )}
     </Box>
   );
 };
