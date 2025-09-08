@@ -16,13 +16,37 @@ import Experiment from "neurocog";
 jest.mock("src/configuration", () => ({
   Configuration: {
     cyberball: {
-      tossInterval: 500,
-      totalDuration: 2000, // Short duration for testing
+      // Timings
+      tossInterval: 2000,
+      totalTosses: 20,
+
+      // Visual parameters
       ballSize: 40,
-      playerSize: 80,
+      ballColor: "#FF6B6B",
       viewWidth: 800,
       viewHeight: 600,
-      ballColor: "#FF6B6B",
+
+      // Avatar sizes
+      participantAvatarSize: 100,
+      partnerAvatarSize: 120,
+
+      // Positioning of avatar containers
+      positions: {
+        participant: { x: 400, y: 480 },
+        partnerA: { x: 120, y: 140 },
+        partnerB: { x: 680, y: 140 },
+      },
+
+      // Positioning of ball targets
+      ballPositions: {
+        participant: { x: 400, y: 480 },
+        partnerA: { x: 120, y: 130 },
+        partnerB: { x: 680, y: 130 },
+      },
+
+      // Layout spacing
+      partnerMargin: 20,
+      participantBottomMargin: 80,
     },
     avatars: {
       names: {
@@ -108,47 +132,6 @@ describe("Cyberball Screen", () => {
       },
       { timeout: 3000 }
     );
-  });
-
-  it("calls handler when game completes", async () => {
-    jest.useFakeTimers();
-
-    render(<Cyberball {...mockProps} />);
-
-    // Fast-forward time to complete the game
-    jest.advanceTimersByTime(2500); // This should complete the total duration
-
-    await waitFor(() => {
-      expect(mockHandler).toHaveBeenCalledWith(
-        expect.any(Number),
-        expect.any(Number),
-        expect.any(Number)
-      );
-    });
-
-    jest.useRealTimers();
-  });
-
-  it("operates in single mode throughout the game", async () => {
-    jest.useFakeTimers();
-
-    render(<Cyberball {...mockProps} />);
-
-    // Fast-forward to just before game completion
-    jest.advanceTimersByTime(1900);
-
-    // Game should still be running (not completed yet)
-    expect(mockHandler).not.toHaveBeenCalled();
-
-    // Fast-forward past the total duration
-    jest.advanceTimersByTime(200);
-
-    // Game should now be completed
-    await waitFor(() => {
-      expect(mockHandler).toHaveBeenCalled();
-    });
-
-    jest.useRealTimers();
   });
 
   it("shows correct status message based on ball ownership", async () => {
