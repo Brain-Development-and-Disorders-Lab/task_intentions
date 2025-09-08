@@ -214,6 +214,16 @@ declare type ModelResponse = {
   }[];
 };
 
+// Cyberball game state
+declare type CyberballGameState = {
+  ballOwner: "participant" | "partnerA" | "partnerB";
+  tossCount: number;
+  participantTossCount: number;
+  participantCatchCount: number;
+  partnerATossCount: number;
+  partnerBTossCount: number;
+};
+
 // Recursive partial type, allows tests using the
 // 'jspsych-wrapper' Experiment class to be run
 declare type RecursivePartial<T> = {
