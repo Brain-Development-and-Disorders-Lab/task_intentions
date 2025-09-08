@@ -12,7 +12,7 @@ declare namespace Props {
     type Wrapper = {
       display: Display;
       props:
-        | Screens.Matched
+        | Screens.Loaded
         | Screens.Loading
         | Screens.Trial
         | Screens.SelectAvatar
@@ -69,6 +69,7 @@ declare namespace Props {
       participantStatus: number;
       partnerStatus: number;
       isPractice?: boolean;
+      hidePartner?: boolean;
     };
   }
 
@@ -82,12 +83,15 @@ declare namespace Props {
     // End screen
     type End = GenericScreenProps;
 
-    // Matched screen
-    type Matched = GenericScreenProps;
+    // Loaded screen
+    type Loaded = GenericScreenProps & {
+      loadingType: "matchingIntentions" | "matchingCyberball" | "social";
+      handler: () => void;
+    };
 
     // Loading screen
     type Loading = GenericScreenProps & {
-      loadingType: "matching" | "social" | "default";
+      loadingType: "matchingIntentions" | "matchingCyberball" | "social" | "default";
       fetchData?: boolean;
       handler?: (
         participantParameters: number[],

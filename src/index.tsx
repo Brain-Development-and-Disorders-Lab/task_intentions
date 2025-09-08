@@ -122,7 +122,362 @@ if (Flags.isEnabled("enableFullscreen")) {
   });
 }
 
-let initialInstructions = [
+// Add controls instructions first if using alternate input scheme
+if (Configuration.manipulations.useButtonInput === true) {
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin={"small"} fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Controls
+            </Heading>
+            <Paragraph size={"large"} margin={"small"} fill>
+              When interacting with the game interface, the currently selected
+              element will be highlighted with a gray outline. An example is shown
+              below:
+            </Paragraph>
+            <Box
+              width={"fit-content"}
+              pad={"xsmall"}
+              round
+              border={{ color: "lightgray", size: "large" }}
+              alignSelf={"center"}
+            >
+              <Paragraph margin={"small"} size={"large"} fill>
+                <b>Element</b>
+              </Paragraph>
+            </Box>
+            <Box alignSelf={"center"} margin={"none"}>
+              <Paragraph size={"large"} textAlign={"start"}>
+                <b>Button {BINDINGS.PREVIOUS}</b> selects the <b>previous</b>{" "}
+                element;
+                <br />
+                <b>Button {BINDINGS.NEXT}</b> selects the <b>next</b> element; and
+                <br />
+                <b>Button {BINDINGS.SELECT}</b> interacts with the{" "}
+                <b>currently selected</b> element.
+                <br />
+              </Paragraph>
+            </Box>
+            <Paragraph size={"large"} margin={"small"} fill>
+              When viewing instruction screens (e.g. this one),{" "}
+              <b>Button {BINDINGS.NEXT}</b> continues to the next page and{" "}
+              <b>Button {BINDINGS.PREVIOUS}</b> returns to the previous page.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+}
+
+// Add the first set of instructions
+if (Configuration.manipulations.enableCyberball === true) {
+  // Cyberball enabled, first Cyberball then Intentions Game
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Overview
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              You will now play two social games with other players, followed by some questionnaires.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Please press &#39;Next &gt;&#39; to view instructions for the first game.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+
+  // Show the Cyberball instructions
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Ball-Tossing Game
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              You will now play a short ball-tossing game with two partners.
+              When you have the ball, you can choose to{" "}
+              <b>throw it to one of your partners</b>.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Click on the partner you want to throw the ball to. If you throw
+              it to your partner, they can either <b>throw it back to you</b> or{" "}
+              <b>throw it to the other partner</b>.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              After a duration, this game will end and you will continue with
+              the next stage of the task.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to choose an avatar and play the first social game.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+} else {
+  // Cyberball not enabled, only the Intentions Game
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Overview
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              You will now play one social game with other players, followed by some questionnaires.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Please press &#39;Next &gt;&#39; to choose an avatar and start the social game.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+}
+
+// Insert the instructions to select an avatar for use throughout the games
+timeline.push({
+  type: Configuration.studyName,
+  display: "selection",
+});
+
+// If the status display is enabled, check if the flags need to be updated to match the manipulations
+if (
+  Configuration.manipulations.enableStatusPhaseOne === true ||
+  Configuration.manipulations.enableStatusPhaseTwo === true ||
+  Configuration.manipulations.enableStatusPhaseThree === true ||
+  Configuration.manipulations.enableCyberball === true
+) {
+  // Enable the status display and the questionnaire globally
+  Flags.setValue("enableStatusDisplay", true);
+  Flags.setValue("enableQuestionnaireStatus", true);
+} else {
+  // Ensure all status display and questionnaires are disabled
+  Flags.setValue("enableStatusDisplay", false);
+  Flags.setValue("enableQuestionnaireStatus", false);
+}
+
+// Ensure flags are set for the ending questionnaires
+Flags.setValue(
+  "enableQuestionnaireScreentime",
+  Configuration.manipulations.enableEndingQuestionnaires
+);
+Flags.setValue(
+  "enableQuestionnaireDASS",
+  Configuration.manipulations.enableEndingQuestionnaires
+);
+
+// Insert the status questionnaire if enabled
+if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Social Life
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              We are now going to ask you some questions about your social life.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+
+  timeline.push({
+    type: Configuration.studyName,
+    display: "status",
+  });
+
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Social Life
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              Thank you. Given your answers we are now going to calculate your social standing in comparison to all other players.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+
+  // Show a matching sequence for the social partner
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loading",
+    loadingType: "social",
+    fetchData: false,
+  });
+
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loaded",
+    loadingType: "social",
+  });
+}
+
+// Introduce the status display if enabled
+if (Flags.isEnabled("enableStatusDisplay") === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    optionOneParticipant: 5,
+    optionOnePartner: 9,
+    optionTwoParticipant: 9,
+    optionTwoPartner: 9,
+    typeOne: "",
+    typeTwo: "",
+    display: "playerChoicePractice",
+    answer: "Option 1",
+    isPractice: true,
+    spotlight: {
+      enabled: true,
+      target: "status",
+      message:
+        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided.",
+    },
+  });
+}
+
+// Add Cyberball screen if enabled
+if (Configuration.manipulations.enableCyberball === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loading",
+    loadingType: "matchingCyberball",
+  });
+
+  timeline.push({
+    type: Configuration.studyName,
+    display: "loaded",
+    loadingType: "matchingCyberball",
+  });
+
+  timeline.push({
+    type: Configuration.studyName,
+    display: "cyberball",
+    isInclusive: Configuration.manipulations.cyberballIsInclusive,
+    partnerHighStatus: Configuration.manipulations.cyberballIsPartnerHighStatus,
+    probabilities: {
+      inclusion: 0.5,
+      exclusion: {
+        partnerA: 0.0,
+        partnerB: 0.1,
+      },
+    },
+  });
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Ball-Tossing Game
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              That concludes the ball-tossing game! You will now continue with
+              the next social game.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+}
+
+const intentionsInstructions = [
   // Overall instructions
   react2html(
     <Grommet>
@@ -193,259 +548,15 @@ let initialInstructions = [
           At the end of all the stages you will be shown a summary of how many
           points you and your partner accumulated during that phase.
         </Paragraph>
-        {(Configuration.manipulations.enableStatusPhaseOne === true ||
-          Configuration.manipulations.enableStatusPhaseTwo === true ||
-          Configuration.manipulations.enableStatusPhaseThree === true ||
-          Configuration.manipulations.enableCyberball === true ||
-          Configuration.manipulations.enableEndingQuestionnaires === true) && (
+        {Configuration.manipulations.enableEndingQuestionnaires === true && (
           <Paragraph margin="small" size="large" fill>
-            There will be some extra questionnaires before commencing the stages
-            and after completing all the stages.
+            There will be some extra questionnaires after completing all the stages.
           </Paragraph>
         )}
       </Box>
     </Grommet>
   ),
 ];
-
-const avatarInstructions = [
-  react2html(
-    <Grommet>
-      <Box style={{ maxWidth: "50%", margin: "auto" }}>
-        <Heading level={1} margin="small" fill>
-          Instructions
-        </Heading>
-        <Heading level={2} margin="small" fill>
-          Avatar
-        </Heading>
-        <Paragraph margin="small" size="large" fill>
-          Click &#39;Next &gt;&#39; to select an avatar to represent you for the
-          duration of the study.
-        </Paragraph>
-      </Box>
-    </Grommet>
-  ),
-];
-
-// Add controls instructions if using alternate input
-if (Configuration.manipulations.useButtonInput === true) {
-  initialInstructions = [
-    react2html(
-      <Grommet>
-        <Box style={{ maxWidth: "50%", margin: "auto" }}>
-          <Heading level={1} margin={"small"} fill>
-            Instructions
-          </Heading>
-          <Heading level={2} margin="small" fill>
-            Controls
-          </Heading>
-          <Paragraph size={"large"} margin={"small"} fill>
-            When interacting with the game interface, the currently selected
-            element will be highlighted with a gray outline. An example is shown
-            below:
-          </Paragraph>
-          <Box
-            width={"fit-content"}
-            pad={"xsmall"}
-            round
-            border={{ color: "lightgray", size: "large" }}
-            alignSelf={"center"}
-          >
-            <Paragraph margin={"small"} size={"large"} fill>
-              <b>Element</b>
-            </Paragraph>
-          </Box>
-          <Box alignSelf={"center"} margin={"none"}>
-            <Paragraph size={"large"} textAlign={"start"}>
-              <b>Button {BINDINGS.PREVIOUS}</b> selects the <b>previous</b>{" "}
-              element;
-              <br />
-              <b>Button {BINDINGS.NEXT}</b> selects the <b>next</b> element; and
-              <br />
-              <b>Button {BINDINGS.SELECT}</b> interacts with the{" "}
-              <b>currently selected</b> element.
-              <br />
-            </Paragraph>
-          </Box>
-          <Paragraph size={"large"} margin={"small"} fill>
-            When viewing instruction screens (e.g. this one),{" "}
-            <b>Button {BINDINGS.NEXT}</b> continues to the next page and{" "}
-            <b>Button {BINDINGS.PREVIOUS}</b> returns to the previous page.
-          </Paragraph>
-        </Box>
-      </Grommet>
-    ),
-    ...initialInstructions,
-  ];
-}
-
-// Insert the instructions into the timeline
-timeline.push({
-  type: "instructions",
-  pages: [...initialInstructions, ...avatarInstructions],
-  allow_keys: Configuration.manipulations.useButtonInput,
-  key_forward: BINDINGS.NEXT,
-  key_backward: BINDINGS.PREVIOUS,
-  show_page_number: true,
-  show_clickable_nav: true,
-});
-
-// Insert a 'selection' screen into the timeline
-timeline.push({
-  type: Configuration.studyName,
-  display: "selection",
-});
-
-// If the status display is enabled, check if the flags need to be updated to match the manipulations
-if (
-  Configuration.manipulations.enableStatusPhaseOne === true ||
-  Configuration.manipulations.enableStatusPhaseTwo === true ||
-  Configuration.manipulations.enableStatusPhaseThree === true ||
-  Configuration.manipulations.enableCyberball === true
-) {
-  // Enable the status display and the questionnaire globally
-  Flags.setValue("enableStatusDisplay", true);
-  Flags.setValue("enableQuestionnaireStatus", true);
-} else {
-  // Ensure all status display and questionnaires are disabled
-  Flags.setValue("enableStatusDisplay", false);
-  Flags.setValue("enableQuestionnaireStatus", false);
-}
-
-// Ensure flags are set for the ending questionnaires
-Flags.setValue(
-  "enableQuestionnaireScreentime",
-  Configuration.manipulations.enableEndingQuestionnaires
-);
-Flags.setValue(
-  "enableQuestionnaireDASS",
-  Configuration.manipulations.enableEndingQuestionnaires
-);
-
-// Insert the status questionnaire if enabled
-if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
-  timeline.push({
-    type: Configuration.studyName,
-    display: "status",
-  });
-}
-
-// Show a matching screen for the social partner
-if (Flags.isEnabled("enableStatusDisplay") === true) {
-  timeline.push({
-    type: Configuration.studyName,
-    display: "loading",
-    loadingType: "social",
-    fetchData: false,
-  });
-}
-
-// Introduce the status display if enabled
-if (Flags.isEnabled("enableStatusDisplay") === true) {
-  timeline.push({
-    type: Configuration.studyName,
-    optionOneParticipant: 5,
-    optionOnePartner: 9,
-    optionTwoParticipant: 9,
-    optionTwoPartner: 9,
-    typeOne: "",
-    typeTwo: "",
-    display: "playerChoicePractice",
-    answer: "Option 1",
-    isPractice: true,
-    spotlight: {
-      enabled: true,
-      target: "status",
-      message:
-        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided.",
-    },
-  });
-}
-
-// Add Cyberball screen if enabled
-if (Configuration.manipulations.enableCyberball === true) {
-  timeline.push({
-    type: "instructions",
-    pages: [
-      react2html(
-        <Grommet>
-          <Box style={{ maxWidth: "50%", margin: "auto" }}>
-            <Heading level={1} margin="small" fill>
-              Instructions
-            </Heading>
-            <Heading level={2} margin="small" fill>
-              Ball-Tossing Game
-            </Heading>
-            <Paragraph margin="small" size="large" fill>
-              You will now play a short ball-tossing game with two partners.
-              When you have the ball, you can choose to{" "}
-              <b>throw it to one of your partners</b>.
-            </Paragraph>
-            <Paragraph margin="small" size="large" fill>
-              Click on the partner you want to throw the ball to. If you throw
-              it to your partner, they can either <b>throw it back to you</b> or{" "}
-              <b>throw it to the other partner</b>.
-            </Paragraph>
-            <Paragraph margin="small" size="large" fill>
-              After a duration, this game will end and you will continue with
-              the next stage of the task.
-            </Paragraph>
-            <Paragraph margin="small" size="large" fill>
-              Press &#39;Next &gt;&#39; to continue and play the game.
-            </Paragraph>
-          </Box>
-        </Grommet>
-      ),
-    ],
-    allow_keys: Configuration.manipulations.useButtonInput,
-    key_forward: BINDINGS.NEXT,
-    key_backward: BINDINGS.PREVIOUS,
-    show_page_number: true,
-    show_clickable_nav: true,
-  });
-  timeline.push({
-    type: Configuration.studyName,
-    display: "cyberball",
-    isInclusive: Configuration.manipulations.cyberballIsInclusive,
-    partnerHighStatus: Configuration.manipulations.cyberballIsPartnerHighStatus,
-    probabilities: {
-      inclusion: 0.5,
-      exclusion: {
-        partnerA: 0.0,
-        partnerB: 0.1,
-      },
-    },
-  });
-  timeline.push({
-    type: "instructions",
-    pages: [
-      react2html(
-        <Grommet>
-          <Box style={{ maxWidth: "50%", margin: "auto" }}>
-            <Heading level={1} margin="small" fill>
-              Instructions
-            </Heading>
-            <Heading level={2} margin="small" fill>
-              Ball-Tossing Game
-            </Heading>
-            <Paragraph margin="small" size="large" fill>
-              That concludes the ball-tossing game! You will now continue with
-              the next stage of the task.
-            </Paragraph>
-            <Paragraph margin="small" size="large" fill>
-              Press &#39;Next &gt;&#39; to continue.
-            </Paragraph>
-          </Box>
-        </Grommet>
-      ),
-    ],
-    allow_keys: Configuration.manipulations.useButtonInput,
-    key_forward: BINDINGS.NEXT,
-    key_backward: BINDINGS.PREVIOUS,
-    show_page_number: true,
-    show_clickable_nav: true,
-  });
-}
 
 const phaseOneInstructions = [
   react2html(
@@ -615,7 +726,7 @@ timeline.push({
   timeline: [
     {
       type: "instructions",
-      pages: [...initialInstructions, ...phaseOneInstructions],
+      pages: [...intentionsInstructions, ...phaseOneInstructions],
       allow_keys: Configuration.manipulations.useButtonInput,
       key_forward: BINDINGS.NEXT,
       key_backward: BINDINGS.PREVIOUS,
@@ -668,7 +779,7 @@ timeline.push({
   timeline: [
     {
       type: "instructions",
-      pages: [...initialInstructions, ...phaseOneInstructions],
+      pages: [...intentionsInstructions, ...phaseOneInstructions],
       allow_keys: Configuration.manipulations.useButtonInput,
       key_forward: BINDINGS.NEXT,
       key_backward: BINDINGS.PREVIOUS,
@@ -722,13 +833,14 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "loading",
-  loadingType: "matching",
+  loadingType: "matchingIntentions",
   fetchData: false,
 });
 
 timeline.push({
   type: Configuration.studyName,
-  display: "matched",
+  display: "loaded",
+  loadingType: "matchingIntentions",
 });
 
 // Set and store the data collection
@@ -1087,13 +1199,14 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "loading",
-        loadingType: "matching",
+        loadingType: "matchingIntentions",
         fetchData: true,
       });
 
       timeline.push({
         type: Configuration.studyName,
-        display: "matched",
+        display: "loaded",
+        loadingType: "matchingIntentions",
       });
 
       break;
@@ -1269,13 +1382,14 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "loading",
-        loadingType: "matching",
+        loadingType: "matchingIntentions",
         fetchData: false,
       });
 
       timeline.push({
         type: Configuration.studyName,
-        display: "matched",
+        display: "loaded",
+        loadingType: "matchingIntentions",
       });
 
       break;

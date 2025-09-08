@@ -94,33 +94,35 @@ const Status: FC<Props.Components.Status> = (
         </Box>
 
         {/* Partner avatar and arrow */}
-        <Box
-          align="center"
-          style={{
-            position: "absolute",
-            left: partnerPosition,
-            top: 0,
-            transform: "translateX(-50%)",
-            zIndex: 2,
-          }}
-        >
-          <Avatar
-            size={40}
-            name={partnerAvatarName}
-            variant={Configuration.avatars.variant as AvatarStyles}
-            colors={Configuration.avatars.colours}
-          />
-          {/* Downward arrow */}
+        {!props.hidePartner && (
           <Box
-            as="svg"
-            width="12px"
-            height="10px"
-            style={{ display: "block" }}
-            margin={{ top: "xxsmall" }}
+            align="center"
+            style={{
+              position: "absolute",
+              left: partnerPosition,
+              top: 0,
+              transform: "translateX(-50%)",
+              zIndex: 2,
+            }}
           >
-            <polygon points="6,10 0,0 12,0" fill="#89C2D9" />
+            <Avatar
+              size={40}
+              name={partnerAvatarName}
+              variant={Configuration.avatars.variant as AvatarStyles}
+              colors={Configuration.avatars.colours}
+            />
+            {/* Downward arrow */}
+            <Box
+              as="svg"
+              width="12px"
+              height="10px"
+              style={{ display: "block" }}
+              margin={{ top: "xxsmall" }}
+            >
+              <polygon points="6,10 0,0 12,0" fill="#89C2D9" />
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
 
       {/* Solid color bar with rounded corners */}

@@ -104,18 +104,32 @@ class ScreenPropFactory implements Factory {
         break;
       }
 
-      // Matched screen
-      case "matched":
-        returned.duration = 2000;
+      // Loaded screen
+      case "loaded":
+        if (this.trial.loadingType === "social") {
+          // Indefinite duration for "social" loading completion
+          returned.duration = 0;
 
-        // Set the timeout callback function
-        returned.callback = this.handler.callback.bind(this.handler);
+          // Setup the props
+          returned.props = {
+            trial: this.trial.trial,
+            display: this.trial.display,
+            loadingType: this.trial.loadingType,
+            handler: this.handler.callback.bind(this.handler),
+          };
+        } else {
+          returned.duration = 2000;
 
-        // Setup the props
-        returned.props = {
-          trial: this.trial.trial,
-          display: this.trial.display,
-        };
+          // Set the timeout callback function
+          returned.callback = this.handler.callback.bind(this.handler);
+
+          // Setup the props
+          returned.props = {
+            trial: this.trial.trial,
+            display: this.trial.display,
+            loadingType: this.trial.loadingType,
+          };
+        }
         break;
 
       // Loading screen
@@ -124,7 +138,7 @@ class ScreenPropFactory implements Factory {
           // 1-4 second timeout for "social" state
           returned.duration = 1000 + (1 + Math.random() * 3) * 1000;
         } else {
-          // 10-15 second timeout for "matching" state
+          // 10-15 second timeout for "matchingIntentions" and "matchingCyberball" state
           returned.duration = 10000 + (1 + Math.random() * 5) * 1000;
         }
 
