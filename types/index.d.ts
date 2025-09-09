@@ -217,6 +217,7 @@ declare type ModelResponse = {
 // Cyberball game state
 declare type CyberballGameState = {
   ballOwner: "participant" | "partnerA" | "partnerB";
+  canToss: boolean;
   tossCount: number;
   participantTossCount: number;
   participantCatchCount: number;

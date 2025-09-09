@@ -38,6 +38,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   // Game state
   const gameState = useRef<CyberballGameState>({
     ballOwner: "participant" as "participant" | "partnerA" | "partnerB",
+    canToss: true,
     tossCount: 0,
     participantTossCount: 0,
     participantCatchCount: 0,
@@ -107,6 +108,9 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       gameState.current.participantCatchCount = gameState.current.participantCatchCount + 1;
     }
 
+    // Update `canToss` state
+    gameState.current.canToss = receiver === "participant";
+
     // Update animation status
     animationState.current.isAnimating = false;
 
@@ -172,6 +176,9 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
    * @param target Target partner
    */
   const handleParticipantToss = (target: "partnerA" | "partnerB") => {
+    // Prevent multiple clicks
+    if (animationState.current.isAnimating || !gameState.current.canToss) return;
+
     // Animate ball
     animateBall(Configuration.cyberball.ballPositions.participant, Configuration.cyberball.ballPositions[target], () => {
       onBallReceived("participant", target);
