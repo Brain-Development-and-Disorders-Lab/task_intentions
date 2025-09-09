@@ -107,6 +107,9 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       gameState.current.participantCatchCount = gameState.current.participantCatchCount + 1;
     }
 
+    // Update animation status
+    animationState.current.isAnimating = false;
+
     // Force re-render to update game state
     forceUpdate();
 
