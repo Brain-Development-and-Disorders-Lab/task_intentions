@@ -100,6 +100,9 @@ export const Configuration = {
     partnerChoices: {},
     signalTimestamps: [],
     experimentID: "",
+    participantDefaultStatus: 0,
+    partnerHighStatus: 0,
+    partnerLowStatus: 0,
   },
 
   // Set the logging level
@@ -109,10 +112,10 @@ export const Configuration = {
   // Avatar configuration details, including colours and names
   avatars: {
     names: {
-      participant: ["a", "b", "c", "d", "e", "f"],
-      partner: ["a", "b", "c"],
+      participant: ["A", "B", "C", "D", "E", "F"],
+      partner: ["G", "H", "I"],
     },
-    colours: ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"],
+    colours: ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90", "#4A32A4"],
     variant: "beam",
   },
 
@@ -153,8 +156,9 @@ export const Configuration = {
 
   // Status display configuration
   statusDisplay: {
-    low: 55,
-    high: 80,
-    variance: 2,
+    participantDefault: 50,
+    partnerLow: 20,
+    partnerHigh: 80,
+    variance: 5,
   },
 };

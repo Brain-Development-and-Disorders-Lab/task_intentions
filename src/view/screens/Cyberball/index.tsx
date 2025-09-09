@@ -32,6 +32,9 @@ import { Configuration } from "src/configuration";
 const Cyberball: FC<Props.Screens.Cyberball> = (
   props: Props.Screens.Cyberball
 ): ReactElement => {
+  // Access the experiment instance
+  const experiment = window.Experiment;
+
   // Game state
   const gameState = useRef<CyberballGameState>({
     ballOwner: "participant" as "participant" | "partnerA" | "partnerB",
@@ -49,6 +52,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     ballY: Configuration.cyberball.ballPositions.participant.y,
   });
 
+  // Generate the strings to determine the participant and partner statuses
+  const participantStatus = experiment.getState().get("participantDefaultStatus");
+  const partnerStatus = props.partnerHighStatus ? experiment.getState().get("partnerHighStatus") : experiment.getState().get("partnerLowStatus");
+
   // Force re-render mechanism
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -59,7 +66,6 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   const participantAvatarIndex = Configuration.state.participantAvatar;
 
   // Partner IDs (generated once after the loading screen)
-  const experiment = window.Experiment;
   const partnerAID = experiment.getState().get("cyberballPartnerAID");
   const partnerBID = experiment.getState().get("cyberballPartnerBID");
 
@@ -242,7 +248,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
               align="center"
               style={{
                 position: "absolute",
-                left: props.partnerHighStatus ? "60%" : "80%",
+                left: `${participantStatus}%`,
                 top: 0,
                 transform: "translateX(-50%)",
                 zIndex: 2,
@@ -275,7 +281,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
               align="center"
               style={{
                 position: "absolute",
-                left: props.partnerHighStatus ? "80%" : "60%",
+                left: `${partnerStatus}%`,
                 top: 0,
                 transform: "translateX(-50%)",
                 zIndex: 2,
