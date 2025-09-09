@@ -115,7 +115,28 @@ export const Configuration = {
       participant: ["A", "B", "C", "D", "E", "F"],
       partner: ["G", "H", "I"],
     },
-    colours: ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90", "#4A32A4"],
+    colours: [
+      "#8B0000", // Deep Red
+      "#FF6B35", // Bright Orange
+      "#FFD700", // Golden Yellow
+      "#228B22", // Forest Green
+      "#008080", // Teal
+      "#87CEEB", // Sky Blue
+      "#000080", // Navy Blue
+      "#7851A9", // Royal Purple
+      "#FF00FF", // Magenta
+      "#FF69B4", // Hot Pink
+      "#800000", // Maroon
+      "#CC5500", // Burnt Orange
+      "#808000", // Olive Green
+      "#2E8B57", // Sea Green
+      "#40E0D0", // Turquoise
+      "#1E90FF", // Dodger Blue
+      "#4B0082", // Indigo
+      "#EE82EE", // Violet
+      "#DC143C", // Crimson
+      "#2F4F4F", // Dark Slate Gray
+    ],
     variant: "beam",
   },
 
@@ -157,8 +178,9 @@ export const Configuration = {
   // Status display configuration
   statusDisplay: {
     participantDefault: 50,
-    partnerLow: 20,
-    partnerHigh: 80,
-    variance: 5,
+    participantRange: 10,
+    partnerLow: 17.5,
+    partnerHigh: 82.5,
+    partnerRange: 15,
   },
 };
