@@ -56,7 +56,7 @@ const Status: FC<Props.Components.Status> = (
       {/* Avatars and arrows above the bar */}
       <Box
         width="100%"
-        height="48px"
+        height="62px"
         style={{ position: "relative" }}
         margin={{ bottom: "xsmall" }}
       >
@@ -71,6 +71,7 @@ const Status: FC<Props.Components.Status> = (
             zIndex: 2,
           }}
         >
+          <Text size="xsmall" textAlign="center" weight="bold">You</Text>
           <Avatar
             size={40}
             name={participantAvatarName}
@@ -101,6 +102,7 @@ const Status: FC<Props.Components.Status> = (
               zIndex: 2,
             }}
           >
+            <Text size="xsmall" textAlign="center" weight="bold">Partner</Text>
             <Avatar
               size={40}
               name={partnerAvatarName}

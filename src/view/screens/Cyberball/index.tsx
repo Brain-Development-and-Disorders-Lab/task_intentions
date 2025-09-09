@@ -239,7 +239,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
           {/* Avatars and arrows above the bar */}
           <Box
             width="100%"
-            height="32px"
+            height="48px"
             style={{ position: "relative" }}
             margin={{ bottom: "xxsmall" }}
           >
@@ -254,6 +254,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
                 zIndex: 2,
               }}
             >
+              <Text size="xsmall" textAlign="center" weight="bold">You</Text>
               <Avatar
                 size={24}
                 name={
@@ -279,6 +280,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
             {/* Partner A avatar and arrow */}
             <Box
               align="center"
+              width="100px" // Required to fit the avatar label
               style={{
                 position: "absolute",
                 left: `${partnerStatus}%`,
@@ -287,6 +289,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
                 zIndex: 2,
               }}
             >
+              <Text size="xsmall" textAlign="center" weight="bold">Partner A</Text>
               <Avatar
                 size={24}
                 name={partnerAID}
