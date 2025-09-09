@@ -45,10 +45,6 @@ const Status: FC<Props.Components.Status> = (
           experiment.getState().get("partnerAvatar")
         ];
 
-  // Calculate positions as percentages (0-100)
-  const participantPosition = `${participantStatus}%`;
-  const partnerPosition = `${partnerStatus}%`;
-
   return (
     <Box
       align="center"
@@ -69,7 +65,7 @@ const Status: FC<Props.Components.Status> = (
           align="center"
           style={{
             position: "absolute",
-            left: participantPosition,
+            left: `${participantStatus}%`,
             top: 0,
             transform: "translateX(-50%)",
             zIndex: 2,
@@ -99,7 +95,7 @@ const Status: FC<Props.Components.Status> = (
             align="center"
             style={{
               position: "absolute",
-              left: partnerPosition,
+              left: `${partnerStatus}%`,
               top: 0,
               transform: "translateX(-50%)",
               zIndex: 2,

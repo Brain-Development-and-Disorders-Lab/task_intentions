@@ -37,7 +37,7 @@ import Default from "../data/default.csv";
 import Test from "../data/test.csv";
 
 // Utility functions
-import { initializeLocalStorage, react2html } from "./util";
+import { generateStatuses, initializeLocalStorage, react2html } from "./util";
 import { shuffle } from "d3-array";
 
 // Custom input bindings
@@ -95,6 +95,15 @@ document.addEventListener("keydown", event => {
 const experimentID = `${Configuration.studyName}-${uuidv4()}`;
 experiment.getState().set("experimentID", experimentID);
 initializeLocalStorage(experimentID);
+
+// Generate status values for participant and partner during actual trials
+const { partnerStatus: partnerLowStatus, participantStatus: participantDefaultStatus } = generateStatuses(false);
+const { partnerStatus: partnerHighStatus } = generateStatuses(true);
+
+// Store status values in the experiment state
+experiment.getState().set("participantDefaultStatus", participantDefaultStatus);
+experiment.getState().set("partnerLowStatus", partnerLowStatus);
+experiment.getState().set("partnerHighStatus", partnerHighStatus);
 
 // Timeline setup
 const timeline: Timeline = [];
@@ -414,7 +423,7 @@ if (Flags.isEnabled("enableStatusDisplay") === true) {
       enabled: true,
       target: "status",
       message:
-        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided.",
+        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided. This example shows your partner with a low standing.",
     },
   });
 }

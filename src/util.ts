@@ -259,15 +259,16 @@ export const generateStatuses = (partnerHighStatus: boolean): { participantStatu
   const experiment = window.Experiment;
 
   // Generate the participant status
-  const participantStatus = Configuration.statusDisplay.participantDefault + experiment.random() > 0.5 ? Configuration.statusDisplay.variance : -Configuration.statusDisplay.variance;
+  const participantVariance = experiment.random() * Configuration.statusDisplay.participantRange * experiment.random() > 0.5 ? 1 : -1;
+  const participantStatus = Configuration.statusDisplay.participantDefault + participantVariance;
 
   // Generate the partner status
-  let partnerStatus = 0;
-  if (partnerHighStatus) {
-    partnerStatus = Configuration.statusDisplay.partnerHigh + experiment.random() > 0.5 ? Configuration.statusDisplay.variance : -Configuration.statusDisplay.variance;
-  } else {
-    partnerStatus = Configuration.statusDisplay.partnerLow + experiment.random() > 0.5 ? Configuration.statusDisplay.variance : -Configuration.statusDisplay.variance;
-  }
+  let partnerStatus = partnerHighStatus ? Configuration.statusDisplay.partnerHigh : Configuration.statusDisplay.partnerLow;
+  const partnerVariance = experiment.random() * Configuration.statusDisplay.partnerRange * experiment.random() > 0.5 ? 1 : -1;
+  partnerStatus += partnerVariance;
+
+  // Log the statuses
+  consola.info(`Participant status: ${participantStatus}, Partner status (${partnerHighStatus ? "high" : "low"}): ${partnerStatus}`);
 
   // Return the statuses
   return { participantStatus, partnerStatus };

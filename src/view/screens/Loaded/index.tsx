@@ -109,7 +109,7 @@ const Loaded: FC<Props.Screens.Loaded> = (props: Props.Screens.Loaded): ReactEle
         <Layer plain full>
           <Box justify="center" align="center" gap="small" responsive fill>
             <Status
-              participantStatus={70}
+              participantStatus={experiment.getState().get("participantDefaultStatus")}
               partnerStatus={0}
               hidePartner
             />
