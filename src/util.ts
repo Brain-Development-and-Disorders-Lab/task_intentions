@@ -248,3 +248,27 @@ export const generatePartnerID = (): string => {
     chars.charAt(Math.floor(Math.random() * chars.length))
   ).join("");
 };
+
+/**
+ * Generate the participant and partner statuses
+ * @param partnerHighStatus whether the partner is in high status
+ * @returns
+ */
+export const generateStatuses = (partnerHighStatus: boolean): { participantStatus: number, partnerStatus: number } => {
+  // Access `experiment` instance to generate random numbers
+  const experiment = window.Experiment;
+
+  // Generate the participant status
+  const participantStatus = Configuration.statusDisplay.participantDefault + experiment.random() > 0.5 ? Configuration.statusDisplay.variance : -Configuration.statusDisplay.variance;
+
+  // Generate the partner status
+  let partnerStatus = 0;
+  if (partnerHighStatus) {
+    partnerStatus = Configuration.statusDisplay.partnerHigh + experiment.random() > 0.5 ? Configuration.statusDisplay.variance : -Configuration.statusDisplay.variance;
+  } else {
+    partnerStatus = Configuration.statusDisplay.partnerLow + experiment.random() > 0.5 ? Configuration.statusDisplay.variance : -Configuration.statusDisplay.variance;
+  }
+
+  // Return the statuses
+  return { participantStatus, partnerStatus };
+};
