@@ -529,7 +529,7 @@ const intentionsInstructions = [
           number of points you each managed to accumulate while playing. If you
           earn over 1000 points in total across all three stages, you will
           automatically be placed into a lottery for your chance to win an extra
-          $20.
+          £10.
         </Paragraph>
       </Box>
     </Grommet>
@@ -580,6 +580,9 @@ const intentionsInstructions = [
             There will be some extra questionnaires after completing all the stages.
           </Paragraph>
         )}
+        <Paragraph margin="small" size="large" fill>
+          Press &#39;Next &gt;&#39; to continue to the instructions for the first stage.
+        </Paragraph>
       </Box>
     </Grommet>
   ),
@@ -637,7 +640,7 @@ const phaseOnePracticeInstructions = [
 // Pre-'playerChoice' instructions
 timeline.push({
   type: "instructions",
-  pages: [...phaseOneInstructions, ...phaseOnePracticeInstructions],
+  pages: [...intentionsInstructions, ...phaseOneInstructions, ...phaseOnePracticeInstructions],
   allow_keys: Configuration.manipulations.useButtonInput,
   key_forward: BINDINGS.NEXT,
   key_backward: BINDINGS.PREVIOUS,
@@ -991,15 +994,6 @@ for (let i = 0; i < dataCollection.length; i++) {
                   divide the points between the two of you each round.
                 </b>
               </Paragraph>
-              <Paragraph margin="small" size="large" fill>
-                <b>
-                  The number of times you correctly guess your partner&#39;s
-                  choices will be multiplied by 10 and added to your total
-                  points
-                </b>
-                . This will contribute to your chance to win a bonus at the end
-                of the game.
-              </Paragraph>
             </Box>
           </Grommet>
         ),
@@ -1012,6 +1006,15 @@ for (let i = 0; i < dataCollection.length; i++) {
               <Heading level={2} margin="small" fill>
                 Stage Two
               </Heading>
+              <Paragraph margin="small" size="large" fill>
+                <b>
+                  The number of times you correctly guess your partner&#39;s
+                  choices will be multiplied by 10 and added to your total
+                  points
+                </b>
+                . This will contribute to your chance to win a bonus at the end
+                of the game.
+              </Paragraph>
               <Paragraph margin="small" size="large" fill>
                 Let&#39;s get used to how stage two looks with some practice
                 trials.
