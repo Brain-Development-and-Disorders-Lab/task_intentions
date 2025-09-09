@@ -191,9 +191,9 @@ const Trial: FC<Props.Screens.Trial> = (
     }
   }
 
-  // Calculate status values for participant and partner during actual trials
-  let participantStatus = Configuration.statusDisplay.low;
-  let partnerStatus = Configuration.statusDisplay.high;
+  // Initialize participant and partner statuses
+  const participantStatus = experiment.getState().get("participantDefaultStatus"); // Default for all trials
+  let partnerStatus = experiment.getState().get("partnerLowStatus");
   if (Flags.isEnabled("enableStatusDisplay") && props.isPractice === false) {
     // If status display is enabled, interpret and apply the manipulations
     if (
@@ -201,37 +201,19 @@ const Trial: FC<Props.Screens.Trial> = (
       Configuration.manipulations.enableStatusPhaseOne
     ) {
       // Phase One: If `isHighStatusPhaseOne` is true, then the participant is low status and the partner is high status
-      participantStatus = Configuration.manipulations
-        .isPartnerHighStatusPhaseOne
-        ? Configuration.statusDisplay.low
-        : Configuration.statusDisplay.high;
-      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseOne
-        ? Configuration.statusDisplay.high
-        : Configuration.statusDisplay.low;
+      partnerStatus = experiment.getState().get("partnerHighStatus");
     } else if (
       props.display === "playerGuess" &&
       Configuration.manipulations.enableStatusPhaseTwo
     ) {
       // Phase Two: If `isHighStatusPhaseTwo` is true, then the participant is low status and the partner is high status
-      participantStatus = Configuration.manipulations
-        .isPartnerHighStatusPhaseTwo
-        ? Configuration.statusDisplay.low
-        : Configuration.statusDisplay.high;
-      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseTwo
-        ? Configuration.statusDisplay.high
-        : Configuration.statusDisplay.low;
+      partnerStatus = experiment.getState().get("partnerHighStatus");
     } else if (
       props.display === "playerChoice2" &&
       Configuration.manipulations.enableStatusPhaseThree
     ) {
       // Phase Three: If `isHighStatusPhaseThree` is true, then the participant is low status and the partner is high status
-      participantStatus = Configuration.manipulations
-        .isPartnerHighStatusPhaseThree
-        ? Configuration.statusDisplay.low
-        : Configuration.statusDisplay.high;
-      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseThree
-        ? Configuration.statusDisplay.high
-        : Configuration.statusDisplay.low;
+      partnerStatus = experiment.getState().get("partnerHighStatus");
     }
   }
 

@@ -37,7 +37,7 @@ import Default from "../data/default.csv";
 import Test from "../data/test.csv";
 
 // Utility functions
-import { initializeLocalStorage, react2html } from "./util";
+import { generateStatuses, initializeLocalStorage, react2html } from "./util";
 import { shuffle } from "d3-array";
 
 // Custom input bindings
@@ -95,6 +95,15 @@ document.addEventListener("keydown", event => {
 const experimentID = `${Configuration.studyName}-${uuidv4()}`;
 experiment.getState().set("experimentID", experimentID);
 initializeLocalStorage(experimentID);
+
+// Generate status values for participant and partner during actual trials
+const { partnerStatus: partnerLowStatus, participantStatus: participantDefaultStatus } = generateStatuses(false);
+const { partnerStatus: partnerHighStatus } = generateStatuses(true);
+
+// Store status values in the experiment state
+experiment.getState().set("participantDefaultStatus", participantDefaultStatus);
+experiment.getState().set("partnerLowStatus", partnerLowStatus);
+experiment.getState().set("partnerHighStatus", partnerHighStatus);
 
 // Timeline setup
 const timeline: Timeline = [];
@@ -237,8 +246,26 @@ if (Configuration.manipulations.enableCyberball === true) {
               <b>throw it to the other partner</b>.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Ball-Tossing Game
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
               After a duration, this game will end and you will continue with
               the next stage of the task.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              In the game, you will be able to see one of your partner&#39;s social standing in relation to your own.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               Press &#39;Next &gt;&#39; to choose an avatar and play the first social game.
@@ -307,13 +334,21 @@ if (
   Flags.setValue("enableQuestionnaireStatus", false);
 }
 
-// Ensure flags are set for the ending questionnaires
+// Ensure flags are set for the other questionnaires
+Flags.setValue(
+  "enableQuestionnaireStatus",
+  Configuration.manipulations.enableSocialStatusQuestionnaire
+);
 Flags.setValue(
   "enableQuestionnaireScreentime",
   Configuration.manipulations.enableEndingQuestionnaires
 );
 Flags.setValue(
   "enableQuestionnaireDASS",
+  Configuration.manipulations.enableEndingQuestionnaires
+);
+Flags.setValue(
+  "enableQuestionnaireDemographics",
   Configuration.manipulations.enableEndingQuestionnaires
 );
 
@@ -414,7 +449,7 @@ if (Flags.isEnabled("enableStatusDisplay") === true) {
       enabled: true,
       target: "status",
       message:
-        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided.",
+        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided. This example shows your partner with a lower standing.",
     },
   });
 }
@@ -502,7 +537,7 @@ const intentionsInstructions = [
           number of points you each managed to accumulate while playing. If you
           earn over 1000 points in total across all three stages, you will
           automatically be placed into a lottery for your chance to win an extra
-          $20.
+          £10.
         </Paragraph>
       </Box>
     </Grommet>
@@ -553,6 +588,9 @@ const intentionsInstructions = [
             There will be some extra questionnaires after completing all the stages.
           </Paragraph>
         )}
+        <Paragraph margin="small" size="large" fill>
+          Press &#39;Next &gt;&#39; to continue to the instructions for the first stage.
+        </Paragraph>
       </Box>
     </Grommet>
   ),
@@ -610,7 +648,7 @@ const phaseOnePracticeInstructions = [
 // Pre-'playerChoice' instructions
 timeline.push({
   type: "instructions",
-  pages: [...phaseOneInstructions, ...phaseOnePracticeInstructions],
+  pages: [...intentionsInstructions, ...phaseOneInstructions, ...phaseOnePracticeInstructions],
   allow_keys: Configuration.manipulations.useButtonInput,
   key_forward: BINDINGS.NEXT,
   key_backward: BINDINGS.PREVIOUS,
@@ -798,6 +836,39 @@ timeline.push({
   },
 });
 
+// Insert instructions if the participant will be shown their status
+if (Configuration.manipulations.enableStatusPhaseOne === true) {
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Stage One
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              In the next phase, you will be able to see your partner&#39;s social
+              standing in comparison to your own.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+}
+
 // Insert instructions to let the participant know they will
 // be matched with a partner
 timeline.push({
@@ -931,15 +1002,6 @@ for (let i = 0; i < dataCollection.length; i++) {
                   divide the points between the two of you each round.
                 </b>
               </Paragraph>
-              <Paragraph margin="small" size="large" fill>
-                <b>
-                  The number of times you correctly guess your partner&#39;s
-                  choices will be multiplied by 10 and added to your total
-                  points
-                </b>
-                . This will contribute to your chance to win a bonus at the end
-                of the game.
-              </Paragraph>
             </Box>
           </Grommet>
         ),
@@ -952,6 +1014,15 @@ for (let i = 0; i < dataCollection.length; i++) {
               <Heading level={2} margin="small" fill>
                 Stage Two
               </Heading>
+              <Paragraph margin="small" size="large" fill>
+                <b>
+                  The number of times you correctly guess your partner&#39;s
+                  choices will be multiplied by 10 and added to your total
+                  points
+                </b>
+                . This will contribute to your chance to win a bonus at the end
+                of the game.
+              </Paragraph>
               <Paragraph margin="small" size="large" fill>
                 Let&#39;s get used to how stage two looks with some practice
                 trials.
@@ -1164,6 +1235,39 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
       });
 
+      // Insert instructions if the participant will be shown their status
+      if (Configuration.manipulations.enableStatusPhaseTwo === true) {
+        timeline.push({
+          type: "instructions",
+          pages: [
+            react2html(
+              <Grommet>
+                <Box style={{ maxWidth: "50%", margin: "auto" }}>
+                  <Heading level={1} margin="small" fill>
+                    Instructions
+                  </Heading>
+                  <Heading level={2} margin="small" fill>
+                    Stage Two
+                  </Heading>
+                  <Paragraph margin="small" size="large" fill>
+                    In the next phase, you will be able to see your partner&#39;s social
+                    standing in comparison to your own.
+                  </Paragraph>
+                  <Paragraph margin="small" size="large" fill>
+                    Press &#39;Next &gt;&#39; to continue.
+                  </Paragraph>
+                </Box>
+              </Grommet>
+            ),
+          ],
+          allow_keys: Configuration.manipulations.useButtonInput,
+          key_forward: BINDINGS.NEXT,
+          key_backward: BINDINGS.PREVIOUS,
+          show_page_number: true,
+          show_clickable_nav: true,
+        });
+      }
+
       // Insert instructions to let the participant know they will
       // be matched with a partner
       timeline.push({
@@ -1346,6 +1450,39 @@ for (let i = 0; i < dataCollection.length; i++) {
           }
         },
       });
+
+      // Insert instructions if the participant will be shown their status
+      if (Configuration.manipulations.enableStatusPhaseThree === true) {
+        timeline.push({
+          type: "instructions",
+          pages: [
+            react2html(
+              <Grommet>
+                <Box style={{ maxWidth: "50%", margin: "auto" }}>
+                  <Heading level={1} margin="small" fill>
+                    Instructions
+                  </Heading>
+                  <Heading level={2} margin="small" fill>
+                    Stage Three
+                  </Heading>
+                  <Paragraph margin="small" size="large" fill>
+                    In the next phase, you will be able to see your partner&#39;s social
+                    standing in comparison to your own.
+                  </Paragraph>
+                  <Paragraph margin="small" size="large" fill>
+                    Press &#39;Next &gt;&#39; to continue.
+                  </Paragraph>
+                </Box>
+              </Grommet>
+            ),
+          ],
+          allow_keys: Configuration.manipulations.useButtonInput,
+          key_forward: BINDINGS.NEXT,
+          key_backward: BINDINGS.PREVIOUS,
+          show_page_number: true,
+          show_clickable_nav: true,
+        });
+      }
 
       timeline.push({
         type: "instructions",

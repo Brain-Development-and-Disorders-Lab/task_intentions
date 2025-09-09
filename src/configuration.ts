@@ -14,7 +14,6 @@ export const Configuration = {
   // General information
   name: "Intentions game",
   studyName: "intentions-game",
-  locale: "en-AU",
 
   // Error screen configuration
   allowParticipantContact: true,
@@ -28,6 +27,7 @@ export const Configuration = {
     useOfflinePackages: true,
 
     // Questionnaire features
+    enableSocialStatusQuestionnaire: false,
     enableEndingQuestionnaires: false,
     useAdultQuestionnaires: false,
 
@@ -100,6 +100,9 @@ export const Configuration = {
     partnerChoices: {},
     signalTimestamps: [],
     experimentID: "",
+    participantDefaultStatus: 0,
+    partnerHighStatus: 0,
+    partnerLowStatus: 0,
   },
 
   // Set the logging level
@@ -109,10 +112,31 @@ export const Configuration = {
   // Avatar configuration details, including colours and names
   avatars: {
     names: {
-      participant: ["a", "b", "c", "d", "e", "f"],
-      partner: ["a", "b", "c"],
+      participant: ["A", "B", "C", "D", "E", "F"],
+      partner: ["G", "H", "I"],
     },
-    colours: ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"],
+    colours: [
+      "#8B0000", // Deep Red
+      "#FF6B35", // Bright Orange
+      "#FFD700", // Golden Yellow
+      "#228B22", // Forest Green
+      "#008080", // Teal
+      "#87CEEB", // Sky Blue
+      "#000080", // Navy Blue
+      "#7851A9", // Royal Purple
+      "#FF00FF", // Magenta
+      "#FF69B4", // Hot Pink
+      "#800000", // Maroon
+      "#CC5500", // Burnt Orange
+      "#808000", // Olive Green
+      "#2E8B57", // Sea Green
+      "#40E0D0", // Turquoise
+      "#1E90FF", // Dodger Blue
+      "#4B0082", // Indigo
+      "#EE82EE", // Violet
+      "#DC143C", // Crimson
+      "#2F4F4F", // Dark Slate Gray
+    ],
     variant: "beam",
   },
 
@@ -153,8 +177,10 @@ export const Configuration = {
 
   // Status display configuration
   statusDisplay: {
-    low: 55,
-    high: 80,
-    variance: 2,
+    participantDefault: 50,
+    participantRange: 10,
+    partnerLow: 17.5,
+    partnerHigh: 82.5,
+    partnerRange: 15,
   },
 };

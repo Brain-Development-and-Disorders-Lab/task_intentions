@@ -63,7 +63,7 @@ test("loads and displays Loading screen with social type", async () => {
 
   await waitFor(() => {
     expect(
-      screen.getByText("Generating relative social status...")
+      screen.getByText("Generating relative social standing...")
     ).toBeInTheDocument();
   });
 });

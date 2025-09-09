@@ -45,7 +45,7 @@ const Loading: FC<Props.Screens.Loading> = (
       case "matchingCyberball":
         return "Finding you partners...";
       case "social":
-        return "Generating relative social status...";
+        return "Generating relative social standing...";
       case "default":
         return "Loading...";
       default:

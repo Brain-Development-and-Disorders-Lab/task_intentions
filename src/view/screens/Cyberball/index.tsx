@@ -32,9 +32,13 @@ import { Configuration } from "src/configuration";
 const Cyberball: FC<Props.Screens.Cyberball> = (
   props: Props.Screens.Cyberball
 ): ReactElement => {
+  // Access the experiment instance
+  const experiment = window.Experiment;
+
   // Game state
   const gameState = useRef<CyberballGameState>({
     ballOwner: "participant" as "participant" | "partnerA" | "partnerB",
+    canToss: true,
     tossCount: 0,
     participantTossCount: 0,
     participantCatchCount: 0,
@@ -49,6 +53,10 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     ballY: Configuration.cyberball.ballPositions.participant.y,
   });
 
+  // Generate the strings to determine the participant and partner statuses
+  const participantStatus = experiment.getState().get("participantDefaultStatus");
+  const partnerStatus = props.partnerHighStatus ? experiment.getState().get("partnerHighStatus") : experiment.getState().get("partnerLowStatus");
+
   // Force re-render mechanism
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -59,7 +67,6 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
   const participantAvatarIndex = Configuration.state.participantAvatar;
 
   // Partner IDs (generated once after the loading screen)
-  const experiment = window.Experiment;
   const partnerAID = experiment.getState().get("cyberballPartnerAID");
   const partnerBID = experiment.getState().get("cyberballPartnerBID");
 
@@ -101,12 +108,19 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
       gameState.current.participantCatchCount = gameState.current.participantCatchCount + 1;
     }
 
+    // Update `canToss` state
+    gameState.current.canToss = receiver === "participant";
+
+    // Update animation status
+    animationState.current.isAnimating = false;
+
     // Force re-render to update game state
     forceUpdate();
 
     // Check if game is complete
     if (gameState.current.tossCount >= Configuration.cyberball.totalTosses) {
       setIsGameFinished(true);
+      gameState.current.canToss = false;
       setTimeout(() => {
         props.handler(gameState.current.tossCount, gameState.current.participantTossCount, gameState.current.participantCatchCount);
       }, 3000);
@@ -163,6 +177,9 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
    * @param target Target partner
    */
   const handleParticipantToss = (target: "partnerA" | "partnerB") => {
+    // Prevent multiple clicks
+    if (animationState.current.isAnimating || !gameState.current.canToss) return;
+
     // Animate ball
     animateBall(Configuration.cyberball.ballPositions.participant, Configuration.cyberball.ballPositions[target], () => {
       onBallReceived("participant", target);
@@ -233,7 +250,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
           {/* Avatars and arrows above the bar */}
           <Box
             width="100%"
-            height="32px"
+            height="48px"
             style={{ position: "relative" }}
             margin={{ bottom: "xxsmall" }}
           >
@@ -242,12 +259,13 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
               align="center"
               style={{
                 position: "absolute",
-                left: props.partnerHighStatus ? "60%" : "80%",
+                left: `${participantStatus}%`,
                 top: 0,
                 transform: "translateX(-50%)",
                 zIndex: 2,
               }}
             >
+              <Text size="xsmall" textAlign="center" weight="bold">You</Text>
               <Avatar
                 size={24}
                 name={
@@ -273,14 +291,16 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
             {/* Partner A avatar and arrow */}
             <Box
               align="center"
+              width="100px" // Required to fit the avatar label
               style={{
                 position: "absolute",
-                left: props.partnerHighStatus ? "80%" : "60%",
+                left: `${partnerStatus}%`,
                 top: 0,
                 transform: "translateX(-50%)",
                 zIndex: 2,
               }}
             >
+              <Text size="xsmall" textAlign="center" weight="bold">Partner A</Text>
               <Avatar
                 size={24}
                 name={partnerAID}
