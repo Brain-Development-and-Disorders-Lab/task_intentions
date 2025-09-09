@@ -334,13 +334,21 @@ if (
   Flags.setValue("enableQuestionnaireStatus", false);
 }
 
-// Ensure flags are set for the ending questionnaires
+// Ensure flags are set for the other questionnaires
+Flags.setValue(
+  "enableQuestionnaireStatus",
+  Configuration.manipulations.enableSocialStatusQuestionnaire
+);
 Flags.setValue(
   "enableQuestionnaireScreentime",
   Configuration.manipulations.enableEndingQuestionnaires
 );
 Flags.setValue(
   "enableQuestionnaireDASS",
+  Configuration.manipulations.enableEndingQuestionnaires
+);
+Flags.setValue(
+  "enableQuestionnaireDemographics",
   Configuration.manipulations.enableEndingQuestionnaires
 );
 

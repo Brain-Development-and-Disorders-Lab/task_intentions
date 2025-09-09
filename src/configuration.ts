@@ -28,6 +28,7 @@ export const Configuration = {
     useOfflinePackages: true,
 
     // Questionnaire features
+    enableSocialStatusQuestionnaire: false,
     enableEndingQuestionnaires: false,
     useAdultQuestionnaires: false,
 
