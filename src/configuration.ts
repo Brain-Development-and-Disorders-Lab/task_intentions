@@ -14,7 +14,6 @@ export const Configuration = {
   // General information
   name: "Intentions game",
   studyName: "intentions-game",
-  locale: "en-AU",
 
   // Error screen configuration
   allowParticipantContact: true,

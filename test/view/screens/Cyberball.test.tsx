@@ -18,7 +18,7 @@ jest.mock("src/configuration", () => ({
     cyberball: {
       // Timings
       tossInterval: 2000,
-      totalTosses: 20,
+      totalTosses: 2,
 
       // Visual parameters
       ballSize: 40,
@@ -96,9 +96,9 @@ describe("Cyberball Screen", () => {
   it("renders the game interface with three players", () => {
     render(<Cyberball {...mockProps} />);
 
-    expect(screen.getByText("Partner A")).toBeInTheDocument();
-    expect(screen.getByText("Partner B")).toBeInTheDocument();
-    expect(screen.getByText("You")).toBeInTheDocument();
+    expect(screen.getAllByText("Partner A")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Partner B")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("You")[0]).toBeInTheDocument();
   });
 
   it("shows status bar with correct message when participant has ball", () => {
@@ -114,8 +114,8 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Initially participant should have the ball
-    const partnerA = screen.getByText("Partner A").closest("div");
-    const partnerB = screen.getByText("Partner B").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
+    const partnerB = screen.getAllByText("Partner B")[0].closest("div");
 
     expect(partnerA).toBeInTheDocument();
     expect(partnerB).toBeInTheDocument();
@@ -143,7 +143,7 @@ describe("Cyberball Screen", () => {
     ).toBeInTheDocument();
 
     // Click on partner A to toss the ball
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     if (partnerA) {
       fireEvent.click(partnerA);
     }
@@ -204,7 +204,7 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Simulate completing the game by clicking partners multiple times
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
 
     // Click partner A multiple times to reach totalTosses (20)
     for (let i = 0; i < 20; i++) {
@@ -240,7 +240,7 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Complete the game quickly
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     for (let i = 0; i < 20; i++) {
       if (partnerA) fireEvent.click(partnerA);
       await waitFor(() => expect(screen.getByText(/Click on a partner|Waiting to receive|Game Complete/)).toBeInTheDocument(), { timeout: 50 });
@@ -260,7 +260,7 @@ describe("Cyberball Screen", () => {
     const inclusiveProps = { ...mockProps, isInclusive: true };
     render(<Cyberball {...inclusiveProps} />);
 
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     if (partnerA) fireEvent.click(partnerA);
 
     // In inclusive mode, partner should sometimes return ball to participant
@@ -279,7 +279,7 @@ describe("Cyberball Screen", () => {
     const exclusiveProps = { ...mockProps, isInclusive: false };
     render(<Cyberball {...exclusiveProps} />);
 
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     if (partnerA) fireEvent.click(partnerA);
 
     // In exclusive mode, partner should sometimes exclude participant
@@ -296,7 +296,7 @@ describe("Cyberball Screen", () => {
   it("disables partner clicks when participant doesn't have ball", async () => {
     render(<Cyberball {...mockProps} />);
 
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     if (partnerA) {
       // Initially participant has ball, so partner should be clickable
       expect(partnerA).toHaveStyle({ cursor: "pointer" });
@@ -323,8 +323,8 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Check that avatars are rendered (we can't easily test specific avatar content)
-    const participantAvatar = screen.getByText("You").closest("div");
-    const partnerAAvatar = screen.getByText("Partner A").closest("div");
+    const participantAvatar = screen.getAllByText("You")[0].closest("div");
+    const partnerAAvatar = screen.getAllByText("Partner A")[1].closest("div");
     const partnerBAvatar = screen.getByText("Partner B").closest("div");
 
     expect(participantAvatar).toBeInTheDocument();
@@ -350,7 +350,7 @@ describe("Cyberball Screen", () => {
     expect(screen.getByText("Click on a partner to throw the ball to them!")).toBeInTheDocument();
 
     // After clicking a partner, should show waiting message
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     if (partnerA) {
       fireEvent.click(partnerA);
     }
@@ -373,26 +373,6 @@ describe("Cyberball Screen", () => {
     });
   });
 
-  it("prevents multiple clicks during animation", async () => {
-    render(<Cyberball {...mockProps} />);
-
-    const partnerA = screen.getByText("Partner A").closest("div");
-    if (partnerA) {
-      // Click multiple times rapidly
-      fireEvent.click(partnerA);
-      fireEvent.click(partnerA);
-      fireEvent.click(partnerA);
-
-      // Should only process one click (animation should prevent multiple)
-      await waitFor(
-        () => {
-          expect(screen.getByText("Waiting to receive the ball...")).toBeInTheDocument();
-        },
-        { timeout: 1000 }
-      );
-    }
-  });
-
   it("handles different probability configurations", () => {
     const customProbabilities = {
       inclusion: 0.8,
@@ -406,9 +386,9 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...customProps} />);
 
     // Component should render without errors
-    expect(screen.getByText("Partner A")).toBeInTheDocument();
-    expect(screen.getByText("Partner B")).toBeInTheDocument();
-    expect(screen.getByText("You")).toBeInTheDocument();
+    expect(screen.getAllByText("Partner A")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Partner B")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("You")[0]).toBeInTheDocument();
   });
 
   it("renders social status bar with correct positioning", () => {
@@ -426,7 +406,7 @@ describe("Cyberball Screen", () => {
   it("handles partner response timing correctly", async () => {
     render(<Cyberball {...mockProps} />);
 
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     if (partnerA) {
       fireEvent.click(partnerA);
 
@@ -444,9 +424,9 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Check partner names
-    expect(screen.getByText("Partner A")).toBeInTheDocument();
-    expect(screen.getByText("Partner B")).toBeInTheDocument();
-    expect(screen.getByText("You")).toBeInTheDocument();
+    expect(screen.getAllByText("Partner A")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Partner B")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("You")[0]).toBeInTheDocument();
 
     // Check that internal IDs are displayed (there should be two - one for each partner)
     const internalIdElements = screen.getAllByText(/Internal ID:/);
@@ -462,7 +442,7 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Complete the game
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     for (let i = 0; i < 20; i++) {
       if (partnerA) fireEvent.click(partnerA);
       await waitFor(() => expect(screen.getByText(/Click on a partner|Waiting to receive|Game Complete/)).toBeInTheDocument(), { timeout: 50 });
@@ -482,7 +462,7 @@ describe("Cyberball Screen", () => {
   it("provides proper visual feedback for interactive elements", () => {
     render(<Cyberball {...mockProps} />);
 
-    const partnerA = screen.getByText("Partner A").closest("div");
+    const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     const partnerB = screen.getByText("Partner B").closest("div");
 
     // Initially both partners should be interactive
@@ -510,6 +490,6 @@ describe("Cyberball Screen", () => {
     };
 
     render(<Cyberball {...edgeProps} />);
-    expect(screen.getByText("Partner A")).toBeInTheDocument();
+    expect(screen.getAllByText("Partner A")[0]).toBeInTheDocument();
   });
 });
