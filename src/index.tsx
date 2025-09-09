@@ -246,8 +246,26 @@ if (Configuration.manipulations.enableCyberball === true) {
               <b>throw it to the other partner</b>.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Ball-Tossing Game
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
               After a duration, this game will end and you will continue with
               the next stage of the task.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              In the game, you will be able to see one of your partner&#39;s social standing in relation to your own.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               Press &#39;Next &gt;&#39; to choose an avatar and play the first social game.
@@ -423,7 +441,7 @@ if (Flags.isEnabled("enableStatusDisplay") === true) {
       enabled: true,
       target: "status",
       message:
-        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided. This example shows your partner with a low standing.",
+        "During some stages, you will be able to see your social standing in relation to your partner, based on the information you just provided. This example shows your partner with a lower standing.",
     },
   });
 }
@@ -807,6 +825,39 @@ timeline.push({
   },
 });
 
+// Insert instructions if the participant will be shown their status
+if (Configuration.manipulations.enableStatusPhaseOne === true) {
+  timeline.push({
+    type: "instructions",
+    pages: [
+      react2html(
+        <Grommet>
+          <Box style={{ maxWidth: "50%", margin: "auto" }}>
+            <Heading level={1} margin="small" fill>
+              Instructions
+            </Heading>
+            <Heading level={2} margin="small" fill>
+              Stage One
+            </Heading>
+            <Paragraph margin="small" size="large" fill>
+              In the next phase, you will be able to see your partner&#39;s social
+              standing in comparison to your own.
+            </Paragraph>
+            <Paragraph margin="small" size="large" fill>
+              Press &#39;Next &gt;&#39; to continue.
+            </Paragraph>
+          </Box>
+        </Grommet>
+      ),
+    ],
+    allow_keys: Configuration.manipulations.useButtonInput,
+    key_forward: BINDINGS.NEXT,
+    key_backward: BINDINGS.PREVIOUS,
+    show_page_number: true,
+    show_clickable_nav: true,
+  });
+}
+
 // Insert instructions to let the participant know they will
 // be matched with a partner
 timeline.push({
@@ -1173,6 +1224,39 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
       });
 
+      // Insert instructions if the participant will be shown their status
+      if (Configuration.manipulations.enableStatusPhaseTwo === true) {
+        timeline.push({
+          type: "instructions",
+          pages: [
+            react2html(
+              <Grommet>
+                <Box style={{ maxWidth: "50%", margin: "auto" }}>
+                  <Heading level={1} margin="small" fill>
+                    Instructions
+                  </Heading>
+                  <Heading level={2} margin="small" fill>
+                    Stage Two
+                  </Heading>
+                  <Paragraph margin="small" size="large" fill>
+                    In the next phase, you will be able to see your partner&#39;s social
+                    standing in comparison to your own.
+                  </Paragraph>
+                  <Paragraph margin="small" size="large" fill>
+                    Press &#39;Next &gt;&#39; to continue.
+                  </Paragraph>
+                </Box>
+              </Grommet>
+            ),
+          ],
+          allow_keys: Configuration.manipulations.useButtonInput,
+          key_forward: BINDINGS.NEXT,
+          key_backward: BINDINGS.PREVIOUS,
+          show_page_number: true,
+          show_clickable_nav: true,
+        });
+      }
+
       // Insert instructions to let the participant know they will
       // be matched with a partner
       timeline.push({
@@ -1355,6 +1439,39 @@ for (let i = 0; i < dataCollection.length; i++) {
           }
         },
       });
+
+      // Insert instructions if the participant will be shown their status
+      if (Configuration.manipulations.enableStatusPhaseThree === true) {
+        timeline.push({
+          type: "instructions",
+          pages: [
+            react2html(
+              <Grommet>
+                <Box style={{ maxWidth: "50%", margin: "auto" }}>
+                  <Heading level={1} margin="small" fill>
+                    Instructions
+                  </Heading>
+                  <Heading level={2} margin="small" fill>
+                    Stage Three
+                  </Heading>
+                  <Paragraph margin="small" size="large" fill>
+                    In the next phase, you will be able to see your partner&#39;s social
+                    standing in comparison to your own.
+                  </Paragraph>
+                  <Paragraph margin="small" size="large" fill>
+                    Press &#39;Next &gt;&#39; to continue.
+                  </Paragraph>
+                </Box>
+              </Grommet>
+            ),
+          ],
+          allow_keys: Configuration.manipulations.useButtonInput,
+          key_forward: BINDINGS.NEXT,
+          key_backward: BINDINGS.PREVIOUS,
+          show_page_number: true,
+          show_clickable_nav: true,
+        });
+      }
 
       timeline.push({
         type: "instructions",
