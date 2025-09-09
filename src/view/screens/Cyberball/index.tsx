@@ -120,6 +120,7 @@ const Cyberball: FC<Props.Screens.Cyberball> = (
     // Check if game is complete
     if (gameState.current.tossCount >= Configuration.cyberball.totalTosses) {
       setIsGameFinished(true);
+      gameState.current.canToss = false;
       setTimeout(() => {
         props.handler(gameState.current.tossCount, gameState.current.participantTossCount, gameState.current.participantCatchCount);
       }, 3000);
