@@ -47,8 +47,9 @@ declare type Display =
   | "mid2"
   | "playerGuess"
   | "playerGuessPractice"
-  | "loaded"
   | "loading"
+  | "loaded"
+  | "statusPreview"
   | "selection"
   | "inference"
   | "agency"
@@ -104,6 +105,11 @@ declare type Trial = {
   // Loading screen configuration (used by Loading screen)
   loadingType?: "matchingIntentions" | "matchingCyberball" | "social" | "default"; // Type of loading: "matchingIntentions" (partner matching), "matchingCyberball" (cyberball partners), "social" (status generation), or "default" (generic loading)
   fetchData: boolean; // Whether to fetch data from server (only used when loadingType is "matchingIntentions")
+
+  // Status preview screen configuration (used by StatusPreview screen)
+  isPartnerHighStatus?: boolean; // Used for the `StatusPreview` screen
+
+  // Waiting screen configuration (used by Waiting screen)
   mode: "facilitator" | "mri";
 
   // Spotlight configuration (used by Trial screen)

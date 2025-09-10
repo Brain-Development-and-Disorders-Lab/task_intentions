@@ -33,8 +33,9 @@ import Status from "../../screens/Questionnaires/Status";
 import DASS from "../../screens/Questionnaires/DASS";
 import Screentime from "../../screens/Questionnaires/Screentime";
 import Demographics from "../../screens/Questionnaires/Demographics";
-import Loaded from "../../screens/Loaded";
 import Loading from "../../screens/Loading";
+import Loaded from "../../screens/Loaded";
+import StatusPreview from "src/view/screens/StatusPreview";
 import Waiting from "../../screens/Waiting";
 import End from "../../screens/End";
 import Resources from "../../screens/Resources";
@@ -133,6 +134,10 @@ const Wrapper: FC<Props.Components.Wrapper> = (
         )}
 
         {activeDisplay === "loaded" && <Loaded {...(props.props as Props.Screens.Loaded)} />}
+
+        {activeDisplay === "statusPreview" && (
+          <StatusPreview {...(props.props as Props.Screens.StatusPreview)} />
+        )}
 
         {activeDisplay === "loading" && (
           <Loading {...(props.props as Props.Screens.Loading)} />

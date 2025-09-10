@@ -132,6 +132,16 @@ class ScreenPropFactory implements Factory {
         }
         break;
 
+      case "statusPreview":
+        // Setup the props
+        returned.props = {
+          trial: this.trial.trial,
+          display: this.trial.display,
+          isPartnerHighStatus: this.trial.isPartnerHighStatus,
+          handler: this.handler.callback.bind(this.handler),
+        };
+        break;
+
       // Loading screen
       case "loading":
         if (this.trial.loadingType === "social") {
