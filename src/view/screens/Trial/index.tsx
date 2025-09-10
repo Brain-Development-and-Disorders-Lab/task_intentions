@@ -198,19 +198,19 @@ const Trial: FC<Props.Screens.Trial> = (
     // If status display is enabled, interpret and apply the manipulations
     if (
       props.display === "playerChoice" &&
-      Configuration.manipulations.enableStatusPhaseOne
+      Configuration.manipulations.isPartnerHighStatusPhaseOne
     ) {
       // Phase One: If `isHighStatusPhaseOne` is true, then the participant is low status and the partner is high status
       partnerStatus = experiment.getState().get("partnerHighStatus");
     } else if (
       props.display === "playerGuess" &&
-      Configuration.manipulations.enableStatusPhaseTwo
+      Configuration.manipulations.isPartnerHighStatusPhaseTwo
     ) {
       // Phase Two: If `isHighStatusPhaseTwo` is true, then the participant is low status and the partner is high status
       partnerStatus = experiment.getState().get("partnerHighStatus");
     } else if (
       props.display === "playerChoice2" &&
-      Configuration.manipulations.enableStatusPhaseThree
+      Configuration.manipulations.isPartnerHighStatusPhaseThree
     ) {
       // Phase Three: If `isHighStatusPhaseThree` is true, then the participant is low status and the partner is high status
       partnerStatus = experiment.getState().get("partnerHighStatus");
