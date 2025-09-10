@@ -912,7 +912,6 @@ timeline.push({
   type: Configuration.studyName,
   display: "loaded",
   loadingType: "matchingIntentions",
-  showStatusPreview: Configuration.manipulations.enableStatusPhaseOne,
 });
 
 // Set and store the data collection
@@ -1312,7 +1311,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         type: Configuration.studyName,
         display: "loaded",
         loadingType: "matchingIntentions",
-        showStatusPreview: Configuration.manipulations.enableStatusPhaseTwo,
       });
 
       break;
@@ -1529,7 +1527,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         type: Configuration.studyName,
         display: "loaded",
         loadingType: "matchingIntentions",
-        showStatusPreview: Configuration.manipulations.enableStatusPhaseThree,
       });
 
       break;

@@ -103,7 +103,6 @@ declare type Trial = {
 
   // Loading screen configuration (used by Loading screen)
   loadingType?: "matchingIntentions" | "matchingCyberball" | "social" | "default"; // Type of loading: "matchingIntentions" (partner matching), "matchingCyberball" (cyberball partners), "social" (status generation), or "default" (generic loading)
-  showStatusPreview?: boolean; // Whether to show the status preview
   fetchData: boolean; // Whether to fetch data from server (only used when loadingType is "matchingIntentions")
   mode: "facilitator" | "mri";
 

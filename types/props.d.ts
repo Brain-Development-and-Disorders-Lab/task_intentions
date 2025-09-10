@@ -86,7 +86,6 @@ declare namespace Props {
     // Loaded screen
     type Loaded = GenericScreenProps & {
       loadingType: "matchingIntentions" | "matchingCyberball" | "social";
-      showStatusPreview: boolean;
       handler: () => void;
     };
 
