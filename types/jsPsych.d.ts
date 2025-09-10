@@ -46,6 +46,7 @@ declare type TimelineNode = {
   // Matching screen
   fetchData?: boolean;
   loadingType?: "matchingIntentions" | "matchingCyberball" | "social" | "default";
+  showStatusPreview?: boolean;
 
   // Waiting screen
   mode?: "facilitator" | "mri";

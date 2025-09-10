@@ -115,6 +115,7 @@ class ScreenPropFactory implements Factory {
             trial: this.trial.trial,
             display: this.trial.display,
             loadingType: this.trial.loadingType,
+            showStatusPreview: this.trial.showStatusPreview,
             handler: this.handler.callback.bind(this.handler),
           };
         } else {
@@ -128,6 +129,7 @@ class ScreenPropFactory implements Factory {
             trial: this.trial.trial,
             display: this.trial.display,
             loadingType: this.trial.loadingType,
+            showStatusPreview: this.trial.showStatusPreview,
           };
         }
         break;
