@@ -43,9 +43,10 @@ declare type TimelineNode = {
     message: string;
   };
 
-  // Matching screen
+  // Loading and loaded screens
   fetchData?: boolean;
   loadingType?: "matchingIntentions" | "matchingCyberball" | "social" | "default";
+  isPartnerHighStatus?: boolean;
 
   // Waiting screen
   mode?: "facilitator" | "mri";

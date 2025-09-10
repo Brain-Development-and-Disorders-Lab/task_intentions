@@ -836,39 +836,6 @@ timeline.push({
   },
 });
 
-// Insert instructions if the participant will be shown their status
-if (Configuration.manipulations.enableStatusPhaseOne === true) {
-  timeline.push({
-    type: "instructions",
-    pages: [
-      react2html(
-        <Grommet>
-          <Box style={{ maxWidth: "50%", margin: "auto" }}>
-            <Heading level={1} margin="small" fill>
-              Instructions
-            </Heading>
-            <Heading level={2} margin="small" fill>
-              Stage One
-            </Heading>
-            <Paragraph margin="small" size="large" fill>
-              In the next phase, you will be able to see your partner&#39;s social
-              standing in comparison to your own.
-            </Paragraph>
-            <Paragraph margin="small" size="large" fill>
-              Press &#39;Next &gt;&#39; to continue.
-            </Paragraph>
-          </Box>
-        </Grommet>
-      ),
-    ],
-    allow_keys: Configuration.manipulations.useButtonInput,
-    key_forward: BINDINGS.NEXT,
-    key_backward: BINDINGS.PREVIOUS,
-    show_page_number: true,
-    show_clickable_nav: true,
-  });
-}
-
 // Insert instructions to let the participant know they will
 // be matched with a partner
 timeline.push({
@@ -913,6 +880,15 @@ timeline.push({
   display: "loaded",
   loadingType: "matchingIntentions",
 });
+
+// Insert `statusPreview` screen if the participant will be shown their status
+if (Configuration.manipulations.enableStatusPhaseOne === true) {
+  timeline.push({
+    type: Configuration.studyName,
+    display: "statusPreview",
+    isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseOne,
+  })
+}
 
 // Set and store the data collection
 let dataCollection: Row[];
@@ -1235,39 +1211,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
       });
 
-      // Insert instructions if the participant will be shown their status
-      if (Configuration.manipulations.enableStatusPhaseTwo === true) {
-        timeline.push({
-          type: "instructions",
-          pages: [
-            react2html(
-              <Grommet>
-                <Box style={{ maxWidth: "50%", margin: "auto" }}>
-                  <Heading level={1} margin="small" fill>
-                    Instructions
-                  </Heading>
-                  <Heading level={2} margin="small" fill>
-                    Stage Two
-                  </Heading>
-                  <Paragraph margin="small" size="large" fill>
-                    In the next phase, you will be able to see your partner&#39;s social
-                    standing in comparison to your own.
-                  </Paragraph>
-                  <Paragraph margin="small" size="large" fill>
-                    Press &#39;Next &gt;&#39; to continue.
-                  </Paragraph>
-                </Box>
-              </Grommet>
-            ),
-          ],
-          allow_keys: Configuration.manipulations.useButtonInput,
-          key_forward: BINDINGS.NEXT,
-          key_backward: BINDINGS.PREVIOUS,
-          show_page_number: true,
-          show_clickable_nav: true,
-        });
-      }
-
       // Insert instructions to let the participant know they will
       // be matched with a partner
       timeline.push({
@@ -1312,6 +1255,15 @@ for (let i = 0; i < dataCollection.length; i++) {
         display: "loaded",
         loadingType: "matchingIntentions",
       });
+
+      // Insert `statusPreview` screen if the participant will be shown their status
+      if (Configuration.manipulations.enableStatusPhaseTwo === true) {
+        timeline.push({
+          type: Configuration.studyName,
+          display: "statusPreview",
+          isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseTwo,
+        })
+      }
 
       break;
     }
@@ -1451,39 +1403,6 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
       });
 
-      // Insert instructions if the participant will be shown their status
-      if (Configuration.manipulations.enableStatusPhaseThree === true) {
-        timeline.push({
-          type: "instructions",
-          pages: [
-            react2html(
-              <Grommet>
-                <Box style={{ maxWidth: "50%", margin: "auto" }}>
-                  <Heading level={1} margin="small" fill>
-                    Instructions
-                  </Heading>
-                  <Heading level={2} margin="small" fill>
-                    Stage Three
-                  </Heading>
-                  <Paragraph margin="small" size="large" fill>
-                    In the next phase, you will be able to see your partner&#39;s social
-                    standing in comparison to your own.
-                  </Paragraph>
-                  <Paragraph margin="small" size="large" fill>
-                    Press &#39;Next &gt;&#39; to continue.
-                  </Paragraph>
-                </Box>
-              </Grommet>
-            ),
-          ],
-          allow_keys: Configuration.manipulations.useButtonInput,
-          key_forward: BINDINGS.NEXT,
-          key_backward: BINDINGS.PREVIOUS,
-          show_page_number: true,
-          show_clickable_nav: true,
-        });
-      }
-
       timeline.push({
         type: "instructions",
         pages: [
@@ -1528,6 +1447,15 @@ for (let i = 0; i < dataCollection.length; i++) {
         display: "loaded",
         loadingType: "matchingIntentions",
       });
+
+      // Insert `statusPreview` screen if the participant will be shown their status
+      if (Configuration.manipulations.enableStatusPhaseThree === true) {
+        timeline.push({
+          type: Configuration.studyName,
+          display: "statusPreview",
+          isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseThree,
+        })
+      }
 
       break;
     }

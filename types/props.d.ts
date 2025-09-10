@@ -149,6 +149,12 @@ declare namespace Props {
       ) => void;
     };
 
+    // Status preview screen
+    type StatusPreview = GenericScreenProps & {
+      isPartnerHighStatus: boolean;
+      handler: () => void;
+    };
+
     // DASS screen
     type DASS = GenericScreenProps & {
       version: "adult" | "adolescent";
