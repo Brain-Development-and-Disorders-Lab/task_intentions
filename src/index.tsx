@@ -97,8 +97,7 @@ experiment.getState().set("experimentID", experimentID);
 initializeLocalStorage(experimentID);
 
 // Generate status values for participant and partner during actual trials
-const { partnerStatus: partnerLowStatus, participantStatus: participantDefaultStatus } = generateStatuses(false);
-const { partnerStatus: partnerHighStatus } = generateStatuses(true);
+const { participantStatus: participantDefaultStatus, partnerLowStatus, partnerHighStatus } = generateStatuses();
 
 // Store status values in the experiment state
 experiment.getState().set("participantDefaultStatus", participantDefaultStatus);

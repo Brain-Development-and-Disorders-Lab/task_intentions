@@ -21,6 +21,9 @@ import FileSaver from "file-saver";
 // Logging
 import consola from "consola";
 
+// Random number generation
+import { randomUniform } from "d3-random";
+
 // Experiment configuration
 import { Configuration } from "./configuration";
 
@@ -250,26 +253,23 @@ export const generatePartnerID = (): string => {
 };
 
 /**
- * Generate the participant and partner statuses
- * @param partnerHighStatus whether the partner is in high status
- * @returns
+ * Generate the participant and partner statuses using uniform distributions
+ * @returns Object containing participant status (40-60%), partner low status (10-25%), and partner high status (75-90%)
  */
-export const generateStatuses = (partnerHighStatus: boolean): { participantStatus: number, partnerStatus: number } => {
-  // Access `experiment` instance to generate random numbers
-  const experiment = window.Experiment;
+export const generateStatuses = (): { participantStatus: number, partnerLowStatus: number, partnerHighStatus: number } => {
+  // Create uniform distribution generators
+  const participantRandom = randomUniform(40, 60);
+  const partnerLowRandom = randomUniform(10, 25);
+  const partnerHighRandom = randomUniform(75, 90);
 
-  // Generate the participant status
-  const participantVariance = experiment.random() * Configuration.statusDisplay.participantRange * experiment.random() > 0.5 ? 1 : -1;
-  const participantStatus = Configuration.statusDisplay.participantDefault + participantVariance;
-
-  // Generate the partner status
-  let partnerStatus = partnerHighStatus ? Configuration.statusDisplay.partnerHigh : Configuration.statusDisplay.partnerLow;
-  const partnerVariance = experiment.random() * Configuration.statusDisplay.partnerRange * experiment.random() > 0.5 ? 1 : -1;
-  partnerStatus += partnerVariance;
+  // Generate the statuses using uniform distributions
+  const participantStatus = Math.round(participantRandom() * 10) / 10; // Round to 1 decimal place
+  const partnerLowStatus = Math.round(partnerLowRandom() * 10) / 10;
+  const partnerHighStatus = Math.round(partnerHighRandom() * 10) / 10;
 
   // Log the statuses
-  consola.info(`Participant status: ${participantStatus}, Partner status (${partnerHighStatus ? "high" : "low"}): ${partnerStatus}`);
+  consola.info(`Generated statuses - Participant: ${participantStatus}%, Partner Low: ${partnerLowStatus}%, Partner High: ${partnerHighStatus}%`);
 
-  // Return the statuses
-  return { participantStatus, partnerStatus };
+  // Return all three statuses
+  return { participantStatus, partnerLowStatus, partnerHighStatus };
 };

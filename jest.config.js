@@ -6,9 +6,10 @@ module.exports = {
     "^src(.*)$": "<rootDir>/src$1",
     "^test(.*)$": "<rootDir>/test$1",
     webr: require.resolve("webr"),
+    "^d3-random$": "<rootDir>/test/__mocks__/d3-random.js",
   },
   transform: {
-    "^.+.tsx?$": ["ts-jest", {}],
+    "^.+\\.tsx?$": ["ts-jest", {}],
   },
   testEnvironment: "./jest.environment.js",
   transformIgnorePatterns: ["/node_modules/(?!(webr))/"],
