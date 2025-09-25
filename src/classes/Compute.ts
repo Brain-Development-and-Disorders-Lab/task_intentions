@@ -763,6 +763,210 @@ full_data <- read.csv(text = paste0("${MODEL_DATA}")) %>% dplyr::select(-X)
 precan_df <- precan_partners(full_data)
 `;
 
+// Collection of test responses
+const TEST_RESPONSES = [
+  {
+    ID: "TEST_001",
+    Trial: 1,
+    ppt1: 8,
+    par1: 6,
+    ppt2: 6,
+    par2: 8,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_002",
+    Trial: 2,
+    ppt1: 9,
+    par1: 5,
+    ppt2: 7,
+    par2: 7,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_003",
+    Trial: 3,
+    ppt1: 6,
+    par1: 8,
+    ppt2: 8,
+    par2: 6,
+    Ac: 2,
+    Phase: 1
+  },
+  {
+    ID: "TEST_004",
+    Trial: 4,
+    ppt1: 7,
+    par1: 7,
+    ppt2: 9,
+    par2: 5,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_005",
+    Trial: 5,
+    ppt1: 5,
+    par1: 9,
+    ppt2: 7,
+    par2: 7,
+    Ac: 2,
+    Phase: 1
+  },
+  {
+    ID: "TEST_006",
+    Trial: 6,
+    ppt1: 8,
+    par1: 6,
+    ppt2: 6,
+    par2: 8,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_007",
+    Trial: 7,
+    ppt1: 9,
+    par1: 5,
+    ppt2: 5,
+    par2: 9,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_008",
+    Trial: 8,
+    ppt1: 6,
+    par1: 8,
+    ppt2: 8,
+    par2: 6,
+    Ac: 2,
+    Phase: 1
+  },
+  {
+    ID: "TEST_009",
+    Trial: 9,
+    ppt1: 7,
+    par1: 7,
+    ppt2: 9,
+    par2: 5,
+    Ac: 2,
+    Phase: 1
+  },
+  {
+    ID: "TEST_010",
+    Trial: 10,
+    ppt1: 5,
+    par1: 9,
+    ppt2: 7,
+    par2: 7,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_011",
+    Trial: 11,
+    ppt1: 8,
+    par1: 6,
+    ppt2: 6,
+    par2: 8,
+    Ac: 2,
+    Phase: 1
+  },
+  {
+    ID: "TEST_012",
+    Trial: 12,
+    ppt1: 9,
+    par1: 5,
+    ppt2: 5,
+    par2: 9,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_013",
+    Trial: 13,
+    ppt1: 6,
+    par1: 8,
+    ppt2: 8,
+    par2: 6,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_014",
+    Trial: 14,
+    ppt1: 7,
+    par1: 7,
+    ppt2: 9,
+    par2: 5,
+    Ac: 2,
+    Phase: 1
+  },
+  {
+    ID: "TEST_015",
+    Trial: 15,
+    ppt1: 5,
+    par1: 9,
+    ppt2: 7,
+    par2: 7,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_016",
+    Trial: 16,
+    ppt1: 8,
+    par1: 6,
+    ppt2: 6,
+    par2: 8,
+    Ac: 2,
+    Phase: 1
+  },
+  {
+    ID: "TEST_017",
+    Trial: 17,
+    ppt1: 9,
+    par1: 5,
+    ppt2: 5,
+    par2: 9,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_018",
+    Trial: 18,
+    ppt1: 6,
+    par1: 8,
+    ppt2: 8,
+    par2: 6,
+    Ac: 2,
+    Phase: 1
+  },
+  {
+    ID: "TEST_019",
+    Trial: 19,
+    ppt1: 7,
+    par1: 7,
+    ppt2: 9,
+    par2: 5,
+    Ac: 1,
+    Phase: 1
+  },
+  {
+    ID: "TEST_020",
+    Trial: 20,
+    ppt1: 5,
+    par1: 9,
+    ppt2: 7,
+    par2: 7,
+    Ac: 2,
+    Phase: 1
+  }
+];
+
 /**
  * @summary Compute class used to run a model locally in the browser using WebR.
  */
@@ -800,6 +1004,7 @@ class Compute {
     // Initialize the WebR instance
     await this.webR.init();
 
+    // Install required packages
     if (Configuration.manipulations.useOfflinePackages) {
       consola.start("Using offline packages...");
       try {
@@ -809,7 +1014,6 @@ class Compute {
         consola.error(error);
       }
     } else {
-      // Install required packages and evaluate the script
       consola.start("Using online packages...");
       await this.webR.installPackages([
         "matlab",
@@ -818,11 +1022,11 @@ class Compute {
         "dplyr",
         "logger",
       ]);
+      consola.success("Online packages installed successfully");
     }
 
+    // Evaluate the R script
     await this.webR.evalR(FUNCTIONS);
-
-    // Set the status of operation
     this.ready = true;
   }
 
@@ -839,7 +1043,7 @@ class Compute {
    * @param {any[]} data Data returned by R functions
    * @return {any} Data structure containing reformatting model responses
    */
-  private handleResponse(data: any[]): ModelResponse {
+  private parseResponse(data: any[]): ModelResponse {
     // Get the participant parameters
     const participantParameters = data[0].values;
 
@@ -871,27 +1075,23 @@ class Compute {
   /**
    * Run the R script with the current user responses
    * @param {any[]} data request parameters
-   * @param {function(data: any): void} callback
+   * @param {boolean} useTestResponses whether to use test responses for debugging
    */
-  public async submit(
-    data: any[],
-    callback: (data: any) => void
-  ): Promise<void> {
-    const startTime = performance.now();
+  public async submit(data: any[], useTestResponses=false): Promise<ModelResponse> {
+    if (useTestResponses) {
+      data = TEST_RESPONSES;
+    }
 
     // Evaluate the R function and pass in user responses
-    // Note: Need to format JSON with " rather than '
+    const startTime = performance.now();
     const result = await this.webR.evalR(
-      `model_wrapper(fromJSON('${JSON.stringify(data)}'))`
+      `model_wrapper(fromJSON('${JSON.stringify(data)}'))` // Note: Need to format JSON with " rather than '
     );
     const parsed: WebRDataJsNode = (await result.toJs()) as WebRDataJsNode;
+    consola.success(`Compute complete after ${Math.round(performance.now() - startTime)}ms`);
 
-    // Handle the response from the R script and run the provided callback function
-    const parameters = this.handleResponse(parsed.values);
-    callback(parameters);
-
-    const endTime = performance.now();
-    consola.info(`Compute complete after ${Math.round(endTime - startTime)}ms`);
+    // Parse the response from the R script
+    return this.parseResponse(parsed.values);
   }
 }
 

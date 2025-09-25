@@ -147,9 +147,11 @@ class ScreenPropFactory implements Factory {
         if (this.trial.state === "social") {
           // 1-4 second timeout for "social" state
           returned.duration = 1000 + (1 + Math.random() * 3) * 1000;
-        } else {
-          // 10-15 second timeout for "matchingIntentions" and "matchingCyberball" state
+        } else if (!this.trial.runComputeSetup && !this.trial.runComputeOperation) {
+          // 10-15 second timeout for all non-compute states
           returned.duration = 10000 + (1 + Math.random() * 5) * 1000;
+        } else {
+          returned.duration = 0;
         }
 
         // Set the timeout callback function

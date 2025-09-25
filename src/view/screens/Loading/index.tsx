@@ -27,7 +27,7 @@ import { Box, Heading, Layer, Spinner, WorldMap } from "grommet";
  *  - state: {"matchingIntentions" | "matchingCyberball" | "social" | "default"} The loading state to display
  *  - runComputeSetup?: {boolean} Flag indicating whether to setup the compute instance
  *  - runComputeOperation?: {boolean} Flag indicating whether to compute participant and partner parameters
- *  - handler?: {(participantParams: ModelParameters, partnerParams: ModelParameters) => void} Callback to handle model parameters
+ *  - handler?: {(participantParams: ModelParameters, partnerParams: ModelParameters, setupDuration: number, operationDuration: number) => void} Callback to handle model parameters
  * @return {ReactElement} 'Loading' screen with loading indicator and state-specific status message
  */
 const Loading: FC<Props.Screens.Loading> = (
@@ -51,46 +51,15 @@ const Loading: FC<Props.Screens.Loading> = (
     }
   };
 
-  const callback = (data: ModelResponse) => {
-    // Parse and store the JSON content
-    try {
-      // Extract the response data of interest
-      // Participant data
-      const participantParameters = data.participantParameters;
-
-      // Partner data
-      const partnerParameters = data.partnerParameters;
-      const partnerChoices = data.partnerChoices;
-
-      // Check the specification of the data first, require exactly 54 trials
-      if (partnerChoices.length > 0) {
-        // Store the partner choices
-        experiment.getState().set("partnerChoices", partnerChoices);
-
-        // Store parameters
-        if (props.handler) {
-          props.handler(participantParameters, partnerParameters);
-        }
-      } else {
-        consola.warn(`Phase data appears to be incomplete`);
-
-        // If we have an error, we need to end the game
-        experiment.invokeError(new Error("Incomplete response from server"));
-      }
-    } catch (error) {
-      consola.warn(`Error occurred when extracting content:`, error);
-
-      // If we have an error, we need to end the game
-      experiment.invokeError(new Error("Error extracting content"));
-    }
-  };
-
   const runComputeSetup = async () => {
+    const startTime = performance.now();
     await window.Compute.setup();
     consola.success("Compute setup complete");
+    finishLoading(false, [], [], performance.now() - startTime, 0);
   };
 
   const runComputeOperation = async () => {
+    const startTime = performance.now();
     // Collate data from 'playerChoice' trials
     consola.info(`Collating data...`);
     const dataCollection = jsPsych.data
@@ -122,8 +91,40 @@ const Loading: FC<Props.Screens.Loading> = (
     consola.debug(`Request content 'requestResponses':`, requestResponses);
 
     // Launch model computation
-    consola.info(`Requesting partner...`);
-    await window.Compute.submit(requestResponses, callback);
+    consola.info(`Running model computation...`);
+    const response = await window.Compute.submit(requestResponses, true);
+
+    // Parse and store the JSON content
+    try {
+      // Extract the response data of interest
+      // Participant data
+      const participantParameters = response.participantParameters;
+
+      // Partner data
+      const partnerParameters = response.partnerParameters;
+      const partnerChoices = response.partnerChoices;
+
+      // Check the specification of the data first, require exactly 54 trials
+      if (partnerChoices.length > 0) {
+        // Store the partner choices
+        experiment.getState().set("partnerChoices", partnerChoices);
+        finishLoading(true, participantParameters, partnerParameters, 0, performance.now() - startTime);
+      } else {
+        // If we have an error, we need to end the game
+        consola.warn(`Phase data appears to be incomplete`);
+        experiment.invokeError(new Error("Incomplete response from server"));
+      }
+    } catch (error) {
+      // If we have an error, we need to end the game
+      consola.warn(`Error occurred when extracting content:`, error);
+      experiment.invokeError(new Error("Error extracting content"));
+    }
+  };
+
+  const finishLoading = (storeParameters: boolean, participantParameters: number[], partnerParameters: number[], setupDuration: number, operationDuration: number) => {
+    if (props.handler) {
+      props.handler(storeParameters, participantParameters, partnerParameters, setupDuration, operationDuration);
+    }
   };
 
   // Run any computing operations as specified

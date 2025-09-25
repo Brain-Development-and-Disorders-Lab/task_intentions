@@ -158,6 +158,8 @@ declare type TrialData = {
   server_beta_ppt: number;
   server_alpha_par: number;
   server_beta_par: number;
+  setupDuration: number;
+  operationDuration: number;
 
   // Signal timestamps
   signalTimestamps: number[];

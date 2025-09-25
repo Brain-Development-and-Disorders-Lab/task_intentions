@@ -95,8 +95,11 @@ declare namespace Props {
       runComputeSetup?: boolean;
       runComputeOperation?: boolean;
       handler?: (
+        storeParameters: boolean,
         participantParameters: number[],
-        partnerParameters: number[]
+        partnerParameters: number[],
+        setupDuration: number,
+        operationDuration: number
       ) => void;
     };
 
