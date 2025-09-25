@@ -770,6 +770,9 @@ class Compute {
   // WebR instance used to run the model script
   private webR: WebR;
 
+  // Status of operation
+  private ready: boolean;
+
   /**
    * Default constructor
    * @constructor
@@ -784,6 +787,9 @@ class Compute {
           }
         : {}
     );
+
+    // Initialize the status of operation
+    this.ready = false;
   }
 
   /**
@@ -815,6 +821,17 @@ class Compute {
     }
 
     await this.webR.evalR(FUNCTIONS);
+
+    // Set the status of operation
+    this.ready = true;
+  }
+
+  /**
+   * Get the status of operation
+   * @return {boolean}
+   */
+  public isReady(): boolean {
+    return this.ready;
   }
 
   /**

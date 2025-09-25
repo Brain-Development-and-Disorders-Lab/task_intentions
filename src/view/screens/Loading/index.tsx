@@ -21,15 +21,13 @@ import consola from "consola";
 // Grommet UI components
 import { Box, Heading, Layer, Spinner, WorldMap } from "grommet";
 
-// Request library
-import Compute from "src/classes/Compute";
-
 /**
  * @summary Generate a 'Loading' screen presenting a loading indicator and text based on the current state
  * @param {Props.Screens.Loading} props Component props containing:
  *  - state: {"matchingIntentions" | "matchingCyberball" | "social" | "default"} The loading state to display
- *  - fetchData?: {boolean} Flag indicating whether to fetch data from server (only for matching state)
- *  - handler?: {(participantParams: ModelParameters, partnerParams: ModelParameters) => void} Callback to handle model parameters (only for matching state)
+ *  - runComputeSetup?: {boolean} Flag indicating whether to setup the compute instance
+ *  - runComputeOperation?: {boolean} Flag indicating whether to compute participant and partner parameters
+ *  - handler?: {(participantParams: ModelParameters, partnerParams: ModelParameters) => void} Callback to handle model parameters
  * @return {ReactElement} 'Loading' screen with loading indicator and state-specific status message
  */
 const Loading: FC<Props.Screens.Loading> = (
@@ -39,7 +37,7 @@ const Loading: FC<Props.Screens.Loading> = (
 
   // Get the appropriate text based on the loading type
   const getLoadingText = (): string => {
-    switch (props.loadingType) {
+    switch (props.state) {
       case "matchingIntentions":
         return "Finding you a partner...";
       case "matchingCyberball":
@@ -47,9 +45,9 @@ const Loading: FC<Props.Screens.Loading> = (
       case "social":
         return "Generating relative social standing...";
       case "default":
-        return "Loading...";
+        return "Experiment Loading...";
       default:
-        return "Loading...";
+        return "Experiment Loading...";
     }
   };
 
@@ -87,55 +85,55 @@ const Loading: FC<Props.Screens.Loading> = (
     }
   };
 
-  const runMatching = async () => {
-    // Launch request
-    if (props.fetchData && props.loadingType === "matchingIntentions") {
-      // Setup a new 'Compute' instance
-      const compute = new Compute();
-      await compute.setup();
-
-      // Collate data from 'playerChoice' trials
-      consola.info(`Collating data...`);
-      const dataCollection = jsPsych.data
-        .get()
-        .filter({
-          display: "playerChoice",
-        })
-        .values();
-
-      consola.debug(
-        `'dataCollection' containing trials with 'display' = 'playerChoice':`,
-        dataCollection
-      );
-
-      // Format the responses to be sent to the server
-      const requestResponses = [];
-      for (const row of dataCollection) {
-        requestResponses.push({
-          ID: "NA",
-          Trial: row.trial,
-          ppt1: row.playerPoints_option1,
-          par1: row.partnerPoints_option1,
-          ppt2: row.playerPoints_option2,
-          par2: row.partnerPoints_option2,
-          Ac: row.selectedOption_player,
-          Phase: 1,
-        });
-      }
-      consola.debug(`Request content 'requestResponses':`, requestResponses);
-
-      // Launch model computation
-      consola.info(`Requesting partner...`);
-      await compute.submit(requestResponses, callback);
-    }
+  const runComputeSetup = async () => {
+    await window.Compute.setup();
+    consola.success("Compute setup complete");
   };
 
-  // Run the matching process when first displayed (only for matching type)
-  useEffect(() => {
-    if (props.loadingType === "matchingIntentions") {
-      runMatching();
+  const runComputeOperation = async () => {
+    // Collate data from 'playerChoice' trials
+    consola.info(`Collating data...`);
+    const dataCollection = jsPsych.data
+      .get()
+      .filter({
+        display: "playerChoice",
+      })
+      .values();
+
+    consola.debug(
+      `'dataCollection' containing trials with 'display' = 'playerChoice':`,
+      dataCollection
+    );
+
+    // Format the responses to be sent to the server
+    const requestResponses = [];
+    for (const row of dataCollection) {
+      requestResponses.push({
+        ID: "NA",
+        Trial: row.trial,
+        ppt1: row.playerPoints_option1,
+        par1: row.partnerPoints_option1,
+        ppt2: row.playerPoints_option2,
+        par2: row.partnerPoints_option2,
+        Ac: row.selectedOption_player,
+        Phase: 1,
+      });
     }
-  });
+    consola.debug(`Request content 'requestResponses':`, requestResponses);
+
+    // Launch model computation
+    consola.info(`Requesting partner...`);
+    await window.Compute.submit(requestResponses, callback);
+  };
+
+  // Run any computing operations as specified
+  useEffect(() => {
+    if (props.runComputeOperation && window.Compute.isReady()) {
+      runComputeOperation();
+    } else if (props.runComputeSetup) {
+      runComputeSetup();
+    }
+  }, []);
 
   return (
     <>

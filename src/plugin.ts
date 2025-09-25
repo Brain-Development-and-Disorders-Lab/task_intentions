@@ -107,7 +107,7 @@ jsPsych.plugins[Configuration.studyName] = (() => {
         },
         description: "Spotlight a UI component with a closeable message",
       },
-      fetchData: {
+      runComputeOperation: {
         type: jsPsych.plugins.parameterType.BOOLEAN,
         pretty_name: "Enable or disable server queries",
         default: false,

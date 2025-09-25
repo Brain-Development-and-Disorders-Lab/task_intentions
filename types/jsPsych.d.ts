@@ -44,8 +44,9 @@ declare type TimelineNode = {
   };
 
   // Loading and loaded screens
-  fetchData?: boolean;
-  loadingType?: "matchingIntentions" | "matchingCyberball" | "social" | "default";
+  runComputeSetup?: boolean;
+  runComputeOperation?: boolean;
+  state?: "matchingIntentions" | "matchingCyberball" | "social" | "default";
   isPartnerHighStatus?: boolean;
 
   // Waiting screen
