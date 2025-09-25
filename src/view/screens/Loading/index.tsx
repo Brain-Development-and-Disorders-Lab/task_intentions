@@ -21,6 +21,10 @@ import consola from "consola";
 // Grommet UI components
 import { Box, Heading, Layer, Spinner, WorldMap } from "grommet";
 
+// Duration variables
+const MIN_SETUP_DURATION = 10000; // 10 seconds
+const MIN_OPERATION_DURATION = 12000; // 12 seconds
+
 /**
  * @summary Generate a 'Loading' screen presenting a loading indicator and text based on the current state
  * @param {Props.Screens.Loading} props Component props containing:
@@ -55,7 +59,18 @@ const Loading: FC<Props.Screens.Loading> = (
     const startTime = performance.now();
     await window.Compute.setup();
     consola.success("Compute setup complete");
-    finishLoading(false, [], [], performance.now() - startTime, 0);
+    const endTime = performance.now();
+
+    // If the setup duration is less than the minimum, wait for the minimum duration
+    if (endTime - startTime < MIN_SETUP_DURATION) {
+      const duration = MIN_SETUP_DURATION - (endTime - startTime);
+      consola.info(`Applying delay of ${duration}ms to complete setup...`);
+      setTimeout(() => {
+        finishLoading(false, [], [], endTime - startTime, 0);
+      }, duration);
+    } else {
+      finishLoading(false, [], [], endTime - startTime, 0);
+    }
   };
 
   const runComputeOperation = async () => {
@@ -108,7 +123,18 @@ const Loading: FC<Props.Screens.Loading> = (
       if (partnerChoices.length > 0) {
         // Store the partner choices
         experiment.getState().set("partnerChoices", partnerChoices);
-        finishLoading(true, participantParameters, partnerParameters, 0, performance.now() - startTime);
+
+        // If the operation duration is less than the minimum, wait for the minimum duration
+        const endTime = performance.now();
+        if (endTime - startTime < MIN_OPERATION_DURATION) {
+          const duration = MIN_OPERATION_DURATION - (endTime - startTime);
+          consola.info(`Applying delay of ${duration}ms to complete operation...`);
+          setTimeout(() => {
+            finishLoading(true, participantParameters, partnerParameters, 0, endTime - startTime);
+          }, duration);
+        } else {
+          finishLoading(true, participantParameters, partnerParameters, 0, endTime - startTime);
+        }
       } else {
         // If we have an error, we need to end the game
         consola.warn(`Phase data appears to be incomplete`);
