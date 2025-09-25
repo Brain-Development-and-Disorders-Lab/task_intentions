@@ -36,7 +36,7 @@ test("loads and displays Loaded screen", async () => {
   const props: Props.Screens.Loaded = {
     trial: 0,
     display: "loaded",
-    loadingType: "matchingIntentions",
+    state: "matchingIntentions",
     handler: () => { return; },
   };
   render(<Wrapper display={"loaded"} props={props} />);

@@ -32,9 +32,9 @@ export const getTrialConfiguration = (display: Display): Trial => {
     avatar: 0,
     answer: "Option 1",
     isPractice: false,
-    fetchData: false,
+    runComputeOperation: false,
     mode: "facilitator",
-    loadingType: "matchingIntentions",
+    state: "matchingIntentions",
   };
 };
 
@@ -81,6 +81,8 @@ export const getHandler = (display: Display): Handler => {
       server_beta_par: NaN,
       server_alpha_ppt: NaN,
       server_beta_ppt: NaN,
+      setupDuration: 0,
+      operationDuration: 0,
       signalTimestamps: [],
       cyberballTossCount: NaN,
       cyberballParticipantTossCount: NaN,
