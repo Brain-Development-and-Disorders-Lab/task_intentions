@@ -52,6 +52,9 @@ import { v4 as uuidv4 } from "uuid";
 // Import crossplatform API
 import { Experiment } from "neurocog";
 
+// Import Compute class
+import Compute from "./classes/Compute";
+
 // Import jsPsych plugins
 import "jspsych/plugins/jspsych-fullscreen";
 import "jspsych/plugins/jspsych-instructions";
@@ -104,6 +107,9 @@ experiment.getState().set("participantDefaultStatus", participantDefaultStatus);
 experiment.getState().set("partnerLowStatus", partnerLowStatus);
 experiment.getState().set("partnerHighStatus", partnerHighStatus);
 
+// Setup the Compute instance
+window.Compute = new Compute();
+
 // Timeline setup
 const timeline: Timeline = [];
 
@@ -129,6 +135,15 @@ if (Flags.isEnabled("enableFullscreen")) {
     fullscreen_mode: true,
   });
 }
+
+// Global loading screen, setup WebR
+timeline.push({
+  type: Configuration.studyName,
+  display: "loading",
+  state: "default",
+  runComputeSetup: true,
+  runComputeOperation: false,
+});
 
 // Add controls instructions first if using alternate input scheme
 if (Configuration.manipulations.useButtonInput === true) {
@@ -420,14 +435,14 @@ if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
   timeline.push({
     type: Configuration.studyName,
     display: "loading",
-    loadingType: "social",
-    fetchData: false,
+    state: "social",
+    runComputeOperation: false,
   });
 
   timeline.push({
     type: Configuration.studyName,
     display: "loaded",
-    loadingType: "social",
+    state: "social",
   });
 }
 
@@ -458,13 +473,13 @@ if (Configuration.manipulations.enableCyberball === true) {
   timeline.push({
     type: Configuration.studyName,
     display: "loading",
-    loadingType: "matchingCyberball",
+    state: "matchingCyberball",
   });
 
   timeline.push({
     type: Configuration.studyName,
     display: "loaded",
-    loadingType: "matchingCyberball",
+    state: "matchingCyberball",
   });
 
   timeline.push({
@@ -870,14 +885,14 @@ timeline.push({
 timeline.push({
   type: Configuration.studyName,
   display: "loading",
-  loadingType: "matchingIntentions",
-  fetchData: false,
+  state: "matchingIntentions",
+  runComputeOperation: false,
 });
 
 timeline.push({
   type: Configuration.studyName,
   display: "loaded",
-  loadingType: "matchingIntentions",
+  state: "matchingIntentions",
 });
 
 // Insert `statusPreview` screen if the participant will be shown their status
@@ -1245,14 +1260,14 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "loading",
-        loadingType: "matchingIntentions",
-        fetchData: true,
+        state: "matchingIntentions",
+        runComputeOperation: true,
       });
 
       timeline.push({
         type: Configuration.studyName,
         display: "loaded",
-        loadingType: "matchingIntentions",
+        state: "matchingIntentions",
       });
 
       // Insert `statusPreview` screen if the participant will be shown their status
@@ -1437,14 +1452,14 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: Configuration.studyName,
         display: "loading",
-        loadingType: "matchingIntentions",
-        fetchData: false,
+        state: "matchingIntentions",
+        runComputeOperation: false,
       });
 
       timeline.push({
         type: Configuration.studyName,
         display: "loaded",
-        loadingType: "matchingIntentions",
+        state: "matchingIntentions",
       });
 
       // Insert `statusPreview` screen if the participant will be shown their status

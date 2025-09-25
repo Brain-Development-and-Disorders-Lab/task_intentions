@@ -102,7 +102,7 @@ test("generate props for Loaded screen", async () => {
   // Check contents of props
   expect(generated.props.trial).toBe(1);
   expect(generated.props.display).toBe("loaded");
-  expect(generated.props.loadingType).toBe("matchingIntentions");
+  expect(generated.props.state).toBe("matchingIntentions");
   expect(generated.props).not.toHaveProperty("handler");
 });
 
@@ -110,8 +110,8 @@ test("generate props for Loading screen with matching type", async () => {
   // Create a new ScreenPropFactory instance with loading configuration
   const trialConfig = {
     ...getTrialConfiguration("loading"),
-    loadingType: "matchingIntentions" as const,
-    fetchData: false,
+    state: "matchingIntentions" as const,
+    runComputeOperation: false,
   };
   const screenPropFactory = new ScreenPropFactory(
     trialConfig,
@@ -124,8 +124,8 @@ test("generate props for Loading screen with matching type", async () => {
   // Check contents of props
   expect(generated.props.trial).toBe(1);
   expect(generated.props.display).toBe("loading");
-  expect(generated.props.loadingType).toBe("matchingIntentions");
-  expect(generated.props.fetchData).toBe(false);
+  expect(generated.props.state).toBe("matchingIntentions");
+  expect(generated.props.runComputeOperation).toBe(false);
   expect(generated.props).toHaveProperty("handler");
 });
 

@@ -106,7 +106,7 @@ class ScreenPropFactory implements Factory {
 
       // Loaded screen
       case "loaded":
-        if (this.trial.loadingType === "social") {
+        if (this.trial.state === "social") {
           // Indefinite duration for "social" loading completion
           returned.duration = 0;
 
@@ -114,7 +114,7 @@ class ScreenPropFactory implements Factory {
           returned.props = {
             trial: this.trial.trial,
             display: this.trial.display,
-            loadingType: this.trial.loadingType,
+            state: this.trial.state,
             handler: this.handler.callback.bind(this.handler),
           };
         } else {
@@ -127,7 +127,7 @@ class ScreenPropFactory implements Factory {
           returned.props = {
             trial: this.trial.trial,
             display: this.trial.display,
-            loadingType: this.trial.loadingType,
+            state: this.trial.state,
           };
         }
         break;
@@ -144,12 +144,14 @@ class ScreenPropFactory implements Factory {
 
       // Loading screen
       case "loading":
-        if (this.trial.loadingType === "social") {
+        if (this.trial.state === "social") {
           // 1-4 second timeout for "social" state
           returned.duration = 1000 + (1 + Math.random() * 3) * 1000;
-        } else {
-          // 10-15 second timeout for "matchingIntentions" and "matchingCyberball" state
+        } else if (!this.trial.runComputeSetup && !this.trial.runComputeOperation) {
+          // 10-15 second timeout for all non-compute states
           returned.duration = 10000 + (1 + Math.random() * 5) * 1000;
+        } else {
+          returned.duration = 0;
         }
 
         // Set the timeout callback function
@@ -159,8 +161,9 @@ class ScreenPropFactory implements Factory {
         returned.props = {
           trial: this.trial.trial,
           display: this.trial.display,
-          loadingType: this.trial.loadingType || "default", // Default to "default" type if not specified
-          fetchData: this.trial.fetchData,
+          state: this.trial.state || "default", // Default to "default" type if not specified
+          runComputeSetup: this.trial.runComputeSetup,
+          runComputeOperation: this.trial.runComputeOperation,
           handler: this.handler.loading.bind(this.handler),
         };
         break;

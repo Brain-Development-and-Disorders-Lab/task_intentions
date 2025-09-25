@@ -38,9 +38,9 @@ const Loaded: FC<Props.Screens.Loaded> = (props: Props.Screens.Loaded): ReactEle
   // Get the current partner avatar
   const experiment = window.Experiment;
   const currentPartner = experiment.getState().get("partnerAvatar");
-  const loadingType = props.loadingType;
+  const state = props.state;
 
-  if (loadingType === "matchingIntentions") {
+  if (state === "matchingIntentions") {
     // Increment the partner avatar value
     if (experiment.getState().get("refreshPartner") === true) {
       // Ensure we keep the index in range
@@ -73,7 +73,7 @@ const Loaded: FC<Props.Screens.Loaded> = (props: Props.Screens.Loaded): ReactEle
         </Layer>
       </>
     );
-  } else if (loadingType === "matchingCyberball") {
+  } else if (state === "matchingCyberball") {
       const partnerAID = generatePartnerID();
       const partnerBID = generatePartnerID();
       experiment.getState().set("cyberballPartnerAID", partnerAID);
@@ -103,7 +103,7 @@ const Loaded: FC<Props.Screens.Loaded> = (props: Props.Screens.Loaded): ReactEle
           </Layer>
         </>
       );
-  } else if (loadingType === "social") {
+  } else if (state === "social") {
     return (
       <>
         <Layer plain full>

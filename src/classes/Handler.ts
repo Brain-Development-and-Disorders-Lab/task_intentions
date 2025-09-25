@@ -178,28 +178,47 @@ class Handler {
 
   /**
    * Handler called after loading request completed (for matching state)
+   * @param {boolean} storeParameters whether to store the parameters
    * @param {number[]} participantParameters generated model
    * parameters for participant
    * @param {number[]} partnerParameters generated model parameters for partner
+   * @param {number} setupDuration duration of the setup operation in ms
+   * @param {number} operationDuration duration of the operation operation in ms
    */
   public loading(
+    storeParameters: boolean,
     participantParameters: number[],
-    partnerParameters: number[]
+    partnerParameters: number[],
+    setupDuration: number,
+    operationDuration: number
   ): void {
-    consola.debug(
-      "Loading responses:",
-      participantParameters,
-      partnerParameters
-    );
-    // Store participant parameters
-    this.dataframe.server_alpha_ppt = participantParameters[0];
-    this.dataframe.server_beta_ppt = participantParameters[1];
+    if (storeParameters) {
+      consola.debug(
+        "Loading responses:",
+        participantParameters,
+        partnerParameters
+      );
+      // Store participant parameters
+      this.dataframe.server_alpha_ppt = participantParameters[0];
+      this.dataframe.server_beta_ppt = participantParameters[1];
 
-    // Store partner parameters
-    this.dataframe.server_alpha_par = partnerParameters[0];
-    this.dataframe.server_beta_par = partnerParameters[1];
+      // Store partner parameters
+      this.dataframe.server_alpha_par = partnerParameters[0];
+      this.dataframe.server_beta_par = partnerParameters[1];
+    }
 
-    // We don't call the callback on a timer
+    // Store timing data
+    this.dataframe.setupDuration = 0;
+    this.dataframe.operationDuration = 0;
+    if (setupDuration > 0) {
+      this.dataframe.setupDuration = setupDuration;
+    }
+    if (operationDuration > 0) {
+      this.dataframe.operationDuration = operationDuration;
+    }
+
+    // Finish trial
+    this.callback();
   }
 
   /**
