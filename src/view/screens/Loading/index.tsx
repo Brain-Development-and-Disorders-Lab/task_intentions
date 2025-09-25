@@ -13,7 +13,7 @@
  */
 
 // React import
-import React, { FC, ReactElement, useEffect } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 
 // Logging library
 import consola from "consola";
@@ -38,6 +38,9 @@ const Loading: FC<Props.Screens.Loading> = (
   props: Props.Screens.Loading
 ): ReactElement => {
   const experiment = window.Experiment;
+
+  // Safeguard against duplicate processing
+  const [blockAdditionalProcessing, setBlockAdditionalProcessing] = useState(false);
 
   // Get the appropriate text based on the loading type
   const getLoadingText = (): string => {
@@ -147,6 +150,14 @@ const Loading: FC<Props.Screens.Loading> = (
     }
   };
 
+  /**
+   * Finish the loading process
+   * @param storeParameters whether to store the parameters
+   * @param participantParameters generated model parameters for participant
+   * @param partnerParameters generated model parameters for partner
+   * @param setupDuration duration of the setup operation in ms
+   * @param operationDuration duration of the operation operation in ms
+   */
   const finishLoading = (storeParameters: boolean, participantParameters: number[], partnerParameters: number[], setupDuration: number, operationDuration: number) => {
     if (props.handler) {
       props.handler(storeParameters, participantParameters, partnerParameters, setupDuration, operationDuration);
@@ -155,6 +166,12 @@ const Loading: FC<Props.Screens.Loading> = (
 
   // Run any computing operations as specified
   useEffect(() => {
+    if (blockAdditionalProcessing) {
+      return;
+    }
+
+    // Block additional processing and run the appropriate operation
+    setBlockAdditionalProcessing(true);
     if (props.runComputeOperation && window.Compute.isReady()) {
       runComputeOperation();
     } else if (props.runComputeSetup) {
