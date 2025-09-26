@@ -19,7 +19,7 @@ import Handler from "src/classes/Handler";
  * @param {Display} display the display type being tested
  * @return {any}
  */
-export const getTrialConfiguration = (display: Display): Trial => {
+export const getTrialConfiguration = (display: Display): IntentionsNode => {
   return {
     trial_number: 1,
     display: display,

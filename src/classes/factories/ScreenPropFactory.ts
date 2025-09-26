@@ -28,18 +28,18 @@ import Handler from "src/classes/Handler";
  */
 class ScreenPropFactory implements Factory {
   // jsPsych trial data
-  private trial: Trial;
+  private trial: IntentionsNode;
 
   // Callback function from 'Handler' class
   private handler: Handler;
 
   /**
    * Default constructor
-   * @param {Trial} trial jsPsych trial data
+   * @param {IntentionsNode} trial jsPsych trial data
    * @param {Handler} handler callback function from 'Handler' class
    * @constructor
    */
-  constructor(trial: Trial, handler: Handler) {
+  constructor(trial: IntentionsNode, handler: Handler) {
     this.trial = trial;
     this.handler = handler;
   }
