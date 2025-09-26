@@ -22,7 +22,7 @@ test("loads and displays Wrapper component with Agency screen", async () => {
       <Wrapper
         display="agency"
         props={{
-          trial: 1,
+          trial_number: 1,
           display: "agency",
           handler: () => {
             return;

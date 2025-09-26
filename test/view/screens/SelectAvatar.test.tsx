@@ -33,7 +33,7 @@ beforeEach(() => {
 
 test("loads and displays SelectAvatar screen", async () => {
   const props: Props.Screens.SelectAvatar = {
-    trial: 0,
+    trial_number: 0,
     display: "selection",
     handler: () => {
       console.info("Selection handler called");

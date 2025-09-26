@@ -65,7 +65,7 @@ jest.mock("src/configuration", () => ({
 describe("Cyberball Screen", () => {
   const mockHandler = jest.fn();
   const mockProps = {
-    trial: 1,
+    trial_number: 1,
     display: "cyberball" as const,
     isInclusive: true,
     partnerHighStatus: true,

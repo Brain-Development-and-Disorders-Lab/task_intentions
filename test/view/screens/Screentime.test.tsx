@@ -16,7 +16,7 @@ import TestWrapper from "test/utils/TestWrapper";
 
 // Mock props
 const mockProps = {
-  trial: 1,
+  trial_number: 1,
   display: "screentime" as const,
   handler: jest.fn(),
 };

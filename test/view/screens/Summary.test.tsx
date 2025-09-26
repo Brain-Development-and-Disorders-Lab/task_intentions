@@ -38,7 +38,7 @@ beforeEach(() => {
 
 test("loads and displays Summary screen", async () => {
   const props: Props.Screens.Summary = {
-    trial: 0,
+    trial_number: 0,
     display: "summary",
     postPhase: "playerChoice",
     handler: () => {
