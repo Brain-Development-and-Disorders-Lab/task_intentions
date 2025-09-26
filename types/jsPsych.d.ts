@@ -27,7 +27,7 @@ declare type TimelineNode = {
   show_clickable_nav?: boolean;
 
   // Trial plugin
-  trial?: number;
+  trial_number?: number;
   display?: Display | string;
   optionOneParticipant?: number;
   optionOnePartner?: number;

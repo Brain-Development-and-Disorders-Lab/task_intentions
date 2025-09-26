@@ -76,7 +76,7 @@ declare namespace Props {
   // Props for 'Screens'
   declare namespace Screens {
     type GenericScreenProps = {
-      trial: number;
+      trial_number: number;
       display: Display;
     };
 

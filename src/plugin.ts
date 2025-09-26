@@ -123,7 +123,7 @@ jsPsych.plugins[Configuration.studyName] = (() => {
     // Setup the trial data to be stored
     const dataframe: TrialData = {
       // Trial identification
-      trial: trial.trial,
+      trial_number: trial.trial_number,
       display: trial.display,
       participantID: experiment.getState().get("participantID"),
 

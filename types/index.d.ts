@@ -82,7 +82,7 @@ declare type Options = "Option 1" | "Option 2";
 // Trial type to enforce parameters
 declare type Trial = {
   // Basic trial identification
-  trial: number; // Trial number/identifier
+  trial_number: number; // Trial number/identifier
   display: Display; // Screen type to display (e.g., "playerChoice", "loading", etc.)
 
   // Game option parameters (used by Trial screen)
@@ -135,7 +135,7 @@ declare type Trial = {
 // Data type used to enforce trial data storage format
 declare type TrialData = {
   // Trial identification
-  trial: number;
+  trial_number: number;
   display: Display;
   participantID: string;
 

@@ -943,7 +943,7 @@ for (let i = 0; i < dataCollection.length; i++) {
       const stageOneTrials = shuffle(randomisedTrials.phaseOne);
       let stageOneCounter = 1;
       for (const trial of stageOneTrials) {
-        trial.trial = stageOneCounter;
+        trial.trial_number = stageOneCounter;
         stageOneCounter++;
       }
 
@@ -1286,7 +1286,7 @@ for (let i = 0; i < dataCollection.length; i++) {
       const stageTwoTrials = shuffle(randomisedTrials.phaseTwo);
       let stageTwoCounter = 1;
       for (const trial of stageTwoTrials) {
-        trial["trial"] = stageTwoCounter;
+        trial.trial_number = stageTwoCounter;
         stageTwoCounter++;
       }
 
@@ -1541,7 +1541,7 @@ for (let i = 0; i < dataCollection.length; i++) {
 const stageThreeTrials = shuffle(randomisedTrials.phaseThree);
 let stageThreeCounter = 1;
 for (const trial of stageThreeTrials) {
-  trial["trial"] = stageThreeCounter;
+  trial.trial_number = stageThreeCounter;
   stageThreeCounter++;
 }
 
