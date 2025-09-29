@@ -47,6 +47,11 @@ declare type Dataframe = {
   setupDuration: number;
   operationDuration: number;
 
+  // Social status
+  participantDefaultStatus: number;
+  partnerLowStatus: number;
+  partnerHighStatus: number;
+
   // Signal timestamps
   signalTimestamps: number[];
 

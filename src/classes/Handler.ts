@@ -217,6 +217,12 @@ class Handler {
       this.dataframe.operationDuration = operationDuration;
     }
 
+    // Store social status
+    const experiment = window.Experiment;
+    this.dataframe.participantDefaultStatus = experiment.getState().get("participantDefaultStatus");
+    this.dataframe.partnerLowStatus = experiment.getState().get("partnerLowStatus");
+    this.dataframe.partnerHighStatus = experiment.getState().get("partnerHighStatus");
+
     // Finish trial
     this.callback();
   }
