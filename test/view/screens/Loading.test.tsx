@@ -37,7 +37,7 @@ beforeEach(() => {
 });
 
 test("loads and displays Loading screen with matching type", async () => {
-  const props: Props.Screens.Loading = {
+  const props: Screens.Loading = {
     trial_number: 0,
     display: "loading",
     state: "matchingIntentions",
@@ -54,7 +54,7 @@ test("loads and displays Loading screen with matching type", async () => {
 });
 
 test("loads and displays Loading screen with social type", async () => {
-  const props: Props.Screens.Loading = {
+  const props: Screens.Loading = {
     trial_number: 0,
     display: "loading",
     state: "social",
@@ -69,7 +69,7 @@ test("loads and displays Loading screen with social type", async () => {
 });
 
 test("loads and displays Loading screen with default type", async () => {
-  const props: Props.Screens.Loading = {
+  const props: Screens.Loading = {
     trial_number: 0,
     display: "loading",
     state: "default",
@@ -82,7 +82,7 @@ test("loads and displays Loading screen with default type", async () => {
 });
 
 test("loads and displays Loading screen with default type when no type specified", async () => {
-  const props: Props.Screens.Loading = {
+  const props: Screens.Loading = {
     trial_number: 0,
     display: "loading",
     state: "default",

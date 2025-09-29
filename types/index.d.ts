@@ -14,7 +14,7 @@ interface Factory {
 
 // Type for the 'ScreenPropFactory' return
 declare type ScreenProps = {
-  props: Props.Screens;
+  props: Screens;
   callback: (...args) => void;
   duration: number;
 };

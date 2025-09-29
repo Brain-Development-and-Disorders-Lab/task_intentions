@@ -28,7 +28,7 @@ import { Configuration } from "src/configuration";
  *  - handler: {function} Function to handle the continue button click
  * @return {ReactElement} 'StatusPreview' screen with partner avatar and success message
  */
-const Loaded: FC<Props.Screens.StatusPreview> = (props: Props.Screens.StatusPreview): ReactElement => {
+const StatusPreview: FC<Screens.StatusPreview> = (props: Screens.StatusPreview): ReactElement => {
   // Get the current partner avatar and social standing
   const experiment = window.Experiment;
   const partnerStatus = props.isPartnerHighStatus ? experiment.getState().get("partnerHighStatus") : experiment.getState().get("partnerLowStatus");
@@ -73,4 +73,4 @@ const Loaded: FC<Props.Screens.StatusPreview> = (props: Props.Screens.StatusPrev
   );
 };
 
-export default Loaded;
+export default StatusPreview;

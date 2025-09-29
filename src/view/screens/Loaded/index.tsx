@@ -31,10 +31,10 @@ import { generatePartnerID } from "src/util";
 
 /**
  * @summary Generate a 'Loaded' screen containing a card with the partner avatar for the subsequent phase of the game
- * @param {FC} props Empty props object as this component takes no props
+ * @param {Screens.Loaded} props Component props
  * @return {ReactElement} 'Loaded' screen with partner avatar and success message
  */
-const Loaded: FC<Props.Screens.Loaded> = (props: Props.Screens.Loaded): ReactElement => {
+const Loaded: FC<Screens.Loaded> = (props: Screens.Loaded): ReactElement => {
   // Get the current partner avatar
   const experiment = window.Experiment;
   const currentPartner = experiment.getState().get("partnerAvatar");

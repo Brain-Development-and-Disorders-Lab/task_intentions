@@ -21,13 +21,13 @@ import { Configuration } from "src/configuration";
 
 /**
  * @summary Generate a 'Status' component that displays social status positions
- * @param {Props.Components.Status} props component props containing:
+ * @param {Components.Status} props component props containing:
  *  - participantStatus: {number} Social status value for participant (0-100)
  *  - partnerStatus: {number} Social status value for partner (0-100)
  * @return {ReactElement} 'Status' component with horizontal scale and avatar indicators
  */
-const Status: FC<Props.Components.Status> = (
-  props: Props.Components.Status
+const Status: FC<Components.Status> = (
+  props: Components.Status
 ): ReactElement => {
   const [participantStatus] = useState(props.participantStatus);
   const [partnerStatus] = useState(props.partnerStatus);

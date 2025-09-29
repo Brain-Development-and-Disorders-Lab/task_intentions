@@ -71,7 +71,7 @@ beforeEach(() => {
 });
 
 test("loads and displays Trial screen", async () => {
-  const props: Props.Screens.Trial = {
+  const props: Screens.Trial = {
     trial_number: 0,
     display: "playerChoice",
     isPractice: false,
@@ -105,7 +105,7 @@ test("loads and displays Trial screen", async () => {
 const createTrialProps = (
   display: Display,
   isPractice = false
-): Props.Screens.Trial => ({
+): Screens.Trial => ({
   trial_number: 0,
   display,
   isPractice,

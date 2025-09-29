@@ -303,7 +303,7 @@ class ScreenPropFactory implements Factory {
         returned.props = {
           trial_number: this.trial.trial_number,
           display: this.trial.display,
-          callback: this.handler.callback.bind(this.handler),
+          handler: this.handler.callback.bind(this.handler),
         };
         break;
 

@@ -19,7 +19,7 @@ import { Box, Heading, RangeInput } from "grommet";
 
 /**
  * @summary Generate a 'Slider' component that displays a horizontal range input with labels
- * @param {Props.Components.Slider} props component props containing:
+ * @param {Components.Slider} props component props containing:
  *  - min: {number} Minimum value for the slider
  *  - max: {number} Maximum value for the slider
  *  - value: {number} Current value of the slider
@@ -29,8 +29,8 @@ import { Box, Heading, RangeInput } from "grommet";
  *  - setValue?: {(value: number) => void} Optional callback to update value externally
  * @return {ReactElement} 'Slider' component with a labeled range input
  */
-const Slider: FC<Props.Components.Slider> = (
-  props: Props.Components.Slider
+const Slider: FC<Components.Slider> = (
+  props: Components.Slider
 ): ReactElement => {
   // Value presented by the slide
   const [value, setValue] = useState(props.max / 2);

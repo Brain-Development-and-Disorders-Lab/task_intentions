@@ -16,7 +16,7 @@ import { render } from "test/utils/functions";
 import Wrapper from "src/view/components/Wrapper";
 
 test("loads and displays Inference screen", async () => {
-  const props: Props.Screens.Inference = {
+  const props: Screens.Inference = {
     trial_number: 0,
     display: "inference",
     handler: () => {

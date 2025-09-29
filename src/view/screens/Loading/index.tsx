@@ -27,15 +27,15 @@ const MIN_OPERATION_DURATION = 12000; // 12 seconds
 
 /**
  * @summary Generate a 'Loading' screen presenting a loading indicator and text based on the current state
- * @param {Props.Screens.Loading} props Component props containing:
+ * @param {Screens.Loading} props Component props containing:
  *  - state: {"matchingIntentions" | "matchingCyberball" | "social" | "default"} The loading state to display
  *  - runComputeSetup?: {boolean} Flag indicating whether to setup the compute instance
  *  - runComputeOperation?: {boolean} Flag indicating whether to compute participant and partner parameters
  *  - handler?: {(participantParams: ModelParameters, partnerParams: ModelParameters, setupDuration: number, operationDuration: number) => void} Callback to handle model parameters
  * @return {ReactElement} 'Loading' screen with loading indicator and state-specific status message
  */
-const Loading: FC<Props.Screens.Loading> = (
-  props: Props.Screens.Loading
+const Loading: FC<Screens.Loading> = (
+  props: Screens.Loading
 ): ReactElement => {
   const experiment = window.Experiment;
 

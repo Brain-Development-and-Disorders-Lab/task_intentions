@@ -27,12 +27,12 @@ import { LinkNext } from "grommet-icons";
 
 /**
  * @summary Generate a 'Status' screen component with two pages for collecting social status information
- * @param {Props.Screens.Status} props Component props containing:
+ * @param {Screens.Status} props Component props containing:
  *  - handler: {(closeFriends: number, partyInvitations: number, meanPeople: number, socialMediaFollowers: number, socialMediaFollowing: number) => void} Callback function when participant continues
  * @return {ReactElement} 'Status' screen with two pages of questions
  */
-const Status: FC<Props.Screens.Status> = (
-  props: Props.Screens.Status
+const Status: FC<Screens.Status> = (
+  props: Screens.Status
 ): ReactElement => {
   // Page state
   const [currentPage, setCurrentPage] = useState(1);
