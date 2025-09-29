@@ -36,7 +36,7 @@ test("generate props for Agency screen", async () => {
   const generated = screenPropFactory.generate();
 
   // Check contents of props
-  expect(generated.props.trial).toBe(1);
+  expect(generated.props.trial_number).toBe(1);
   expect(generated.props.display).toBe("agency");
   expect(generated.props).toHaveProperty("handler");
 });
@@ -52,7 +52,7 @@ test("generate props for Classification screen", async () => {
   const generated = screenPropFactory.generate();
 
   // Check contents of props
-  expect(generated.props.trial).toBe(1);
+  expect(generated.props.trial_number).toBe(1);
   expect(generated.props.display).toBe("classification");
   expect(generated.props).toHaveProperty("handler");
 });
@@ -68,7 +68,7 @@ test("generate props for End screen", async () => {
   const generated = screenPropFactory.generate();
 
   // Check contents of props
-  expect(generated.props.trial).toBe(1);
+  expect(generated.props.trial_number).toBe(1);
   expect(generated.props.display).toBe("end");
   expect(generated.props).not.toHaveProperty("handler");
 });
@@ -84,7 +84,7 @@ test("generate props for Inference screen", async () => {
   const generated = screenPropFactory.generate();
 
   // Check contents of props
-  expect(generated.props.trial).toBe(1);
+  expect(generated.props.trial_number).toBe(1);
   expect(generated.props.display).toBe("inference");
   expect(generated.props).toHaveProperty("handler");
 });
@@ -100,7 +100,7 @@ test("generate props for Loaded screen", async () => {
   const generated = screenPropFactory.generate();
 
   // Check contents of props
-  expect(generated.props.trial).toBe(1);
+  expect(generated.props.trial_number).toBe(1);
   expect(generated.props.display).toBe("loaded");
   expect(generated.props.state).toBe("matchingIntentions");
   expect(generated.props).not.toHaveProperty("handler");
@@ -122,7 +122,7 @@ test("generate props for Loading screen with matching type", async () => {
   const generated = screenPropFactory.generate();
 
   // Check contents of props
-  expect(generated.props.trial).toBe(1);
+  expect(generated.props.trial_number).toBe(1);
   expect(generated.props.display).toBe("loading");
   expect(generated.props.state).toBe("matchingIntentions");
   expect(generated.props.runComputeOperation).toBe(false);
@@ -140,7 +140,7 @@ test("generate props for Summary screen", async () => {
   const generated = screenPropFactory.generate();
 
   // Check contents of props
-  expect(generated.props.trial).toBe(1);
+  expect(generated.props.trial_number).toBe(1);
   expect(generated.props.display).toBe("summary");
   expect(generated.props.postPhase).toBe("playerChoice");
   expect(generated.props).toHaveProperty("handler");
@@ -157,7 +157,7 @@ test("generate props for Trial screen", async () => {
   const generated = screenPropFactory.generate();
 
   // Check contents of props
-  expect(generated.props.trial).toBe(1);
+  expect(generated.props.trial_number).toBe(1);
   expect(generated.props.display).toBe("playerChoice");
   expect(generated.props.isPractice).toBe(false);
   expect(generated.props.participantPoints).toBe(0);
