@@ -25,12 +25,12 @@ import { Configuration } from "src/configuration";
 /**
  * Cyberball screen component that implements the social exclusion paradigm
  * @component
- * @param {Props.Screens.Cyberball} props Component props
+ * @param {Screens.Cyberball} props Component props
  * @param {(tossCount: number, participantTossCount: number, participantCatchCount: number) => void} props.handler Callback function when game completes
  * @returns {ReactElement} Cyberball game screen
  */
-const Cyberball: FC<Props.Screens.Cyberball> = (
-  props: Props.Screens.Cyberball
+const Cyberball: FC<Screens.Cyberball> = (
+  props: Screens.Cyberball
 ): ReactElement => {
   // Access the experiment instance
   const experiment = window.Experiment;

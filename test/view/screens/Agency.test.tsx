@@ -16,8 +16,8 @@ import { render } from "test/utils/functions";
 import Wrapper from "src/view/components/Wrapper";
 
 test("loads and displays Agency screen", async () => {
-  const props: Props.Screens.Agency = {
-    trial: 0,
+  const props: Screens.Agency = {
+    trial_number: 0,
     display: "agency",
     handler: () => {
       console.info("Selection handler called");

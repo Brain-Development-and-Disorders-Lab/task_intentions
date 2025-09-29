@@ -19,9 +19,9 @@ import Handler from "src/classes/Handler";
  * @param {Display} display the display type being tested
  * @return {any}
  */
-export const getTrialConfiguration = (display: Display): Trial => {
+export const getTrialConfiguration = (display: Display): IntentionsNode => {
   return {
-    trial: 1,
+    trial_number: 1,
     display: display,
     optionOneParticipant: 0,
     optionOnePartner: 0,
@@ -46,7 +46,7 @@ export const getTrialConfiguration = (display: Display): Trial => {
 export const getHandler = (display: Display): Handler => {
   return new Handler(
     {
-      trial: 1,
+      trial_number: 1,
       display: display,
       participantID: "default",
       playerPoints_option1: NaN,

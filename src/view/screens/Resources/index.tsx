@@ -20,10 +20,10 @@ import { LinkNext } from "grommet-icons";
 
 /**
  * @summary Generate a 'Resources' screen that displays mental health resources
- * @param {FC} props Props containing callback function to proceed to next screen
+ * @param {Screens.Resources} props Props containing callback function to proceed to next screen
  * @return {ReactElement} Multi-page Resources screen with UK and US mental health information
  */
-const Resources: FC<{ callback?: () => void }> = ({ callback }): ReactElement => {
+const Resources: FC<Screens.Resources> = (props: Screens.Resources): ReactElement => {
   const [currentPage, setCurrentPage] = useState<'uk' | 'us'>('uk');
 
   const UKResources = () => (
@@ -171,8 +171,8 @@ const Resources: FC<{ callback?: () => void }> = ({ callback }): ReactElement =>
         color="button"
         label="Continue"
         onClick={() => {
-          if (callback) {
-            callback();
+          if (props.handler) {
+            props.handler();
           }
         }}
         margin="small"

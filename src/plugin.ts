@@ -34,7 +34,7 @@ import { saveToLocalStorage, setCompleted } from "./util";
 jsPsych.plugins[Configuration.studyName] = (() => {
   const plugin = {
     info: {},
-    trial: (_displayElement: HTMLElement, _trial: Trial) => {
+    trial: (_displayElement: HTMLElement, _trial: IntentionsNode) => {
       // Should raise an error
       consola.error(`Not implemented.`);
     },
@@ -116,14 +116,14 @@ jsPsych.plugins[Configuration.studyName] = (() => {
     },
   };
 
-  plugin.trial = (displayElement: HTMLElement, trial: Trial) => {
+  plugin.trial = (displayElement: HTMLElement, trial: IntentionsNode) => {
     // Get the global 'Experiment' instance
     const experiment = window.Experiment;
 
     // Setup the trial data to be stored
-    const dataframe: TrialData = {
+    const dataframe: Dataframe = {
       // Trial identification
-      trial: trial.trial,
+      trial_number: trial.trial_number,
       display: trial.display,
       participantID: experiment.getState().get("participantID"),
 

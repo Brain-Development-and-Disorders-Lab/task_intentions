@@ -16,8 +16,8 @@ import { render } from "test/utils/functions";
 import Wrapper from "src/view/components/Wrapper";
 
 test("loads and displays Classification screen", async () => {
-  const props: Props.Screens.Classification = {
-    trial: 0,
+  const props: Screens.Classification = {
+    trial_number: 0,
     display: "classification",
     handler: () => {
       console.info("Selection handler called");

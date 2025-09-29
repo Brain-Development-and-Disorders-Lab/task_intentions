@@ -50,17 +50,17 @@ import { BINDINGS } from "src/bindings";
  * Trial screen component that displays two options and avatar cards for point-splitting decisions
  * or guessing partner's choices. Supports both practice and real trials.
  * @component
- * @param {Props.Screens.Trial} props - Component props
+ * @param {Screens.Trial} props - Component props
  * @param {string} props.display - Type of trial display ("playerGuess", "playerChoice", "playerChoice2")
  * @param {boolean} props.isPractice - Whether this is a practice trial
  * @param {string} props.answer - The correct answer for guess trials ("Option 1" or "Option 2")
- * @param {Props.Components.Options} props.options - Configuration for the two point-splitting options
+ * @param {Components.Options} props.options - Configuration for the two point-splitting options
  * @param {number} props.trial - Current trial number (1-based)
  * @param {(state: TrialState) => void} props.handler - Callback function when trial completes
  * @returns {ReactElement} Trial screen with options, avatar cards, and points display
  */
-const Trial: FC<Props.Screens.Trial> = (
-  props: Props.Screens.Trial
+const Trial: FC<Screens.Trial> = (
+  props: Screens.Trial
 ): ReactElement => {
   // Get the Experiment instance
   const experiment = window.Experiment;
@@ -156,7 +156,7 @@ const Trial: FC<Props.Screens.Trial> = (
       // Update the values stored for the points
       const partnerChoices = experiment.getState().get("partnerChoices");
       // 'PARd' -> partner decisions
-      const trialData = partnerChoices[props.trial - 1];
+      const trialData = partnerChoices[props.trial_number - 1];
 
       // Switch participant and partner points
       displayPoints.options.one.participant = trialData["par1"];

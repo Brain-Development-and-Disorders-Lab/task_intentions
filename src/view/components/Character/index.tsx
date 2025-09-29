@@ -27,15 +27,15 @@ import { Configuration } from "src/configuration";
  * Renders a clickable avatar that can be selected/deselected by the participant.
  * The component uses CSS classes to provide visual feedback for the selection state.
  *
- * @param {Props.Components.Character} props - Component properties
+ * @param {Components.Character} props - Component properties
  * @param {string} props.name - Unique identifier for the avatar
  * @param {number} props.size - Size in pixels for the avatar
  * @param {string | null} props.state - Currently selected avatar name
  * @param {(name: string) => void} props.setState - Function to update selected avatar
  * @returns {ReactElement} Clickable avatar component with selection state handling
  */
-const Character: FC<Props.Components.Character> = (
-  props: Props.Components.Character
+const Character: FC<Components.Character> = (
+  props: Components.Character
 ): ReactElement => {
   return (
     <Box

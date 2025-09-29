@@ -23,7 +23,7 @@ import consola from "consola";
  * used by the screens of the game
  */
 class Handler {
-  private dataframe: TrialData;
+  private dataframe: Dataframe;
   public callback: () => void;
 
   /**
@@ -32,7 +32,7 @@ class Handler {
    * @param {function} callback default callback after the handlers
    * @constructor
    */
-  constructor(dataframe: TrialData, callback: () => void) {
+  constructor(dataframe: Dataframe, callback: () => void) {
     this.dataframe = dataframe;
     this.callback = callback;
   }
@@ -41,7 +41,7 @@ class Handler {
    * Get the dataframe being modified
    * @return {Data}
    */
-  public getDataframe(): TrialData {
+  public getDataframe(): Dataframe {
     return this.dataframe;
   }
 

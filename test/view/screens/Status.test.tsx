@@ -16,8 +16,8 @@ import { render } from "test/utils/functions";
 import Wrapper from "src/view/components/Wrapper";
 
 test("loads and displays Status screen page 1", async () => {
-  const props: Props.Screens.Status = {
-    trial: 0,
+  const props: Screens.Status = {
+    trial_number: 0,
     display: "status",
     handler: () => {
       console.info("Status handler called");
@@ -54,8 +54,8 @@ test("loads and displays Status screen page 1", async () => {
 });
 
 test("loads and displays Status screen page 2", async () => {
-  const props: Props.Screens.Status = {
-    trial: 0,
+  const props: Screens.Status = {
+    trial_number: 0,
     display: "status",
     handler: () => {
       console.info("Status handler called");

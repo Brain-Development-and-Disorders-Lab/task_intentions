@@ -83,13 +83,13 @@ const SCORING = [
 
 /**
  * @summary Generate a 'DASS' screen component with two pages for collecting DASS-21 responses
- * @param {Props.Screens.DASS} props Component props containing:
+ * @param {Screens.DASS} props Component props containing:
  *  - version: {"adult" | "adolescent"} Which version of DASS to use
  *  - handler: {(responses: number[]) => void} Callback function when participant continues
  * @return {ReactElement} 'DASS' screen with two pages
  */
-const DASS: FC<Props.Screens.DASS> = (
-  props: Props.Screens.DASS
+const DASS: FC<Screens.DASS> = (
+  props: Screens.DASS
 ): ReactElement => {
   // Page state
   const [currentPage, setCurrentPage] = useState(1);

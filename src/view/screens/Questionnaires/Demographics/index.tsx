@@ -33,13 +33,13 @@ import { LinkNext } from "grommet-icons";
 
 /**
  * @summary Generate a 'Demographics' screen component with multiple pages for collecting demographic information
- * @param {Props.Screens.Demographics} props Component props containing:
+ * @param {Screens.Demographics} props Component props containing:
  *  - version: "adult" | "adolescent" - Determines question wording and options
  *  - handler: {(responses: DemographicsResponses) => void} Callback function when participant continues
  * @return {ReactElement} 'Demographics' screen with multiple pages of questions
  */
-const Demographics: FC<Props.Screens.Demographics> = (
-  props: Props.Screens.Demographics
+const Demographics: FC<Screens.Demographics> = (
+  props: Screens.Demographics
 ): ReactElement => {
   // Page state
   const [currentPage, setCurrentPage] = useState(1);

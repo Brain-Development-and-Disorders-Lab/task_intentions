@@ -29,12 +29,12 @@ import { BINDINGS } from "src/bindings";
 
 /**
  * @summary Generate a 'SelectAvatar' screen presenting a row of six avatars for participant selection
- * @param {Props.Screens.SelectAvatar} props Component props containing:
+ * @param {Screens.SelectAvatar} props Component props containing:
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'SelectAvatar' screen with avatar selection grid and continue button
  */
-const SelectAvatar: FC<Props.Screens.SelectAvatar> = (
-  props: Props.Screens.SelectAvatar
+const SelectAvatar: FC<Screens.SelectAvatar> = (
+  props: Screens.SelectAvatar
 ): ReactElement => {
   // Get the global 'Experiment' instance
   const experiment = window.Experiment;

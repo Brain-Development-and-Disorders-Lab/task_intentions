@@ -12,8 +12,8 @@ import { Box, Heading, Layer, WorldMap, Paragraph } from "grommet";
 import consola from "consola";
 import { BINDINGS } from "src/bindings";
 
-const Waiting: FC<Props.Screens.Waiting> = (
-  props: Props.Screens.Waiting
+const Waiting: FC<Screens.Waiting> = (
+  props: Screens.Waiting
 ): ReactElement => {
   useEffect(() => {
     const keyListener = (event: KeyboardEvent) => {

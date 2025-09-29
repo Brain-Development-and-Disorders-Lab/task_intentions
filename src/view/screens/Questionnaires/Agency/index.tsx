@@ -32,15 +32,15 @@ const SLIDER_DEFAULT = 50; // Sets the 'thumb' to the middle of the slider
 
 /**
  * @summary Generate an 'Agency' screen component containing a slider and question that requires participant response
- * @param {Props.Screens.Agency} props Component props containing:
+ * @param {Screens.Agency} props Component props containing:
  *  - question: {string} The question text to display
  *  - leftLabel: {string} Label for the left side of the slider
  *  - rightLabel: {string} Label for the right side of the slider
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Agency' screen with interactive slider and question
  */
-const Agency: FC<Props.Screens.Agency> = (
-  props: Props.Screens.Agency
+const Agency: FC<Screens.Agency> = (
+  props: Screens.Agency
 ): ReactElement => {
   // Slider states, monitor if they have been interacted with
   // Top slider

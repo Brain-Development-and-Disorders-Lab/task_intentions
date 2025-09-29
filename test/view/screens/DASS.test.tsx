@@ -27,7 +27,7 @@ describe("DASS Component", () => {
 
   describe("Adult Version", () => {
     const adultProps = {
-      trial: 1,
+      trial_number: 1,
       display: "dass" as const,
       version: "adult" as const,
       handler: mockHandler,
@@ -85,7 +85,7 @@ describe("DASS Component", () => {
 
   describe("Adolescent Version", () => {
     const adolescentProps = {
-      trial: 1,
+      trial_number: 1,
       display: "dass" as const,
       version: "adolescent" as const,
       handler: mockHandler,

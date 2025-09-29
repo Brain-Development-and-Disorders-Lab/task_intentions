@@ -28,18 +28,18 @@ import Handler from "src/classes/Handler";
  */
 class ScreenPropFactory implements Factory {
   // jsPsych trial data
-  private trial: Trial;
+  private trial: IntentionsNode;
 
   // Callback function from 'Handler' class
   private handler: Handler;
 
   /**
    * Default constructor
-   * @param {Trial} trial jsPsych trial data
+   * @param {IntentionsNode} trial jsPsych trial data
    * @param {Handler} handler callback function from 'Handler' class
    * @constructor
    */
-  constructor(trial: Trial, handler: Handler) {
+  constructor(trial: IntentionsNode, handler: Handler) {
     this.trial = trial;
     this.handler = handler;
   }
@@ -82,7 +82,7 @@ class ScreenPropFactory implements Factory {
       case "playerChoice2": {
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           isPractice: this.trial.isPractice,
           spotlight: this.trial.spotlight,
@@ -112,7 +112,7 @@ class ScreenPropFactory implements Factory {
 
           // Setup the props
           returned.props = {
-            trial: this.trial.trial,
+            trial_number: this.trial.trial_number,
             display: this.trial.display,
             state: this.trial.state,
             handler: this.handler.callback.bind(this.handler),
@@ -125,7 +125,7 @@ class ScreenPropFactory implements Factory {
 
           // Setup the props
           returned.props = {
-            trial: this.trial.trial,
+            trial_number: this.trial.trial_number,
             display: this.trial.display,
             state: this.trial.state,
           };
@@ -135,7 +135,7 @@ class ScreenPropFactory implements Factory {
       case "statusPreview":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           isPartnerHighStatus: this.trial.isPartnerHighStatus,
           handler: this.handler.callback.bind(this.handler),
@@ -159,7 +159,7 @@ class ScreenPropFactory implements Factory {
 
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           state: this.trial.state || "default", // Default to "default" type if not specified
           runComputeSetup: this.trial.runComputeSetup,
@@ -172,7 +172,7 @@ class ScreenPropFactory implements Factory {
       case "selection":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           handler: this.handler.selection.bind(this.handler),
         };
@@ -182,7 +182,7 @@ class ScreenPropFactory implements Factory {
       case "inference":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           handler: this.handler.inference.bind(this.handler),
         };
@@ -192,7 +192,7 @@ class ScreenPropFactory implements Factory {
       case "agency":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           handler: this.handler.agency.bind(this.handler),
         };
@@ -202,7 +202,7 @@ class ScreenPropFactory implements Factory {
       case "classification":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           handler: this.handler.classification.bind(this.handler),
         };
@@ -212,7 +212,7 @@ class ScreenPropFactory implements Factory {
       case "status":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           handler: this.handler.status.bind(this.handler),
         };
@@ -222,7 +222,7 @@ class ScreenPropFactory implements Factory {
       case "dass":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           version: Configuration.manipulations.useAdultQuestionnaires ? "adult" : "adolescent",
           handler: this.handler.dass.bind(this.handler),
@@ -233,7 +233,7 @@ class ScreenPropFactory implements Factory {
       case "screentime":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           handler: this.handler.screentime.bind(this.handler),
         };
@@ -243,7 +243,7 @@ class ScreenPropFactory implements Factory {
       case "demographics":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           version: Configuration.manipulations.useAdultQuestionnaires ? "adult" : "adolescent",
           handler: this.handler.demographics.bind(this.handler),
@@ -254,7 +254,7 @@ class ScreenPropFactory implements Factory {
       case "summary":
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           postPhase: postPhase,
           handler: this.handler.callback.bind(this.handler),
@@ -271,7 +271,7 @@ class ScreenPropFactory implements Factory {
 
         // Setup the props
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
         };
         break;
@@ -279,7 +279,7 @@ class ScreenPropFactory implements Factory {
       // Waiting screen
       case "waiting":
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           mode: this.trial.mode,
           handler: this.handler.callback.bind(this.handler),
@@ -289,7 +289,7 @@ class ScreenPropFactory implements Factory {
       // Cyberball screen
       case "cyberball":
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
           isInclusive: this.trial.isInclusive,
           partnerHighStatus: this.trial.partnerHighStatus,
@@ -301,9 +301,9 @@ class ScreenPropFactory implements Factory {
       // Resources screen
       case "resources":
         returned.props = {
-          trial: this.trial.trial,
+          trial_number: this.trial.trial_number,
           display: this.trial.display,
-          callback: this.handler.callback.bind(this.handler),
+          handler: this.handler.callback.bind(this.handler),
         };
         break;
 

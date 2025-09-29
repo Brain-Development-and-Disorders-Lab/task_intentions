@@ -32,7 +32,7 @@ const SLIDER_DEFAULT = 50;
 
 /**
  * @summary Generate an 'Inference' screen presenting two sliders for participant interaction
- * @param {Props.Screens.Inference} props Component props containing:
+ * @param {Screens.Inference} props Component props containing:
  *  - firstQuestion: {string} Question text for first slider
  *  - secondQuestion: {string} Question text for second slider
  *  - firstLeftLabel: {string} Left label for first slider
@@ -42,8 +42,8 @@ const SLIDER_DEFAULT = 50;
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Inference' screen with two interactive sliders and questions
  */
-const Inference: FC<Props.Screens.Inference> = (
-  props: Props.Screens.Inference
+const Inference: FC<Screens.Inference> = (
+  props: Screens.Inference
 ): ReactElement => {
   // Slider states, monitor if they have been interacted with
   // Top slider
@@ -130,7 +130,7 @@ const Inference: FC<Props.Screens.Inference> = (
         {/* First question */}
         <Paragraph margin="small" size="large" fill>
           Please use the slider below to indicate the extent to which you
-          believe your partner's decisions are driven by their desire to earn
+          believe your partner&apos;s decisions are driven by their desire to earn
           points in this game.
         </Paragraph>
         <Box
@@ -163,7 +163,7 @@ const Inference: FC<Props.Screens.Inference> = (
         {/* Second question */}
         <Paragraph margin="small" size="large" fill>
           Please use the slider below to indicate the extent to which you
-          believe your partner's decisions are driven by their desire to reduce
+          believe your partner&apos;s decisions are driven by their desire to reduce
           your bonus in this game.
         </Paragraph>
         <Box

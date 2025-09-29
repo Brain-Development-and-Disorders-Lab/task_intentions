@@ -26,12 +26,12 @@ import { BINDINGS } from "src/bindings";
 
 /**
  * @summary Generate a 'Classification' screen containing radio buttons for participants to classify their partner's behavior
- * @param {Props.Screens.Classification} props Component props containing:
+ * @param {Screens.Classification} props Component props containing:
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Classification' screen with radio button options for partner classification
  */
-const Classification: FC<Props.Screens.Classification> = (
-  props: Props.Screens.Classification
+const Classification: FC<Screens.Classification> = (
+  props: Screens.Classification
 ): ReactElement => {
   // Configure relevant states
   const [classification, setClassification] = useState("");

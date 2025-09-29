@@ -33,12 +33,12 @@ const TIME_OPTIONS = [
 
 /**
  * @summary Generate a 'Screentime' screen component for collecting social media usage time
- * @param {Props.Screens.Screentime} props Component props containing:
+ * @param {Screens.Screentime} props Component props containing:
  *  - handler: {(weekdayTime: number, weekendTime: number) => void} Callback function when participant continues
  * @return {ReactElement} 'Screentime' screen with two questions
  */
-const Screentime: FC<Props.Screens.Screentime> = (
-  props: Props.Screens.Screentime
+const Screentime: FC<Screens.Screentime> = (
+  props: Screens.Screentime
 ): ReactElement => {
   // Response state
   const [weekdayTime, setWeekdayTime] = useState(-1);

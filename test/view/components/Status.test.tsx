@@ -57,7 +57,7 @@ Object.defineProperty(window, "Experiment", {
 
 describe("Status Component", () => {
   test("renders with participant and partner status values", () => {
-    const props: Props.Components.Status = {
+    const props: Components.Status = {
       participantStatus: 75,
       partnerStatus: 25,
     };
@@ -73,7 +73,7 @@ describe("Status Component", () => {
   });
 
   test("renders with different status values", () => {
-    const props: Props.Components.Status = {
+    const props: Components.Status = {
       participantStatus: 50,
       partnerStatus: 50,
     };

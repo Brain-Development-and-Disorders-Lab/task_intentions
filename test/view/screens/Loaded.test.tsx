@@ -33,8 +33,8 @@ beforeEach(() => {
 });
 
 test("loads and displays Loaded screen", async () => {
-  const props: Props.Screens.Loaded = {
-    trial: 0,
+  const props: Screens.Loaded = {
+    trial_number: 0,
     display: "loaded",
     state: "matchingIntentions",
     handler: () => { return; },
