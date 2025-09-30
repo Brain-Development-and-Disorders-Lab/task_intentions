@@ -46,6 +46,7 @@ const Card: FC<Components.Card> = (
       id="playerInfo"
       margin={{ left: "small", right: "small" }}
       align="center"
+      justify="center"
     >
       <Heading level={1}>{props.name}</Heading>
 
@@ -59,7 +60,7 @@ const Card: FC<Components.Card> = (
       </Box>
 
       <Heading level={1}>
-        <Box direction="row" gap="xsmall">
+        <Box direction="row" gap="xsmall" height="64px">
           <Money size="large" color="pointsIconBackground" />
           <TextTransition
             text={props.points}
