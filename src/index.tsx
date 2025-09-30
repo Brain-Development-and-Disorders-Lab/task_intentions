@@ -502,7 +502,7 @@ if (Configuration.manipulations.enableCyberball === true) {
     type: Configuration.studyName,
     display: "cyberball",
     isInclusive: Configuration.manipulations.cyberballIsInclusive,
-    partnerHighStatus: Configuration.manipulations.cyberballIsPartnerHighStatus,
+    isCyberballPartnerHighStatus: Configuration.manipulations.cyberballIsPartnerHighStatus,
     probabilities: {
       inclusion: 0.5,
       exclusion: {
@@ -916,7 +916,8 @@ if (Configuration.manipulations.enableStatusPhaseOne === true) {
   timeline.push({
     type: Configuration.studyName,
     display: "statusPreview",
-    isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseOne,
+    nextPhase: "phaseOne",
+    isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseOne,
   })
 }
 
@@ -1291,7 +1292,8 @@ for (let i = 0; i < dataCollection.length; i++) {
         timeline.push({
           type: Configuration.studyName,
           display: "statusPreview",
-          isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseTwo,
+          nextPhase: "phaseTwo",
+          isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseTwo,
         })
       }
 
@@ -1483,7 +1485,8 @@ for (let i = 0; i < dataCollection.length; i++) {
         timeline.push({
           type: Configuration.studyName,
           display: "statusPreview",
-          isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseThree,
+          nextPhase: "phaseThree",
+          isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseThree,
         })
       }
 

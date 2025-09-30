@@ -137,7 +137,8 @@ class ScreenPropFactory implements Factory {
         returned.props = {
           trial_number: this.trial.trial_number,
           display: this.trial.display,
-          isPartnerHighStatus: this.trial.isPartnerHighStatus,
+          nextPhase: this.trial.nextPhase,
+          isPreviewPartnerHighStatus: this.trial.isPreviewPartnerHighStatus,
           handler: this.handler.callback.bind(this.handler),
         };
         break;
@@ -292,7 +293,7 @@ class ScreenPropFactory implements Factory {
           trial_number: this.trial.trial_number,
           display: this.trial.display,
           isInclusive: this.trial.isInclusive,
-          partnerHighStatus: this.trial.partnerHighStatus,
+          isCyberballPartnerHighStatus: this.trial.isCyberballPartnerHighStatus,
           probabilities: this.trial.probabilities,
           handler: this.handler.cyberball.bind(this.handler),
         };
