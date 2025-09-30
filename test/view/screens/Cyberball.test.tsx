@@ -68,7 +68,7 @@ describe("Cyberball Screen", () => {
     trial_number: 1,
     display: "cyberball" as const,
     isInclusive: true,
-    partnerHighStatus: true,
+    isCyberballPartnerHighStatus: true,
     probabilities: {
       inclusion: 0.7,
       exclusion: {
@@ -176,9 +176,9 @@ describe("Cyberball Screen", () => {
     expect(screen.getByText("High")).toBeInTheDocument();
   });
 
-  it("shows correct status positioning based on partnerHighStatus prop", () => {
+  it("shows correct status positioning based on isCyberballPartnerHighStatus prop", () => {
     // Test with high status partner
-    const highStatusProps = { ...mockProps, partnerHighStatus: true };
+    const highStatusProps = { ...mockProps, isCyberballPartnerHighStatus: true };
     const { rerender } = render(<Cyberball {...highStatusProps} />);
 
     // Check that the status label is present
@@ -186,7 +186,7 @@ describe("Cyberball Screen", () => {
     expect(screen.getByText("High")).toBeInTheDocument();
 
     // Test with low status partner
-    const lowStatusProps = { ...mockProps, partnerHighStatus: false };
+    const lowStatusProps = { ...mockProps, isCyberballPartnerHighStatus: false };
     rerender(<Cyberball {...lowStatusProps} />);
 
     // Check that the status label is still present

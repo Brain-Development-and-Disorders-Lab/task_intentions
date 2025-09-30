@@ -32,17 +32,17 @@ export const Configuration = {
     useAdultQuestionnaires: false,
 
     // Status enablement features
-    enableStatusPhaseOne: false,
-    enableStatusPhaseTwo: false,
+    enableStatusPhaseOne: true,
+    enableStatusPhaseTwo: true,
     enableStatusPhaseThree: false,
 
     // Status behavior features
     isPartnerHighStatusPhaseOne: false,
-    isPartnerHighStatusPhaseTwo: false,
+    isPartnerHighStatusPhaseTwo: true,
     isPartnerHighStatusPhaseThree: false,
 
     // Cyberball features
-    enableCyberball: false,
+    enableCyberball: true,
     cyberballIsInclusive: true,
     cyberballIsPartnerHighStatus: true,
   },

@@ -31,7 +31,18 @@ import { Configuration } from "src/configuration";
 const StatusPreview: FC<Screens.StatusPreview> = (props: Screens.StatusPreview): ReactElement => {
   // Get the current partner avatar and social standing
   const experiment = window.Experiment;
-  const partnerStatus = props.isPartnerHighStatus ? experiment.getState().get("partnerHighStatus") : experiment.getState().get("partnerLowStatus");
+
+  // Determine the partner status
+  let partnerStatus = 0;
+  if (props.nextPhase === "cyberball") {
+    partnerStatus = props.isPreviewPartnerHighStatus ? experiment.getState().get("partnerCyberballHighStatus") : experiment.getState().get("partnerCyberballLowStatus");
+  } else if (props.nextPhase === "phaseOne") {
+    partnerStatus = props.isPreviewPartnerHighStatus ? experiment.getState().get("partnerOneHighStatus") : experiment.getState().get("partnerOneLowStatus");
+  } else if (props.nextPhase === "phaseTwo") {
+    partnerStatus = props.isPreviewPartnerHighStatus ? experiment.getState().get("partnerTwoHighStatus") : experiment.getState().get("partnerTwoLowStatus");
+  } else if (props.nextPhase === "phaseThree") {
+    partnerStatus = props.isPreviewPartnerHighStatus ? experiment.getState().get("partnerThreeHighStatus") : experiment.getState().get("partnerThreeLowStatus");
+  }
 
   // Get the updated partner avatar
   const partnerAvatar = Configuration.avatars.names.partner[
