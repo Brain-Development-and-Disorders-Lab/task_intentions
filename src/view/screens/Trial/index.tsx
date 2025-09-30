@@ -193,7 +193,7 @@ const Trial: FC<Screens.Trial> = (
 
   // Initialize participant and partner statuses
   const participantStatus = experiment.getState().get("participantDefaultStatus"); // Default for all trials
-  let partnerStatus = 0;
+  let partnerStatus = experiment.getState().get("partnerCyberballLowStatus"); // Default to the Cyberball low status
   if (Flags.isEnabled("enableStatusDisplay") && props.isPractice === false) {
     // If status display is enabled, interpret and apply the manipulations
     if (props.display === "playerChoice") {

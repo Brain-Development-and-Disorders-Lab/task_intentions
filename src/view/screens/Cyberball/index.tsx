@@ -243,6 +243,7 @@ const Cyberball: FC<Screens.Cyberball> = (
             position: "absolute",
             top: "-70px",
             left: "50%",
+            width: "100%",
             transform: "translateX(-50%)",
             zIndex: 1000,
           }}
