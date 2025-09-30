@@ -55,7 +55,7 @@ const Cyberball: FC<Screens.Cyberball> = (
 
   // Generate the strings to determine the participant and partner statuses
   const participantStatus = experiment.getState().get("participantDefaultStatus");
-  const partnerStatus = props.partnerHighStatus ? experiment.getState().get("partnerHighStatus") : experiment.getState().get("partnerLowStatus");
+  const partnerStatus = props.isCyberballPartnerHighStatus ? experiment.getState().get("partnerCyberballHighStatus") : experiment.getState().get("partnerCyberballLowStatus");
 
   // Force re-render mechanism
   const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -243,6 +243,7 @@ const Cyberball: FC<Screens.Cyberball> = (
             position: "absolute",
             top: "-70px",
             left: "50%",
+            width: "100%",
             transform: "translateX(-50%)",
             zIndex: 1000,
           }}

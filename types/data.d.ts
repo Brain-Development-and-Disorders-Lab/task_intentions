@@ -49,8 +49,14 @@ declare type Dataframe = {
 
   // Social status
   participantDefaultStatus: number;
-  partnerLowStatus: number;
-  partnerHighStatus: number;
+  partnerCyberballLowStatus: number;
+  partnerCyberballHighStatus: number;
+  partnerOneLowStatus: number;
+  partnerOneHighStatus: number;
+  partnerTwoLowStatus: number;
+  partnerTwoHighStatus: number;
+  partnerThreeLowStatus: number;
+  partnerThreeHighStatus: number;
 
   // Signal timestamps
   signalTimestamps: number[];

@@ -100,12 +100,28 @@ experiment.getState().set("experimentID", experimentID);
 initializeLocalStorage(experimentID);
 
 // Generate status values for participant and partner during actual trials
-const { participantStatus: participantDefaultStatus, partnerLowStatus, partnerHighStatus } = generateStatuses();
+const {
+  participantDefaultStatus,
+  partnerCyberballLowStatus,
+  partnerCyberballHighStatus,
+  partnerOneLowStatus,
+  partnerOneHighStatus,
+  partnerTwoLowStatus,
+  partnerTwoHighStatus,
+  partnerThreeLowStatus,
+  partnerThreeHighStatus,
+} = generateStatuses();
 
 // Store status values in the experiment state
 experiment.getState().set("participantDefaultStatus", participantDefaultStatus);
-experiment.getState().set("partnerLowStatus", partnerLowStatus);
-experiment.getState().set("partnerHighStatus", partnerHighStatus);
+experiment.getState().set("partnerCyberballLowStatus", partnerCyberballLowStatus);
+experiment.getState().set("partnerCyberballHighStatus", partnerCyberballHighStatus);
+experiment.getState().set("partnerOneLowStatus", partnerOneLowStatus);
+experiment.getState().set("partnerOneHighStatus", partnerOneHighStatus);
+experiment.getState().set("partnerTwoLowStatus", partnerTwoLowStatus);
+experiment.getState().set("partnerTwoHighStatus", partnerTwoHighStatus);
+experiment.getState().set("partnerThreeLowStatus", partnerThreeLowStatus);
+experiment.getState().set("partnerThreeHighStatus", partnerThreeHighStatus);
 
 // Setup the Compute instance
 window.Compute = new Compute();
@@ -486,7 +502,7 @@ if (Configuration.manipulations.enableCyberball === true) {
     type: Configuration.studyName,
     display: "cyberball",
     isInclusive: Configuration.manipulations.cyberballIsInclusive,
-    partnerHighStatus: Configuration.manipulations.cyberballIsPartnerHighStatus,
+    isCyberballPartnerHighStatus: Configuration.manipulations.cyberballIsPartnerHighStatus,
     probabilities: {
       inclusion: 0.5,
       exclusion: {
@@ -900,7 +916,8 @@ if (Configuration.manipulations.enableStatusPhaseOne === true) {
   timeline.push({
     type: Configuration.studyName,
     display: "statusPreview",
-    isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseOne,
+    nextPhase: "phaseOne",
+    isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseOne,
   })
 }
 
@@ -1275,7 +1292,8 @@ for (let i = 0; i < dataCollection.length; i++) {
         timeline.push({
           type: Configuration.studyName,
           display: "statusPreview",
-          isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseTwo,
+          nextPhase: "phaseTwo",
+          isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseTwo,
         })
       }
 
@@ -1467,7 +1485,8 @@ for (let i = 0; i < dataCollection.length; i++) {
         timeline.push({
           type: Configuration.studyName,
           display: "statusPreview",
-          isPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseThree,
+          nextPhase: "phaseThree",
+          isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseThree,
         })
       }
 

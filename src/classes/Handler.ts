@@ -220,8 +220,14 @@ class Handler {
     // Store social status
     const experiment = window.Experiment;
     this.dataframe.participantDefaultStatus = experiment.getState().get("participantDefaultStatus");
-    this.dataframe.partnerLowStatus = experiment.getState().get("partnerLowStatus");
-    this.dataframe.partnerHighStatus = experiment.getState().get("partnerHighStatus");
+    this.dataframe.partnerCyberballLowStatus = experiment.getState().get("partnerCyberballLowStatus");
+    this.dataframe.partnerCyberballHighStatus = experiment.getState().get("partnerCyberballHighStatus");
+    this.dataframe.partnerOneLowStatus = experiment.getState().get("partnerOneLowStatus");
+    this.dataframe.partnerOneHighStatus = experiment.getState().get("partnerOneHighStatus");
+    this.dataframe.partnerTwoLowStatus = experiment.getState().get("partnerTwoLowStatus");
+    this.dataframe.partnerTwoHighStatus = experiment.getState().get("partnerTwoHighStatus");
+    this.dataframe.partnerThreeLowStatus = experiment.getState().get("partnerThreeLowStatus");
+    this.dataframe.partnerThreeHighStatus = experiment.getState().get("partnerThreeHighStatus");
 
     // Finish trial
     this.callback();

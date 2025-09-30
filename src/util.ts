@@ -256,20 +256,54 @@ export const generatePartnerID = (): string => {
  * Generate the participant and partner statuses using uniform distributions
  * @returns Object containing participant status (40-60%), partner low status (10-25%), and partner high status (75-90%)
  */
-export const generateStatuses = (): { participantStatus: number, partnerLowStatus: number, partnerHighStatus: number } => {
+export const generateStatuses = (): {
+  participantDefaultStatus: number;
+  partnerCyberballLowStatus: number;
+  partnerCyberballHighStatus: number;
+  partnerOneLowStatus: number;
+  partnerOneHighStatus: number;
+  partnerTwoLowStatus: number;
+  partnerTwoHighStatus: number;
+  partnerThreeLowStatus: number;
+  partnerThreeHighStatus: number;
+} => {
   // Create uniform distribution generators
   const participantRandom = randomUniform(40, 60);
   const partnerLowRandom = randomUniform(10, 25);
   const partnerHighRandom = randomUniform(75, 90);
 
   // Generate the statuses using uniform distributions
-  const participantStatus = Math.round(participantRandom() * 10) / 10; // Round to 1 decimal place
-  const partnerLowStatus = Math.round(partnerLowRandom() * 10) / 10;
-  const partnerHighStatus = Math.round(partnerHighRandom() * 10) / 10;
+  const participantDefaultStatus = Math.round(participantRandom() * 10) / 10; // Round to 1 decimal place
+
+  // Cyberball partner statuses
+  const partnerCyberballLowStatus = Math.round(partnerLowRandom() * 10) / 10;
+  const partnerCyberballHighStatus = Math.round(partnerHighRandom() * 10) / 10;
+
+  // Phase One partner statuses
+  const partnerOneLowStatus = Math.round(partnerLowRandom() * 10) / 10;
+  const partnerOneHighStatus = Math.round(partnerHighRandom() * 10) / 10;
+
+  // Phase Two partner statuses
+  const partnerTwoLowStatus = Math.round(partnerLowRandom() * 10) / 10;
+  const partnerTwoHighStatus = Math.round(partnerHighRandom() * 10) / 10;
+
+  // Phase Three partner statuses
+  const partnerThreeLowStatus = Math.round(partnerLowRandom() * 10) / 10;
+  const partnerThreeHighStatus = Math.round(partnerHighRandom() * 10) / 10;
 
   // Log the statuses
-  consola.info(`Generated statuses - Participant: ${participantStatus}%, Partner Low: ${partnerLowStatus}%, Partner High: ${partnerHighStatus}%`);
+  consola.info(`Generated statuses:\nParticipant: ${participantDefaultStatus}%\nPartner Cyberball Low: ${partnerCyberballLowStatus}%, Partner Cyberball High: ${partnerCyberballHighStatus}%\nPartner One Low: ${partnerOneLowStatus}%, Partner One High: ${partnerOneHighStatus}%\nPartner Two Low: ${partnerTwoLowStatus}%, Partner Two High: ${partnerTwoHighStatus}%\nPartner Three Low: ${partnerThreeLowStatus}%, Partner Three High: ${partnerThreeHighStatus}%`);
 
   // Return all three statuses
-  return { participantStatus, partnerLowStatus, partnerHighStatus };
+  return {
+    participantDefaultStatus,
+    partnerCyberballLowStatus,
+    partnerCyberballHighStatus,
+    partnerOneLowStatus,
+    partnerOneHighStatus,
+    partnerTwoLowStatus,
+    partnerTwoHighStatus,
+    partnerThreeLowStatus,
+    partnerThreeHighStatus,
+  };
 };

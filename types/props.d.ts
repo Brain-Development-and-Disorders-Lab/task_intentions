@@ -150,7 +150,8 @@ declare namespace Screens {
 
   // Status preview screen
   type StatusPreview = GenericScreenProps & {
-    isPartnerHighStatus: boolean;
+    nextPhase: "cyberball" | "phaseOne" | "phaseTwo" | "phaseThree";
+    isPreviewPartnerHighStatus: boolean;
     handler: () => void;
   };
 
@@ -199,7 +200,7 @@ declare namespace Screens {
   // Cyberball screen
   type Cyberball = GenericScreenProps & {
     isInclusive: boolean; // Operate exclusively as inclusive or exclusive
-    partnerHighStatus: boolean; // Partner A is high status or low status
+    isCyberballPartnerHighStatus: boolean; // Partner A is high status or low status
     probabilities: {
       inclusion: number; // Probability of partners passing to participant
       exclusion: {

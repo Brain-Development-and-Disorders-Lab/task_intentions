@@ -193,27 +193,18 @@ const Trial: FC<Screens.Trial> = (
 
   // Initialize participant and partner statuses
   const participantStatus = experiment.getState().get("participantDefaultStatus"); // Default for all trials
-  let partnerStatus = experiment.getState().get("partnerLowStatus");
+  let partnerStatus = experiment.getState().get("partnerCyberballLowStatus"); // Default to the Cyberball low status
   if (Flags.isEnabled("enableStatusDisplay") && props.isPractice === false) {
     // If status display is enabled, interpret and apply the manipulations
-    if (
-      props.display === "playerChoice" &&
-      Configuration.manipulations.isPartnerHighStatusPhaseOne
-    ) {
+    if (props.display === "playerChoice") {
       // Phase One: If `isHighStatusPhaseOne` is true, then the participant is low status and the partner is high status
-      partnerStatus = experiment.getState().get("partnerHighStatus");
-    } else if (
-      props.display === "playerGuess" &&
-      Configuration.manipulations.isPartnerHighStatusPhaseTwo
-    ) {
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseOne ? experiment.getState().get("partnerOneHighStatus") : experiment.getState().get("partnerOneLowStatus");
+    } else if (props.display === "playerGuess") {
       // Phase Two: If `isHighStatusPhaseTwo` is true, then the participant is low status and the partner is high status
-      partnerStatus = experiment.getState().get("partnerHighStatus");
-    } else if (
-      props.display === "playerChoice2" &&
-      Configuration.manipulations.isPartnerHighStatusPhaseThree
-    ) {
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseTwo ? experiment.getState().get("partnerTwoHighStatus") : experiment.getState().get("partnerTwoLowStatus");
+    } else if (props.display === "playerChoice2") {
       // Phase Three: If `isHighStatusPhaseThree` is true, then the participant is low status and the partner is high status
-      partnerStatus = experiment.getState().get("partnerHighStatus");
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseThree ? experiment.getState().get("partnerThreeHighStatus") : experiment.getState().get("partnerThreeLowStatus");
     }
   }
 

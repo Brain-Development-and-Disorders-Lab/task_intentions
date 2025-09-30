@@ -82,7 +82,8 @@ declare type IntentionsNode = {
   runComputeOperation?: boolean; // Whether to fetch data from server (only used when state is "matchingIntentions")
 
   // Status preview screen configuration (used by StatusPreview screen)
-  isPartnerHighStatus?: boolean; // Used for the `StatusPreview` screen
+  nextPhase?: "cyberball" | "phaseOne" | "phaseTwo" | "phaseThree";
+  isPreviewPartnerHighStatus?: boolean; // Used for the `StatusPreview` screen
 
   // Waiting screen configuration (used by Waiting screen)
   mode: "facilitator" | "mri";
@@ -96,7 +97,7 @@ declare type IntentionsNode = {
 
   // Cyberball screen
   isInclusive?: boolean;
-  partnerHighStatus?: boolean;
+  isCyberballPartnerHighStatus?: boolean;
   probabilities?: {
     inclusion: number;
     exclusion: {
