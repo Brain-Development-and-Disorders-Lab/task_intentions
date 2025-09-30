@@ -101,8 +101,12 @@ export const Configuration = {
     signalTimestamps: [],
     experimentID: "",
     participantDefaultStatus: 0,
-    partnerHighStatus: 0,
-    partnerLowStatus: 0,
+    partnerOneHighStatus: 0,
+    partnerOneLowStatus: 0,
+    partnerTwoHighStatus: 0,
+    partnerTwoLowStatus: 0,
+    partnerThreeHighStatus: 0,
+    partnerThreeLowStatus: 0,
   },
 
   // Set the logging level
