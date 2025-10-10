@@ -110,7 +110,7 @@ const Loading: FC<Screens.Loading> = (
 
     // Launch model computation
     consola.info(`Running model computation...`);
-    const response = await window.Compute.submit(requestResponses, true);
+    const response = await window.Compute.submit(requestResponses, false); // INT-80: Should be `false` in production
 
     // Parse and store the JSON content
     try {
