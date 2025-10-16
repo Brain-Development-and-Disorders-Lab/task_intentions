@@ -1079,6 +1079,7 @@ class Compute {
    */
   public async submit(data: any[], useTestResponses=false): Promise<ModelResponse> {
     if (useTestResponses) {
+      consola.warn("Using test responses to generate partner behavior");
       data = TEST_RESPONSES;
     }
 

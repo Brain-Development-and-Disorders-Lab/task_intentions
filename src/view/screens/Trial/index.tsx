@@ -169,6 +169,9 @@ const Trial: FC<Screens.Trial> = (
       DEFAULT_POINTS.options.one.partner = trialData["par1"];
       DEFAULT_POINTS.options.two.participant = trialData["ppt2"];
       DEFAULT_POINTS.options.two.partner = trialData["par2"];
+
+      // Update the correct answer (from `Ac`)
+      trialState.answer = trialData["Ac"] === 1 ? "Option 1" : "Option 2";
     } else {
       consola.warn(`'playerGuess' trial state data incomplete, using defaults`);
     }
