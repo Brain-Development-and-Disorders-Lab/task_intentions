@@ -80,7 +80,7 @@ const Loading: FC<Screens.Loading> = (
     const startTime = performance.now();
     // Collate data from 'playerChoice' trials
     consola.info(`Collating data...`);
-    const dataCollection = jsPsych.data
+    const collection: Dataframe[] = jsPsych.data
       .get()
       .filter({
         display: "playerChoice",
@@ -89,15 +89,15 @@ const Loading: FC<Screens.Loading> = (
 
     consola.debug(
       `'dataCollection' containing trials with 'display' = 'playerChoice':`,
-      dataCollection
+      collection
     );
 
     // Format the responses to be sent to the server
-    const requestResponses = [];
-    for (const row of dataCollection) {
-      requestResponses.push({
+    const requestData = [];
+    for (const row of collection) {
+      requestData.push({
         ID: "NA",
-        Trial: row.trial,
+        Trial: row.trial_number, // INT-82: Rename from `trial` to `trial_number`
         ppt1: row.playerPoints_option1,
         par1: row.partnerPoints_option1,
         ppt2: row.playerPoints_option2,
@@ -106,11 +106,11 @@ const Loading: FC<Screens.Loading> = (
         Phase: 1,
       });
     }
-    consola.debug(`Request content 'requestResponses':`, requestResponses);
+    consola.debug(`Request data 'requestData':`, requestData);
 
     // Launch model computation
     consola.info(`Running model computation...`);
-    const response = await window.Compute.submit(requestResponses, false); // INT-80: Should be `false` in production
+    const response = await window.Compute.submit(requestData, false); // INT-80: Should be `false` in production
 
     // Parse and store the JSON content
     try {
