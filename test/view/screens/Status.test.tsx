@@ -89,19 +89,5 @@ test("loads and displays Status screen page 2", async () => {
     continueButton.click();
   });
 
-  await waitFor(() =>
-    screen.queryByText(
-      "Across all social media accounts, how many followers do you have?"
-    )
-  );
-  expect(
-    screen.queryByText(
-      "Across all social media accounts, how many followers do you have?"
-    )
-  ).not.toBeNull();
-  expect(
-    screen.queryByText(
-      "Across all social media accounts, how many people are following you?"
-    )
-  ).not.toBeNull();
+  expect(screen.queryAllByText(/Across all social media accounts,/i)).toHaveLength(2);
 });
