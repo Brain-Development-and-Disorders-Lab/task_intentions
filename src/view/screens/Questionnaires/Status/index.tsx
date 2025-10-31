@@ -218,7 +218,7 @@ const Status: FC<Screens.Status> = (
       justify={"center"}
       align={"center"}
       gap={"small"}
-      style={{ maxWidth: "70%", margin: "auto" }}
+      style={{ maxWidth: "72%", margin: "auto" }}
       animation={["fadeIn"]}
     >
       <Heading level={3} margin="small" fill>
@@ -226,7 +226,7 @@ const Status: FC<Screens.Status> = (
       </Heading>
 
       <Paragraph margin="small" size="large" fill>
-        Across all social media accounts, how many followers do you have?
+        Across all social media accounts, how many <b>followers</b> do you have?
       </Paragraph>
       <Box
         pad={"xsmall"}
@@ -243,7 +243,7 @@ const Status: FC<Screens.Status> = (
       </Box>
 
       <Paragraph margin="small" size="large" fill>
-        Across all social media accounts, how many people are following you?
+        Across all social media accounts, how many people are you <b>following</b>?
       </Paragraph>
       <Box
         pad={"xsmall"}
