@@ -2,6 +2,25 @@
 
 ## Getting Started
 
+### Major Versions
+
+> [!NOTE]
+> All recent versions include features from prior versions.
+
+* [v1.7.12](https://github.com/Brain-Development-and-Disorders-Lab/task_intentions/releases/tag/v1.7.12) (latest): Includes all social status features, with additional questionnaires and paradigms that can be toggled.
+* [v1.7.2](https://github.com/Brain-Development-and-Disorders-Lab/task_intentions/releases/tag/v1.7.2): Includes MRI-compatible features, supporting input from a 4-button controller with UI indicators, and a trigger waiting period. Adds offline support by performing all computations in-browser with `WebR`.
+* [v1.7.0](https://github.com/Brain-Development-and-Disorders-Lab/task_intentions/releases/tag/v1.7.0): Initial release, basic 3-Phase experiment timeline, all computations handled by external server requiring persistent internet connectivity.
+
+### Development
+
+- `yarn clean`: Remove all client build artefacts and logs.
+- `yarn build`: Create a production build of the client.
+- `yarn lint`: Run the client source code through ESLint to check for any style violations.
+- `yarn start`: Start a Webpack HMR-compatible development server to preview the client locally on [localhost:8080](http://localhost:8080).
+- `yarn test`: Run all client tests.
+
+## Components
+
 ### Client
 
 Before building or previewing the client, ensure that the Node.js version 14+ is installed on your system. Download Node.js [here](https://nodejs.org/en/) and install Yarn using this command `npm i -g yarn`.
@@ -29,10 +48,16 @@ After installing Yarn, run `yarn` in the top-level repository directory to insta
 | **cyberballIsInclusive**          | boolean | Controls whether Cyberball task is inclusive   | Cyberball operates in inclusion mode when `true`, otherwise operating in exclusion mode, changes to probabilities can be made in `configuration.ts` |
 | **cyberballIsPartnerHighStatus**  | boolean | Sets partner as high status in Cyberball task  | Shows social status display above Partner A, partner has high status when `true`, otherwise low status when `false`                                 |
 
-### Server
+#### Offline Usage
+
+The task includes a `packages` directory containing all required R packages. To use these packages, set the `useOfflinePackages` manipulation within `Configuration.ts` to `true`. Each package was built and prepared using the [rwasm](https://r-wasm.github.io/rwasm/articles/rwasm.html) tool.
+
+Use the `yarn build` command to build the client with the offline packages, build output is placed in the `dist` directory. To run the task, use the `yarn start` command or run an instance of `http-server` using the `dist` directory.
+
+### Server (DEPRECATED)
 
 > [!CAUTION]
-> The server component of the Intentions Game has been deprecated, and partner computations are now performed by the client. The documentation below pertains to the archived `server.zip` file contents.
+> As of [v1.7.2](https://github.com/Brain-Development-and-Disorders-Lab/task_intentions/releases/tag/v1.7.2), the server component of the Intentions Game has been deprecated, and partner computations are now performed entirely by the client. The documentation below pertains to the archived `server.zip` file contents.
 
 The server uses Python and R to generate partner behavior for a phase of the task. To run the server, the following packages are required:
 
@@ -60,20 +85,6 @@ The server uses Python and R to generate partner behavior for a phase of the tas
 - `withr`
 - `dplyr`
 - `logger`
-
-## Development
-
-- `yarn clean`: Remove all client build artefacts and logs.
-- `yarn build`: Create a production build of the client.
-- `yarn lint`: Run the client source code through ESLint to check for any style violations.
-- `yarn start`: Start a Webpack HMR-compatible development server to preview the client locally on [localhost:8080](http://localhost:8080).
-- `yarn test`: Run all client tests.
-
-### Offline Usage
-
-The task includes a `packages` directory containing all required R packages. To use these packages, set the `useOfflinePackages` manipulation within `Configuration.ts` to `true`. Each package was built and prepared using the [rwasm](https://r-wasm.github.io/rwasm/articles/rwasm.html) tool.
-
-Use the `yarn build` command to build the client with the offline packages, build output is placed in the `dist` directory. To run the task, use the `yarn start` command or run an instance of `http-server` using the `dist` directory.
 
 ## Additional Features
 
