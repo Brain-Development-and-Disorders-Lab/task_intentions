@@ -2,6 +2,8 @@
  * @file Prop declarations for React components and screens.
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// Grommet imports for styling components
+import { BorderType } from "grommet/utils";
 
 // Props for 'Components'
 declare namespace Components {
@@ -60,6 +62,7 @@ declare namespace Components {
     name: string;
     state: string;
     setState: (avatar: string) => void;
+    border?: BorderType;
   };
 
   // Status componet

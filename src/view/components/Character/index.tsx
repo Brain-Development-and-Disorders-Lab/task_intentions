@@ -41,6 +41,7 @@ const Character: FC<Components.Character> = (
     <Box
       id={`avatar-${props.name}`}
       round={{ size: "50%" }}
+      border={props.border}
       className={
         props.name === props.state ? "selectable selected" : "selectable"
       }

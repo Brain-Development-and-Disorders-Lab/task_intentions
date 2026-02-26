@@ -107,17 +107,7 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
       >
         {avatars.map((avatar, i) => {
           return (
-            <Box
-              border={
-                Configuration.manipulations.useButtonInput === true &&
-                selectedAvatarIndex === i && {
-                  color: "selectedElement",
-                  size: "large",
-                }
-              }
-              round={{ size: "50%" }}
-              key={`container-${avatar}`}
-            >
+            <Box round={{ size: "50%" }} key={`container-${avatar}`}>
               <Character
                 key={avatar}
                 name={avatar}
@@ -127,6 +117,13 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
                   setSelectedAvatarName(avatarName);
                   setSelectedAvatarIndex(i);
                 }}
+                border={
+                  Configuration.manipulations.useButtonInput === true &&
+                  selectedAvatarIndex === i && {
+                    color: "selectedElement",
+                    size: "large",
+                  }
+                }
               />
             </Box>
           );
