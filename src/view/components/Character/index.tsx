@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement } from "react";
 
 // Components
 import Avatar from "boring-neutral-avatars";
 import { Box } from "grommet";
+
+// Custom types
+import { AvatarStyles, Components } from "types";
 
 // Configuration
 import { Configuration } from "src/configuration";

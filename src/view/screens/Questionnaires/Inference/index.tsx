@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
 import { Box, Button, Keyboard, Paragraph } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 // Custom components
 import Slider from "src/view/components/Slider";
@@ -64,17 +66,17 @@ const Inference: FC<Screens.Inference> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useButtonInput === false) return;
+    if (!Configuration.manipulations.useButtonInput) return;
 
     // Avoid holding the key down if no element focused
-    if (elementFocused === false && event.repeat) return;
+    if (!elementFocused && event.repeat) return;
     event.preventDefault();
 
     if (
       event.key.toString() === BINDINGS.NEXT ||
       event.key.toString() === BINDINGS.PREVIOUS
     ) {
-      if (elementFocused === true) {
+      if (elementFocused) {
         if (selectedElementIndex === 0) {
           // First slider, increase and decrease value within bounds when keys pressed
           if (event.key.toString() === BINDINGS.NEXT) {
@@ -107,11 +109,9 @@ const Inference: FC<Screens.Inference> = (
       if (selectedElementIndex !== 2) {
         // Focus or unfocus sliders
         setElementFocused(!elementFocused);
-      } else {
+      } else if (firstMoved && secondMoved) {
         // Select the `Continue` button if permitted
-        if (firstMoved === true && secondMoved === true) {
-          props.handler(firstValue, secondValue);
-        }
+        props.handler(firstValue, secondValue);
       }
     }
   };
@@ -130,13 +130,13 @@ const Inference: FC<Screens.Inference> = (
         {/* First question */}
         <Paragraph margin="small" size="large" fill>
           Please use the slider below to indicate the extent to which you
-          believe your partner&apos;s decisions are driven by their desire to earn
-          points in this game.
+          believe your partner&apos;s decisions are driven by their desire to
+          earn points in this game.
         </Paragraph>
         <Box
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
+              Configuration.manipulations.useButtonInput &&
               selectedElementIndex === 0 &&
               !elementFocused
                 ? "selectedElement"
@@ -163,13 +163,13 @@ const Inference: FC<Screens.Inference> = (
         {/* Second question */}
         <Paragraph margin="small" size="large" fill>
           Please use the slider below to indicate the extent to which you
-          believe your partner&apos;s decisions are driven by their desire to reduce
-          your bonus in this game.
+          believe your partner&apos;s decisions are driven by their desire to
+          reduce your bonus in this game.
         </Paragraph>
         <Box
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
+              Configuration.manipulations.useButtonInput &&
               selectedElementIndex === 1 &&
               !elementFocused
                 ? "selectedElement"
@@ -199,14 +199,14 @@ const Inference: FC<Screens.Inference> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
+              Configuration.manipulations.useButtonInput &&
               selectedElementIndex === 2
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useButtonInput === true &&
+            Configuration.manipulations.useButtonInput &&
             selectedElementIndex === 2
               ? { borderRadius: "36px " }
               : {}
@@ -217,10 +217,7 @@ const Inference: FC<Screens.Inference> = (
             primary
             color="button"
             label="Continue"
-            disabled={
-              // Disabled until both sliders have been interacted with
-              firstMoved === false || secondMoved === false
-            }
+            disabled={!firstMoved || !secondMoved} // Disabled until both sliders have been interacted with
             icon={<LinkNext />}
             reverse
             onClick={() => {

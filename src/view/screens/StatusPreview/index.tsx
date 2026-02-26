@@ -8,7 +8,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement } from "react";
 
@@ -17,6 +16,9 @@ import { Box, Button, Layer, Paragraph } from "grommet";
 import { LinkNext } from "grommet-icons";
 import Status from "src/view/components/Status";
 import Avatar from "boring-neutral-avatars";
+
+// Custom types
+import type { Screens } from "types";
 
 // Configuration
 import { Configuration } from "src/configuration";

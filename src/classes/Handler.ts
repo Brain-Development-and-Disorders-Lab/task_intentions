@@ -14,6 +14,8 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// Custom types
+import type { Dataframe, Options, Points } from "types";
 
 // Logging library
 import consola from "consola";
@@ -143,10 +145,11 @@ class Handler {
 
   /**
    * Handler called after status questions completed
-   * @param {number} followers number of followers
-   * @param {number} averageLikes average number of likes
-   * @param {number} friends number of friends
-   * @param {number} socialCloseness social closeness rating
+   * @param {number} closeFriends number of close friends
+   * @param {number} partyInvitations number of party invitations
+   * @param {number} meanPeople number of mean people
+   * @param {number} socialMediaFollowers number of social media followers
+   * @param {number} socialMediaFollowing number of social media following
    */
   public status(
     closeFriends: number,
@@ -219,15 +222,33 @@ class Handler {
 
     // Store social status
     const experiment = window.Experiment;
-    this.dataframe.participantDefaultStatus = experiment.getState().get("participantDefaultStatus");
-    this.dataframe.partnerCyberballLowStatus = experiment.getState().get("partnerCyberballLowStatus");
-    this.dataframe.partnerCyberballHighStatus = experiment.getState().get("partnerCyberballHighStatus");
-    this.dataframe.partnerOneLowStatus = experiment.getState().get("partnerOneLowStatus");
-    this.dataframe.partnerOneHighStatus = experiment.getState().get("partnerOneHighStatus");
-    this.dataframe.partnerTwoLowStatus = experiment.getState().get("partnerTwoLowStatus");
-    this.dataframe.partnerTwoHighStatus = experiment.getState().get("partnerTwoHighStatus");
-    this.dataframe.partnerThreeLowStatus = experiment.getState().get("partnerThreeLowStatus");
-    this.dataframe.partnerThreeHighStatus = experiment.getState().get("partnerThreeHighStatus");
+    this.dataframe.participantDefaultStatus = experiment
+      .getState()
+      .get("participantDefaultStatus");
+    this.dataframe.partnerCyberballLowStatus = experiment
+      .getState()
+      .get("partnerCyberballLowStatus");
+    this.dataframe.partnerCyberballHighStatus = experiment
+      .getState()
+      .get("partnerCyberballHighStatus");
+    this.dataframe.partnerOneLowStatus = experiment
+      .getState()
+      .get("partnerOneLowStatus");
+    this.dataframe.partnerOneHighStatus = experiment
+      .getState()
+      .get("partnerOneHighStatus");
+    this.dataframe.partnerTwoLowStatus = experiment
+      .getState()
+      .get("partnerTwoLowStatus");
+    this.dataframe.partnerTwoHighStatus = experiment
+      .getState()
+      .get("partnerTwoHighStatus");
+    this.dataframe.partnerThreeLowStatus = experiment
+      .getState()
+      .get("partnerThreeLowStatus");
+    this.dataframe.partnerThreeHighStatus = experiment
+      .getState()
+      .get("partnerThreeHighStatus");
 
     // Finish trial
     this.callback();
@@ -276,14 +297,26 @@ class Handler {
     socialMediaDaily: boolean,
     socialMediaPlatforms: string
   ): void {
-    consola.debug("Demographics responses:", age, genderIdentity, ethnicity, householdIncome, education, socialMediaDaily, socialMediaPlatforms);
+    consola.debug(
+      "Demographics responses:",
+      age,
+      genderIdentity,
+      ethnicity,
+      householdIncome,
+      education,
+      socialMediaDaily,
+      socialMediaPlatforms
+    );
     this.dataframe.questionnaireResponsesDemographicsAge = age;
     this.dataframe.questionnaireResponsesDemographicsGender = genderIdentity;
     this.dataframe.questionnaireResponsesDemographicsEthnicity = ethnicity;
-    this.dataframe.questionnaireResponsesDemographicsHouseholdIncome = householdIncome;
+    this.dataframe.questionnaireResponsesDemographicsHouseholdIncome =
+      householdIncome;
     this.dataframe.questionnaireResponsesDemographicsEducation = education;
-    this.dataframe.questionnaireResponsesDemographicsSocialMediaDaily = socialMediaDaily;
-    this.dataframe.questionnaireResponsesDemographicsSocialMediaPlatforms = socialMediaPlatforms;
+    this.dataframe.questionnaireResponsesDemographicsSocialMediaDaily =
+      socialMediaDaily;
+    this.dataframe.questionnaireResponsesDemographicsSocialMediaPlatforms =
+      socialMediaPlatforms;
     this.callback();
   }
 

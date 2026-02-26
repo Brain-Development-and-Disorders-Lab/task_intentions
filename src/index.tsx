@@ -13,35 +13,40 @@
  * - React-to-HTML conversion for instruction screens
  *
  * The experiment uses jsPsych for trial management and the `neurocog`
- * crossplatform API for data handling. Each phase includes practice
+ * cross-platform API for data handling. Each phase includes practice
  * trials, attention checks, and detailed instructions. The timeline
  * supports both standard and alternate input modes.
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React
 import React from "react";
 
 // Grommet UI components
 import { Box, Grommet, Heading, Paragraph } from "grommet";
 
+// Custom types
+import type { Row, Timeline } from "types";
+
+// Declare jsPsych
+declare const jsPsych: never;
+
 // Feature flags
-import { Flags } from "./flags";
+import { Flags } from "src/flags";
 
 // Configuration
-import { Configuration } from "./configuration";
+import { Configuration } from "src/configuration";
 
 // Import data spreadsheets
-import Default from "../data/default.csv";
-import Test from "../data/test.csv";
+import Default from "data/default.csv";
+import Test from "data/test.csv";
 
 // Utility functions
-import { generateStatuses, initializeLocalStorage, react2html } from "./util";
+import { generateStatuses, initializeLocalStorage, react2html } from "src/util";
 import { shuffle } from "d3-array";
 
 // Custom input bindings
-import { BINDINGS } from "./bindings";
+import { BINDINGS } from "src/bindings";
 
 // Logging library
 import consola from "consola";
@@ -49,11 +54,11 @@ import consola from "consola";
 // Generate unique identifiers
 import { v4 as uuidv4 } from "uuid";
 
-// Import crossplatform API
+// Import cross-platform API
 import { Experiment } from "neurocog";
 
 // Import Compute class
-import Compute from "./classes/Compute";
+import Compute from "src/classes/Compute";
 
 // Import jsPsych plugins
 import "jspsych/plugins/jspsych-fullscreen";
@@ -62,7 +67,7 @@ import "jspsych/plugins/jspsych-survey-html-form";
 import "jspsych-attention-check";
 
 // Import the custom plugin before adding it to the timeline
-import "./plugin";
+import "src/plugin";
 
 // Create a new Experiment instance
 const experiment = new Experiment(Configuration);
@@ -86,7 +91,7 @@ const handleSignal = () => {
     .set("signalTimestamps", [...collectedSignals, Date.now()]);
 };
 
-// Setup the signal listener
+// Set up the signal listener
 document.addEventListener("keydown", event => {
   if (event.repeat) return;
   if (event.key === BINDINGS.SIGNAL) {
@@ -123,7 +128,7 @@ experiment.getState().set("partnerTwoHighStatus", partnerTwoHighStatus);
 experiment.getState().set("partnerThreeLowStatus", partnerThreeLowStatus);
 experiment.getState().set("partnerThreeHighStatus", partnerThreeHighStatus);
 
-// Setup the Compute instance
+// Set up the Compute instance
 window.Compute = new Compute();
 
 // Timeline setup
@@ -135,7 +140,7 @@ for (let i = 0; i < Configuration.avatars.names.partner.length; i++) {
   Configuration.avatars.names.partner[i] = `${partner} ${performance.now()}`;
 }
 
-if (Configuration.manipulations.requireID === true) {
+if (Configuration.manipulations.requireID) {
   timeline.push({
     type: "survey-html-form",
     preamble: `<p>Please enter the 8 digit participant LUID.</p>`,
@@ -162,7 +167,7 @@ timeline.push({
 });
 
 // Add controls instructions first if using alternate input scheme
-if (Configuration.manipulations.useButtonInput === true) {
+if (Configuration.manipulations.useButtonInput) {
   timeline.push({
     type: "instructions",
     pages: [
@@ -221,7 +226,7 @@ if (Configuration.manipulations.useButtonInput === true) {
 }
 
 // Add the first set of instructions
-if (Configuration.manipulations.enableCyberball === true) {
+if (Configuration.manipulations.enableCyberball) {
   // Cyberball enabled, first Cyberball then Intentions Game
   timeline.push({
     type: "instructions",
@@ -350,10 +355,10 @@ timeline.push({
 
 // If the status display is enabled, check if the flags need to be updated to match the manipulations
 if (
-  Configuration.manipulations.enableStatusPhaseOne === true ||
-  Configuration.manipulations.enableStatusPhaseTwo === true ||
-  Configuration.manipulations.enableStatusPhaseThree === true ||
-  Configuration.manipulations.enableCyberball === true
+  Configuration.manipulations.enableStatusPhaseOne ||
+  Configuration.manipulations.enableStatusPhaseTwo ||
+  Configuration.manipulations.enableStatusPhaseThree ||
+  Configuration.manipulations.enableCyberball
 ) {
   // Enable the status display and the questionnaire globally
   Flags.setValue("enableStatusDisplay", true);
@@ -383,7 +388,7 @@ Flags.setValue(
 );
 
 // Insert the status questionnaire if enabled
-if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
+if (Flags.isEnabled("enableQuestionnaireStatus")) {
   timeline.push({
     type: "instructions",
     pages: [
@@ -463,7 +468,7 @@ if (Flags.isEnabled("enableQuestionnaireStatus") === true) {
 }
 
 // Introduce the status display if enabled
-if (Flags.isEnabled("enableStatusDisplay") === true) {
+if (Flags.isEnabled("enableStatusDisplay")) {
   timeline.push({
     type: Configuration.studyName,
     optionOneParticipant: 5,
@@ -485,7 +490,7 @@ if (Flags.isEnabled("enableStatusDisplay") === true) {
 }
 
 // Add Cyberball screen if enabled
-if (Configuration.manipulations.enableCyberball === true) {
+if (Configuration.manipulations.enableCyberball) {
   timeline.push({
     type: Configuration.studyName,
     display: "loading",
@@ -613,7 +618,7 @@ const intentionsInstructions = [
           At the end of all the stages you will be shown a summary of how many
           points you and your partner accumulated during that phase.
         </Paragraph>
-        {Configuration.manipulations.enableEndingQuestionnaires === true && (
+        {Configuration.manipulations.enableEndingQuestionnaires && (
           <Paragraph margin="small" size="large" fill>
             There will be some extra questionnaires after completing all the stages.
           </Paragraph>
@@ -775,15 +780,15 @@ timeline.push({
   },
   input_schema: {
     select:
-      Configuration.manipulations.useButtonInput === true
+      Configuration.manipulations.useButtonInput
         ? BINDINGS.SELECT
         : null,
     next:
-      Configuration.manipulations.useButtonInput === true
+      Configuration.manipulations.useButtonInput
         ? BINDINGS.NEXT
         : null,
     previous:
-      Configuration.manipulations.useButtonInput === true
+      Configuration.manipulations.useButtonInput
         ? BINDINGS.PREVIOUS
         : null,
   },
@@ -805,11 +810,7 @@ timeline.push({
   conditional_function: () => {
     // Check if the response from the previous trial was correct
     const data = jsPsych.data.get().last(1).values()[0];
-    if (data.attentionCorrect === true) {
-      return false;
-    } else {
-      return true;
-    }
+    return !data.attentionCorrect;
   },
 });
 
@@ -828,15 +829,15 @@ timeline.push({
   },
   input_schema: {
     select:
-      Configuration.manipulations.useButtonInput === true
+      Configuration.manipulations.useButtonInput
         ? BINDINGS.SELECT
         : null,
     next:
-      Configuration.manipulations.useButtonInput === true
+      Configuration.manipulations.useButtonInput
         ? BINDINGS.NEXT
         : null,
     previous:
-      Configuration.manipulations.useButtonInput === true
+      Configuration.manipulations.useButtonInput
         ? BINDINGS.PREVIOUS
         : null,
   },
@@ -858,11 +859,7 @@ timeline.push({
   conditional_function: () => {
     // Check if the response from the previous trial was correct
     const data = jsPsych.data.get().last(1).values()[0];
-    if (data.attentionCorrect === true) {
-      return false;
-    } else {
-      return true;
-    }
+    return !data.attentionCorrect;
   },
 });
 
@@ -912,7 +909,7 @@ timeline.push({
 });
 
 // Insert `statusPreview` screen if the participant will be shown their status
-if (Configuration.manipulations.enableStatusPhaseOne === true) {
+if (Configuration.manipulations.enableStatusPhaseOne) {
   timeline.push({
     type: Configuration.studyName,
     display: "statusPreview",
@@ -965,7 +962,7 @@ for (let i = 0; i < dataCollection.length; i++) {
       }
 
       // Insert Waiting screens before Phase 01
-      if (Configuration.manipulations.useButtonInput === true) {
+      if (Configuration.manipulations.useButtonInput) {
         // Facilitator waiting
         timeline.push({
           type: Configuration.studyName,
@@ -1148,15 +1145,15 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
         input_schema: {
           select:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.SELECT
               : null,
           next:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.NEXT
               : null,
           previous:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.PREVIOUS
               : null,
         },
@@ -1178,11 +1175,7 @@ for (let i = 0; i < dataCollection.length; i++) {
         conditional_function: () => {
           // Check if the response from the previous trial was correct
           const data = jsPsych.data.get().last(1).values()[0];
-          if (data.attentionCorrect === true) {
-            return false;
-          } else {
-            return true;
-          }
+          return !data.attentionCorrect;
         },
       });
 
@@ -1204,15 +1197,15 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
         input_schema: {
           select:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.SELECT
               : null,
           next:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.NEXT
               : null,
           previous:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.PREVIOUS
               : null,
         },
@@ -1234,11 +1227,7 @@ for (let i = 0; i < dataCollection.length; i++) {
         conditional_function: () => {
           // Check if the response from the previous trial was correct
           const data = jsPsych.data.get().last(1).values()[0];
-          if (data.attentionCorrect === true) {
-            return false;
-          } else {
-            return true;
-          }
+          return !data.attentionCorrect;
         },
       });
 
@@ -1288,7 +1277,7 @@ for (let i = 0; i < dataCollection.length; i++) {
       });
 
       // Insert `statusPreview` screen if the participant will be shown their status
-      if (Configuration.manipulations.enableStatusPhaseTwo === true) {
+      if (Configuration.manipulations.enableStatusPhaseTwo) {
         timeline.push({
           type: Configuration.studyName,
           display: "statusPreview",
@@ -1309,7 +1298,7 @@ for (let i = 0; i < dataCollection.length; i++) {
       }
 
       // Insert Waiting screens before Phase 02
-      if (Configuration.manipulations.useButtonInput === true) {
+      if (Configuration.manipulations.useButtonInput) {
         // Facilitator waiting
         timeline.push({
           type: Configuration.studyName,
@@ -1397,15 +1386,15 @@ for (let i = 0; i < dataCollection.length; i++) {
         },
         input_schema: {
           select:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.SELECT
               : null,
           next:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.NEXT
               : null,
           previous:
-            Configuration.manipulations.useButtonInput === true
+            Configuration.manipulations.useButtonInput
               ? BINDINGS.PREVIOUS
               : null,
         },
@@ -1427,11 +1416,7 @@ for (let i = 0; i < dataCollection.length; i++) {
         conditional_function: () => {
           // Check if the response from the previous trial was correct
           const data = jsPsych.data.get().last(1).values()[0];
-          if (data.attentionCorrect === true) {
-            return false;
-          } else {
-            return true;
-          }
+          return !data.attentionCorrect;
         },
       });
 
@@ -1481,7 +1466,7 @@ for (let i = 0; i < dataCollection.length; i++) {
       });
 
       // Insert `statusPreview` screen if the participant will be shown their status
-      if (Configuration.manipulations.enableStatusPhaseThree === true) {
+      if (Configuration.manipulations.enableStatusPhaseThree) {
         timeline.push({
           type: Configuration.studyName,
           display: "statusPreview",
@@ -1565,7 +1550,7 @@ for (const trial of stageThreeTrials) {
 }
 
 // Insert Waiting screens before Phase 03
-if (Configuration.manipulations.useButtonInput === true) {
+if (Configuration.manipulations.useButtonInput) {
   // Facilitator waiting
   timeline.push({
     type: Configuration.studyName,
@@ -1596,9 +1581,9 @@ timeline.push({
 });
 
 // Extra questionnaires
-if (Configuration.manipulations.enableEndingQuestionnaires === true) {
+if (Configuration.manipulations.enableEndingQuestionnaires) {
   // Screen time questionnaire
-  if (Flags.isEnabled("enableQuestionnaireScreentime") === true) {
+  if (Flags.isEnabled("enableQuestionnaireScreentime")) {
     timeline.push({
       type: Configuration.studyName,
       display: "screentime",
@@ -1606,7 +1591,7 @@ if (Configuration.manipulations.enableEndingQuestionnaires === true) {
   }
 
   // DASS screen
-  if (Flags.isEnabled("enableQuestionnaireDASS") === true) {
+  if (Flags.isEnabled("enableQuestionnaireDASS")) {
     timeline.push({
       type: Configuration.studyName,
       display: "dass",
@@ -1614,7 +1599,7 @@ if (Configuration.manipulations.enableEndingQuestionnaires === true) {
   }
 
   // Demographics screen
-  if (Flags.isEnabled("enableQuestionnaireDemographics") === true) {
+  if (Flags.isEnabled("enableQuestionnaireDemographics")) {
     timeline.push({
       type: Configuration.studyName,
       display: "demographics",

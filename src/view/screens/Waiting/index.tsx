@@ -6,10 +6,19 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
+// React imports
 import React, { FC, ReactElement, useEffect } from "react";
+
+// Grommet UI
 import { Box, Heading, Layer, WorldMap, Paragraph } from "grommet";
+
+// Custom types
+import type { Screens } from "types";
+
+// Utility functions
 import consola from "consola";
+
+// Keyboard bindings
 import { BINDINGS } from "src/bindings";
 
 const Waiting: FC<Screens.Waiting> = (

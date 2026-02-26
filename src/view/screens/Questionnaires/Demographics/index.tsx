@@ -14,7 +14,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
@@ -30,6 +29,9 @@ import {
   Select,
 } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 /**
  * @summary Generate a 'Demographics' screen component with multiple pages for collecting demographic information

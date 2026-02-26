@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
 import { Box, Button, RadioButtonGroup, Heading, Text } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 // Time scale options
 const TIME_OPTIONS = [

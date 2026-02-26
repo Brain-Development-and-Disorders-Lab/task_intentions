@@ -10,6 +10,11 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// Custom types
+import type { Display, Factory, IntentionsNode, ScreenProps } from "types";
+
+// Declare jsPsych
+declare const jsPsych: never;
 
 // Logging library
 import consola from "consola";

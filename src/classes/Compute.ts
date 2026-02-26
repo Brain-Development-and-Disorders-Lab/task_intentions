@@ -12,6 +12,8 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// Custom types
+import type { ModelResponse } from "types";
 
 // Logging library
 import consola from "consola";
@@ -1047,7 +1049,7 @@ class Compute {
     // Get the participant parameters
     const participantParameters = data[0].values;
 
-    // Get the parenter parameters, convert string to two floats
+    // Get the partner parameters, convert string to two floats
     const partnerParameters = [
       ...data[1].values[0].split(" ").map((value: string) => parseFloat(value)),
     ];

@@ -11,13 +11,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useRef, useReducer, useState } from "react";
 
 // Components
 import { Box, Text } from "grommet";
 import Avatar from "boring-neutral-avatars";
+
+// Custom types
+import type { AvatarStyles, CyberballGameState, Screens } from "types";
 
 // Configuration
 import { Configuration } from "src/configuration";

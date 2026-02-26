@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
 import { Box, Button, Heading, Keyboard } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 // Configuration
 import { Configuration } from "src/configuration";
@@ -54,7 +56,7 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useButtonInput === false) return;
+    if (!Configuration.manipulations.useButtonInput) return;
 
     // Avoid holding the key down
     if (event.repeat) return;
@@ -113,12 +115,12 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
                 name={avatar}
                 size={128} // Size is fixed at 128
                 state={selectedAvatarName}
-                setState={avatarName => {
+                setState={(avatarName: string) => {
                   setSelectedAvatarName(avatarName);
                   setSelectedAvatarIndex(i);
                 }}
                 border={
-                  Configuration.manipulations.useButtonInput === true &&
+                  Configuration.manipulations.useButtonInput &&
                   selectedAvatarIndex === i && {
                     color: "selectedElement",
                     size: "large",
@@ -131,7 +133,7 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
       </Box>
 
       {/* Continue button */}
-      {Configuration.manipulations.useButtonInput !== true && (
+      {!Configuration.manipulations.useButtonInput && (
         <Button
           id="select-avatar-button"
           primary

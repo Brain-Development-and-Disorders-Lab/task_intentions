@@ -10,12 +10,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useEffect, useState } from "react";
 
 // Grommet component
 import { Grommet, ThemeContext } from "grommet";
+
+// Custom types
+import type { Components, Screens } from "types";
 
 // Import styling
 import "src/scss/styles.scss";
@@ -24,23 +26,23 @@ import "src/scss/styles.scss";
 import { Theme } from "src/theme";
 
 // Screens used throughout the task
-import Agency from "../../screens/Questionnaires/Agency";
-import Trial from "../../screens/Trial";
-import Inference from "../../screens/Questionnaires/Inference";
-import Classification from "../../screens/Questionnaires/Classification";
-import SelectAvatar from "../../screens/SelectAvatar";
-import Status from "../../screens/Questionnaires/Status";
-import DASS from "../../screens/Questionnaires/DASS";
-import Screentime from "../../screens/Questionnaires/Screentime";
-import Demographics from "../../screens/Questionnaires/Demographics";
-import Loading from "../../screens/Loading";
-import Loaded from "../../screens/Loaded";
+import Agency from "src/view/screens/Questionnaires/Agency";
+import Trial from "src/view/screens/Trial";
+import Inference from "src/view/screens/Questionnaires/Inference";
+import Classification from "src/view/screens/Questionnaires/Classification";
+import SelectAvatar from "src/view/screens/SelectAvatar";
+import Status from "src/view/screens/Questionnaires/Status";
+import DASS from "src/view/screens/Questionnaires/DASS";
+import Screentime from "src/view/screens/Questionnaires/Screentime";
+import Demographics from "src/view/screens/Questionnaires/Demographics";
+import Loading from "src/view/screens/Loading";
+import Loaded from "src/view/screens/Loaded";
 import StatusPreview from "src/view/screens/StatusPreview";
-import Waiting from "../../screens/Waiting";
-import End from "../../screens/End";
-import Resources from "../../screens/Resources";
-import Summary from "../../screens/Summary";
-import Cyberball from "../../screens/Cyberball";
+import Waiting from "src/view/screens/Waiting";
+import End from "src/view/screens/End";
+import Resources from "src/view/screens/Resources";
+import Summary from "src/view/screens/Summary";
+import Cyberball from "src/view/screens/Cyberball";
 
 /**
  * @summary Generate a 'Wrapper' component that acts as a container for all React screens and components,

@@ -10,7 +10,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
@@ -23,6 +22,9 @@ import { LinkNext } from "grommet-icons";
 
 // Confetti
 import Confetti from "react-confetti";
+
+// Custom types
+import type { Screens } from "types";
 
 // Custom components
 import Card from "src/view/components/Card";
@@ -75,7 +77,7 @@ const Summary: FC<Screens.Summary> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useButtonInput === false) return;
+    if (!Configuration.manipulations.useButtonInput) return;
 
     // Avoid holding the key down
     if (event.repeat) return;
@@ -116,13 +118,13 @@ const Summary: FC<Screens.Summary> = (
             pad={"none"}
             border={{
               color:
-                Configuration.manipulations.useButtonInput === true
+                Configuration.manipulations.useButtonInput
                   ? "selectedElement"
                   : "transparent",
               size: "large",
             }}
             style={
-              Configuration.manipulations.useButtonInput === true
+              Configuration.manipulations.useButtonInput
                 ? { borderRadius: "36px " }
                 : {}
             }

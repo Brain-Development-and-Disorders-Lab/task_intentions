@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
 import { Box, Heading, Button, Text } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 /**
  * @summary Generate a 'Resources' screen that displays mental health resources

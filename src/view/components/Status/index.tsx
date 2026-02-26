@@ -6,7 +6,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
@@ -15,6 +14,9 @@ import { Box, Text } from "grommet";
 
 // Avatar component
 import Avatar from "boring-neutral-avatars";
+
+// Custom types
+import type { AvatarStyles, Components } from "types";
 
 // Configuration
 import { Configuration } from "src/configuration";

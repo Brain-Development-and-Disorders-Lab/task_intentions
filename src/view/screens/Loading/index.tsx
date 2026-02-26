@@ -11,9 +11,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useEffect, useState } from "react";
+
+// Custom types
+import type { Dataframe, Screens } from "types";
+
+// Declare jsPsych
+declare const jsPsych: never;
 
 // Logging library
 import consola from "consola";

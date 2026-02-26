@@ -10,12 +10,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement } from "react";
 
 // Grommet UI components
 import { Grid, Heading } from "grommet";
+
+// Custom types
+import type { Components } from "types";
 
 /**
  * @summary Generate an 'Option' component that displays a grid of points to split between participant and partner

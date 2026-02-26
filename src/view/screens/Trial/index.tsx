@@ -10,7 +10,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, {
   FC,
@@ -33,6 +32,12 @@ import TextTransition, { presets } from "react-text-transition";
 import Option from "src/view/components/Option";
 import Card from "src/view/components/Card";
 import Status from "src/view/components/Status";
+
+// Custom types
+import type { Screens, TrialState } from "types";
+
+// Declare jsPsych
+declare const jsPsych: never;
 
 // Access theme constants directly
 import { Theme } from "src/theme";
@@ -197,7 +202,7 @@ const Trial: FC<Screens.Trial> = (
   // Initialize participant and partner statuses
   const participantStatus = experiment.getState().get("participantDefaultStatus"); // Default for all trials
   let partnerStatus = experiment.getState().get("partnerCyberballLowStatus"); // Default to the Cyberball low status
-  if (Flags.isEnabled("enableStatusDisplay") && props.isPractice === false) {
+  if (Flags.isEnabled("enableStatusDisplay") && !props.isPractice) {
     // If status display is enabled, interpret and apply the manipulations
     if (props.display === "playerChoice") {
       // Phase One: If `isHighStatusPhaseOne` is true, then the participant is low status and the partner is high status
@@ -227,7 +232,7 @@ const Trial: FC<Screens.Trial> = (
    * - Either transitions to next trial or shows practice overlay
    */
   const handleOptionClick = (option: "Option 1" | "Option 2") => {
-    if (trialState.hasSelected === false) {
+    if (!trialState.hasSelected) {
       // Update the selection state
       setTrialState(trialState => ({
         ...trialState,
@@ -237,8 +242,8 @@ const Trial: FC<Screens.Trial> = (
       }));
 
       // Points to apply
-      let participantPoints = "";
-      let partnerPoints = "";
+      let participantPoints: string;
+      let partnerPoints: string;
 
       // Check what Phase is running
       if (props.display.toLowerCase().includes("guess")) {
@@ -288,8 +293,8 @@ const Trial: FC<Screens.Trial> = (
       }
 
       if (
-        props.isPractice === false ||
-        Flags.isEnabled("enableTutorialOverlay") === false
+        !props.isPractice ||
+        !Flags.isEnabled("enableTutorialOverlay")
       ) {
         // Begin the transition to the next trial
         setTransitionActive(true);
@@ -380,7 +385,7 @@ const Trial: FC<Screens.Trial> = (
       // Player guessing partner choices, show feedback
       case "playerGuess":
       case "playerGuessPractice": {
-        if (correctSelection === true) {
+        if (correctSelection) {
           setTrialHeader("You chose correctly!");
         } else {
           setTrialHeader("You chose incorrectly.");
@@ -437,7 +442,7 @@ const Trial: FC<Screens.Trial> = (
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration or if transition active
     if (
-      Configuration.manipulations.useButtonInput === false ||
+      !Configuration.manipulations.useButtonInput ||
       blockInput ||
       transitionActive
     )
@@ -451,7 +456,7 @@ const Trial: FC<Screens.Trial> = (
       event.key.toString() === BINDINGS.NEXT ||
       event.key.toString() === BINDINGS.PREVIOUS
     ) {
-      if (trialState.hasSelected === false) {
+      if (!trialState.hasSelected) {
         // Update the state based on the keypress
         if (trialState.highlightedOptionIndex === 0) {
           setTrialState(trialState => ({
@@ -468,7 +473,7 @@ const Trial: FC<Screens.Trial> = (
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
-      if (trialState.hasSelected === false) {
+      if (!trialState.hasSelected) {
         // Complete the option selection
         handleOptionClick(
           trialState.highlightedOptionIndex === 0 ? "Option 1" : "Option 2"
@@ -507,13 +512,13 @@ const Trial: FC<Screens.Trial> = (
               margin={"none"}
               pad={"none"}
               border={
-                Configuration.manipulations.useButtonInput === true && {
+                Configuration.manipulations.useButtonInput && {
                   color: "selectedElement",
                   size: "large",
                 }
               }
               style={
-                Configuration.manipulations.useButtonInput === true
+                Configuration.manipulations.useButtonInput
                   ? { borderRadius: "32px " }
                   : {}
               }
@@ -559,13 +564,13 @@ const Trial: FC<Screens.Trial> = (
               margin={"none"}
               pad={"none"}
               border={
-                Configuration.manipulations.useButtonInput === true && {
+                Configuration.manipulations.useButtonInput && {
                   color: "selectedElement",
                   size: "large",
                 }
               }
               style={
-                Configuration.manipulations.useButtonInput === true
+                Configuration.manipulations.useButtonInput
                   ? { borderRadius: "32px " }
                   : {}
               }
@@ -593,7 +598,7 @@ const Trial: FC<Screens.Trial> = (
 
   // Invoke the transition if the transition is active and an option has been selected
   useEffect(() => {
-    if (transitionActive === true && trialState.hasSelected === true) {
+    if (transitionActive && trialState.hasSelected) {
       // Invoke the transition
       transition();
     }
@@ -604,7 +609,7 @@ const Trial: FC<Screens.Trial> = (
       <Box align="center" justify="center" fill>
         {/* Status component - display in practice cases only if the spotlight functionality is enabled */}
         {Flags.isEnabled("enableStatusDisplay") &&
-          props.isPractice === true &&
+          props.isPractice &&
           props.spotlight?.enabled === true &&
           props.spotlight.target === "status" && (
             <>
@@ -753,7 +758,7 @@ const Trial: FC<Screens.Trial> = (
               round
               background="optionBackground"
               border={
-                Configuration.manipulations.useButtonInput === true &&
+                Configuration.manipulations.useButtonInput &&
                 trialState.highlightedOptionIndex === 0
                   ? { color: "selectedElement", size: "large" }
                   : {}
@@ -775,7 +780,7 @@ const Trial: FC<Screens.Trial> = (
               round
               background="optionBackground"
               border={
-                Configuration.manipulations.useButtonInput === true &&
+                Configuration.manipulations.useButtonInput &&
                 trialState.highlightedOptionIndex === 1
                   ? { color: "selectedElement", size: "large" }
                   : {}

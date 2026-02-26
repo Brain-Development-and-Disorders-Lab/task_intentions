@@ -10,7 +10,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
@@ -20,6 +19,9 @@ import { LinkNext } from "grommet-icons";
 
 // Custom components
 import Slider from "src/view/components/Slider";
+
+// Custom types
+import type { Screens } from "types";
 
 // Experiment configuration
 import { Configuration } from "src/configuration";
@@ -57,26 +59,24 @@ const Agency: FC<Screens.Agency> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useButtonInput === false) return;
+    if (!Configuration.manipulations.useButtonInput) return;
 
     // Avoid holding the key down if no element focused
-    if (elementFocused === false && event.repeat) return;
+    if (!elementFocused && event.repeat) return;
     event.preventDefault();
 
     if (
       event.key.toString() === BINDINGS.NEXT ||
       event.key.toString() === BINDINGS.PREVIOUS
     ) {
-      if (elementFocused === true) {
-        if (selectedElementIndex === 0) {
-          // First slider, increase and decrease value within bounds when keys pressed
-          if (event.key.toString() === BINDINGS.NEXT) {
-            setSliderValue(sliderValue + 1 <= 100 ? sliderValue + 1 : 100);
-          } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-            setSliderValue(sliderValue - 1 >= 0 ? sliderValue - 1 : 0);
-          }
-          setSliderMoved(true);
+      if (elementFocused && selectedElementIndex === 0) {
+        // First slider, increase and decrease value within bounds when keys pressed
+        if (event.key.toString() === BINDINGS.NEXT) {
+          setSliderValue(sliderValue + 1 <= 100 ? sliderValue + 1 : 100);
+        } else if (event.key.toString() === BINDINGS.PREVIOUS) {
+          setSliderValue(sliderValue - 1 >= 0 ? sliderValue - 1 : 0);
         }
+        setSliderMoved(true);
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
           setSelectedElementIndex(
@@ -92,11 +92,9 @@ const Agency: FC<Screens.Agency> = (
       if (selectedElementIndex !== 1) {
         // Focus or unfocus sliders
         setElementFocused(!elementFocused);
-      } else {
+      } else if (sliderMoved) {
         // Select the `Continue` button if permitted
-        if (sliderMoved === true) {
-          props.handler(sliderValue);
-        }
+        props.handler(sliderValue);
       }
     }
   };
@@ -121,7 +119,7 @@ const Agency: FC<Screens.Agency> = (
           pad={"xsmall"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
+              Configuration.manipulations.useButtonInput &&
               selectedElementIndex === 0 &&
               !elementFocused
                 ? "selectedElement"
@@ -149,14 +147,14 @@ const Agency: FC<Screens.Agency> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
+              Configuration.manipulations.useButtonInput &&
               selectedElementIndex === 1
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useButtonInput === true &&
+            Configuration.manipulations.useButtonInput &&
             selectedElementIndex === 1
               ? { borderRadius: "36px " }
               : {}
@@ -167,10 +165,7 @@ const Agency: FC<Screens.Agency> = (
             primary
             color="button"
             label="Continue"
-            disabled={
-              // Disabled until slider has been interacted with
-              sliderMoved === false
-            }
+            disabled={!sliderMoved} // Disabled until slider has been interacted with
             icon={<LinkNext />}
             reverse
             onClick={() => {

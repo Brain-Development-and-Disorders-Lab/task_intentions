@@ -10,7 +10,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
@@ -25,6 +24,9 @@ import {
   Layer,
 } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 // Question sets
 const ADULT_QUESTIONS = [

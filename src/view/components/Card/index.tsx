@@ -10,12 +10,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement } from "react";
 
 // Grommet UI components
 import { Box, Heading } from "grommet";
+
+// Custom types
+import type { AvatarStyles, Components } from "types";
 
 // Other imports
 import TextTransition, { presets } from "react-text-transition";

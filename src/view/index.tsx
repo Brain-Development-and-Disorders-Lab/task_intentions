@@ -10,7 +10,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React from "react";
 import { createRoot, Root } from "react-dom/client";
@@ -18,8 +17,11 @@ import { createRoot, Root } from "react-dom/client";
 // Foundational 'Wrapper' component
 import Wrapper from "src/view/components/Wrapper";
 
+// Custom types
+import type { Display, ScreenProps } from "types";
+
 /**
- * @summary 'View' class to abstract the display and clean-up of React-based screens
+ * @summary 'View' class to abstract the display and clean up of React-based screens
  * used in the game
  */
 class View {
@@ -55,7 +57,7 @@ class View {
     // Render the 'Wrapper' component
     this.root.render(<Wrapper display={type} props={props.props} />);
 
-    // Setup a timeout to execute the callback
+    // Set up a timeout to execute the callback
     if (props.duration > 0) {
       setTimeout(() => {
         props.callback();

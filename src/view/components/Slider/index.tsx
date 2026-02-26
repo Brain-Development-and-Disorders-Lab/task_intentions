@@ -10,12 +10,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useEffect, useState } from "react";
 
 // Grommet UI components
 import { Box, Heading, RangeInput } from "grommet";
+
+// Custom types
+import type { Components } from "types";
 
 /**
  * @summary Generate a 'Slider' component that displays a horizontal range input with labels

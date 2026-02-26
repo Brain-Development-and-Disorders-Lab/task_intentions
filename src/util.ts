@@ -15,6 +15,9 @@
 import { ReactElement } from "react";
 import { renderToString } from "react-dom/server";
 
+// Custom types
+import type { BackupStorage, Display } from "types";
+
 // File saving
 import FileSaver from "file-saver";
 
@@ -25,10 +28,10 @@ import consola from "consola";
 import { randomUniform } from "d3-random";
 
 // Experiment configuration
-import { Configuration } from "./configuration";
+import { Configuration } from "src/configuration";
 
 // Feature flags
-import { Flags } from "./flags";
+import { Flags } from "src/flags";
 
 /**
  * Calculate the points gained from all prior trials of a specific display type
