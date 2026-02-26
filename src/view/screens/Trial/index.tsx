@@ -754,7 +754,9 @@ const Trial: FC<Screens.Trial> = (
             <Box
               ref={refs.optionOne}
               onClick={() => handleOptionClick("Option 1")}
-              className="grow"
+              className={
+                Configuration.manipulations.useButtonInput ? "" : "grow"
+              }
               round
               background="optionBackground"
               border={
@@ -776,7 +778,9 @@ const Trial: FC<Screens.Trial> = (
             <Box
               ref={refs.optionTwo}
               onClick={() => handleOptionClick("Option 2")}
-              className="grow"
+              className={
+                Configuration.manipulations.useButtonInput ? "" : "grow"
+              }
               round
               background="optionBackground"
               border={
