@@ -29,7 +29,7 @@ import { Box, Grommet, Heading, Paragraph } from "grommet";
 import type { Row, Timeline } from "types";
 
 // Declare jsPsych
-declare const jsPsych: never;
+declare const jsPsych: any;
 
 // Feature flags
 import { Flags } from "src/flags";

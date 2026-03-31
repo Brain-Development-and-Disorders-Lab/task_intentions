@@ -33,6 +33,9 @@ import { Configuration } from "src/configuration";
 // Feature flags
 import { Flags } from "src/flags";
 
+// Declare jsPsych
+declare const jsPsych: any;
+
 /**
  * Calculate the points gained from all prior trials of a specific display type
  * @param {Display} display the type of display to calculate total points from

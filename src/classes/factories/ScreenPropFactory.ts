@@ -14,7 +14,7 @@
 import type { Display, Factory, IntentionsNode, ScreenProps } from "types";
 
 // Declare jsPsych
-declare const jsPsych: never;
+declare const jsPsych: any;
 
 // Logging library
 import consola from "consola";

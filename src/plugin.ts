@@ -17,7 +17,7 @@
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 // Declare jsPsych
-declare const jsPsych: never;
+declare const jsPsych: any;
 
 // Custom types
 import type { Dataframe, IntentionsNode } from "types";

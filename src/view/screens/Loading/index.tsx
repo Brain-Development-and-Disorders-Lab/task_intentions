@@ -18,7 +18,7 @@ import React, { FC, ReactElement, useEffect, useState } from "react";
 import type { Dataframe, Screens } from "types";
 
 // Declare jsPsych
-declare const jsPsych: never;
+declare const jsPsych: any;
 
 // Logging library
 import consola from "consola";

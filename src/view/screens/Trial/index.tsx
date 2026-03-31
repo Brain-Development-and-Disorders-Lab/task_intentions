@@ -30,7 +30,7 @@ import Status from "src/view/components/Status";
 import type { Screens, TrialState } from "types";
 
 // Declare jsPsych
-declare const jsPsych: never;
+declare const jsPsych: any;
 
 // Access theme constants directly
 import { Theme } from "src/theme";
