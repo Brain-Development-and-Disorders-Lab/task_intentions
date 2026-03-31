@@ -12,6 +12,9 @@ import Cyberball from "src/view/screens/Cyberball";
 // jsPsych wrapper library
 import Experiment from "neurocog";
 
+// Custom types
+import { RecursivePartial } from "types";
+
 // Mock the configuration
 jest.mock("src/configuration", () => ({
   Configuration: {

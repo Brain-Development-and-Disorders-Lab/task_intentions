@@ -16,6 +16,9 @@ import { render } from "test/utils/functions";
 // Component to test
 import Status from "src/view/components/Status";
 
+// Custom types
+import { Components } from "types";
+
 // Mock the global Experiment object
 const mockExperiment = {
   getState: () => ({

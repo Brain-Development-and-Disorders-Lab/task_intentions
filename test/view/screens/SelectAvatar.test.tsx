@@ -18,6 +18,9 @@ import Wrapper from "src/view/components/Wrapper";
 // Experiment class
 import Experiment from "neurocog";
 
+// Custom types
+import { RecursivePartial, Screens } from "types";
+
 // Setup the Experiment instances
 beforeEach(() => {
   // Experiment

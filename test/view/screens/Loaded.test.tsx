@@ -19,6 +19,9 @@ import Wrapper from "src/view/components/Wrapper";
 import { Experiment } from "neurocog";
 jest.mock("neurocog");
 
+// Custom types
+import { RecursivePartial, Screens } from "types";
+
 // Setup the Experiment instances
 beforeEach(() => {
   // Experiment

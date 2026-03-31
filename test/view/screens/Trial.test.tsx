@@ -23,6 +23,9 @@ jest.mock("jspsych");
 import { Experiment } from "neurocog";
 jest.mock("neurocog");
 
+// Custom types
+import { Display, RecursivePartial, Screens } from "types";
+
 // Mock the Configuration
 jest.mock("src/configuration", () => ({
   Configuration: {

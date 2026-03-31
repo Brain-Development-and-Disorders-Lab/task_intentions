@@ -14,6 +14,9 @@ import TestWrapper from "./TestWrapper";
 // Handler class
 import Handler from "src/classes/Handler";
 
+// Custom types
+import { Display, IntentionsNode } from "types";
+
 /**
  * Generate a Trial configuration for test use
  * @param {Display} display the display type being tested
