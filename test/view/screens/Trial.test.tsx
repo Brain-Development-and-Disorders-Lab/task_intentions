@@ -23,6 +23,9 @@ jest.mock("jspsych");
 import { Experiment } from "neurocog";
 jest.mock("neurocog");
 
+// Custom types
+import { Display, RecursivePartial, Screens } from "types";
+
 // Mock the Configuration
 jest.mock("src/configuration", () => ({
   Configuration: {
@@ -102,10 +105,7 @@ test("loads and displays Trial screen", async () => {
 });
 
 // Helper function to create trial props
-const createTrialProps = (
-  display: Display,
-  isPractice = false
-): Screens.Trial => ({
+const createTrialProps = (display: Display, isPractice = false): Screens.Trial => ({
   trial_number: 0,
   display,
   isPractice,
@@ -287,17 +287,13 @@ describe("Status component conditional display", () => {
 
     // Test Phase 1
     const props1 = createTrialProps("playerChoice", false);
-    const { unmount: unmount1 } = render(
-      <Wrapper display={"playerChoice"} props={props1} />
-    );
+    const { unmount: unmount1 } = render(<Wrapper display={"playerChoice"} props={props1} />);
     await checkStatusVisibility(true);
     unmount1();
 
     // Test Phase 2
     const props2 = createTrialProps("playerGuess", false);
-    const { unmount: unmount2 } = render(
-      <Wrapper display={"playerGuess"} props={props2} />
-    );
+    const { unmount: unmount2 } = render(<Wrapper display={"playerGuess"} props={props2} />);
     await checkStatusVisibility(true);
     unmount2();
 

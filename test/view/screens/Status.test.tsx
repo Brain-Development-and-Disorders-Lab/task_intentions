@@ -15,6 +15,9 @@ import { render } from "test/utils/functions";
 // Wrapper component
 import Wrapper from "src/view/components/Wrapper";
 
+// Custom types
+import { Screens } from "types";
+
 test("loads and displays Status screen page 1", async () => {
   const props: Screens.Status = {
     trial_number: 0,
@@ -25,18 +28,10 @@ test("loads and displays Status screen page 1", async () => {
   };
   render(<Wrapper display={"status"} props={props} />);
 
-  await waitFor(() =>
-    screen.queryByText("How many close friends do you have?")
-  );
-  expect(
-    screen.queryByText("How many close friends do you have?")
-  ).not.toBeNull();
-  expect(
-    screen.queryByText("How often do you get invited to parties?")
-  ).not.toBeNull();
-  expect(
-    screen.queryByText("How often are people mean to you at school or work?")
-  ).not.toBeNull();
+  await waitFor(() => screen.queryByText("How many close friends do you have?"));
+  expect(screen.queryByText("How many close friends do you have?")).not.toBeNull();
+  expect(screen.queryByText("How often do you get invited to parties?")).not.toBeNull();
+  expect(screen.queryByText("How often are people mean to you at school or work?")).not.toBeNull();
 
   // Check for Likert scale elements
   expect(screen.queryAllByText("Never")).toHaveLength(2);
@@ -62,9 +57,7 @@ test("loads and displays Status screen page 2", async () => {
     },
   };
   render(<Wrapper display={"status"} props={props} />);
-  await waitFor(() =>
-    screen.queryByText("How many close friends do you have?")
-  );
+  await waitFor(() => screen.queryByText("How many close friends do you have?"));
 
   // Fill in page 1 and continue to page 2
   const closeFriendsInput = screen.getByPlaceholderText("Enter number");

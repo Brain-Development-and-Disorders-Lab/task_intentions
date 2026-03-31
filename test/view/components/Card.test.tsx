@@ -17,9 +17,7 @@ import { render } from "test/utils/functions";
 import Card from "src/view/components/Card";
 
 test("loads and displays Card component", async () => {
-  await waitFor(() =>
-    render(<Card gridArea="a" name="Henry" points={"0"} avatar="a" />)
-  );
+  await waitFor(() => render(<Card gridArea="a" name="Henry" points={"0"} avatar="a" />));
 
   await waitFor(() => expect(screen.getByText("Henry")).toBeInTheDocument());
 });

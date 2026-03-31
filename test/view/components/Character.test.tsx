@@ -28,7 +28,5 @@ test("loads and displays Character component", async () => {
     />
   );
 
-  await waitFor(() =>
-    expect(container.querySelector("svg")).toBeInTheDocument()
-  );
+  await waitFor(() => expect(container.querySelector("svg")).toBeInTheDocument());
 });

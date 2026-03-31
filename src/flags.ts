@@ -7,12 +7,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// Import React
+import React from "react";
 
 // Logging library
 import consola from "consola";
 
 // Configuration
-import { Configuration } from "./configuration";
+import { Configuration } from "src/configuration";
 
 /**
  * Feature flag utility class for type-safe feature checking
@@ -24,7 +26,7 @@ export class Flags {
    * @returns boolean indicating if the feature is enabled
    */
   static isEnabled(featureName: keyof typeof Configuration.features): boolean {
-    return Configuration.features[featureName] === true;
+    return Configuration.features[featureName];
   }
 
   /**
@@ -41,10 +43,7 @@ export class Flags {
    * @param featureName - The name of the feature to set
    * @param value - The value to set the feature flag to
    */
-  static setValue<T>(
-    featureName: keyof typeof Configuration.features,
-    value: T
-  ): void {
+  static setValue<T>(featureName: keyof typeof Configuration.features, value: T): void {
     consola.warn(`Setting feature flag ${featureName} to ${value}`);
     Configuration.features[featureName] = value as boolean;
   }

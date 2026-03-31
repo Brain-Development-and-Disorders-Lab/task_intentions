@@ -19,6 +19,9 @@ import Wrapper from "src/view/components/Wrapper";
 import { Experiment } from "neurocog";
 jest.mock("neurocog");
 
+// Custom types
+import { RecursivePartial, Screens } from "types";
+
 // Setup the Experiment instances
 beforeEach(() => {
   // Experiment
@@ -37,7 +40,9 @@ test("loads and displays Loaded screen", async () => {
     trial_number: 0,
     display: "loaded",
     state: "matchingIntentions",
-    handler: () => { return; },
+    handler: () => {
+      return;
+    },
   };
   render(<Wrapper display={"loaded"} props={props} />);
 

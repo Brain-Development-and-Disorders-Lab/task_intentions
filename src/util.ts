@@ -15,6 +15,9 @@
 import { ReactElement } from "react";
 import { renderToString } from "react-dom/server";
 
+// Custom types
+import type { BackupStorage, Display } from "types";
+
 // File saving
 import FileSaver from "file-saver";
 
@@ -25,10 +28,13 @@ import consola from "consola";
 import { randomUniform } from "d3-random";
 
 // Experiment configuration
-import { Configuration } from "./configuration";
+import { Configuration } from "src/configuration";
 
 // Feature flags
-import { Flags } from "./flags";
+import { Flags } from "src/flags";
+
+// Declare jsPsych
+declare const jsPsych: any;
 
 /**
  * Calculate the points gained from all prior trials of a specific display type
@@ -184,9 +190,7 @@ export const initializeLocalStorage = (id: string): void => {
   };
   stored.push(experiment);
   localStorage.setItem(Configuration.studyName, JSON.stringify(stored));
-  consola.info(
-    `Backup initialized for experiment ID: ${experiment.experimentID}`
-  );
+  consola.info(`Backup initialized for experiment ID: ${experiment.experimentID}`);
 };
 
 /**
@@ -211,9 +215,7 @@ export const saveToLocalStorage = (id: string, data: any): void => {
       return;
     }
   }
-  consola.error(
-    `Unable to save data to backup storage for experiment ID: ${id}`
-  );
+  consola.error(`Unable to save data to backup storage for experiment ID: ${id}`);
 };
 
 /**
@@ -247,9 +249,7 @@ export const setCompleted = (id: string, state: boolean): void => {
  */
 export const generatePartnerID = (): string => {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return Array.from({ length: 8 }, () =>
-    chars.charAt(Math.floor(Math.random() * chars.length))
-  ).join("");
+  return Array.from({ length: 8 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join("");
 };
 
 /**
@@ -292,7 +292,9 @@ export const generateStatuses = (): {
   const partnerThreeHighStatus = Math.round(partnerHighRandom() * 10) / 10;
 
   // Log the statuses
-  consola.info(`Generated statuses:\nParticipant: ${participantDefaultStatus}%\nPartner Cyberball Low: ${partnerCyberballLowStatus}%, Partner Cyberball High: ${partnerCyberballHighStatus}%\nPartner One Low: ${partnerOneLowStatus}%, Partner One High: ${partnerOneHighStatus}%\nPartner Two Low: ${partnerTwoLowStatus}%, Partner Two High: ${partnerTwoHighStatus}%\nPartner Three Low: ${partnerThreeLowStatus}%, Partner Three High: ${partnerThreeHighStatus}%`);
+  consola.info(
+    `Generated statuses:\nParticipant: ${participantDefaultStatus}%\nPartner Cyberball Low: ${partnerCyberballLowStatus}%, Partner Cyberball High: ${partnerCyberballHighStatus}%\nPartner One Low: ${partnerOneLowStatus}%, Partner One High: ${partnerOneHighStatus}%\nPartner Two Low: ${partnerTwoLowStatus}%, Partner Two High: ${partnerTwoHighStatus}%\nPartner Three Low: ${partnerThreeLowStatus}%, Partner Three High: ${partnerThreeHighStatus}%`
+  );
 
   // Return all three statuses
   return {

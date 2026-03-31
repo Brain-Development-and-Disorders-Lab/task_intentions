@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
 import { Box, Button, RadioButtonGroup, Heading, Text } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 // Time scale options
 const TIME_OPTIONS = [
@@ -37,9 +39,7 @@ const TIME_OPTIONS = [
  *  - handler: {(weekdayTime: number, weekendTime: number) => void} Callback function when participant continues
  * @return {ReactElement} 'Screentime' screen with two questions
  */
-const Screentime: FC<Screens.Screentime> = (
-  props: Screens.Screentime
-): ReactElement => {
+const Screentime: FC<Screens.Screentime> = (props: Screens.Screentime): ReactElement => {
   // Response state
   const [weekdayTime, setWeekdayTime] = useState(-1);
   const [weekendTime, setWeekendTime] = useState(-1);
@@ -62,9 +62,7 @@ const Screentime: FC<Screens.Screentime> = (
       <Box direction={"row"} gap={"small"}>
         <Box direction={"column"} gap={"xxsmall"} align={"start"}>
           <Text size={"small"}>1 = Less than 30 minutes</Text>
-          <Text size={"small"}>
-            2 = More than 30 minutes but less than an hour
-          </Text>
+          <Text size={"small"}>2 = More than 30 minutes but less than an hour</Text>
           <Text size={"small"}>3 = One to two hours</Text>
           <Text size={"small"}>4 = Two to three hours</Text>
           <Text size={"small"}>5 = Three to four hours</Text>
@@ -77,12 +75,7 @@ const Screentime: FC<Screens.Screentime> = (
         </Box>
       </Box>
 
-      <Box
-        direction="column"
-        gap="medium"
-        width="100%"
-        style={{ maxHeight: "70vh", overflowY: "auto" }}
-      >
+      <Box direction="column" gap="medium" width="100%" style={{ maxHeight: "70vh", overflowY: "auto" }}>
         {/* Question 1 */}
         <Box
           direction="column"
@@ -93,8 +86,8 @@ const Screentime: FC<Screens.Screentime> = (
           background="light-1"
         >
           <Text margin="none" size="medium" textAlign="start" weight="normal">
-            1. When you use social media sites or apps, how much time do you
-            spend using them on a typically school day [weekday]?
+            1. When you use social media sites or apps, how much time do you spend using them on a typically school day
+            [weekday]?
           </Text>
 
           <Box direction="row" justify="center" gap="small" width="100%">
@@ -120,8 +113,8 @@ const Screentime: FC<Screens.Screentime> = (
           background="light-1"
         >
           <Text margin="none" size="medium" textAlign="start" weight="normal">
-            2. When you use social media sites or apps, how much time in total
-            do you spend using them on a typical weekend or holiday day?
+            2. When you use social media sites or apps, how much time in total do you spend using them on a typical
+            weekend or holiday day?
           </Text>
 
           <Box direction="row" justify="center" gap="small" width="100%">
@@ -138,12 +131,7 @@ const Screentime: FC<Screens.Screentime> = (
         </Box>
       </Box>
 
-      <Box
-        margin={"medium"}
-        pad={"none"}
-        border={{ color: "transparent", size: "large" }}
-        round
-      >
+      <Box margin={"medium"} pad={"none"} border={{ color: "transparent", size: "large" }} round>
         <Button
           primary
           color="button"

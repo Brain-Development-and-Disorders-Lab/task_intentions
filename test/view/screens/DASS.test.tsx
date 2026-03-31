@@ -41,11 +41,7 @@ describe("DASS Component", () => {
       );
 
       expect(screen.getByText("DASS-21 Questionnaire")).toBeInTheDocument();
-      expect(
-        screen.getByText(
-          /The following questions ask about how you have been feeling/
-        )
-      ).toBeInTheDocument();
+      expect(screen.getByText(/The following questions ask about how you have been feeling/)).toBeInTheDocument();
       expect(screen.getByText("Continue")).toBeInTheDocument();
     });
 
@@ -58,9 +54,7 @@ describe("DASS Component", () => {
 
       fireEvent.click(screen.getByText("Continue"));
       expect(screen.getByText("DASS-21 Questionnaire")).toBeInTheDocument();
-      expect(
-        screen.getByText("1. I found it hard to wind down")
-      ).toBeInTheDocument();
+      expect(screen.getByText("1. I found it hard to wind down")).toBeInTheDocument();
     });
 
     it("shows adult questions and allows responses", () => {
@@ -74,9 +68,7 @@ describe("DASS Component", () => {
       fireEvent.click(screen.getByText("Continue"));
 
       // Check questions are displayed
-      expect(
-        screen.getByText("1. I found it hard to wind down")
-      ).toBeInTheDocument();
+      expect(screen.getByText("1. I found it hard to wind down")).toBeInTheDocument();
 
       // Continue button should be enabled initially
       expect(screen.getByText("Continue")).not.toBeDisabled();
@@ -102,9 +94,7 @@ describe("DASS Component", () => {
       fireEvent.click(screen.getByText("Continue"));
 
       // Check questions are displayed
-      expect(
-        screen.getByText("1. I got upset about little things")
-      ).toBeInTheDocument();
+      expect(screen.getByText("1. I got upset about little things")).toBeInTheDocument();
     });
   });
 });

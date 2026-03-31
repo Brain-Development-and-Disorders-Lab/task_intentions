@@ -10,12 +10,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement } from "react";
 
 // Grommet UI components
 import { Grid, Heading } from "grommet";
+
+// Custom types
+import type { Components } from "types";
 
 /**
  * @summary Generate an 'Option' component that displays a grid of points to split between participant and partner
@@ -25,9 +27,7 @@ import { Grid, Heading } from "grommet";
  *  - pointsPartner: {number} Points allocated to the partner
  * @return {ReactElement} 'Option' component with points arranged in a 2x2 grid
  */
-const Option: FC<Components.Option> = (
-  props: Components.Option
-): ReactElement => {
+const Option: FC<Components.Option> = (props: Components.Option): ReactElement => {
   return (
     <Grid
       id={props.optionKey}

@@ -14,22 +14,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
-import {
-  Box,
-  Button,
-  Paragraph,
-  TextInput,
-  RadioButtonGroup,
-  Heading,
-  CheckBox,
-  Select,
-} from "grommet";
+import { Box, Button, Paragraph, TextInput, RadioButtonGroup, Heading, CheckBox, Select } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 /**
  * @summary Generate a 'Demographics' screen component with multiple pages for collecting demographic information
@@ -38,9 +31,7 @@ import { LinkNext } from "grommet-icons";
  *  - handler: {(responses: DemographicsResponses) => void} Callback function when participant continues
  * @return {ReactElement} 'Demographics' screen with multiple pages of questions
  */
-const Demographics: FC<Screens.Demographics> = (
-  props: Screens.Demographics
-): ReactElement => {
+const Demographics: FC<Screens.Demographics> = (props: Screens.Demographics): ReactElement => {
   // Page state
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -63,51 +54,64 @@ const Demographics: FC<Screens.Demographics> = (
   const [socialMediaOther, setSocialMediaOther] = useState("");
 
   // Gender identity options based on version
-  const genderOptions = props.version === "adult"
-    ? [
-        { label: "Man", value: "Man" },
-        { label: "Woman", value: "Woman" },
-        { label: "Trans man", value: "Trans man" },
-        { label: "Trans woman", value: "Trans woman" },
-        { label: "Non-binary", value: "Non-binary" },
-        { label: "Prefer not to say", value: "Prefer not to say" },
-        { label: "Prefer to self-describe", value: "Prefer to self-describe" },
-      ]
-    : [
-        { label: "Boy", value: "Boy" },
-        { label: "Girl", value: "Girl" },
-        { label: "Trans boy", value: "Trans boy" },
-        { label: "Trans girl", value: "Trans girl" },
-        { label: "Non-binary", value: "Non-binary" },
-        { label: "Prefer not to say", value: "Prefer not to say" },
-        { label: "Prefer to self-describe", value: "Prefer to self-describe" },
-      ];
+  const genderOptions =
+    props.version === "adult"
+      ? [
+          { label: "Man", value: "Man" },
+          { label: "Woman", value: "Woman" },
+          { label: "Trans man", value: "Trans man" },
+          { label: "Trans woman", value: "Trans woman" },
+          { label: "Non-binary", value: "Non-binary" },
+          { label: "Prefer not to say", value: "Prefer not to say" },
+          { label: "Prefer to self-describe", value: "Prefer to self-describe" },
+        ]
+      : [
+          { label: "Boy", value: "Boy" },
+          { label: "Girl", value: "Girl" },
+          { label: "Trans boy", value: "Trans boy" },
+          { label: "Trans girl", value: "Trans girl" },
+          { label: "Non-binary", value: "Non-binary" },
+          { label: "Prefer not to say", value: "Prefer not to say" },
+          { label: "Prefer to self-describe", value: "Prefer to self-describe" },
+        ];
 
   // Education options based on version
-  const educationOptions = props.version === "adult"
-    ? [
-        { label: "High school or less", value: "High school or less" },
-        { label: "Some college", value: "Some college" },
-        { label: "Associate's degree", value: "Associate's degree" },
-        { label: "Bachelor's degree", value: "Bachelor's degree" },
-        { label: "Master's degree", value: "Master's degree" },
-        { label: "Doctoral degree", value: "Doctoral degree" },
-        { label: "Other", value: "Other" },
-      ]
-    : [
-        { label: "Less than high school", value: "Less than high school" },
-        { label: "High school", value: "High school" },
-        { label: "Some college", value: "Some college" },
-        { label: "College degree", value: "College degree" },
-        { label: "Graduate degree", value: "Graduate degree" },
-        { label: "Other", value: "Other" },
-      ];
+  const educationOptions =
+    props.version === "adult"
+      ? [
+          { label: "High school or less", value: "High school or less" },
+          { label: "Some college", value: "Some college" },
+          { label: "Associate's degree", value: "Associate's degree" },
+          { label: "Bachelor's degree", value: "Bachelor's degree" },
+          { label: "Master's degree", value: "Master's degree" },
+          { label: "Doctoral degree", value: "Doctoral degree" },
+          { label: "Other", value: "Other" },
+        ]
+      : [
+          { label: "Less than high school", value: "Less than high school" },
+          { label: "High school", value: "High school" },
+          { label: "Some college", value: "Some college" },
+          { label: "College degree", value: "College degree" },
+          { label: "Graduate degree", value: "Graduate degree" },
+          { label: "Other", value: "Other" },
+        ];
 
   // Social media platforms
   const platformOptions = [
-    "Facebook", "Instagram", "YouTube", "WhatsApp", "TikTok",
-    "Snapchat", "X (formerly Twitter)", "Pinterest", "LinkedIn",
-    "Reddit", "Discord", "Telegram", "WeChat", "Threads"
+    "Facebook",
+    "Instagram",
+    "YouTube",
+    "WhatsApp",
+    "TikTok",
+    "Snapchat",
+    "X (formerly Twitter)",
+    "Pinterest",
+    "LinkedIn",
+    "Reddit",
+    "Discord",
+    "Telegram",
+    "WeChat",
+    "Threads",
   ];
 
   // Render page 1
@@ -127,11 +131,7 @@ const Demographics: FC<Screens.Demographics> = (
         <Paragraph margin="small" size="large" fill>
           How old are you?
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          margin={"xsmall"}
-          round
-        >
+        <Box pad={"xsmall"} margin={"xsmall"} round>
           <TextInput
             type="number"
             value={age}
@@ -144,10 +144,7 @@ const Demographics: FC<Screens.Demographics> = (
         <Paragraph margin="small" size="large" fill>
           How do you describe your gender identity?
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          round
-        >
+        <Box pad={"xsmall"} round>
           <RadioButtonGroup
             name="gender-identity"
             direction="column"
@@ -159,10 +156,7 @@ const Demographics: FC<Screens.Demographics> = (
         </Box>
 
         {genderIdentity === "Prefer to self-describe" && (
-          <Box
-            pad={"xsmall"}
-            round
-          >
+          <Box pad={"xsmall"} round>
             <TextInput
               value={genderIdentityOther}
               width="medium"
@@ -173,11 +167,7 @@ const Demographics: FC<Screens.Demographics> = (
           </Box>
         )}
 
-        <Box
-          margin={"xsmall"}
-          pad={"none"}
-          round
-        >
+        <Box margin={"xsmall"} pad={"none"} round>
           <Button
             primary
             color="button"
@@ -213,10 +203,7 @@ const Demographics: FC<Screens.Demographics> = (
         <Paragraph margin="small" size="large" fill>
           How would you describe your ethnicity?
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          round
-        >
+        <Box pad={"xsmall"} round>
           <Select
             placeholder="Select ethnicity"
             value={ethnicity}
@@ -234,10 +221,7 @@ const Demographics: FC<Screens.Demographics> = (
         </Box>
 
         {ethnicity === "Other ethnic group" && (
-          <Box
-            pad={"xsmall"}
-            round
-          >
+          <Box pad={"xsmall"} round>
             <TextInput
               value={ethnicityOther}
               onChange={event => setEthnicityOther(event.target.value)}
@@ -250,10 +234,7 @@ const Demographics: FC<Screens.Demographics> = (
         <Paragraph margin="small" size="large" fill>
           What was your total household income before taxes during the past 12 months?
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          round
-        >
+        <Box pad={"xsmall"} round>
           <Select
             placeholder="Select income range"
             value={householdIncome}
@@ -272,11 +253,7 @@ const Demographics: FC<Screens.Demographics> = (
           />
         </Box>
 
-        <Box
-          margin={"xsmall"}
-          pad={"none"}
-          round
-        >
+        <Box margin={"xsmall"} pad={"none"} round>
           <Button
             primary
             color="button"
@@ -312,13 +289,9 @@ const Demographics: FC<Screens.Demographics> = (
         <Paragraph margin="small" size="large" fill>
           {props.version === "adult"
             ? "What is your highest level of education?"
-            : "What is the highest level of education held by at least one of your parents?"
-          }
+            : "What is the highest level of education held by at least one of your parents?"}
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          round
-        >
+        <Box pad={"xsmall"} round>
           <Select
             placeholder="Select education level"
             value={education}
@@ -332,25 +305,18 @@ const Demographics: FC<Screens.Demographics> = (
         <Paragraph margin="small" size="large" fill>
           Do you use social media platforms every day or on most days of the week?
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          round
-        >
+        <Box pad={"xsmall"} round>
           <Select
             placeholder="Select response"
             size="small"
             width="medium"
-            value={socialMediaDaily === null ? undefined : (socialMediaDaily ? "Yes" : "No")}
+            value={socialMediaDaily === null ? undefined : socialMediaDaily ? "Yes" : "No"}
             onChange={({ value }) => setSocialMediaDaily(value === "Yes")}
             options={["Yes", "No"]}
           />
         </Box>
 
-        <Box
-          margin={"xsmall"}
-          pad={"none"}
-          round
-        >
+        <Box margin={"xsmall"} pad={"none"} round>
           <Button
             primary
             color="button"
@@ -381,20 +347,15 @@ const Demographics: FC<Screens.Demographics> = (
       <Paragraph margin="small" size="large" fill>
         Which social media platforms do you use? (Check all that apply)
       </Paragraph>
-      <Box
-        direction="row"
-        gap="medium"
-        justify="center"
-        style={{ maxHeight: "300px", overflowY: "auto" }}
-      >
+      <Box direction="row" gap="medium" justify="center" style={{ maxHeight: "300px", overflowY: "auto" }}>
         {/* Left column */}
         <Box gap="xsmall">
-          {platformOptions.slice(0, Math.ceil(platformOptions.length / 2)).map((platform) => (
+          {platformOptions.slice(0, Math.ceil(platformOptions.length / 2)).map(platform => (
             <CheckBox
               key={platform}
               label={platform}
               checked={socialMediaPlatforms.includes(platform)}
-              onChange={(event) => {
+              onChange={event => {
                 if (event.target.checked) {
                   setSocialMediaPlatforms([...socialMediaPlatforms, platform]);
                 } else {
@@ -407,12 +368,12 @@ const Demographics: FC<Screens.Demographics> = (
 
         {/* Right column */}
         <Box gap="xsmall">
-          {platformOptions.slice(Math.ceil(platformOptions.length / 2)).map((platform) => (
+          {platformOptions.slice(Math.ceil(platformOptions.length / 2)).map(platform => (
             <CheckBox
               key={platform}
               label={platform}
               checked={socialMediaPlatforms.includes(platform)}
-              onChange={(event) => {
+              onChange={event => {
                 if (event.target.checked) {
                   setSocialMediaPlatforms([...socialMediaPlatforms, platform]);
                 } else {
@@ -424,10 +385,7 @@ const Demographics: FC<Screens.Demographics> = (
         </Box>
       </Box>
 
-      <Box
-        pad={"xsmall"}
-        round
-      >
+      <Box pad={"xsmall"} round>
         <TextInput
           value={socialMediaOther}
           width="medium"
@@ -437,11 +395,7 @@ const Demographics: FC<Screens.Demographics> = (
         />
       </Box>
 
-      <Box
-        margin={"xsmall"}
-        pad={"none"}
-        round
-      >
+      <Box margin={"xsmall"} pad={"none"} round>
         <Button
           primary
           color="button"
@@ -449,13 +403,10 @@ const Demographics: FC<Screens.Demographics> = (
           icon={<LinkNext />}
           reverse
           onClick={() => {
-            const finalGenderIdentity = genderIdentity === "Prefer to self-describe"
-              ? genderIdentityOther
-              : genderIdentity;
+            const finalGenderIdentity =
+              genderIdentity === "Prefer to self-describe" ? genderIdentityOther : genderIdentity;
 
-            const finalEthnicity = ethnicity === "Other ethnic group"
-              ? ethnicityOther
-              : ethnicity;
+            const finalEthnicity = ethnicity === "Other ethnic group" ? ethnicityOther : ethnicity;
 
             const finalSocialMediaPlatforms = socialMediaOther.trim()
               ? [...socialMediaPlatforms, socialMediaOther]
@@ -468,7 +419,7 @@ const Demographics: FC<Screens.Demographics> = (
               householdIncome,
               education,
               socialMediaDaily || false,
-              finalSocialMediaPlatforms.join(", "),
+              finalSocialMediaPlatforms.join(", ")
             );
           }}
         />
@@ -478,4 +429,3 @@ const Demographics: FC<Screens.Demographics> = (
 };
 
 export default Demographics;
-

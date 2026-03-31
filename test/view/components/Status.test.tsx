@@ -16,6 +16,9 @@ import { render } from "test/utils/functions";
 // Component to test
 import Status from "src/view/components/Status";
 
+// Custom types
+import { Components } from "types";
+
 // Mock the global Experiment object
 const mockExperiment = {
   getState: () => ({
@@ -40,12 +43,7 @@ jest.mock("src/configuration", () => ({
 // Mock the boring-neutral-avatars component
 jest.mock("boring-neutral-avatars", () => {
   return function MockAvatar({ name, size }: { name: string; size: number }) {
-    return (
-      <div
-        data-testid={`avatar-${name}`}
-        style={{ width: size, height: size }}
-      />
-    );
+    return <div data-testid={`avatar-${name}`} style={{ width: size, height: size }} />;
   };
 });
 

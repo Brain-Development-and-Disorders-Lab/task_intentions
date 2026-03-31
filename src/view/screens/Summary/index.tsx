@@ -10,7 +10,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
@@ -23,6 +22,9 @@ import { LinkNext } from "grommet-icons";
 
 // Confetti
 import Confetti from "react-confetti";
+
+// Custom types
+import type { Screens } from "types";
 
 // Custom components
 import Card from "src/view/components/Card";
@@ -45,16 +47,12 @@ import { BINDINGS } from "src/bindings";
  *  - handler: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Summary' screen with avatar cards, point totals, and continue button
  */
-const Summary: FC<Screens.Summary> = (
-  props: Screens.Summary
-): ReactElement => {
+const Summary: FC<Screens.Summary> = (props: Screens.Summary): ReactElement => {
   consola.debug(`Summary screen for '${props.postPhase}'`);
 
   // Get the participant's and the partner's avatars
   const experiment = window.Experiment;
-  const participantAvatar: number = experiment
-    .getState()
-    .get("participantAvatar");
+  const participantAvatar: number = experiment.getState().get("participantAvatar");
 
   // Sum the participant's points
   const totalParticipantPoints =
@@ -75,7 +73,7 @@ const Summary: FC<Screens.Summary> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useButtonInput === false) return;
+    if (!Configuration.manipulations.useButtonInput) return;
 
     // Avoid holding the key down
     if (event.repeat) return;
@@ -103,9 +101,7 @@ const Summary: FC<Screens.Summary> = (
             <Card
               gridArea="participantArea"
               name="You"
-              avatar={
-                Configuration.avatars.names.participant[participantAvatar]
-              }
+              avatar={Configuration.avatars.names.participant[participantAvatar]}
               points={participantPoints}
             />
           </Box>
@@ -115,17 +111,10 @@ const Summary: FC<Screens.Summary> = (
             margin={"none"}
             pad={"none"}
             border={{
-              color:
-                Configuration.manipulations.useButtonInput === true
-                  ? "selectedElement"
-                  : "transparent",
+              color: Configuration.manipulations.useButtonInput ? "selectedElement" : "transparent",
               size: "large",
             }}
-            style={
-              Configuration.manipulations.useButtonInput === true
-                ? { borderRadius: "36px " }
-                : {}
-            }
+            style={Configuration.manipulations.useButtonInput ? { borderRadius: "36px " } : {}}
             round
           >
             <Button

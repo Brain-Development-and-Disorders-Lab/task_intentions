@@ -10,12 +10,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement } from "react";
 
 // Grommet UI components
 import { Box, Heading } from "grommet";
+
+// Custom types
+import type { AvatarStyles, Components } from "types";
 
 // Other imports
 import TextTransition, { presets } from "react-text-transition";
@@ -34,9 +36,7 @@ import { Money } from "grommet-icons";
  *  - gridArea: {string} Grid area name for positioning
  * @return {ReactElement} 'Card' component with player info arranged vertically in a Box
  */
-const Card: FC<Components.Card> = (
-  props: Components.Card
-): ReactElement => {
+const Card: FC<Components.Card> = (props: Components.Card): ReactElement => {
   return (
     <Box
       gridArea={props.gridArea}
@@ -62,11 +62,7 @@ const Card: FC<Components.Card> = (
       <Heading level={1}>
         <Box direction="row" gap="xsmall" height="64px">
           <Money size="large" color="pointsIconBackground" />
-          <TextTransition
-            text={props.points}
-            springConfig={presets.gentle}
-            inline
-          />
+          <TextTransition text={props.points} springConfig={presets.gentle} inline />
         </Box>
       </Heading>
     </Box>

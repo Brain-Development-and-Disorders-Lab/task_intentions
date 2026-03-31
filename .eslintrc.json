@@ -30,12 +30,5 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": [
-    "data/",
-    ".github/",
-    "dist/",
-    "build/",
-    "node_modules/",
-    "*.log"
-  ]
+  "ignorePatterns": ["data/", ".github/", "dist/", "build/", "node_modules/", "*.log"]
 }

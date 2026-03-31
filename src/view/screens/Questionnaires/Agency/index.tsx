@@ -10,7 +10,6 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
@@ -20,6 +19,9 @@ import { LinkNext } from "grommet-icons";
 
 // Custom components
 import Slider from "src/view/components/Slider";
+
+// Custom types
+import type { Screens } from "types";
 
 // Experiment configuration
 import { Configuration } from "src/configuration";
@@ -39,9 +41,7 @@ const SLIDER_DEFAULT = 50; // Sets the 'thumb' to the middle of the slider
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Agency' screen with interactive slider and question
  */
-const Agency: FC<Screens.Agency> = (
-  props: Screens.Agency
-): ReactElement => {
+const Agency: FC<Screens.Agency> = (props: Screens.Agency): ReactElement => {
   // Slider states, monitor if they have been interacted with
   // Top slider
   const [sliderMoved, setSliderMoved] = useState(false);
@@ -57,46 +57,35 @@ const Agency: FC<Screens.Agency> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useButtonInput === false) return;
+    if (!Configuration.manipulations.useButtonInput) return;
 
     // Avoid holding the key down if no element focused
-    if (elementFocused === false && event.repeat) return;
+    if (!elementFocused && event.repeat) return;
     event.preventDefault();
 
-    if (
-      event.key.toString() === BINDINGS.NEXT ||
-      event.key.toString() === BINDINGS.PREVIOUS
-    ) {
-      if (elementFocused === true) {
-        if (selectedElementIndex === 0) {
-          // First slider, increase and decrease value within bounds when keys pressed
-          if (event.key.toString() === BINDINGS.NEXT) {
-            setSliderValue(sliderValue + 1 <= 100 ? sliderValue + 1 : 100);
-          } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-            setSliderValue(sliderValue - 1 >= 0 ? sliderValue - 1 : 0);
-          }
-          setSliderMoved(true);
+    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
+      if (elementFocused && selectedElementIndex === 0) {
+        // First slider, increase and decrease value within bounds when keys pressed
+        if (event.key.toString() === BINDINGS.NEXT) {
+          setSliderValue(sliderValue + 1 <= 100 ? sliderValue + 1 : 100);
+        } else if (event.key.toString() === BINDINGS.PREVIOUS) {
+          setSliderValue(sliderValue - 1 >= 0 ? sliderValue - 1 : 0);
         }
+        setSliderMoved(true);
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
-          setSelectedElementIndex(
-            selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1
-          );
+          setSelectedElementIndex(selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1);
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          setSelectedElementIndex(
-            selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0
-          );
+          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
       if (selectedElementIndex !== 1) {
         // Focus or unfocus sliders
         setElementFocused(!elementFocused);
-      } else {
+      } else if (sliderMoved) {
         // Select the `Continue` button if permitted
-        if (sliderMoved === true) {
-          props.handler(sliderValue);
-        }
+        props.handler(sliderValue);
       }
     }
   };
@@ -111,8 +100,8 @@ const Agency: FC<Screens.Agency> = (
         animation={["fadeIn"]}
       >
         <Paragraph margin="small" size="large" fill>
-          Some labs use deception. For our own purposes, it is helpful to know
-          to what extent you believed that the other partners really existed.
+          Some labs use deception. For our own purposes, it is helpful to know to what extent you believed that the
+          other partners really existed.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           I believe I played with real partners.
@@ -121,9 +110,7 @@ const Agency: FC<Screens.Agency> = (
           pad={"xsmall"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
-              selectedElementIndex === 0 &&
-              !elementFocused
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 0 && !elementFocused
                 ? "selectedElement"
                 : "transparent",
             size: "large",
@@ -149,17 +136,13 @@ const Agency: FC<Screens.Agency> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
-              selectedElementIndex === 1
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 1
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useButtonInput === true &&
-            selectedElementIndex === 1
-              ? { borderRadius: "36px " }
-              : {}
+            Configuration.manipulations.useButtonInput && selectedElementIndex === 1 ? { borderRadius: "36px " } : {}
           }
           round
         >
@@ -167,10 +150,7 @@ const Agency: FC<Screens.Agency> = (
             primary
             color="button"
             label="Continue"
-            disabled={
-              // Disabled until slider has been interacted with
-              sliderMoved === false
-            }
+            disabled={!sliderMoved} // Disabled until slider has been interacted with
             icon={<LinkNext />}
             reverse
             onClick={() => {

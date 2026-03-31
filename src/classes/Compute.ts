@@ -12,6 +12,8 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
+// Custom types
+import type { ModelResponse } from "types";
 
 // Logging library
 import consola from "consola";
@@ -773,7 +775,7 @@ const TEST_RESPONSES = [
     ppt2: 6,
     par2: 8,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_002",
@@ -783,7 +785,7 @@ const TEST_RESPONSES = [
     ppt2: 7,
     par2: 7,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_003",
@@ -793,7 +795,7 @@ const TEST_RESPONSES = [
     ppt2: 8,
     par2: 6,
     Ac: 2,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_004",
@@ -803,7 +805,7 @@ const TEST_RESPONSES = [
     ppt2: 9,
     par2: 5,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_005",
@@ -813,7 +815,7 @@ const TEST_RESPONSES = [
     ppt2: 7,
     par2: 7,
     Ac: 2,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_006",
@@ -823,7 +825,7 @@ const TEST_RESPONSES = [
     ppt2: 6,
     par2: 8,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_007",
@@ -833,7 +835,7 @@ const TEST_RESPONSES = [
     ppt2: 5,
     par2: 9,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_008",
@@ -843,7 +845,7 @@ const TEST_RESPONSES = [
     ppt2: 8,
     par2: 6,
     Ac: 2,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_009",
@@ -853,7 +855,7 @@ const TEST_RESPONSES = [
     ppt2: 9,
     par2: 5,
     Ac: 2,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_010",
@@ -863,7 +865,7 @@ const TEST_RESPONSES = [
     ppt2: 7,
     par2: 7,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_011",
@@ -873,7 +875,7 @@ const TEST_RESPONSES = [
     ppt2: 6,
     par2: 8,
     Ac: 2,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_012",
@@ -883,7 +885,7 @@ const TEST_RESPONSES = [
     ppt2: 5,
     par2: 9,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_013",
@@ -893,7 +895,7 @@ const TEST_RESPONSES = [
     ppt2: 8,
     par2: 6,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_014",
@@ -903,7 +905,7 @@ const TEST_RESPONSES = [
     ppt2: 9,
     par2: 5,
     Ac: 2,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_015",
@@ -913,7 +915,7 @@ const TEST_RESPONSES = [
     ppt2: 7,
     par2: 7,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_016",
@@ -923,7 +925,7 @@ const TEST_RESPONSES = [
     ppt2: 6,
     par2: 8,
     Ac: 2,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_017",
@@ -933,7 +935,7 @@ const TEST_RESPONSES = [
     ppt2: 5,
     par2: 9,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_018",
@@ -943,7 +945,7 @@ const TEST_RESPONSES = [
     ppt2: 8,
     par2: 6,
     Ac: 2,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_019",
@@ -953,7 +955,7 @@ const TEST_RESPONSES = [
     ppt2: 9,
     par2: 5,
     Ac: 1,
-    Phase: 1
+    Phase: 1,
   },
   {
     ID: "TEST_020",
@@ -963,8 +965,8 @@ const TEST_RESPONSES = [
     ppt2: 7,
     par2: 7,
     Ac: 2,
-    Phase: 1
-  }
+    Phase: 1,
+  },
 ];
 
 /**
@@ -1015,13 +1017,7 @@ class Compute {
       }
     } else {
       consola.start("Using online packages...");
-      await this.webR.installPackages([
-        "matlab",
-        "jsonlite",
-        "doParallel",
-        "dplyr",
-        "logger",
-      ]);
+      await this.webR.installPackages(["matlab", "jsonlite", "doParallel", "dplyr", "logger"]);
       consola.success("Online packages installed successfully");
     }
 
@@ -1047,10 +1043,8 @@ class Compute {
     // Get the participant parameters
     const participantParameters = data[0].values;
 
-    // Get the parenter parameters, convert string to two floats
-    const partnerParameters = [
-      ...data[1].values[0].split(" ").map((value: string) => parseFloat(value)),
-    ];
+    // Get the partner parameters, convert string to two floats
+    const partnerParameters = [...data[1].values[0].split(" ").map((value: string) => parseFloat(value))];
 
     // Get the partner actions for following trials
     const partnerChoicesRaw = data[2].values;
@@ -1077,7 +1071,7 @@ class Compute {
    * @param {any[]} data request parameters
    * @param {boolean} useTestResponses whether to use test responses for debugging
    */
-  public async submit(data: any[], useTestResponses=false): Promise<ModelResponse> {
+  public async submit(data: any[], useTestResponses = false): Promise<ModelResponse> {
     if (useTestResponses) {
       consola.warn("Using test responses to generate partner behavior");
       data = TEST_RESPONSES;

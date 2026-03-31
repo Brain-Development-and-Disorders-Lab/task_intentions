@@ -15,17 +15,7 @@ import React from "react";
 import Slider from "src/view/components/Slider";
 
 test("loads and displays Slider component", async () => {
-  render(
-    <Slider
-      min={0}
-      max={100}
-      value={0}
-      setValue={() => {}}
-      isFocused
-      leftLabel="Minimum"
-      rightLabel="Maximum"
-    />
-  );
+  render(<Slider min={0} max={100} value={0} setValue={() => {}} isFocused leftLabel="Minimum" rightLabel="Maximum" />);
 
   await waitFor(() => expect(screen.getByText("Minimum")).toBeInTheDocument());
   await waitFor(() => expect(screen.getByText("Maximum")).toBeInTheDocument());

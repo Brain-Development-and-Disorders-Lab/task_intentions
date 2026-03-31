@@ -15,6 +15,9 @@ import { render } from "test/utils/functions";
 // Wrapper component
 import Wrapper from "src/view/components/Wrapper";
 
+// Custom types
+import { Screens } from "types";
+
 test("loads and displays Classification screen", async () => {
   const props: Screens.Classification = {
     trial_number: 0,

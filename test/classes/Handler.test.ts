@@ -17,6 +17,9 @@ jest.mock("jspsych");
 import { Experiment } from "neurocog";
 jest.mock("neurocog");
 
+// Custom types
+import { RecursivePartial } from "types";
+
 // Setup the Experiment instances
 beforeEach(() => {
   // Experiment

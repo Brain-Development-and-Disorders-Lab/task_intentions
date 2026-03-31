@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement } from "react";
 
 // Components
 import Avatar from "boring-neutral-avatars";
 import { Box } from "grommet";
+
+// Custom types
+import { AvatarStyles, Components } from "types";
 
 // Configuration
 import { Configuration } from "src/configuration";
@@ -34,16 +36,13 @@ import { Configuration } from "src/configuration";
  * @param {(name: string) => void} props.setState - Function to update selected avatar
  * @returns {ReactElement} Clickable avatar component with selection state handling
  */
-const Character: FC<Components.Character> = (
-  props: Components.Character
-): ReactElement => {
+const Character: FC<Components.Character> = (props: Components.Character): ReactElement => {
   return (
     <Box
       id={`avatar-${props.name}`}
       round={{ size: "50%" }}
-      className={
-        props.name === props.state ? "selectable selected" : "selectable"
-      }
+      border={props.border}
+      className={props.name === props.state ? "selectable selected" : "selectable"}
       onClick={() => {
         // Call the state update function with the name
         props.setState(props.name);

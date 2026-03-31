@@ -10,12 +10,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useEffect, useState } from "react";
 
 // Grommet component
 import { Grommet, ThemeContext } from "grommet";
+
+// Custom types
+import type { Components, Screens } from "types";
 
 // Import styling
 import "src/scss/styles.scss";
@@ -24,23 +26,23 @@ import "src/scss/styles.scss";
 import { Theme } from "src/theme";
 
 // Screens used throughout the task
-import Agency from "../../screens/Questionnaires/Agency";
-import Trial from "../../screens/Trial";
-import Inference from "../../screens/Questionnaires/Inference";
-import Classification from "../../screens/Questionnaires/Classification";
-import SelectAvatar from "../../screens/SelectAvatar";
-import Status from "../../screens/Questionnaires/Status";
-import DASS from "../../screens/Questionnaires/DASS";
-import Screentime from "../../screens/Questionnaires/Screentime";
-import Demographics from "../../screens/Questionnaires/Demographics";
-import Loading from "../../screens/Loading";
-import Loaded from "../../screens/Loaded";
+import Agency from "src/view/screens/Questionnaires/Agency";
+import Trial from "src/view/screens/Trial";
+import Inference from "src/view/screens/Questionnaires/Inference";
+import Classification from "src/view/screens/Questionnaires/Classification";
+import SelectAvatar from "src/view/screens/SelectAvatar";
+import Status from "src/view/screens/Questionnaires/Status";
+import DASS from "src/view/screens/Questionnaires/DASS";
+import Screentime from "src/view/screens/Questionnaires/Screentime";
+import Demographics from "src/view/screens/Questionnaires/Demographics";
+import Loading from "src/view/screens/Loading";
+import Loaded from "src/view/screens/Loaded";
 import StatusPreview from "src/view/screens/StatusPreview";
-import Waiting from "../../screens/Waiting";
-import End from "../../screens/End";
-import Resources from "../../screens/Resources";
-import Summary from "../../screens/Summary";
-import Cyberball from "../../screens/Cyberball";
+import Waiting from "src/view/screens/Waiting";
+import End from "src/view/screens/End";
+import Resources from "src/view/screens/Resources";
+import Summary from "src/view/screens/Summary";
+import Cyberball from "src/view/screens/Cyberball";
 
 /**
  * @summary Generate a 'Wrapper' component that acts as a container for all React screens and components,
@@ -52,9 +54,7 @@ import Cyberball from "../../screens/Cyberball";
  *           Screens.End | Screens.Summary} Props for the child screen component
  * @return {ReactElement} 'Wrapper' component containing the themed child screen
  */
-const Wrapper: FC<Components.Wrapper> = (
-  props: Components.Wrapper
-): ReactElement => {
+const Wrapper: FC<Components.Wrapper> = (props: Components.Wrapper): ReactElement => {
   const [display, setDisplay] = useState(props.display);
 
   useEffect(() => {
@@ -82,95 +82,55 @@ const Wrapper: FC<Components.Wrapper> = (
     >
       <ThemeContext.Extend value={Theme}>
         {/* Trial stages */}
-        {display === "playerChoice" && (
-          <Trial {...props.props as Screens.Trial} />
-        )}
-        {display === "playerChoicePractice" && (
-          <Trial {...props.props as Screens.Trial} />
-        )}
-        {display === "playerGuess" && (
-          <Trial {...props.props as Screens.Trial} />
-        )}
-        {display === "playerGuessPractice" && (
-          <Trial {...props.props as Screens.Trial} />
-        )}
-        {display === "playerChoice2" && (
-          <Trial {...props.props as Screens.Trial} />
-        )}
+        {display === "playerChoice" && <Trial {...(props.props as Screens.Trial)} />}
+        {display === "playerChoicePractice" && <Trial {...(props.props as Screens.Trial)} />}
+        {display === "playerGuess" && <Trial {...(props.props as Screens.Trial)} />}
+        {display === "playerGuessPractice" && <Trial {...(props.props as Screens.Trial)} />}
+        {display === "playerChoice2" && <Trial {...(props.props as Screens.Trial)} />}
 
         {/* Inference trials */}
-        {display === "inference" && (
-          <Inference {...props.props as Screens.Inference} />
-        )}
+        {display === "inference" && <Inference {...(props.props as Screens.Inference)} />}
 
         {/* Agency questions */}
-        {display === "agency" && (
-          <Agency {...props.props as Screens.Agency} />
-        )}
+        {display === "agency" && <Agency {...(props.props as Screens.Agency)} />}
 
         {/* Status questions */}
-        {display === "status" && (
-          <Status {...props.props as Screens.Status} />
-        )}
+        {display === "status" && <Status {...(props.props as Screens.Status)} />}
 
         {/* DASS questionnaire */}
-        {display === "dass" && (
-          <DASS {...props.props as Screens.DASS} />
-        )}
+        {display === "dass" && <DASS {...(props.props as Screens.DASS)} />}
 
         {/* Screentime questionnaire */}
-        {display === "screentime" && (
-          <Screentime {...props.props as Screens.Screentime} />
-        )}
+        {display === "screentime" && <Screentime {...(props.props as Screens.Screentime)} />}
 
         {/* Demographics questionnaire */}
-        {display === "demographics" && (
-          <Demographics {...props.props as Screens.Demographics} />
-        )}
+        {display === "demographics" && <Demographics {...(props.props as Screens.Demographics)} />}
 
         {/* Classification questionnaire */}
-        {display === "classification" && (
-          <Classification {...props.props as Screens.Classification} />
-        )}
+        {display === "classification" && <Classification {...(props.props as Screens.Classification)} />}
 
         {/* Avatar selection */}
-        {display === "selection" && (
-          <SelectAvatar {...props.props as Screens.SelectAvatar} />
-        )}
+        {display === "selection" && <SelectAvatar {...(props.props as Screens.SelectAvatar)} />}
 
         {/* Loaded screen */}
-        {display === "loaded" && (
-          <Loaded {...props.props as Screens.Loaded} />
-        )}
+        {display === "loaded" && <Loaded {...(props.props as Screens.Loaded)} />}
 
         {/* Status preview screen */}
-        {display === "statusPreview" && (
-          <StatusPreview {...props.props as Screens.StatusPreview} />
-        )}
+        {display === "statusPreview" && <StatusPreview {...(props.props as Screens.StatusPreview)} />}
 
         {/* Loading screen */}
-        {display === "loading" && (
-          <Loading {...props.props as Screens.Loading} />
-        )}
+        {display === "loading" && <Loading {...(props.props as Screens.Loading)} />}
 
         {/* Summary screen */}
-        {display === "summary" && (
-          <Summary {...props.props as Screens.Summary} />
-        )}
+        {display === "summary" && <Summary {...(props.props as Screens.Summary)} />}
 
         {/* Waiting screen */}
-        {display === "waiting" && (
-          <Waiting {...props.props as Screens.Waiting} />
-        )}
+        {display === "waiting" && <Waiting {...(props.props as Screens.Waiting)} />}
 
         {/* Cyberball screen */}
-        {display === "cyberball" && (
-          <Cyberball {...props.props as Screens.Cyberball} />
-        )}
+        {display === "cyberball" && <Cyberball {...(props.props as Screens.Cyberball)} />}
 
-        {display === "resources" && (
-          <Resources {...props.props as Screens.Resources} />
-        )}
+        {display === "resources" && <Resources {...(props.props as Screens.Resources)} />}
 
         {display === "end" && <End />}
       </ThemeContext.Extend>

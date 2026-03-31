@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
 import { Box, Button, Heading, Keyboard } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 // Configuration
 import { Configuration } from "src/configuration";
@@ -33,9 +35,7 @@ import { BINDINGS } from "src/bindings";
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'SelectAvatar' screen with avatar selection grid and continue button
  */
-const SelectAvatar: FC<Screens.SelectAvatar> = (
-  props: Screens.SelectAvatar
-): ReactElement => {
+const SelectAvatar: FC<Screens.SelectAvatar> = (props: Screens.SelectAvatar): ReactElement => {
   // Get the global 'Experiment' instance
   const experiment = window.Experiment;
 
@@ -44,9 +44,7 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
 
   // Configure relevant states
   const [selectedAvatarName, setSelectedAvatarName] = useState("none");
-  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(
-    experiment.getState().get("participantAvatar") || 0
-  );
+  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(experiment.getState().get("participantAvatar") || 0);
 
   /**
    * Handle keyboard input from user interaction
@@ -54,7 +52,7 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useButtonInput === false) return;
+    if (!Configuration.manipulations.useButtonInput) return;
 
     // Avoid holding the key down
     if (event.repeat) return;
@@ -97,36 +95,26 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
       </Heading>
 
       {/* Avatar components */}
-      <Box
-        direction="row"
-        align="center"
-        justify="center"
-        height="small"
-        margin="medium"
-        gap="medium"
-      >
+      <Box direction="row" align="center" justify="center" height="small" margin="medium" gap="medium">
         {avatars.map((avatar, i) => {
           return (
-            <Box
-              border={
-                Configuration.manipulations.useButtonInput === true &&
-                selectedAvatarIndex === i && {
-                  color: "selectedElement",
-                  size: "large",
-                }
-              }
-              round={{ size: "50%" }}
-              key={`container-${avatar}`}
-            >
+            <Box round={{ size: "50%" }} key={`container-${avatar}`}>
               <Character
                 key={avatar}
                 name={avatar}
                 size={128} // Size is fixed at 128
                 state={selectedAvatarName}
-                setState={avatarName => {
+                setState={(avatarName: string) => {
                   setSelectedAvatarName(avatarName);
                   setSelectedAvatarIndex(i);
                 }}
+                border={
+                  Configuration.manipulations.useButtonInput &&
+                  selectedAvatarIndex === i && {
+                    color: "selectedElement",
+                    size: "large",
+                  }
+                }
               />
             </Box>
           );
@@ -134,7 +122,7 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
       </Box>
 
       {/* Continue button */}
-      {Configuration.manipulations.useButtonInput !== true && (
+      {!Configuration.manipulations.useButtonInput && (
         <Button
           id="select-avatar-button"
           primary

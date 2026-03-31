@@ -10,12 +10,14 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useEffect, useState } from "react";
 
 // Grommet UI components
 import { Box, Heading, RangeInput } from "grommet";
+
+// Custom types
+import type { Components } from "types";
 
 /**
  * @summary Generate a 'Slider' component that displays a horizontal range input with labels
@@ -29,9 +31,7 @@ import { Box, Heading, RangeInput } from "grommet";
  *  - setValue?: {(value: number) => void} Optional callback to update value externally
  * @return {ReactElement} 'Slider' component with a labeled range input
  */
-const Slider: FC<Components.Slider> = (
-  props: Components.Slider
-): ReactElement => {
+const Slider: FC<Components.Slider> = (props: Components.Slider): ReactElement => {
   // Value presented by the slide
   const [value, setValue] = useState(props.max / 2);
 
@@ -41,13 +41,7 @@ const Slider: FC<Components.Slider> = (
   }, [props.value]);
 
   return (
-    <Box
-      align={"center"}
-      direction={"row"}
-      justify={"between"}
-      gap={"medium"}
-      width={"xlarge"}
-    >
+    <Box align={"center"} direction={"row"} justify={"between"} gap={"medium"} width={"xlarge"}>
       <Heading level={3} size={"small"}>
         {props.leftLabel}
       </Heading>

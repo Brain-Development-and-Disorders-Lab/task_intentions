@@ -11,13 +11,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useRef, useReducer, useState } from "react";
 
 // Components
 import { Box, Text } from "grommet";
 import Avatar from "boring-neutral-avatars";
+
+// Custom types
+import type { AvatarStyles, CyberballGameState, Screens } from "types";
 
 // Configuration
 import { Configuration } from "src/configuration";
@@ -29,9 +31,7 @@ import { Configuration } from "src/configuration";
  * @param {(tossCount: number, participantTossCount: number, participantCatchCount: number) => void} props.handler Callback function when game completes
  * @returns {ReactElement} Cyberball game screen
  */
-const Cyberball: FC<Screens.Cyberball> = (
-  props: Screens.Cyberball
-): ReactElement => {
+const Cyberball: FC<Screens.Cyberball> = (props: Screens.Cyberball): ReactElement => {
   // Access the experiment instance
   const experiment = window.Experiment;
 
@@ -55,7 +55,9 @@ const Cyberball: FC<Screens.Cyberball> = (
 
   // Generate the strings to determine the participant and partner statuses
   const participantStatus = experiment.getState().get("participantDefaultStatus");
-  const partnerStatus = props.isCyberballPartnerHighStatus ? experiment.getState().get("partnerCyberballHighStatus") : experiment.getState().get("partnerCyberballLowStatus");
+  const partnerStatus = props.isCyberballPartnerHighStatus
+    ? experiment.getState().get("partnerCyberballHighStatus")
+    : experiment.getState().get("partnerCyberballLowStatus");
 
   // Force re-render mechanism
   const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -90,7 +92,10 @@ const Cyberball: FC<Screens.Cyberball> = (
    * Handle when someone receives the ball from a toss, update game state and check completion
    * @param receiver Who received the ball
    */
-  const onBallReceived = (sender: "participant" | "partnerA" | "partnerB", receiver: "participant" | "partnerA" | "partnerB") => {
+  const onBallReceived = (
+    sender: "participant" | "partnerA" | "partnerB",
+    receiver: "participant" | "partnerA" | "partnerB"
+  ) => {
     gameState.current.ballOwner = receiver;
     gameState.current.tossCount = gameState.current.tossCount + 1;
 
@@ -122,7 +127,11 @@ const Cyberball: FC<Screens.Cyberball> = (
       setIsGameFinished(true);
       gameState.current.canToss = false;
       setTimeout(() => {
-        props.handler(gameState.current.tossCount, gameState.current.participantTossCount, gameState.current.participantCatchCount);
+        props.handler(
+          gameState.current.tossCount,
+          gameState.current.participantTossCount,
+          gameState.current.participantCatchCount
+        );
       }, 3000);
     } else {
       if (receiver !== "participant") {
@@ -181,9 +190,13 @@ const Cyberball: FC<Screens.Cyberball> = (
     if (animationState.current.isAnimating || !gameState.current.canToss) return;
 
     // Animate ball
-    animateBall(Configuration.cyberball.ballPositions.participant, Configuration.cyberball.ballPositions[target], () => {
-      onBallReceived("participant", target);
-    });
+    animateBall(
+      Configuration.cyberball.ballPositions.participant,
+      Configuration.cyberball.ballPositions[target],
+      () => {
+        onBallReceived("participant", target);
+      }
+    );
   };
 
   /**
@@ -196,10 +209,12 @@ const Cyberball: FC<Screens.Cyberball> = (
     const random = Math.random();
 
     if (props.isInclusive) {
-      target = random < props.probabilities.inclusion ? "participant" : (partner === "partnerA" ? "partnerB" : "partnerA");
+      target =
+        random < props.probabilities.inclusion ? "participant" : partner === "partnerA" ? "partnerB" : "partnerA";
     } else {
-      const exclusionProb = partner === "partnerA" ? props.probabilities.exclusion.partnerA : props.probabilities.exclusion.partnerB;
-      target = random < exclusionProb ? "participant" : (partner === "partnerA" ? "partnerB" : "partnerA");
+      const exclusionProb =
+        partner === "partnerA" ? props.probabilities.exclusion.partnerA : props.probabilities.exclusion.partnerB;
+      target = random < exclusionProb ? "participant" : partner === "partnerA" ? "partnerB" : "partnerA";
     }
 
     animateBall(Configuration.cyberball.ballPositions[partner], Configuration.cyberball.ballPositions[target], () => {
@@ -229,8 +244,7 @@ const Cyberball: FC<Screens.Cyberball> = (
             gameState.current.ballOwner === "participant" && !animationState.current.isAnimating
               ? "pointer"
               : "default",
-          opacity:
-            gameState.current.ballOwner === "participant" && !animationState.current.isAnimating ? 1 : 0.7,
+          opacity: gameState.current.ballOwner === "participant" && !animationState.current.isAnimating ? 1 : 0.7,
         }}
       >
         {/* Social status label above Partner A */}
@@ -249,12 +263,7 @@ const Cyberball: FC<Screens.Cyberball> = (
           }}
         >
           {/* Avatars and arrows above the bar */}
-          <Box
-            width="100%"
-            height="48px"
-            style={{ position: "relative" }}
-            margin={{ bottom: "xxsmall" }}
-          >
+          <Box width="100%" height="48px" style={{ position: "relative" }} margin={{ bottom: "xxsmall" }}>
             {/* Participant avatar and arrow */}
             <Box
               align="center"
@@ -266,25 +275,17 @@ const Cyberball: FC<Screens.Cyberball> = (
                 zIndex: 2,
               }}
             >
-              <Text size="xsmall" textAlign="center" weight="bold">You</Text>
+              <Text size="xsmall" textAlign="center" weight="bold">
+                You
+              </Text>
               <Avatar
                 size={24}
-                name={
-                  Configuration.avatars.names.participant[
-                    positions.participant.avatar
-                  ]
-                }
+                name={Configuration.avatars.names.participant[positions.participant.avatar]}
                 variant={Configuration.avatars.variant as AvatarStyles}
                 colors={Configuration.avatars.colours}
               />
               {/* Downward arrow */}
-              <Box
-                as="svg"
-                width="8px"
-                height="7px"
-                style={{ display: "block" }}
-                margin={{ top: "xxsmall" }}
-              >
+              <Box as="svg" width="8px" height="7px" style={{ display: "block" }} margin={{ top: "xxsmall" }}>
                 <polygon points="4,7 0,0 8,0" fill="#89C2D9" />
               </Box>
             </Box>
@@ -301,7 +302,9 @@ const Cyberball: FC<Screens.Cyberball> = (
                 zIndex: 2,
               }}
             >
-              <Text size="xsmall" textAlign="center" weight="bold">Partner A</Text>
+              <Text size="xsmall" textAlign="center" weight="bold">
+                Partner A
+              </Text>
               <Avatar
                 size={24}
                 name={partnerAID}
@@ -309,26 +312,14 @@ const Cyberball: FC<Screens.Cyberball> = (
                 colors={Configuration.avatars.colours}
               />
               {/* Downward arrow */}
-              <Box
-                as="svg"
-                width="8px"
-                height="7px"
-                style={{ display: "block" }}
-                margin={{ top: "xxsmall" }}
-              >
+              <Box as="svg" width="8px" height="7px" style={{ display: "block" }} margin={{ top: "xxsmall" }}>
                 <polygon points="4,7 0,0 8,0" fill="#89C2D9" />
               </Box>
             </Box>
           </Box>
 
           {/* Solid color bar with rounded corners */}
-          <Box
-            width="100%"
-            height="3px"
-            background="#2A6F97"
-            round="small"
-            style={{ position: "relative" }}
-          />
+          <Box width="100%" height="3px" background="#2A6F97" round="small" style={{ position: "relative" }} />
 
           {/* Scale labels */}
           <Box direction="row" justify="between" width="100%">
@@ -371,8 +362,7 @@ const Cyberball: FC<Screens.Cyberball> = (
             gameState.current.ballOwner === "participant" && !animationState.current.isAnimating
               ? "pointer"
               : "default",
-          opacity:
-            gameState.current.ballOwner === "participant" && !animationState.current.isAnimating ? 1 : 0.7,
+          opacity: gameState.current.ballOwner === "participant" && !animationState.current.isAnimating ? 1 : 0.7,
         }}
       >
         <Avatar
@@ -403,11 +393,7 @@ const Cyberball: FC<Screens.Cyberball> = (
       >
         <Avatar
           size={Configuration.cyberball.participantAvatarSize}
-          name={
-            Configuration.avatars.names.participant[
-              positions.participant.avatar
-            ]
-          }
+          name={Configuration.avatars.names.participant[positions.participant.avatar]}
           variant={Configuration.avatars.variant as AvatarStyles}
           colors={Configuration.avatars.colours}
         />

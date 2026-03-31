@@ -10,13 +10,15 @@
  *
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
-
 // React import
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
 import { Box, Button, Paragraph, RadioButtonGroup, Keyboard } from "grommet";
 import { LinkNext } from "grommet-icons";
+
+// Custom types
+import type { Screens } from "types";
 
 // Experiment configuration
 import { Configuration } from "src/configuration";
@@ -30,9 +32,7 @@ import { BINDINGS } from "src/bindings";
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Classification' screen with radio button options for partner classification
  */
-const Classification: FC<Screens.Classification> = (
-  props: Screens.Classification
-): ReactElement => {
+const Classification: FC<Screens.Classification> = (props: Screens.Classification): ReactElement => {
   // Configure relevant states
   const [classification, setClassification] = useState("");
   const [continueDisabled, setContinueDisabled] = useState(true);
@@ -56,59 +56,44 @@ const Classification: FC<Screens.Classification> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration
-    if (Configuration.manipulations.useButtonInput === false) return;
+    if (!Configuration.manipulations.useButtonInput) return;
 
     // Avoid holding the key down if no element focused
     if (event.repeat) return;
     event.preventDefault();
 
-    if (
-      event.key.toString() === BINDINGS.NEXT ||
-      event.key.toString() === BINDINGS.PREVIOUS
-    ) {
-      if (elementFocused === true) {
-        if (selectedElementIndex === 0) {
-          let updatedIndex = classificationIndex;
-          // Radio button group
-          if (classification === "") {
-            updatedIndex = 0;
-          } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-            updatedIndex =
-              classificationIndex - 1 < 0 ? 0 : classificationIndex - 1;
-          } else if (event.key.toString() === BINDINGS.NEXT) {
-            updatedIndex =
-              classificationIndex + 1 > partners.length - 1
-                ? classificationIndex
-                : classificationIndex + 1;
-          }
-
-          // Enable the continue button
-          setContinueDisabled(false);
-
-          // Update state
-          setClassification(partners[updatedIndex]);
-          setClassificationIndex(updatedIndex);
+    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
+      if (elementFocused && selectedElementIndex === 0) {
+        let updatedIndex = classificationIndex;
+        // Radio button group
+        if (classification === "") {
+          updatedIndex = 0;
+        } else if (event.key.toString() === BINDINGS.PREVIOUS) {
+          updatedIndex = classificationIndex - 1 < 0 ? 0 : classificationIndex - 1;
+        } else if (event.key.toString() === BINDINGS.NEXT) {
+          updatedIndex = classificationIndex + 1 > partners.length - 1 ? classificationIndex : classificationIndex + 1;
         }
+
+        // Enable the continue button
+        setContinueDisabled(false);
+
+        // Update state
+        setClassification(partners[updatedIndex]);
+        setClassificationIndex(updatedIndex);
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
-          setSelectedElementIndex(
-            selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1
-          );
+          setSelectedElementIndex(selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1);
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          setSelectedElementIndex(
-            selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0
-          );
+          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
       if (selectedElementIndex !== 1) {
         // Focus or unfocus sliders
         setElementFocused(!elementFocused);
-      } else {
+      } else if (!continueDisabled) {
         // Select the `Continue` button if permitted
-        if (!continueDisabled) {
-          props.handler(classification);
-        }
+        props.handler(classification);
       }
     }
   };
@@ -136,9 +121,7 @@ const Classification: FC<Screens.Classification> = (
           margin={"xsmall"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
-              selectedElementIndex === 0 &&
-              !elementFocused
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 0 && !elementFocused
                 ? "selectedElement"
                 : "transparent",
             size: "large",
@@ -166,17 +149,13 @@ const Classification: FC<Screens.Classification> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput === true &&
-              selectedElementIndex === 1
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 1
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useButtonInput === true &&
-            selectedElementIndex === 1
-              ? { borderRadius: "36px " }
-              : {}
+            Configuration.manipulations.useButtonInput && selectedElementIndex === 1 ? { borderRadius: "36px " } : {}
           }
           round
         >
