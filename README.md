@@ -54,7 +54,10 @@ After installing pnpm, run `pnpm install` in the top-level repository directory 
 
 The task includes a `packages` directory containing all required R packages. To use these packages, set the `useOfflinePackages` manipulation within `Configuration.ts` to `true`. Each package was built and prepared using the [rwasm](https://r-wasm.github.io/rwasm/articles/rwasm.html) tool.
 
-Use the `pnpm build` command to build the client with the offline packages, build output is placed in the `dist` directory. To run the task, use the `pnpm start` command or run an instance of `http-server` using the `dist` directory.
+Use the `pnpm build` command to build the client with the offline packages, build output is placed in the `dist` directory. To run the task, use the `pnpm start` command if running from source code. If using a compiled version of the task, start an instance of `http-server` in the directory containing `index.html`.
+
+> [!IMPORTANT]
+> For offline operation, `http-server` or an equivalent **must** be used to host and run the experiment locally, otherwise requests to use the `WebR` runtime will be blocked by the browser.
 
 ## Additional Features
 
