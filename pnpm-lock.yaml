@@ -108,8 +108,11 @@ importers:
         specifier: ^4.1.1
         version: 4.2.2
       '@types/d3':
-        specifier: ^7.1.0
+        specifier: ^7.4.3
         version: 7.4.3
+      '@types/d3-random':
+        specifier: ^3.0.3
+        version: 3.0.3
       '@types/file-saver':
         specifier: ^2.0.7
         version: 2.0.7
