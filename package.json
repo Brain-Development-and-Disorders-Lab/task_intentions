@@ -23,6 +23,7 @@
     "url": "https://github.com/Brain-Development-and-Disorders-Lab/task_intentions/issues"
   },
   "homepage": "https://github.com/Brain-Development-and-Disorders-Lab/task_intentions#readme",
+  "packageManager": "pnpm@10.33.0",
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/plugin-proposal-class-properties": "^7.18.6",

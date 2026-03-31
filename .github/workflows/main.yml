@@ -19,9 +19,9 @@ jobs:
         with:
           node-version: "22.x"
       - name: Install dependencies
-        run: yarn
+        run: pnpm install
       - name: Build
-        run: yarn build
+        run: pnpm build
 
   test:
     needs: build
@@ -34,6 +34,6 @@ jobs:
         with:
           node-version: "22.x"
       - name: Install dependencies
-        run: yarn
+        run: pnpm install
       - name: Run tests
-        run: yarn test
+        run: pnpm test
