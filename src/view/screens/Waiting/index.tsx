@@ -21,9 +21,7 @@ import consola from "consola";
 // Keyboard bindings
 import { BINDINGS } from "src/bindings";
 
-const Waiting: FC<Screens.Waiting> = (
-  props: Screens.Waiting
-): ReactElement => {
+const Waiting: FC<Screens.Waiting> = (props: Screens.Waiting): ReactElement => {
   useEffect(() => {
     const keyListener = (event: KeyboardEvent) => {
       if (props.mode === "facilitator" && event.key === BINDINGS.CONTINUE) {

@@ -219,22 +219,10 @@ jsPsych.plugins[Configuration.studyName] = (() => {
         consola.debug(`Generating custom participant ID...`);
         experiment
           .getState()
-          .set(
-            "participantID",
-            `7000${Math.round(performance.now() * experiment.random())}`.slice(
-              0,
-              8
-            )
-          );
-        consola.debug(
-          `Generated participant ID:`,
-          experiment.getState().get("participantID")
-        );
+          .set("participantID", `7000${Math.round(performance.now() * experiment.random())}`.slice(0, 8));
+        consola.debug(`Generated participant ID:`, experiment.getState().get("participantID"));
       } else {
-        consola.debug(
-          `Using participant ID:`,
-          experiment.getState().get("participantID")
-        );
+        consola.debug(`Using participant ID:`, experiment.getState().get("participantID"));
       }
     }
 
@@ -270,15 +258,10 @@ jsPsych.plugins[Configuration.studyName] = (() => {
 
       if (trial.display === "end") {
         // Add the signal timestamps to the dataframe
-        dataframe.signalTimestamps = experiment
-          .getState()
-          .get("signalTimestamps");
+        dataframe.signalTimestamps = experiment.getState().get("signalTimestamps");
 
         // Update the saved dataframe in local storage
-        saveToLocalStorage(
-          experiment.getState().get("experimentID"),
-          dataframe
-        );
+        saveToLocalStorage(experiment.getState().get("experimentID"), dataframe);
 
         // Toggle the completed flag in the local storage object
         setCompleted(experiment.getState().get("experimentID"), true);

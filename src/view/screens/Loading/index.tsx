@@ -39,9 +39,7 @@ const MIN_OPERATION_DURATION = 12000; // 12 seconds
  *  - handler?: {(participantParams: ModelParameters, partnerParams: ModelParameters, setupDuration: number, operationDuration: number) => void} Callback to handle model parameters
  * @return {ReactElement} 'Loading' screen with loading indicator and state-specific status message
  */
-const Loading: FC<Screens.Loading> = (
-  props: Screens.Loading
-): ReactElement => {
+const Loading: FC<Screens.Loading> = (props: Screens.Loading): ReactElement => {
   const experiment = window.Experiment;
 
   // Safeguard against duplicate processing
@@ -92,10 +90,7 @@ const Loading: FC<Screens.Loading> = (
       })
       .values();
 
-    consola.debug(
-      `'dataCollection' containing trials with 'display' = 'playerChoice':`,
-      collection
-    );
+    consola.debug(`'dataCollection' containing trials with 'display' = 'playerChoice':`, collection);
 
     // Format the responses to be sent to the server
     const requestData = [];
@@ -163,7 +158,13 @@ const Loading: FC<Screens.Loading> = (
    * @param setupDuration duration of the setup operation in ms
    * @param operationDuration duration of the operation operation in ms
    */
-  const finishLoading = (storeParameters: boolean, participantParameters: number[], partnerParameters: number[], setupDuration: number, operationDuration: number) => {
+  const finishLoading = (
+    storeParameters: boolean,
+    participantParameters: number[],
+    partnerParameters: number[],
+    setupDuration: number,
+    operationDuration: number
+  ) => {
     if (props.handler) {
       props.handler(storeParameters, participantParameters, partnerParameters, setupDuration, operationDuration);
     }

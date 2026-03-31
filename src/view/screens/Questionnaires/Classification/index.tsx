@@ -32,9 +32,7 @@ import { BINDINGS } from "src/bindings";
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Classification' screen with radio button options for partner classification
  */
-const Classification: FC<Screens.Classification> = (
-  props: Screens.Classification
-): ReactElement => {
+const Classification: FC<Screens.Classification> = (props: Screens.Classification): ReactElement => {
   // Configure relevant states
   const [classification, setClassification] = useState("");
   const [continueDisabled, setContinueDisabled] = useState(true);
@@ -64,23 +62,16 @@ const Classification: FC<Screens.Classification> = (
     if (event.repeat) return;
     event.preventDefault();
 
-    if (
-      event.key.toString() === BINDINGS.NEXT ||
-      event.key.toString() === BINDINGS.PREVIOUS
-    ) {
+    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
       if (elementFocused && selectedElementIndex === 0) {
         let updatedIndex = classificationIndex;
         // Radio button group
         if (classification === "") {
           updatedIndex = 0;
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          updatedIndex =
-            classificationIndex - 1 < 0 ? 0 : classificationIndex - 1;
+          updatedIndex = classificationIndex - 1 < 0 ? 0 : classificationIndex - 1;
         } else if (event.key.toString() === BINDINGS.NEXT) {
-          updatedIndex =
-            classificationIndex + 1 > partners.length - 1
-              ? classificationIndex
-              : classificationIndex + 1;
+          updatedIndex = classificationIndex + 1 > partners.length - 1 ? classificationIndex : classificationIndex + 1;
         }
 
         // Enable the continue button
@@ -91,13 +82,9 @@ const Classification: FC<Screens.Classification> = (
         setClassificationIndex(updatedIndex);
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
-          setSelectedElementIndex(
-            selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1
-          );
+          setSelectedElementIndex(selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1);
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          setSelectedElementIndex(
-            selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0
-          );
+          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -134,9 +121,7 @@ const Classification: FC<Screens.Classification> = (
           margin={"xsmall"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput &&
-              selectedElementIndex === 0 &&
-              !elementFocused
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 0 && !elementFocused
                 ? "selectedElement"
                 : "transparent",
             size: "large",
@@ -164,17 +149,13 @@ const Classification: FC<Screens.Classification> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput &&
-              selectedElementIndex === 1
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 1
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useButtonInput &&
-            selectedElementIndex === 1
-              ? { borderRadius: "36px " }
-              : {}
+            Configuration.manipulations.useButtonInput && selectedElementIndex === 1 ? { borderRadius: "36px " } : {}
           }
           round
         >

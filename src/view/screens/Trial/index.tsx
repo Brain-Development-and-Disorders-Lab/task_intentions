@@ -11,14 +11,7 @@
  * @author Henry Burgess <henry.burgess@wustl.edu>
  */
 // React import
-import React, {
-  FC,
-  ReactElement,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, ReactElement, useEffect, useMemo, useRef, useState } from "react";
 
 // Logging library
 import consola from "consola";
@@ -64,9 +57,7 @@ import { BINDINGS } from "src/bindings";
  * @param {(state: TrialState) => void} props.handler - Callback function when trial completes
  * @returns {ReactElement} Trial screen with options, avatar cards, and points display
  */
-const Trial: FC<Screens.Trial> = (
-  props: Screens.Trial
-): ReactElement => {
+const Trial: FC<Screens.Trial> = (props: Screens.Trial): ReactElement => {
   // Get the Experiment instance
   const experiment = window.Experiment;
 
@@ -188,10 +179,7 @@ const Trial: FC<Screens.Trial> = (
     partnerAvatar = "example";
   } else {
     // Get the global state of the partner avatar
-    partnerAvatar =
-      Configuration.avatars.names.partner[
-        experiment.getState().get("partnerAvatar")
-      ];
+    partnerAvatar = Configuration.avatars.names.partner[experiment.getState().get("partnerAvatar")];
 
     // Update state to refresh partner avatar at next match screen
     if (experiment.getState().get("refreshPartner") === false) {
@@ -206,13 +194,19 @@ const Trial: FC<Screens.Trial> = (
     // If status display is enabled, interpret and apply the manipulations
     if (props.display === "playerChoice") {
       // Phase One: If `isHighStatusPhaseOne` is true, then the participant is low status and the partner is high status
-      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseOne ? experiment.getState().get("partnerOneHighStatus") : experiment.getState().get("partnerOneLowStatus");
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseOne
+        ? experiment.getState().get("partnerOneHighStatus")
+        : experiment.getState().get("partnerOneLowStatus");
     } else if (props.display === "playerGuess") {
       // Phase Two: If `isHighStatusPhaseTwo` is true, then the participant is low status and the partner is high status
-      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseTwo ? experiment.getState().get("partnerTwoHighStatus") : experiment.getState().get("partnerTwoLowStatus");
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseTwo
+        ? experiment.getState().get("partnerTwoHighStatus")
+        : experiment.getState().get("partnerTwoLowStatus");
     } else if (props.display === "playerChoice2") {
       // Phase Three: If `isHighStatusPhaseThree` is true, then the participant is low status and the partner is high status
-      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseThree ? experiment.getState().get("partnerThreeHighStatus") : experiment.getState().get("partnerThreeLowStatus");
+      partnerStatus = Configuration.manipulations.isPartnerHighStatusPhaseThree
+        ? experiment.getState().get("partnerThreeHighStatus")
+        : experiment.getState().get("partnerThreeLowStatus");
     }
   }
 
@@ -292,10 +286,7 @@ const Trial: FC<Screens.Trial> = (
         setCorrectCount(correctCountInitial);
       }
 
-      if (
-        !props.isPractice ||
-        !Flags.isEnabled("enableTutorialOverlay")
-      ) {
+      if (!props.isPractice || !Flags.isEnabled("enableTutorialOverlay")) {
         // Begin the transition to the next trial
         setTransitionActive(true);
       } else {
@@ -341,10 +332,8 @@ const Trial: FC<Screens.Trial> = (
     }
 
     // Get the selected node object
-    const selectedNode =
-      trialState.selectedOption === "Option 1" ? optionOneNode : optionTwoNode;
-    const unselectedNode =
-      selectedNode === optionOneNode ? optionTwoNode : optionOneNode;
+    const selectedNode = trialState.selectedOption === "Option 1" ? optionOneNode : optionTwoNode;
+    const unselectedNode = selectedNode === optionOneNode ? optionTwoNode : optionOneNode;
     const correctSelection = trialState.selectedOption === trialState.answer;
 
     // Check the stage of the trial
@@ -405,10 +394,8 @@ const Trial: FC<Screens.Trial> = (
             optionOneNode.style.opacity = "0";
             optionTwoNode.style.opacity = "0";
 
-            optionOneNode.style.background =
-              Theme.global.colors.optionBackground;
-            optionTwoNode.style.background =
-              Theme.global.colors.optionBackground;
+            optionOneNode.style.background = Theme.global.colors.optionBackground;
+            optionTwoNode.style.background = Theme.global.colors.optionBackground;
           }, 1500);
 
           // Set a timeout to reset view and end the trial
@@ -441,21 +428,13 @@ const Trial: FC<Screens.Trial> = (
    */
   const inputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     // Disable keyboard input if not enabled in configuration or if transition active
-    if (
-      !Configuration.manipulations.useButtonInput ||
-      blockInput ||
-      transitionActive
-    )
-      return;
+    if (!Configuration.manipulations.useButtonInput || blockInput || transitionActive) return;
 
     // Avoid holding the key down
     if (event.repeat) return;
     event.preventDefault();
 
-    if (
-      event.key.toString() === BINDINGS.NEXT ||
-      event.key.toString() === BINDINGS.PREVIOUS
-    ) {
+    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
       if (!trialState.hasSelected) {
         // Update the state based on the keypress
         if (trialState.highlightedOptionIndex === 0) {
@@ -475,9 +454,7 @@ const Trial: FC<Screens.Trial> = (
     } else if (event.key.toString() === BINDINGS.SELECT) {
       if (!trialState.hasSelected) {
         // Complete the option selection
-        handleOptionClick(
-          trialState.highlightedOptionIndex === 0 ? "Option 1" : "Option 2"
-        );
+        handleOptionClick(trialState.highlightedOptionIndex === 0 ? "Option 1" : "Option 2");
       } else {
         // Run the transition to the next trial
         transition();
@@ -493,17 +470,13 @@ const Trial: FC<Screens.Trial> = (
         return (
           <Box pad="xsmall" align="center" width="large" gap="xsmall">
             <Text size="medium" margin="small">
-              {trialState.selectedOption === trialState.answer
-                ? "Correct! "
-                : "Incorrect. "}
+              {trialState.selectedOption === trialState.answer ? "Correct! " : "Incorrect. "}
               Your partner chose <b>{trialState.answer}</b>. That means you get{" "}
               {trialState.answer === "Option 1"
                 ? displayPoints.options.one.participant
                 : displayPoints.options.two.participant}{" "}
               points and your partner gets{" "}
-              {trialState.answer === "Option 1"
-                ? displayPoints.options.one.partner
-                : displayPoints.options.two.partner}{" "}
+              {trialState.answer === "Option 1" ? displayPoints.options.one.partner : displayPoints.options.two.partner}{" "}
               points.
             </Text>
 
@@ -517,11 +490,7 @@ const Trial: FC<Screens.Trial> = (
                   size: "large",
                 }
               }
-              style={
-                Configuration.manipulations.useButtonInput
-                  ? { borderRadius: "32px " }
-                  : {}
-              }
+              style={Configuration.manipulations.useButtonInput ? { borderRadius: "32px " } : {}}
               round
             >
               <Button
@@ -569,11 +538,7 @@ const Trial: FC<Screens.Trial> = (
                   size: "large",
                 }
               }
-              style={
-                Configuration.manipulations.useButtonInput
-                  ? { borderRadius: "32px " }
-                  : {}
-              }
+              style={Configuration.manipulations.useButtonInput ? { borderRadius: "32px " } : {}}
               round
             >
               <Button
@@ -643,11 +608,7 @@ const Trial: FC<Screens.Trial> = (
                     display: "inline-block",
                   }}
                 >
-                  <Status
-                    participantStatus={participantStatus}
-                    partnerStatus={partnerStatus}
-                    isPractice
-                  />
+                  <Status participantStatus={participantStatus} partnerStatus={partnerStatus} isPractice />
                 </Box>
 
                 <Box
@@ -690,22 +651,11 @@ const Trial: FC<Screens.Trial> = (
         {/* Status component - display if enabled for this phase and not a practice trial */}
         {Flags.isEnabled("enableStatusDisplay") &&
           !props.isPractice &&
-          ((props.display === "playerChoice" &&
-            Configuration.manipulations.enableStatusPhaseOne) ||
-            (props.display === "playerGuess" &&
-              Configuration.manipulations.enableStatusPhaseTwo) ||
-            (props.display === "playerChoice2" &&
-              Configuration.manipulations.enableStatusPhaseThree)) && (
-            <Box
-              align="center"
-              justify="center"
-              width="100%"
-              margin={{ bottom: "medium" }}
-            >
-              <Status
-                participantStatus={participantStatus}
-                partnerStatus={partnerStatus}
-              />
+          ((props.display === "playerChoice" && Configuration.manipulations.enableStatusPhaseOne) ||
+            (props.display === "playerGuess" && Configuration.manipulations.enableStatusPhaseTwo) ||
+            (props.display === "playerChoice2" && Configuration.manipulations.enableStatusPhaseThree)) && (
+            <Box align="center" justify="center" width="100%" margin={{ bottom: "medium" }}>
+              <Status participantStatus={participantStatus} partnerStatus={partnerStatus} />
             </Box>
           )}
 
@@ -726,14 +676,7 @@ const Trial: FC<Screens.Trial> = (
             { name: "gridFooter", start: [0, 2], end: [2, 2] },
           ]}
         >
-          <Heading
-            textAlign="center"
-            fill
-            level={2}
-            size="auto"
-            margin="xsmall"
-            gridArea="trialHeader"
-          >
+          <Heading textAlign="center" fill level={2} size="auto" margin="xsmall" gridArea="trialHeader">
             {trialHeader}
           </Heading>
 
@@ -742,11 +685,7 @@ const Trial: FC<Screens.Trial> = (
             gridArea="playerArea"
             name="You"
             points={participantPoints}
-            avatar={
-              Configuration.avatars.names.participant[
-                experiment.getState().get("participantAvatar")
-              ]
-            }
+            avatar={Configuration.avatars.names.participant[experiment.getState().get("participantAvatar")]}
           />
 
           {/* Choices */}
@@ -754,14 +693,11 @@ const Trial: FC<Screens.Trial> = (
             <Box
               ref={refs.optionOne}
               onClick={() => handleOptionClick("Option 1")}
-              className={
-                Configuration.manipulations.useButtonInput ? "" : "grow"
-              }
+              className={Configuration.manipulations.useButtonInput ? "" : "grow"}
               round
               background="optionBackground"
               border={
-                Configuration.manipulations.useButtonInput &&
-                trialState.highlightedOptionIndex === 0
+                Configuration.manipulations.useButtonInput && trialState.highlightedOptionIndex === 0
                   ? { color: "selectedElement", size: "large" }
                   : {}
               }
@@ -778,14 +714,11 @@ const Trial: FC<Screens.Trial> = (
             <Box
               ref={refs.optionTwo}
               onClick={() => handleOptionClick("Option 2")}
-              className={
-                Configuration.manipulations.useButtonInput ? "" : "grow"
-              }
+              className={Configuration.manipulations.useButtonInput ? "" : "grow"}
               round
               background="optionBackground"
               border={
-                Configuration.manipulations.useButtonInput &&
-                trialState.highlightedOptionIndex === 1
+                Configuration.manipulations.useButtonInput && trialState.highlightedOptionIndex === 1
                   ? { color: "selectedElement", size: "large" }
                   : {}
               }
@@ -801,29 +734,16 @@ const Trial: FC<Screens.Trial> = (
           </Box>
 
           {/* Partner's Avatar */}
-          <Card
-            gridArea="partnerArea"
-            name="Partner"
-            points={partnerPoints}
-            avatar={partnerAvatar}
-          />
+          <Card gridArea="partnerArea" name="Partner" points={partnerPoints} avatar={partnerAvatar} />
 
           {/* Counter for correct guesses */}
           {props.display.startsWith("playerGuess") && (
-            <Box
-              direction="row"
-              justify="center"
-              margin="xsmall"
-              gridArea="gridFooter"
-            >
+            <Box direction="row" justify="center" margin="xsmall" gridArea="gridFooter">
               <Heading level={2} size="auto" margin="xsmall">
                 Correct guesses:&nbsp;
               </Heading>
               <Heading level={2} size="auto" margin="xsmall">
-                <TextTransition
-                  text={correctCount}
-                  springConfig={presets.slow}
-                />
+                <TextTransition text={correctCount} springConfig={presets.slow} />
               </Heading>
             </Box>
           )}

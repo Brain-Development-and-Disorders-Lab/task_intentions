@@ -35,9 +35,7 @@ import { BINDINGS } from "src/bindings";
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'SelectAvatar' screen with avatar selection grid and continue button
  */
-const SelectAvatar: FC<Screens.SelectAvatar> = (
-  props: Screens.SelectAvatar
-): ReactElement => {
+const SelectAvatar: FC<Screens.SelectAvatar> = (props: Screens.SelectAvatar): ReactElement => {
   // Get the global 'Experiment' instance
   const experiment = window.Experiment;
 
@@ -46,9 +44,7 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
 
   // Configure relevant states
   const [selectedAvatarName, setSelectedAvatarName] = useState("none");
-  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(
-    experiment.getState().get("participantAvatar") || 0
-  );
+  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(experiment.getState().get("participantAvatar") || 0);
 
   /**
    * Handle keyboard input from user interaction
@@ -99,14 +95,7 @@ const SelectAvatar: FC<Screens.SelectAvatar> = (
       </Heading>
 
       {/* Avatar components */}
-      <Box
-        direction="row"
-        align="center"
-        justify="center"
-        height="small"
-        margin="medium"
-        gap="medium"
-      >
+      <Box direction="row" align="center" justify="center" height="small" margin="medium" gap="medium">
         {avatars.map((avatar, i) => {
           return (
             <Box round={{ size: "50%" }} key={`container-${avatar}`}>

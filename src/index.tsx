@@ -83,12 +83,8 @@ const handleSignal = () => {
   consola.debug("Received signal:", Date.now());
 
   // Append the signal timestamp to the state
-  const collectedSignals = experiment
-    .getState()
-    .get("signalTimestamps") as number[];
-  experiment
-    .getState()
-    .set("signalTimestamps", [...collectedSignals, Date.now()]);
+  const collectedSignals = experiment.getState().get("signalTimestamps") as number[];
+  experiment.getState().set("signalTimestamps", [...collectedSignals, Date.now()]);
 };
 
 // Set up the signal listener
@@ -181,9 +177,8 @@ if (Configuration.manipulations.useButtonInput) {
               Controls
             </Heading>
             <Paragraph size={"large"} margin={"small"} fill>
-              When interacting with the game interface, the currently selected
-              element will be highlighted with a gray outline. An example is shown
-              below:
+              When interacting with the game interface, the currently selected element will be highlighted with a gray
+              outline. An example is shown below:
             </Paragraph>
             <Box
               width={"fit-content"}
@@ -198,20 +193,17 @@ if (Configuration.manipulations.useButtonInput) {
             </Box>
             <Box alignSelf={"center"} margin={"none"}>
               <Paragraph size={"large"} textAlign={"start"}>
-                <b>Button {BINDINGS.PREVIOUS}</b> selects the <b>previous</b>{" "}
-                element;
+                <b>Button {BINDINGS.PREVIOUS}</b> selects the <b>previous</b> element;
                 <br />
                 <b>Button {BINDINGS.NEXT}</b> selects the <b>next</b> element; and
                 <br />
-                <b>Button {BINDINGS.SELECT}</b> interacts with the{" "}
-                <b>currently selected</b> element.
+                <b>Button {BINDINGS.SELECT}</b> interacts with the <b>currently selected</b> element.
                 <br />
               </Paragraph>
             </Box>
             <Paragraph size={"large"} margin={"small"} fill>
-              When viewing instruction screens (e.g. this one),{" "}
-              <b>Button {BINDINGS.NEXT}</b> continues to the next page and{" "}
-              <b>Button {BINDINGS.PREVIOUS}</b> returns to the previous page.
+              When viewing instruction screens (e.g. this one), <b>Button {BINDINGS.NEXT}</b> continues to the next page
+              and <b>Button {BINDINGS.PREVIOUS}</b> returns to the previous page.
             </Paragraph>
           </Box>
         </Grommet>
@@ -271,14 +263,12 @@ if (Configuration.manipulations.enableCyberball) {
               Ball-Tossing Game
             </Heading>
             <Paragraph margin="small" size="large" fill>
-              You will now play a short ball-tossing game with two partners.
-              When you have the ball, you can choose to{" "}
+              You will now play a short ball-tossing game with two partners. When you have the ball, you can choose to{" "}
               <b>throw it to one of your partners</b>.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
-              Click on the partner you want to throw the ball to. If you throw
-              it to your partner, they can either <b>throw it back to you</b> or{" "}
-              <b>throw it to the other partner</b>.
+              Click on the partner you want to throw the ball to. If you throw it to your partner, they can either{" "}
+              <b>throw it back to you</b> or <b>throw it to the other partner</b>.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               Press &#39;Next &gt;&#39; to continue.
@@ -296,8 +286,7 @@ if (Configuration.manipulations.enableCyberball) {
               Ball-Tossing Game
             </Heading>
             <Paragraph margin="small" size="large" fill>
-              After a duration, this game will end and you will continue with
-              the next stage of the task.
+              After a duration, this game will end and you will continue with the next stage of the task.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               In the game, you will be able to see one of your partner&#39;s social standing in relation to your own.
@@ -370,22 +359,10 @@ if (
 }
 
 // Ensure flags are set for the other questionnaires
-Flags.setValue(
-  "enableQuestionnaireStatus",
-  Configuration.manipulations.enableSocialStatusQuestionnaire
-);
-Flags.setValue(
-  "enableQuestionnaireScreentime",
-  Configuration.manipulations.enableEndingQuestionnaires
-);
-Flags.setValue(
-  "enableQuestionnaireDASS",
-  Configuration.manipulations.enableEndingQuestionnaires
-);
-Flags.setValue(
-  "enableQuestionnaireDemographics",
-  Configuration.manipulations.enableEndingQuestionnaires
-);
+Flags.setValue("enableQuestionnaireStatus", Configuration.manipulations.enableSocialStatusQuestionnaire);
+Flags.setValue("enableQuestionnaireScreentime", Configuration.manipulations.enableEndingQuestionnaires);
+Flags.setValue("enableQuestionnaireDASS", Configuration.manipulations.enableEndingQuestionnaires);
+Flags.setValue("enableQuestionnaireDemographics", Configuration.manipulations.enableEndingQuestionnaires);
 
 // Insert the status questionnaire if enabled
 if (Flags.isEnabled("enableQuestionnaireStatus")) {
@@ -436,7 +413,8 @@ if (Flags.isEnabled("enableQuestionnaireStatus")) {
               Social Life
             </Heading>
             <Paragraph margin="small" size="large" fill>
-              Thank you. Given your answers we are now going to calculate your social standing in comparison to all other players.
+              Thank you. Given your answers we are now going to calculate your social standing in comparison to all
+              other players.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               Press &#39;Next &gt;&#39; to continue.
@@ -529,8 +507,7 @@ if (Configuration.manipulations.enableCyberball) {
               Ball-Tossing Game
             </Heading>
             <Paragraph margin="small" size="large" fill>
-              That concludes the ball-tossing game! You will now continue with
-              the next social game.
+              That concludes the ball-tossing game! You will now continue with the next social game.
             </Paragraph>
             <Paragraph margin="small" size="large" fill>
               Press &#39;Next &gt;&#39; to continue.
@@ -559,20 +536,16 @@ const intentionsInstructions = [
           Overview
         </Heading>
         <Paragraph margin="small" size="large" fill>
-          During this task you and a partner will be choosing how to divide a
-          sum of points between each other. Your ID will not be revealed to your
-          partner, and you won&#39;t be able to see the ID of your partner.
+          During this task you and a partner will be choosing how to divide a sum of points between each other. Your ID
+          will not be revealed to your partner, and you won&#39;t be able to see the ID of your partner.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          This game consists of three stages. You are matched with a{" "}
-          <b>different</b> partner before each stage.
+          This game consists of three stages. You are matched with a <b>different</b> partner before each stage.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          You will be paid a bonus at the end of the game which depends upon the
-          number of points you each managed to accumulate while playing. If you
-          earn over 1000 points in total across all three stages, you will
-          automatically be placed into a lottery for your chance to win an extra
-          £10.
+          You will be paid a bonus at the end of the game which depends upon the number of points you each managed to
+          accumulate while playing. If you earn over 1000 points in total across all three stages, you will
+          automatically be placed into a lottery for your chance to win an extra £10.
         </Paragraph>
       </Box>
     </Grommet>
@@ -588,18 +561,16 @@ const intentionsInstructions = [
           Overview
         </Heading>
         <Paragraph margin="small" size="large" fill>
-          In stage one of this game, <b>you</b> will be choosing how the points
-          are split between you and your partner.
+          In stage one of this game, <b>you</b> will be choosing how the points are split between you and your partner.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          In stage two, you will play with a <b>new partner</b> for 54 rounds.
-          In this stage your <b>partner</b> will choose how to split the points.
-          You need to guess how your partner plans to divide the points each
-          round. You will earn bonus points for each correct prediction.
+          In stage two, you will play with a <b>new partner</b> for 54 rounds. In this stage your <b>partner</b> will
+          choose how to split the points. You need to guess how your partner plans to divide the points each round. You
+          will earn bonus points for each correct prediction.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          In stage three, you will play with <b>yet another new partner</b>{" "}
-          where <b>you</b> will again be choosing how to split the points.
+          In stage three, you will play with <b>yet another new partner</b> where <b>you</b> will again be choosing how
+          to split the points.
         </Paragraph>
       </Box>
     </Grommet>
@@ -615,8 +586,8 @@ const intentionsInstructions = [
           Overview
         </Heading>
         <Paragraph margin="small" size="large" fill>
-          At the end of all the stages you will be shown a summary of how many
-          points you and your partner accumulated during that phase.
+          At the end of all the stages you will be shown a summary of how many points you and your partner accumulated
+          during that phase.
         </Paragraph>
         {Configuration.manipulations.enableEndingQuestionnaires && (
           <Paragraph margin="small" size="large" fill>
@@ -642,13 +613,12 @@ const phaseOneInstructions = [
           Stage One
         </Heading>
         <Paragraph margin="small" size="large" fill>
-          In this stage, <b>you</b> are tasked with distributing points between
-          yourself and your partner. You may choose to distribute the points
-          however you like. This stage will consist of 36 rounds.
+          In this stage, <b>you</b> are tasked with distributing points between yourself and your partner. You may
+          choose to distribute the points however you like. This stage will consist of 36 rounds.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          Remember, the number of points each player holds at the end of the
-          game will determine if they are entered into the bonus lottery.
+          Remember, the number of points each player holds at the end of the game will determine if they are entered
+          into the bonus lottery.
         </Paragraph>
       </Box>
     </Grommet>
@@ -669,8 +639,8 @@ const phaseOnePracticeInstructions = [
           Let&#39;s get used to how the game looks with some practice trials.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
-          In these practice trials, the points will not count toward your total
-          and your partner is not real. You will play <b>3</b> practice trials.
+          In these practice trials, the points will not count toward your total and your partner is not real. You will
+          play <b>3</b> practice trials.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           Press &#39;Next &gt;&#39; to continue.
@@ -745,9 +715,8 @@ timeline.push({
             Stage One
           </Heading>
           <Paragraph margin="small" size="large" fill>
-            The practice trials are now over. Let&#39;s start the first stage of
-            the game. You will answer a few questions before commencing the
-            stage to ensure you understand the instructions.
+            The practice trials are now over. Let&#39;s start the first stage of the game. You will answer a few
+            questions before commencing the stage to ensure you understand the instructions.
           </Paragraph>
           <Paragraph margin="small" size="large" fill>
             Press &#39;Next &gt;&#39; to begin!
@@ -767,30 +736,17 @@ timeline.push({
 timeline.push({
   type: "attention-check",
   style: "radio",
-  prompt:
-    "In this stage of the game, who will be choosing the " +
-    "number of points that you and your partner get?",
+  prompt: "In this stage of the game, who will be choosing the " + "number of points that you and your partner get?",
   responses: ["My partner", "Me", "By lottery"],
   correct: 1,
   feedback: {
-    correct:
-      "Correct! You will be choosing the points you and your partner get.",
-    incorrect:
-      "Incorrect. You will be choosing the points. Please review the following instructions.",
+    correct: "Correct! You will be choosing the points you and your partner get.",
+    incorrect: "Incorrect. You will be choosing the points. Please review the following instructions.",
   },
   input_schema: {
-    select:
-      Configuration.manipulations.useButtonInput
-        ? BINDINGS.SELECT
-        : null,
-    next:
-      Configuration.manipulations.useButtonInput
-        ? BINDINGS.NEXT
-        : null,
-    previous:
-      Configuration.manipulations.useButtonInput
-        ? BINDINGS.PREVIOUS
-        : null,
+    select: Configuration.manipulations.useButtonInput ? BINDINGS.SELECT : null,
+    next: Configuration.manipulations.useButtonInput ? BINDINGS.NEXT : null,
+    previous: Configuration.manipulations.useButtonInput ? BINDINGS.PREVIOUS : null,
   },
   confirm_continue: false,
 });
@@ -828,18 +784,9 @@ timeline.push({
       "Incorrect. You need to earn 1000 points across all three phases of the game to be entered into the bonus lottery. Please review the following instructions.",
   },
   input_schema: {
-    select:
-      Configuration.manipulations.useButtonInput
-        ? BINDINGS.SELECT
-        : null,
-    next:
-      Configuration.manipulations.useButtonInput
-        ? BINDINGS.NEXT
-        : null,
-    previous:
-      Configuration.manipulations.useButtonInput
-        ? BINDINGS.PREVIOUS
-        : null,
+    select: Configuration.manipulations.useButtonInput ? BINDINGS.SELECT : null,
+    next: Configuration.manipulations.useButtonInput ? BINDINGS.NEXT : null,
+    previous: Configuration.manipulations.useButtonInput ? BINDINGS.PREVIOUS : null,
   },
   confirm_continue: false,
 });
@@ -915,7 +862,7 @@ if (Configuration.manipulations.enableStatusPhaseOne) {
     display: "statusPreview",
     nextPhase: "phaseOne",
     isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseOne,
-  })
+  });
 }
 
 // Set and store the data collection
@@ -923,10 +870,7 @@ let dataCollection: Row[];
 
 // Detect if we are running locally (use test data)
 // or online (use the configured individual data)
-if (
-  process.env.NODE_ENV === "development" ||
-  Configuration.manipulations.partner === "test"
-) {
+if (process.env.NODE_ENV === "development" || Configuration.manipulations.partner === "test") {
   dataCollection = Test;
   consola.info(`Loading test stage one partner`);
 } else {
@@ -991,19 +935,17 @@ for (let i = 0; i < dataCollection.length; i++) {
                 Stage Two
               </Heading>
               <Paragraph margin="small" size="large" fill>
-                In this stage, <b>you will play with a new partner</b>. This
-                time your partner will be the one choosing how the points are
-                split between you both.
+                In this stage, <b>you will play with a new partner</b>. This time your partner will be the one choosing
+                how the points are split between you both.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
-                Remember, your partner will be different to the one you played
-                with earlier. Your partner will not know how many points you
-                have accumulated over the course of the game so far.
+                Remember, your partner will be different to the one you played with earlier. Your partner will not know
+                how many points you have accumulated over the course of the game so far.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
                 <b>
-                  Your task will be to try to guess how your partner plans to
-                  divide the points between the two of you each round.
+                  Your task will be to try to guess how your partner plans to divide the points between the two of you
+                  each round.
                 </b>
               </Paragraph>
             </Box>
@@ -1020,20 +962,17 @@ for (let i = 0; i < dataCollection.length; i++) {
               </Heading>
               <Paragraph margin="small" size="large" fill>
                 <b>
-                  The number of times you correctly guess your partner&#39;s
-                  choices will be multiplied by 10 and added to your total
-                  points
+                  The number of times you correctly guess your partner&#39;s choices will be multiplied by 10 and added
+                  to your total points
                 </b>
-                . This will contribute to your chance to win a bonus at the end
-                of the game.
+                . This will contribute to your chance to win a bonus at the end of the game.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
-                Let&#39;s get used to how stage two looks with some practice
-                trials.
+                Let&#39;s get used to how stage two looks with some practice trials.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
-                In these practice trials, the points will not count toward your
-                total and the decisions made by your partner are not real.
+                In these practice trials, the points will not count toward your total and the decisions made by your
+                partner are not real.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
                 Click &#39;Next &gt;&#39; to begin!
@@ -1109,10 +1048,8 @@ for (let i = 0; i < dataCollection.length; i++) {
                   Stage Two
                 </Heading>
                 <Paragraph margin="small" size="large" fill>
-                  The practice trials are now over. Let&#39;s start the second
-                  stage of the game. You will answer a few questions before
-                  commencing the stage to ensure you understand the
-                  instructions.
+                  The practice trials are now over. Let&#39;s start the second stage of the game. You will answer a few
+                  questions before commencing the stage to ensure you understand the instructions.
                 </Paragraph>
                 <Paragraph margin="small" size="large" fill>
                   Press &#39;Next &gt;&#39; to begin!
@@ -1132,30 +1069,17 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "attention-check",
         style: "radio",
-        prompt:
-          "In Stage Two, " +
-          "who will be choosing the points you and your partner get?",
+        prompt: "In Stage Two, " + "who will be choosing the points you and your partner get?",
         responses: ["Me", "By lottery", "My partner"],
         correct: 2,
         feedback: {
-          correct:
-            "Correct! Your partner will be choosing the points you and your partner get.",
-          incorrect:
-            "Incorrect. Your partner will be choosing the points. Please review the following instructions.",
+          correct: "Correct! Your partner will be choosing the points you and your partner get.",
+          incorrect: "Incorrect. Your partner will be choosing the points. Please review the following instructions.",
         },
         input_schema: {
-          select:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.SELECT
-              : null,
-          next:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.NEXT
-              : null,
-          previous:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.PREVIOUS
-              : null,
+          select: Configuration.manipulations.useButtonInput ? BINDINGS.SELECT : null,
+          next: Configuration.manipulations.useButtonInput ? BINDINGS.NEXT : null,
+          previous: Configuration.manipulations.useButtonInput ? BINDINGS.PREVIOUS : null,
         },
         confirm_continue: false,
       });
@@ -1182,32 +1106,21 @@ for (let i = 0; i < dataCollection.length; i++) {
       timeline.push({
         type: "attention-check",
         style: "radio",
-        prompt:
-          "What multiplier will be added to your total correct predictions about your partner?",
+        prompt: "What multiplier will be added to your total correct predictions about your partner?",
         responses: [
           "My total correct answers will be multiplied by 5 and added to my points.",
           "My total correct answers will be multiplied by 10 and added to my points.",
         ],
         correct: 1,
         feedback: {
-          correct:
-            "Correct! Your total correct answers will be multiplied by 10 and added to your points.",
+          correct: "Correct! Your total correct answers will be multiplied by 10 and added to your points.",
           incorrect:
             "Incorrect. Your total correct answers will be multiplied by 10 and added to your points. Please review the following instructions.",
         },
         input_schema: {
-          select:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.SELECT
-              : null,
-          next:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.NEXT
-              : null,
-          previous:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.PREVIOUS
-              : null,
+          select: Configuration.manipulations.useButtonInput ? BINDINGS.SELECT : null,
+          next: Configuration.manipulations.useButtonInput ? BINDINGS.NEXT : null,
+          previous: Configuration.manipulations.useButtonInput ? BINDINGS.PREVIOUS : null,
         },
         confirm_continue: false,
       });
@@ -1283,7 +1196,7 @@ for (let i = 0; i < dataCollection.length; i++) {
           display: "statusPreview",
           nextPhase: "phaseTwo",
           isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseTwo,
-        })
+        });
       }
 
       break;
@@ -1340,21 +1253,17 @@ for (let i = 0; i < dataCollection.length; i++) {
                 Stage Three
               </Heading>
               <Paragraph margin="small" size="large" fill>
-                In the final stage of this game, <b>you</b> will again be
-                choosing how the points are split between yourself and your
-                partner. As before, you may choose to distribute the points
-                however you like.
+                In the final stage of this game, <b>you</b> will again be choosing how the points are split between
+                yourself and your partner. As before, you may choose to distribute the points however you like.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
-                Remember, your partner will be different to the ones you have
-                previously played. You will not know how many points they have
-                accumulated over the course of the game so far.
+                Remember, your partner will be different to the ones you have previously played. You will not know how
+                many points they have accumulated over the course of the game so far.
               </Paragraph>
               <Paragraph margin="small" size="large" fill>
-                Click &#39;Next &gt;&#39; to be matched with your partner and
-                start stage three. There will be no practice trials beforehand.
-                You will answer a few questions before commencing the stage to
-                ensure you understand the instructions.
+                Click &#39;Next &gt;&#39; to be matched with your partner and start stage three. There will be no
+                practice trials beforehand. You will answer a few questions before commencing the stage to ensure you
+                understand the instructions.
               </Paragraph>
             </Box>
           </Grommet>
@@ -1379,24 +1288,14 @@ for (let i = 0; i < dataCollection.length; i++) {
         responses: ["A new anonymous partner.", "My partner from Stage Two."],
         correct: 0,
         feedback: {
-          correct:
-            "Correct! You will be interacting with a new anonymous partner in Stage Three.",
+          correct: "Correct! You will be interacting with a new anonymous partner in Stage Three.",
           incorrect:
             "Incorrect. You will be interacting with a new anonymous partner in Stage Three. Please review the following instructions.",
         },
         input_schema: {
-          select:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.SELECT
-              : null,
-          next:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.NEXT
-              : null,
-          previous:
-            Configuration.manipulations.useButtonInput
-              ? BINDINGS.PREVIOUS
-              : null,
+          select: Configuration.manipulations.useButtonInput ? BINDINGS.SELECT : null,
+          next: Configuration.manipulations.useButtonInput ? BINDINGS.NEXT : null,
+          previous: Configuration.manipulations.useButtonInput ? BINDINGS.PREVIOUS : null,
         },
         confirm_continue: false,
       });
@@ -1472,7 +1371,7 @@ for (let i = 0; i < dataCollection.length; i++) {
           display: "statusPreview",
           nextPhase: "phaseThree",
           isPreviewPartnerHighStatus: Configuration.manipulations.isPartnerHighStatusPhaseThree,
-        })
+        });
       }
 
       break;

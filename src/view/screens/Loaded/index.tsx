@@ -76,35 +76,35 @@ const Loaded: FC<Screens.Loaded> = (props: Screens.Loaded): ReactElement => {
       </>
     );
   } else if (state === "matchingCyberball") {
-      const partnerAID = generatePartnerID();
-      const partnerBID = generatePartnerID();
-      experiment.getState().set("cyberballPartnerAID", partnerAID);
-      experiment.getState().set("cyberballPartnerBID", partnerBID);
+    const partnerAID = generatePartnerID();
+    const partnerBID = generatePartnerID();
+    experiment.getState().set("cyberballPartnerAID", partnerAID);
+    experiment.getState().set("cyberballPartnerBID", partnerBID);
 
-      return (
-        <>
-          <WorldMap color="map" fill="horizontal" />
-          <Layer plain full>
-            <Box justify="center" align="center" gap="small" responsive fill>
-              <Heading>Partners found!</Heading>
-              <Box direction="row" gap="medium">
-                <Avatar
-                  size={180}
-                  name={partnerAID}
-                  variant={Configuration.avatars.variant as "beam"}
-                  colors={Configuration.avatars.colours}
-                />
-                <Avatar
-                  size={180}
-                  name={partnerBID}
-                  variant={Configuration.avatars.variant as "beam"}
-                  colors={Configuration.avatars.colours}
-                />
-              </Box>
+    return (
+      <>
+        <WorldMap color="map" fill="horizontal" />
+        <Layer plain full>
+          <Box justify="center" align="center" gap="small" responsive fill>
+            <Heading>Partners found!</Heading>
+            <Box direction="row" gap="medium">
+              <Avatar
+                size={180}
+                name={partnerAID}
+                variant={Configuration.avatars.variant as "beam"}
+                colors={Configuration.avatars.colours}
+              />
+              <Avatar
+                size={180}
+                name={partnerBID}
+                variant={Configuration.avatars.variant as "beam"}
+                colors={Configuration.avatars.colours}
+              />
             </Box>
-          </Layer>
-        </>
-      );
+          </Box>
+        </Layer>
+      </>
+    );
   } else if (state === "social") {
     return (
       <>

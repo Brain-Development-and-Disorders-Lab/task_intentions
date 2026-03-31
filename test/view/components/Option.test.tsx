@@ -18,14 +18,7 @@ import Option from "src/view/components/Option";
 
 test("loads and displays Option component", async () => {
   await waitFor(() =>
-    render(
-      <Option
-        optionKey="test"
-        optionName="Option Test"
-        pointsParticipant={15}
-        pointsPartner={12}
-      />
-    )
+    render(<Option optionKey="test" optionName="Option Test" pointsParticipant={15} pointsPartner={12} />)
   );
 
   await waitFor(() => expect(screen.getByText("+15")).toBeInTheDocument());

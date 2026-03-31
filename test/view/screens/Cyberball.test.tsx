@@ -105,9 +105,7 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Initially participant should have the ball
-    expect(
-      screen.getByText("Click on a partner to throw the ball to them!")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Click on a partner to throw the ball to them!")).toBeInTheDocument();
   });
 
   it("allows participant to toss ball to partners when they have the ball", async () => {
@@ -138,9 +136,7 @@ describe("Cyberball Screen", () => {
     render(<Cyberball {...mockProps} />);
 
     // Initially participant has the ball
-    expect(
-      screen.getByText("Click on a partner to throw the ball to them!")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Click on a partner to throw the ball to them!")).toBeInTheDocument();
 
     // Click on partner A to toss the ball
     const partnerA = screen.getAllByText("Partner A")[1].closest("div");
@@ -151,9 +147,7 @@ describe("Cyberball Screen", () => {
     // After tossing, should show waiting message
     await waitFor(
       () => {
-        expect(
-          screen.getByText("Waiting to receive the ball...")
-        ).toBeInTheDocument();
+        expect(screen.getByText("Waiting to receive the ball...")).toBeInTheDocument();
       },
       { timeout: 1000 }
     );
@@ -243,7 +237,10 @@ describe("Cyberball Screen", () => {
     const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     for (let i = 0; i < 20; i++) {
       if (partnerA) fireEvent.click(partnerA);
-      await waitFor(() => expect(screen.getByText(/Click on a partner|Waiting to receive|Game Complete/)).toBeInTheDocument(), { timeout: 50 });
+      await waitFor(
+        () => expect(screen.getByText(/Click on a partner|Waiting to receive|Game Complete/)).toBeInTheDocument(),
+        { timeout: 50 }
+      );
     }
 
     await waitFor(
@@ -445,7 +442,10 @@ describe("Cyberball Screen", () => {
     const partnerA = screen.getAllByText("Partner A")[1].closest("div");
     for (let i = 0; i < 20; i++) {
       if (partnerA) fireEvent.click(partnerA);
-      await waitFor(() => expect(screen.getByText(/Click on a partner|Waiting to receive|Game Complete/)).toBeInTheDocument(), { timeout: 50 });
+      await waitFor(
+        () => expect(screen.getByText(/Click on a partner|Waiting to receive|Game Complete/)).toBeInTheDocument(),
+        { timeout: 50 }
+      );
     }
 
     // Should show completion overlay

@@ -17,11 +17,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: [
-              "@babel/preset-typescript",
-              "@babel/preset-react",
-              "@babel/preset-env",
-            ],
+            presets: ["@babel/preset-typescript", "@babel/preset-react", "@babel/preset-env"],
           },
         },
       },
@@ -58,10 +54,7 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
-    modules: [
-      path.resolve(__dirname, "./"),
-      path.resolve(__dirname, "node_modules"),
-    ],
+    modules: [path.resolve(__dirname, "./"), path.resolve(__dirname, "node_modules")],
   },
   output: {
     filename: "index.js",

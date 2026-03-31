@@ -36,9 +36,7 @@ import { Money } from "grommet-icons";
  *  - gridArea: {string} Grid area name for positioning
  * @return {ReactElement} 'Card' component with player info arranged vertically in a Box
  */
-const Card: FC<Components.Card> = (
-  props: Components.Card
-): ReactElement => {
+const Card: FC<Components.Card> = (props: Components.Card): ReactElement => {
   return (
     <Box
       gridArea={props.gridArea}
@@ -64,11 +62,7 @@ const Card: FC<Components.Card> = (
       <Heading level={1}>
         <Box direction="row" gap="xsmall" height="64px">
           <Money size="large" color="pointsIconBackground" />
-          <TextTransition
-            text={props.points}
-            springConfig={presets.gentle}
-            inline
-          />
+          <TextTransition text={props.points} springConfig={presets.gentle} inline />
         </Box>
       </Heading>
     </Box>

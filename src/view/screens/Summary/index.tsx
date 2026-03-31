@@ -47,16 +47,12 @@ import { BINDINGS } from "src/bindings";
  *  - handler: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Summary' screen with avatar cards, point totals, and continue button
  */
-const Summary: FC<Screens.Summary> = (
-  props: Screens.Summary
-): ReactElement => {
+const Summary: FC<Screens.Summary> = (props: Screens.Summary): ReactElement => {
   consola.debug(`Summary screen for '${props.postPhase}'`);
 
   // Get the participant's and the partner's avatars
   const experiment = window.Experiment;
-  const participantAvatar: number = experiment
-    .getState()
-    .get("participantAvatar");
+  const participantAvatar: number = experiment.getState().get("participantAvatar");
 
   // Sum the participant's points
   const totalParticipantPoints =
@@ -105,9 +101,7 @@ const Summary: FC<Screens.Summary> = (
             <Card
               gridArea="participantArea"
               name="You"
-              avatar={
-                Configuration.avatars.names.participant[participantAvatar]
-              }
+              avatar={Configuration.avatars.names.participant[participantAvatar]}
               points={participantPoints}
             />
           </Box>
@@ -117,17 +111,10 @@ const Summary: FC<Screens.Summary> = (
             margin={"none"}
             pad={"none"}
             border={{
-              color:
-                Configuration.manipulations.useButtonInput
-                  ? "selectedElement"
-                  : "transparent",
+              color: Configuration.manipulations.useButtonInput ? "selectedElement" : "transparent",
               size: "large",
             }}
-            style={
-              Configuration.manipulations.useButtonInput
-                ? { borderRadius: "36px " }
-                : {}
-            }
+            style={Configuration.manipulations.useButtonInput ? { borderRadius: "36px " } : {}}
             round
           >
             <Button

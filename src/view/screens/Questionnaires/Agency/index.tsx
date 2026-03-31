@@ -41,9 +41,7 @@ const SLIDER_DEFAULT = 50; // Sets the 'thumb' to the middle of the slider
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Agency' screen with interactive slider and question
  */
-const Agency: FC<Screens.Agency> = (
-  props: Screens.Agency
-): ReactElement => {
+const Agency: FC<Screens.Agency> = (props: Screens.Agency): ReactElement => {
   // Slider states, monitor if they have been interacted with
   // Top slider
   const [sliderMoved, setSliderMoved] = useState(false);
@@ -65,10 +63,7 @@ const Agency: FC<Screens.Agency> = (
     if (!elementFocused && event.repeat) return;
     event.preventDefault();
 
-    if (
-      event.key.toString() === BINDINGS.NEXT ||
-      event.key.toString() === BINDINGS.PREVIOUS
-    ) {
+    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
       if (elementFocused && selectedElementIndex === 0) {
         // First slider, increase and decrease value within bounds when keys pressed
         if (event.key.toString() === BINDINGS.NEXT) {
@@ -79,13 +74,9 @@ const Agency: FC<Screens.Agency> = (
         setSliderMoved(true);
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
-          setSelectedElementIndex(
-            selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1
-          );
+          setSelectedElementIndex(selectedElementIndex + 1 < 2 ? selectedElementIndex + 1 : 1);
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          setSelectedElementIndex(
-            selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0
-          );
+          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -109,8 +100,8 @@ const Agency: FC<Screens.Agency> = (
         animation={["fadeIn"]}
       >
         <Paragraph margin="small" size="large" fill>
-          Some labs use deception. For our own purposes, it is helpful to know
-          to what extent you believed that the other partners really existed.
+          Some labs use deception. For our own purposes, it is helpful to know to what extent you believed that the
+          other partners really existed.
         </Paragraph>
         <Paragraph margin="small" size="large" fill>
           I believe I played with real partners.
@@ -119,9 +110,7 @@ const Agency: FC<Screens.Agency> = (
           pad={"xsmall"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput &&
-              selectedElementIndex === 0 &&
-              !elementFocused
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 0 && !elementFocused
                 ? "selectedElement"
                 : "transparent",
             size: "large",
@@ -147,17 +136,13 @@ const Agency: FC<Screens.Agency> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput &&
-              selectedElementIndex === 1
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 1
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useButtonInput &&
-            selectedElementIndex === 1
-              ? { borderRadius: "36px " }
-              : {}
+            Configuration.manipulations.useButtonInput && selectedElementIndex === 1 ? { borderRadius: "36px " } : {}
           }
           round
         >

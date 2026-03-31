@@ -23,7 +23,7 @@ export const Configuration = {
   manipulations: {
     partner: "test",
     requireID: false,
-    useButtonInput: false,
+    useButtonInput: true,
     useOfflinePackages: true,
 
     // Questionnaire features
@@ -110,8 +110,7 @@ export const Configuration = {
   },
 
   // Set the logging level
-  logging:
-    process.env.NODE_ENV === "development" ? LogLevel.Verbose : LogLevel.Error,
+  logging: process.env.NODE_ENV === "development" ? LogLevel.Verbose : LogLevel.Error,
 
   // Avatar configuration details, including colours and names
   avatars: {

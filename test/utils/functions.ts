@@ -104,10 +104,8 @@ export const getHandler = (display: Display): Handler => {
 };
 
 // Custom rendering function to place everything inside of the 'TestWrapper' component
-const customRender = (
-  ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
-): RenderResult => render(ui, { wrapper: TestWrapper, ...options });
+const customRender = (ui: ReactElement, options?: Omit<RenderOptions, "wrapper">): RenderResult =>
+  render(ui, { wrapper: TestWrapper, ...options });
 
 export * from "@testing-library/react";
 export { customRender as render };

@@ -131,14 +131,8 @@ export type Timeline = TimelineNode[];
 
 // Timeline node type, representing different timeline
 // element parameter types
-export type TimelineNode = GenericNode & (
-  | FullscreenNode
-  | InstructionsNode
-  | ComprehensionNode
-  | LoopNode
-  | InputNode
-  | IntentionsNode
-  );
+export type TimelineNode = GenericNode &
+  (FullscreenNode | InstructionsNode | ComprehensionNode | LoopNode | InputNode | IntentionsNode);
 
 // 'Factory' interface
 interface Factory {
@@ -181,13 +175,7 @@ export type Display =
 export type Partner = "Test" | "Prosocial" | "Individualist" | "Competitive";
 
 // Avatar styles
-export type AvatarStyles =
-  | "beam"
-  | "marble"
-  | "pixel"
-  | "sunset"
-  | "ring"
-  | "bauhaus";
+export type AvatarStyles = "beam" | "marble" | "pixel" | "sunset" | "ring" | "bauhaus";
 
 // Selection options
 export type Options = "Option 1" | "Option 2" | "";
@@ -350,11 +338,7 @@ export namespace Screens {
       target: "status" | "options" | "none";
       message: string;
     };
-    handler: (
-      selection: Options,
-      points: { options: Points },
-      answer: Options
-    ) => void;
+    handler: (selection: Options, points: { options: Points }, answer: Options) => void;
   };
 
   // SelectAvatar screen
@@ -416,7 +400,7 @@ export namespace Screens {
       householdIncome: string,
       education: string,
       socialMediaDaily: boolean,
-      socialMediaPlatforms: string,
+      socialMediaPlatforms: string
     ) => void;
   };
 
@@ -448,14 +432,9 @@ export namespace Screens {
         partnerB: number; // Probability of partner B passing to participant
       };
     };
-    handler: (
-      tossCount: number,
-      participantTossCount: number,
-      participantCatchCount: number
-    ) => void;
+    handler: (tossCount: number, participantTossCount: number, participantCatchCount: number) => void;
   };
 }
-
 
 // Backup storage object
 export type BackupStorage = {
@@ -553,4 +532,3 @@ export type Dataframe = {
   questionnaireResponsesDemographicsSocialMediaDaily: boolean;
   questionnaireResponsesDemographicsSocialMediaPlatforms: string;
 };
-

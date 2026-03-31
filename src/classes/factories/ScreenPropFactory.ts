@@ -63,14 +63,8 @@ class ScreenPropFactory implements Factory {
     };
 
     // Sum the points from the previous trials
-    const participantPoints = calculatePoints(
-      this.trial.display,
-      "playerPoints_selected"
-    );
-    const partnerPoints = calculatePoints(
-      this.trial.display,
-      "partnerPoints_selected"
-    );
+    const participantPoints = calculatePoints(this.trial.display, "playerPoints_selected");
+    const partnerPoints = calculatePoints(this.trial.display, "partnerPoints_selected");
 
     // Get the prior phase, checking first that there was a prior trial
     let postPhase: Display = "playerChoice";

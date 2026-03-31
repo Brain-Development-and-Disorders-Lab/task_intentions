@@ -27,10 +27,7 @@ import { getHandler, getTrialConfiguration } from "test/utils/functions";
 
 test("generate props for Agency screen", async () => {
   // Create a new ScreenPropFactory instance
-  const screenPropFactory = new ScreenPropFactory(
-    getTrialConfiguration("agency"),
-    getHandler("agency")
-  );
+  const screenPropFactory = new ScreenPropFactory(getTrialConfiguration("agency"), getHandler("agency"));
 
   // Generate the props
   const generated = screenPropFactory.generate();
@@ -59,10 +56,7 @@ test("generate props for Classification screen", async () => {
 
 test("generate props for End screen", async () => {
   // Create a new ScreenPropFactory instance
-  const screenPropFactory = new ScreenPropFactory(
-    getTrialConfiguration("end"),
-    getHandler("end")
-  );
+  const screenPropFactory = new ScreenPropFactory(getTrialConfiguration("end"), getHandler("end"));
 
   // Generate the props
   const generated = screenPropFactory.generate();
@@ -75,10 +69,7 @@ test("generate props for End screen", async () => {
 
 test("generate props for Inference screen", async () => {
   // Create a new ScreenPropFactory instance
-  const screenPropFactory = new ScreenPropFactory(
-    getTrialConfiguration("inference"),
-    getHandler("inference")
-  );
+  const screenPropFactory = new ScreenPropFactory(getTrialConfiguration("inference"), getHandler("inference"));
 
   // Generate the props
   const generated = screenPropFactory.generate();
@@ -91,10 +82,7 @@ test("generate props for Inference screen", async () => {
 
 test("generate props for Loaded screen", async () => {
   // Create a new ScreenPropFactory instance
-  const screenPropFactory = new ScreenPropFactory(
-    getTrialConfiguration("loaded"),
-    getHandler("loaded")
-  );
+  const screenPropFactory = new ScreenPropFactory(getTrialConfiguration("loaded"), getHandler("loaded"));
 
   // Generate the props
   const generated = screenPropFactory.generate();
@@ -113,10 +101,7 @@ test("generate props for Loading screen with matching type", async () => {
     state: "matchingIntentions" as const,
     runComputeOperation: false,
   };
-  const screenPropFactory = new ScreenPropFactory(
-    trialConfig,
-    getHandler("loading")
-  );
+  const screenPropFactory = new ScreenPropFactory(trialConfig, getHandler("loading"));
 
   // Generate the props
   const generated = screenPropFactory.generate();
@@ -131,10 +116,7 @@ test("generate props for Loading screen with matching type", async () => {
 
 test("generate props for Summary screen", async () => {
   // Create a new ScreenPropFactory instance
-  const screenPropFactory = new ScreenPropFactory(
-    getTrialConfiguration("summary"),
-    getHandler("summary")
-  );
+  const screenPropFactory = new ScreenPropFactory(getTrialConfiguration("summary"), getHandler("summary"));
 
   // Generate the props
   const generated = screenPropFactory.generate();
@@ -148,10 +130,7 @@ test("generate props for Summary screen", async () => {
 
 test("generate props for Trial screen", async () => {
   // Create a new ScreenPropFactory instance
-  const screenPropFactory = new ScreenPropFactory(
-    getTrialConfiguration("playerChoice"),
-    getHandler("playerChoice")
-  );
+  const screenPropFactory = new ScreenPropFactory(getTrialConfiguration("playerChoice"), getHandler("playerChoice"));
 
   // Generate the props
   const generated = screenPropFactory.generate();

@@ -53,11 +53,7 @@ class Handler {
    * @param {Points} points selected option
    * @param {Options} answer selected option
    */
-  public option(
-    option: Options,
-    points: { options: Points },
-    answer: Options
-  ): void {
+  public option(option: Options, points: { options: Points }, answer: Options): void {
     consola.debug("Option response:", option, points, answer);
     // Store the correct answer
     this.dataframe.realAnswer = answer;
@@ -170,10 +166,8 @@ class Handler {
     this.dataframe.questionnaireResponseCloseFriends = closeFriends;
     this.dataframe.questionnaireResponsePartyInvitations = partyInvitations;
     this.dataframe.questionnaireResponseMeanPeople = meanPeople;
-    this.dataframe.questionnaireResponseSocialMediaFollowers =
-      socialMediaFollowers;
-    this.dataframe.questionnaireResponseSocialMediaFollowing =
-      socialMediaFollowing;
+    this.dataframe.questionnaireResponseSocialMediaFollowers = socialMediaFollowers;
+    this.dataframe.questionnaireResponseSocialMediaFollowing = socialMediaFollowing;
 
     // Finish trial
     this.callback();
@@ -196,11 +190,7 @@ class Handler {
     operationDuration: number
   ): void {
     if (storeParameters) {
-      consola.debug(
-        "Loading responses:",
-        participantParameters,
-        partnerParameters
-      );
+      consola.debug("Loading responses:", participantParameters, partnerParameters);
       // Store participant parameters
       this.dataframe.server_alpha_ppt = participantParameters[0];
       this.dataframe.server_beta_ppt = participantParameters[1];
@@ -222,33 +212,15 @@ class Handler {
 
     // Store social status
     const experiment = window.Experiment;
-    this.dataframe.participantDefaultStatus = experiment
-      .getState()
-      .get("participantDefaultStatus");
-    this.dataframe.partnerCyberballLowStatus = experiment
-      .getState()
-      .get("partnerCyberballLowStatus");
-    this.dataframe.partnerCyberballHighStatus = experiment
-      .getState()
-      .get("partnerCyberballHighStatus");
-    this.dataframe.partnerOneLowStatus = experiment
-      .getState()
-      .get("partnerOneLowStatus");
-    this.dataframe.partnerOneHighStatus = experiment
-      .getState()
-      .get("partnerOneHighStatus");
-    this.dataframe.partnerTwoLowStatus = experiment
-      .getState()
-      .get("partnerTwoLowStatus");
-    this.dataframe.partnerTwoHighStatus = experiment
-      .getState()
-      .get("partnerTwoHighStatus");
-    this.dataframe.partnerThreeLowStatus = experiment
-      .getState()
-      .get("partnerThreeLowStatus");
-    this.dataframe.partnerThreeHighStatus = experiment
-      .getState()
-      .get("partnerThreeHighStatus");
+    this.dataframe.participantDefaultStatus = experiment.getState().get("participantDefaultStatus");
+    this.dataframe.partnerCyberballLowStatus = experiment.getState().get("partnerCyberballLowStatus");
+    this.dataframe.partnerCyberballHighStatus = experiment.getState().get("partnerCyberballHighStatus");
+    this.dataframe.partnerOneLowStatus = experiment.getState().get("partnerOneLowStatus");
+    this.dataframe.partnerOneHighStatus = experiment.getState().get("partnerOneHighStatus");
+    this.dataframe.partnerTwoLowStatus = experiment.getState().get("partnerTwoLowStatus");
+    this.dataframe.partnerTwoHighStatus = experiment.getState().get("partnerTwoHighStatus");
+    this.dataframe.partnerThreeLowStatus = experiment.getState().get("partnerThreeLowStatus");
+    this.dataframe.partnerThreeHighStatus = experiment.getState().get("partnerThreeHighStatus");
 
     // Finish trial
     this.callback();
@@ -271,10 +243,7 @@ class Handler {
    */
   public screentime(weekdayTime: number, weekendTime: number): void {
     consola.debug("Screentime responses:", weekdayTime, weekendTime);
-    this.dataframe.questionnaireResponsesScreentime = [
-      weekdayTime,
-      weekendTime,
-    ];
+    this.dataframe.questionnaireResponsesScreentime = [weekdayTime, weekendTime];
     this.callback();
   }
 
@@ -310,13 +279,10 @@ class Handler {
     this.dataframe.questionnaireResponsesDemographicsAge = age;
     this.dataframe.questionnaireResponsesDemographicsGender = genderIdentity;
     this.dataframe.questionnaireResponsesDemographicsEthnicity = ethnicity;
-    this.dataframe.questionnaireResponsesDemographicsHouseholdIncome =
-      householdIncome;
+    this.dataframe.questionnaireResponsesDemographicsHouseholdIncome = householdIncome;
     this.dataframe.questionnaireResponsesDemographicsEducation = education;
-    this.dataframe.questionnaireResponsesDemographicsSocialMediaDaily =
-      socialMediaDaily;
-    this.dataframe.questionnaireResponsesDemographicsSocialMediaPlatforms =
-      socialMediaPlatforms;
+    this.dataframe.questionnaireResponsesDemographicsSocialMediaDaily = socialMediaDaily;
+    this.dataframe.questionnaireResponsesDemographicsSocialMediaPlatforms = socialMediaPlatforms;
     this.callback();
   }
 
@@ -326,17 +292,8 @@ class Handler {
    * @param {number} participantTossCount number of times the participant tossed the ball
    * @param {number} participantCatchCount number of times the participant caught the ball
    */
-  public cyberball(
-    tossCount: number,
-    participantTossCount: number,
-    participantCatchCount: number
-  ): void {
-    consola.debug(
-      "Cyberball statistics:",
-      tossCount,
-      participantTossCount,
-      participantCatchCount
-    );
+  public cyberball(tossCount: number, participantTossCount: number, participantCatchCount: number): void {
+    consola.debug("Cyberball statistics:", tossCount, participantTossCount, participantCatchCount);
     this.dataframe.cyberballTossCount = tossCount;
     this.dataframe.cyberballParticipantCatchCount = participantCatchCount;
     this.dataframe.cyberballParticipantTossCount = participantTossCount;

@@ -28,40 +28,22 @@ import { Configuration } from "src/configuration";
  *  - partnerStatus: {number} Social status value for partner (0-100)
  * @return {ReactElement} 'Status' component with horizontal scale and avatar indicators
  */
-const Status: FC<Components.Status> = (
-  props: Components.Status
-): ReactElement => {
+const Status: FC<Components.Status> = (props: Components.Status): ReactElement => {
   const [participantStatus] = useState(props.participantStatus);
   const [partnerStatus] = useState(props.partnerStatus);
 
   // Get the global experiment instance to access avatar names
   const experiment = window.Experiment;
-  const participantAvatarName =
-    Configuration.avatars.names.participant[
-      experiment.getState().get("participantAvatar")
-    ];
+  const participantAvatarName = Configuration.avatars.names.participant[experiment.getState().get("participantAvatar")];
   const partnerAvatarName =
     props.isPractice === true
       ? "example"
-      : Configuration.avatars.names.partner[
-          experiment.getState().get("partnerAvatar")
-        ];
+      : Configuration.avatars.names.partner[experiment.getState().get("partnerAvatar")];
 
   return (
-    <Box
-      align="center"
-      direction="column"
-      gap="xsmall"
-      width="medium"
-      margin="small"
-    >
+    <Box align="center" direction="column" gap="xsmall" width="medium" margin="small">
       {/* Avatars and arrows above the bar */}
-      <Box
-        width="100%"
-        height="62px"
-        style={{ position: "relative" }}
-        margin={{ bottom: "xsmall" }}
-      >
+      <Box width="100%" height="62px" style={{ position: "relative" }} margin={{ bottom: "xsmall" }}>
         {/* Participant avatar and arrow */}
         <Box
           align="center"
@@ -73,7 +55,9 @@ const Status: FC<Components.Status> = (
             zIndex: 2,
           }}
         >
-          <Text size="xsmall" textAlign="center" weight="bold">You</Text>
+          <Text size="xsmall" textAlign="center" weight="bold">
+            You
+          </Text>
           <Avatar
             size={40}
             name={participantAvatarName}
@@ -81,13 +65,7 @@ const Status: FC<Components.Status> = (
             colors={Configuration.avatars.colours}
           />
           {/* Downward arrow */}
-          <Box
-            as="svg"
-            width="12px"
-            height="10px"
-            style={{ display: "block" }}
-            margin={{ top: "xxsmall" }}
-          >
+          <Box as="svg" width="12px" height="10px" style={{ display: "block" }} margin={{ top: "xxsmall" }}>
             <polygon points="6,10 0,0 12,0" fill="#89C2D9" />
           </Box>
         </Box>
@@ -104,7 +82,9 @@ const Status: FC<Components.Status> = (
               zIndex: 2,
             }}
           >
-            <Text size="xsmall" textAlign="center" weight="bold">Partner</Text>
+            <Text size="xsmall" textAlign="center" weight="bold">
+              Partner
+            </Text>
             <Avatar
               size={40}
               name={partnerAvatarName}
@@ -112,13 +92,7 @@ const Status: FC<Components.Status> = (
               colors={Configuration.avatars.colours}
             />
             {/* Downward arrow */}
-            <Box
-              as="svg"
-              width="12px"
-              height="10px"
-              style={{ display: "block" }}
-              margin={{ top: "xxsmall" }}
-            >
+            <Box as="svg" width="12px" height="10px" style={{ display: "block" }} margin={{ top: "xxsmall" }}>
               <polygon points="6,10 0,0 12,0" fill="#89C2D9" />
             </Box>
           </Box>
@@ -126,13 +100,7 @@ const Status: FC<Components.Status> = (
       </Box>
 
       {/* Solid color bar with rounded corners */}
-      <Box
-        width="100%"
-        height="4px"
-        background="#2A6F97"
-        round="small"
-        style={{ position: "relative" }}
-      />
+      <Box width="100%" height="4px" background="#2A6F97" round="small" style={{ position: "relative" }} />
 
       {/* Scale labels */}
       <Box direction="row" justify="between" width="100%">

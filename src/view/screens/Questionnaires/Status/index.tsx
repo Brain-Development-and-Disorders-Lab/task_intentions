@@ -14,14 +14,7 @@
 import React, { FC, ReactElement, useState } from "react";
 
 // Grommet UI components
-import {
-  Box,
-  Button,
-  Paragraph,
-  TextInput,
-  RadioButtonGroup,
-  Heading,
-} from "grommet";
+import { Box, Button, Paragraph, TextInput, RadioButtonGroup, Heading } from "grommet";
 import { LinkNext } from "grommet-icons";
 
 // Custom types
@@ -33,9 +26,7 @@ import type { Screens } from "types";
  *  - handler: {(closeFriends: number, partyInvitations: number, meanPeople: number, socialMediaFollowers: number, socialMediaFollowing: number) => void} Callback function when participant continues
  * @return {ReactElement} 'Status' screen with two pages of questions
  */
-const Status: FC<Screens.Status> = (
-  props: Screens.Status
-): ReactElement => {
+const Status: FC<Screens.Status> = (props: Screens.Status): ReactElement => {
   // Page state
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -65,11 +56,7 @@ const Status: FC<Screens.Status> = (
         <Paragraph margin="small" size="large" fill>
           How many close friends do you have?
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          border={{ color: "transparent", size: "large" }}
-          round
-        >
+        <Box pad={"xsmall"} border={{ color: "transparent", size: "large" }} round>
           <TextInput
             type="number"
             value={closeFriends}
@@ -82,22 +69,13 @@ const Status: FC<Screens.Status> = (
         <Paragraph margin="small" size="large" fill>
           How often do you get invited to parties?
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          border={{ color: "transparent", size: "large" }}
-          round
-        >
+        <Box pad={"xsmall"} border={{ color: "transparent", size: "large" }} round>
           <Box direction="column" align="center" gap="small" width="100%">
             <Box direction="column" align="center" gap="xsmall" width="100%">
               <Box justify="center" align="center" width="100%">
                 <Box direction="column" align="center" gap="xsmall">
                   {/* Scale labels */}
-                  <Box
-                    direction="row"
-                    justify="between"
-                    width="100%"
-                    style={{ minWidth: "500px" }}
-                  >
+                  <Box direction="row" justify="between" width="100%" style={{ minWidth: "500px" }}>
                     <Paragraph size="small" margin="none">
                       Never
                     </Paragraph>
@@ -121,12 +99,8 @@ const Status: FC<Screens.Status> = (
                       { label: "6", value: 6 },
                       { label: "7", value: 7 },
                     ]}
-                    value={
-                      partyInvitations === -1 ? undefined : partyInvitations
-                    }
-                    onChange={event =>
-                      setPartyInvitations(Number(event.target.value))
-                    }
+                    value={partyInvitations === -1 ? undefined : partyInvitations}
+                    onChange={event => setPartyInvitations(Number(event.target.value))}
                   />
                 </Box>
               </Box>
@@ -137,22 +111,13 @@ const Status: FC<Screens.Status> = (
         <Paragraph margin="small" size="large" fill>
           How often are people mean to you at school or work?
         </Paragraph>
-        <Box
-          pad={"xsmall"}
-          border={{ color: "transparent", size: "large" }}
-          round
-        >
+        <Box pad={"xsmall"} border={{ color: "transparent", size: "large" }} round>
           <Box direction="column" align="center" gap="small" width="100%">
             <Box direction="column" align="center" gap="xsmall" width="100%">
               <Box justify="center" align="center" width="100%">
                 <Box direction="column" align="center" gap="xsmall">
                   {/* Scale labels */}
-                  <Box
-                    direction="row"
-                    justify="between"
-                    width="100%"
-                    style={{ minWidth: "500px" }}
-                  >
+                  <Box direction="row" justify="between" width="100%" style={{ minWidth: "500px" }}>
                     <Paragraph size="small" margin="none">
                       Never
                     </Paragraph>
@@ -177,9 +142,7 @@ const Status: FC<Screens.Status> = (
                       { label: "7", value: 7 },
                     ]}
                     value={meanPeople === -1 ? undefined : meanPeople}
-                    onChange={event =>
-                      setMeanPeople(Number(event.target.value))
-                    }
+                    onChange={event => setMeanPeople(Number(event.target.value))}
                   />
                 </Box>
               </Box>
@@ -187,21 +150,14 @@ const Status: FC<Screens.Status> = (
           </Box>
         </Box>
 
-        <Box
-          margin={"none"}
-          pad={"none"}
-          border={{ color: "transparent", size: "large" }}
-          round
-        >
+        <Box margin={"none"} pad={"none"} border={{ color: "transparent", size: "large" }} round>
           <Button
             primary
             color="button"
             label="Continue"
             disabled={
               // Disabled until all inputs have values
-              closeFriends.trim() === "" ||
-              partyInvitations === -1 ||
-              meanPeople === -1
+              closeFriends.trim() === "" || partyInvitations === -1 || meanPeople === -1
             }
             icon={<LinkNext />}
             reverse
@@ -230,11 +186,7 @@ const Status: FC<Screens.Status> = (
       <Paragraph margin="small" size="large" fill>
         Across all social media accounts, how many <b>followers</b> do you have?
       </Paragraph>
-      <Box
-        pad={"xsmall"}
-        border={{ color: "transparent", size: "large" }}
-        round
-      >
+      <Box pad={"xsmall"} border={{ color: "transparent", size: "large" }} round>
         <TextInput
           type="number"
           value={socialMediaFollowers}
@@ -247,11 +199,7 @@ const Status: FC<Screens.Status> = (
       <Paragraph margin="small" size="large" fill>
         Across all social media accounts, how many people are you <b>following</b>?
       </Paragraph>
-      <Box
-        pad={"xsmall"}
-        border={{ color: "transparent", size: "large" }}
-        round
-      >
+      <Box pad={"xsmall"} border={{ color: "transparent", size: "large" }} round>
         <TextInput
           type="number"
           value={socialMediaFollowing}
@@ -261,20 +209,14 @@ const Status: FC<Screens.Status> = (
         />
       </Box>
 
-      <Box
-        margin={"none"}
-        pad={"none"}
-        border={{ color: "transparent", size: "large" }}
-        round
-      >
+      <Box margin={"none"} pad={"none"} border={{ color: "transparent", size: "large" }} round>
         <Button
           primary
           color="button"
           label="Submit"
           disabled={
             // Disabled until both inputs have values
-            socialMediaFollowers.trim() === "" ||
-            socialMediaFollowing.trim() === ""
+            socialMediaFollowers.trim() === "" || socialMediaFollowing.trim() === ""
           }
           icon={<LinkNext />}
           reverse

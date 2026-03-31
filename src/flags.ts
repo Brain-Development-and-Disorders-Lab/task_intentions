@@ -43,10 +43,7 @@ export class Flags {
    * @param featureName - The name of the feature to set
    * @param value - The value to set the feature flag to
    */
-  static setValue<T>(
-    featureName: keyof typeof Configuration.features,
-    value: T
-  ): void {
+  static setValue<T>(featureName: keyof typeof Configuration.features, value: T): void {
     consola.warn(`Setting feature flag ${featureName} to ${value}`);
     Configuration.features[featureName] = value as boolean;
   }

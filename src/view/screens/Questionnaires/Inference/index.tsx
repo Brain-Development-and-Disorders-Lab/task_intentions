@@ -44,9 +44,7 @@ const SLIDER_DEFAULT = 50;
  *  - onContinue: {() => void} Callback function when participant continues
  * @return {ReactElement} 'Inference' screen with two interactive sliders and questions
  */
-const Inference: FC<Screens.Inference> = (
-  props: Screens.Inference
-): ReactElement => {
+const Inference: FC<Screens.Inference> = (props: Screens.Inference): ReactElement => {
   // Slider states, monitor if they have been interacted with
   // Top slider
   const [firstMoved, setFirstMoved] = useState(false);
@@ -72,10 +70,7 @@ const Inference: FC<Screens.Inference> = (
     if (!elementFocused && event.repeat) return;
     event.preventDefault();
 
-    if (
-      event.key.toString() === BINDINGS.NEXT ||
-      event.key.toString() === BINDINGS.PREVIOUS
-    ) {
+    if (event.key.toString() === BINDINGS.NEXT || event.key.toString() === BINDINGS.PREVIOUS) {
       if (elementFocused) {
         if (selectedElementIndex === 0) {
           // First slider, increase and decrease value within bounds when keys pressed
@@ -96,13 +91,9 @@ const Inference: FC<Screens.Inference> = (
         }
       } else {
         if (event.key.toString() === BINDINGS.NEXT) {
-          setSelectedElementIndex(
-            selectedElementIndex + 1 < 3 ? selectedElementIndex + 1 : 2
-          );
+          setSelectedElementIndex(selectedElementIndex + 1 < 3 ? selectedElementIndex + 1 : 2);
         } else if (event.key.toString() === BINDINGS.PREVIOUS) {
-          setSelectedElementIndex(
-            selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0
-          );
+          setSelectedElementIndex(selectedElementIndex - 1 >= 0 ? selectedElementIndex - 1 : 0);
         }
       }
     } else if (event.key.toString() === BINDINGS.SELECT) {
@@ -129,16 +120,13 @@ const Inference: FC<Screens.Inference> = (
       >
         {/* First question */}
         <Paragraph margin="small" size="large" fill>
-          Please use the slider below to indicate the extent to which you
-          believe your partner&apos;s decisions are driven by their desire to
-          earn points in this game.
+          Please use the slider below to indicate the extent to which you believe your partner&apos;s decisions are
+          driven by their desire to earn points in this game.
         </Paragraph>
         <Box
           border={{
             color:
-              Configuration.manipulations.useButtonInput &&
-              selectedElementIndex === 0 &&
-              !elementFocused
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 0 && !elementFocused
                 ? "selectedElement"
                 : "transparent",
             size: "large",
@@ -162,16 +150,13 @@ const Inference: FC<Screens.Inference> = (
 
         {/* Second question */}
         <Paragraph margin="small" size="large" fill>
-          Please use the slider below to indicate the extent to which you
-          believe your partner&apos;s decisions are driven by their desire to
-          reduce your bonus in this game.
+          Please use the slider below to indicate the extent to which you believe your partner&apos;s decisions are
+          driven by their desire to reduce your bonus in this game.
         </Paragraph>
         <Box
           border={{
             color:
-              Configuration.manipulations.useButtonInput &&
-              selectedElementIndex === 1 &&
-              !elementFocused
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 1 && !elementFocused
                 ? "selectedElement"
                 : "transparent",
             size: "large",
@@ -199,17 +184,13 @@ const Inference: FC<Screens.Inference> = (
           pad={"none"}
           border={{
             color:
-              Configuration.manipulations.useButtonInput &&
-              selectedElementIndex === 2
+              Configuration.manipulations.useButtonInput && selectedElementIndex === 2
                 ? "selectedElement"
                 : "transparent",
             size: "large",
           }}
           style={
-            Configuration.manipulations.useButtonInput &&
-            selectedElementIndex === 2
-              ? { borderRadius: "36px " }
-              : {}
+            Configuration.manipulations.useButtonInput && selectedElementIndex === 2 ? { borderRadius: "36px " } : {}
           }
           round
         >
